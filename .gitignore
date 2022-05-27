@@ -1,0 +1,21 @@
+# dependencies
+node_modules/
+
+# builds
+build/
+.next/
+_next/
+example/out/
+
+# tests
+coverage/
+
+# logs
+logs
+*.log
+
+# misc
+.DS_Store
+.npm
+.env
+.eslintcache
