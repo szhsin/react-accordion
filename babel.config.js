@@ -11,16 +11,13 @@ module.exports = {
     pureGetters: true,
     setComputedProperties: true,
     setSpreadProperties: true,
-    skipForOfIteratorClosing: true,
+    skipForOfIteratorClosing: true
   },
   shouldPrintComment: (val) => /[@#]__PURE__/.test(val),
-  plugins: ["pure-annotations"],
+  plugins: ['pure-annotations'],
   presets: [
-    [
-      "@babel/preset-env",
-      { bugfixes: true, exclude: ["@babel/plugin-transform-typeof-symbol"] },
-    ],
-    ["@babel/preset-react", { runtime: "automatic" }],
-    ["@babel/preset-typescript", { isTSX: true, allExtensions: true }],
-  ],
+    ['@babel/preset-env', { bugfixes: true, exclude: ['@babel/plugin-transform-typeof-symbol'] }],
+    ['@babel/preset-react', { runtime: 'automatic' }],
+    ['@babel/preset-typescript', { isTSX: true, allExtensions: true }]
+  ]
 };

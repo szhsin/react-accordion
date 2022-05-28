@@ -1,19 +1,19 @@
-import { nodeResolve } from "@rollup/plugin-node-resolve";
-import { babel } from "@rollup/plugin-babel";
+import { nodeResolve } from '@rollup/plugin-node-resolve';
+import { babel } from '@rollup/plugin-babel';
 
 const sharedConfig = {
-  external: ["react", "react-dom", "react/jsx-runtime"],
+  external: ['react', 'react-dom', 'react/jsx-runtime'],
   plugins: [
-    nodeResolve({ extensions: [".ts", ".tsx", ".js", ".jsx"] }),
+    nodeResolve({ extensions: ['.ts', '.tsx', '.js', '.jsx'] }),
     babel({
-      babelHelpers: "bundled",
-      extensions: [".ts", ".tsx", ".js", ".jsx"],
-    }),
+      babelHelpers: 'bundled',
+      extensions: ['.ts', '.tsx', '.js', '.jsx']
+    })
   ],
   treeshake: {
     moduleSideEffects: false,
-    propertyReadSideEffects: false,
-  },
+    propertyReadSideEffects: false
+  }
 };
 
 /**
@@ -21,17 +21,17 @@ const sharedConfig = {
  */
 export default {
   ...sharedConfig,
-  input: "src/index.ts",
+  input: 'src/index.ts',
   output: [
     {
-      file: "dist/cjs/index.js",
-      format: "cjs",
-      interop: "default",
+      file: 'dist/cjs/index.js',
+      format: 'cjs',
+      interop: 'default'
     },
     {
       preserveModules: true,
-      dir: "dist/es",
-      format: "es",
-    },
-  ],
+      dir: 'dist/es',
+      format: 'es'
+    }
+  ]
 };
