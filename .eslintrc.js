@@ -15,10 +15,12 @@ module.exports = {
       version: 'detect'
     }
   },
-  plugins: ['react', 'react-hooks', 'react-hooks-addons'],
+  plugins: ['react', 'react-hooks', 'react-hooks-addons', 'jest'],
   extends: [
     'eslint:recommended',
     'prettier',
+    'plugin:jest/recommended',
+    'plugin:jest/style',
     'plugin:react/recommended',
     'plugin:react-hooks/recommended'
   ],

@@ -2,6 +2,7 @@
 node_modules/
 
 # builds
+types/__tests__/
 build/
 .next/
 _next/

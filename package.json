@@ -12,8 +12,9 @@
   },
   "sideEffects": false,
   "files": [
-    "dist",
-    "types"
+    "dist/",
+    "types/*.d.ts",
+    "types/components/"
   ],
   "scripts": {
     "start": "watch",
@@ -24,6 +25,9 @@
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "pret": "prettier --write .",
+    "test": "jest",
+    "test:watch": "jest --watch --verbose",
+    "test:cov": "jest --coverage=true",
     "build": "run-s clean lint types bundle"
   },
   "peerDependencies": {
@@ -37,15 +41,20 @@
     "@babel/preset-typescript": "^7.17.12",
     "@rollup/plugin-babel": "^5.3.1",
     "@rollup/plugin-node-resolve": "^13.3.0",
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^13.3.0",
     "@types/react": "^18.0.9",
     "@typescript-eslint/eslint-plugin": "^5.26.0",
     "@typescript-eslint/parser": "^5.26.0",
     "babel-plugin-pure-annotations": "^0.1.2",
     "eslint": "^8.16.0",
     "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-jest": "^26.3.0",
     "eslint-plugin-react": "^7.30.0",
     "eslint-plugin-react-hooks": "^4.5.0",
     "eslint-plugin-react-hooks-addons": "^0.3.1",
+    "jest": "^28.1.0",
+    "jest-environment-jsdom": "^28.1.0",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.6.2",
     "react": "^18.1.0",
