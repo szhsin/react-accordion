@@ -2,7 +2,31 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
+var reactTransitionState = require('react-transition-state');
+var react = require('react');
 var jsxRuntime = require('react/jsx-runtime');
+
+var AccordionContext = /*#__PURE__*/react.createContext({});
+
+var AccordionProvider = function AccordionProvider(_ref) {
+  var children = _ref.children;
+  var transitionMap = reactTransitionState.useTransitionMap({
+    singleEnter: true
+  });
+  return /*#__PURE__*/jsxRuntime.jsx(AccordionContext.Provider, {
+    value: transitionMap,
+    children: children
+  });
+};
+
+var Accordion = function Accordion(_ref) {
+  var children = _ref.children;
+  return /*#__PURE__*/jsxRuntime.jsx(AccordionProvider, {
+    children: /*#__PURE__*/jsxRuntime.jsx("div", {
+      children: children
+    })
+  });
+};
 
 function _extends() {
   _extends = Object.assign ? Object.assign.bind() : function (target) {
@@ -36,15 +60,67 @@ function _objectWithoutPropertiesLoose(source, excluded) {
   return target;
 }
 
-var _excluded = ["message"];
+var _excluded = ["stateMap", "setItem", "deleteItem"];
 
-var Accordion = function Accordion(_ref) {
-  var message = _ref.message,
-      rest = _objectWithoutPropertiesLoose(_ref, _excluded);
+var useAccordionItem = function useAccordionItem() {
+  var ref = react.useRef(null);
 
-  return /*#__PURE__*/jsxRuntime.jsxs("div", _extends({}, rest, {
-    children: ["Accordion component ", message]
-  }));
+  var _useContext = react.useContext(AccordionContext),
+      stateMap = _useContext.stateMap,
+      setItem = _useContext.setItem,
+      deleteItem = _useContext.deleteItem,
+      rest = _objectWithoutPropertiesLoose(_useContext, _excluded);
+
+  if (process.env.NODE_ENV !== 'production' && !stateMap) {
+    throw new Error("[React-Accordion] Cannot find a <AccordionProvider/> above this AccordionItem.");
+  }
+
+  react.useEffect(function () {
+    var item = ref.current;
+    setItem(item, {
+      enter: true,
+      exit: true,
+      timeout: 500
+    });
+    return function () {
+      return void deleteItem(item);
+    };
+  }, [setItem, deleteItem]);
+  return _extends({
+    itemRef: ref,
+    state: stateMap.get(ref.current)
+  }, rest);
+};
+
+var AccordionItem = function AccordionItem(_ref) {
+  var header = _ref.header,
+      children = _ref.children;
+
+  var _useAccordionItem = useAccordionItem(),
+      itemRef = _useAccordionItem.itemRef,
+      toggle = _useAccordionItem.toggle,
+      state = _useAccordionItem.state;
+
+  return /*#__PURE__*/jsxRuntime.jsxs("div", {
+    ref: itemRef,
+    children: [/*#__PURE__*/jsxRuntime.jsx("h3", {
+      children: /*#__PURE__*/jsxRuntime.jsx("button", {
+        onClick: function onClick() {
+          return toggle(itemRef.current);
+        },
+        children: header
+      })
+    }), /*#__PURE__*/jsxRuntime.jsx("div", {
+      role: "region",
+      className: state == null ? void 0 : state.state,
+      style: {
+        display: state != null && state.isEnter ? 'block' : 'none'
+      },
+      children: children
+    })]
+  });
 };
 
 exports.Accordion = Accordion;
+exports.AccordionItem = AccordionItem;
+exports.useAccordionItem = useAccordionItem;

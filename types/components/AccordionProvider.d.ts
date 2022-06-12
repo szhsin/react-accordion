@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-declare const Accordion: ({ children }: {
+declare const AccordionProvider: ({ children }: {
     children?: ReactNode;
 }) => JSX.Element;
-export { Accordion };
+export { AccordionProvider };
