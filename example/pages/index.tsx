@@ -1,5 +1,6 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
+import { Accordion, AccordionItem } from '@szhsin/react-accordion';
 import styles from '../styles/Home.module.css';
 
 const Home: NextPage = () => {
@@ -11,7 +12,13 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={styles.main}></main>
+      <main className={styles.main}>
+        <Accordion>
+          <AccordionItem header="header 1">content 1</AccordionItem>
+          <AccordionItem header="header 2">content 2</AccordionItem>
+          <AccordionItem header="header 3">content 3</AccordionItem>
+        </Accordion>
+      </main>
 
       <footer className={styles.footer}></footer>
     </div>
