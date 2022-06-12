@@ -17,7 +17,7 @@
     "types/components/"
   ],
   "scripts": {
-    "start": "watch",
+    "start": "run-p watch \"types -- --watch\"",
     "bundle": "rollup -c",
     "watch": "rollup -c -w",
     "clean": "rm -rf dist types",
@@ -36,7 +36,7 @@
     "react-dom": ">=16.14.0"
   },
   "dependencies": {
-    "react-transition-state": "^1.2.0-alpha.2"
+    "react-transition-state": "^1.2.0-alpha.3"
   },
   "devDependencies": {
     "@babel/core": "^7.18.2",
