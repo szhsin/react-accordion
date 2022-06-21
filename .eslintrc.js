@@ -25,6 +25,7 @@ module.exports = {
     'plugin:react-hooks/recommended'
   ],
   rules: {
+    'no-console': ['error', { allow: ['warn', 'error'] }],
     'react/react-in-jsx-scope': 0,
     'react/jsx-uses-react': 0,
     'react-hooks-addons/no-unused-deps': 'warn'
