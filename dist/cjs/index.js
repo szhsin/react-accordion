@@ -78,9 +78,10 @@ var useAccordionItem = function useAccordionItem() {
   react.useEffect(function () {
     var item = ref.current;
     setItem(item, {
-      enter: true,
-      exit: true,
-      timeout: 500
+      preEnter: true,
+      preExit: true,
+      timeout: 250,
+      initialEntered: false
     });
     return function () {
       return void deleteItem(item);
@@ -92,6 +93,48 @@ var useAccordionItem = function useAccordionItem() {
   }, rest);
 };
 
+var useTransitionHeight = function useTransitionHeight(state) {
+  var _useState = react.useState(),
+      height = _useState[0],
+      setHeight = _useState[1];
+
+  var elementRef = react.useRef(null);
+  var resizeObserver = react.useRef();
+  var cbRef = react.useCallback(function (element) {
+    var _resizeObserver$curre;
+
+    elementRef.current = element;
+    if (typeof ResizeObserver !== 'function') return;
+    (_resizeObserver$curre = resizeObserver.current) == null ? void 0 : _resizeObserver$curre.disconnect();
+    resizeObserver.current = undefined;
+
+    if (element) {
+      var observer = new ResizeObserver(function () {
+        var _element$getBoundingC = element.getBoundingClientRect(),
+            height = _element$getBoundingC.height;
+
+        console.log('Observer1', height);
+        height && setHeight(height);
+      });
+      observer.observe(element, {
+        box: 'border-box'
+      });
+      resizeObserver.current = observer;
+    }
+  }, []);
+  react.useLayoutEffect(function () {
+    if (state === 'preEnter') {
+      var _elementRef$current;
+
+      var _height = (_elementRef$current = elementRef.current) == null ? void 0 : _elementRef$current.getBoundingClientRect().height;
+
+      console.log('height', _height);
+      setHeight(_height);
+    }
+  }, [state]);
+  return [height, cbRef, elementRef];
+};
+
 var AccordionItem = function AccordionItem(_ref) {
   var header = _ref.header,
       children = _ref.children;
@@ -99,11 +142,23 @@ var AccordionItem = function AccordionItem(_ref) {
   var _useAccordionItem = useAccordionItem(),
       itemRef = _useAccordionItem.itemRef,
       toggle = _useAccordionItem.toggle,
-      state = _useAccordionItem.state;
+      _useAccordionItem$sta = _useAccordionItem.state;
 
+  _useAccordionItem$sta = _useAccordionItem$sta === void 0 ? {} : _useAccordionItem$sta;
+  var state = _useAccordionItem$sta.state;
+  var hidden = !state || state === 'exited';
+
+  var _useTransitionHeight = useTransitionHeight(state),
+      height = _useTransitionHeight[0],
+      panelRef = _useTransitionHeight[1];
+
+  console.log('state', state);
   return /*#__PURE__*/jsxRuntime.jsxs("div", {
     ref: itemRef,
     children: [/*#__PURE__*/jsxRuntime.jsx("h3", {
+      style: {
+        margin: 0
+      },
       children: /*#__PURE__*/jsxRuntime.jsx("button", {
         onClick: function onClick() {
           return toggle(itemRef.current);
@@ -112,11 +167,20 @@ var AccordionItem = function AccordionItem(_ref) {
       })
     }), /*#__PURE__*/jsxRuntime.jsx("div", {
       role: "region",
-      className: state == null ? void 0 : state.state,
+      className: state,
       style: {
-        display: state != null && state.isEnter ? 'block' : 'none'
+        display: hidden ? 'none' : 'block',
+        height: state === 'exiting' || state === 'preEnter' ? 0 : state === 'preExit' || state === 'entering' ? height : undefined,
+        transition: 'height .25s ease-in-out',
+        overflow: 'hidden'
       },
-      children: children
+      children: /*#__PURE__*/jsxRuntime.jsx("div", {
+        ref: panelRef,
+        style: {
+          padding: '1rem'
+        },
+        children: children
+      })
     })]
   });
 };

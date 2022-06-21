@@ -20,9 +20,10 @@ var useAccordionItem = function useAccordionItem() {
   useEffect(function () {
     var item = ref.current;
     setItem(item, {
-      enter: true,
-      exit: true,
-      timeout: 500
+      preEnter: true,
+      preExit: true,
+      timeout: 250,
+      initialEntered: false
     });
     return function () {
       return void deleteItem(item);

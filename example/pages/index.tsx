@@ -14,9 +14,26 @@ const Home: NextPage = () => {
 
       <main className={styles.main}>
         <Accordion>
-          <AccordionItem header="header 1">content 1</AccordionItem>
-          <AccordionItem header="header 2">content 2</AccordionItem>
-          <AccordionItem header="header 3">content 3</AccordionItem>
+          <AccordionItem header="header 1">
+            content 1<textarea />
+          </AccordionItem>
+          <AccordionItem header="header 2">
+            content 2<div>more</div>
+            <Accordion>
+              <AccordionItem header="header 1">content 1</AccordionItem>
+              <AccordionItem header="header 2">
+                content 2<div>more</div>
+              </AccordionItem>
+              <AccordionItem header="header 3">
+                content 3<div>more</div>
+                <div style={{ height: 500 }}>more</div>
+              </AccordionItem>
+            </Accordion>
+          </AccordionItem>
+          <AccordionItem header="header 3">
+            content 3<div>more</div>
+            <div>more</div>
+          </AccordionItem>
         </Accordion>
       </main>
 

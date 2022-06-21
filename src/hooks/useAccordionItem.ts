@@ -12,7 +12,12 @@ const useAccordionItem = <K extends Element>() => {
 
   useEffect(() => {
     const item = ref.current!;
-    setItem!(item, { enter: true, exit: true, timeout: 500 });
+    setItem!(item, {
+      preEnter: true,
+      preExit: true,
+      timeout: 250,
+      initialEntered: false
+    });
     return () => void deleteItem!(item);
   }, [setItem, deleteItem]);
 
