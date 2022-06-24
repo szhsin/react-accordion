@@ -23,7 +23,8 @@ var useAccordionItem = function useAccordionItem() {
       preEnter: true,
       preExit: true,
       timeout: 250,
-      initialEntered: false
+      unmountOnExit: true,
+      mountOnEnter: true
     });
     return function () {
       return void deleteItem(item);

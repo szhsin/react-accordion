@@ -16,7 +16,8 @@ const useAccordionItem = <K extends Element>() => {
       preEnter: true,
       preExit: true,
       timeout: 250,
-      initialEntered: false
+      unmountOnExit: true,
+      mountOnEnter: true
     });
     return () => void deleteItem!(item);
   }, [setItem, deleteItem]);

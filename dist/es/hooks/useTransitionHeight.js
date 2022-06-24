@@ -2,7 +2,7 @@ import { useState, useRef, useCallback, useLayoutEffect } from 'react';
 
 var useTransitionHeight = function useTransitionHeight(state) {
   var _useState = useState(),
-      height = _useState[0],
+      _height = _useState[0],
       setHeight = _useState[1];
 
   var elementRef = useRef(null);
@@ -20,7 +20,6 @@ var useTransitionHeight = function useTransitionHeight(state) {
         var _element$getBoundingC = element.getBoundingClientRect(),
             height = _element$getBoundingC.height;
 
-        console.log('Observer1', height);
         height && setHeight(height);
       });
       observer.observe(element, {
@@ -30,15 +29,11 @@ var useTransitionHeight = function useTransitionHeight(state) {
     }
   }, []);
   useLayoutEffect(function () {
-    if (state === 'preEnter') {
-      var _elementRef$current;
+    var _elementRef$current;
 
-      var _height = (_elementRef$current = elementRef.current) == null ? void 0 : _elementRef$current.getBoundingClientRect().height;
-
-      console.log('height', _height);
-      setHeight(_height);
-    }
+    state === 'preEnter' && setHeight((_elementRef$current = elementRef.current) == null ? void 0 : _elementRef$current.getBoundingClientRect().height);
   }, [state]);
+  var height = state === 'preEnter' || state === 'exiting' ? 0 : state === 'entering' || state === 'preExit' ? _height : undefined;
   return [height, cbRef, elementRef];
 };
 

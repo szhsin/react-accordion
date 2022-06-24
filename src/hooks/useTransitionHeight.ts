@@ -6,7 +6,7 @@ const useTransitionHeight: (
 ) => [number | undefined, (element: HTMLElement | null) => void, RefObject<HTMLElement>] = (
   state?: TransitionState
 ) => {
-  const [height, setHeight] = useState<number>();
+  const [_height, setHeight] = useState<number>();
   const elementRef = useRef<HTMLElement | null>(null);
   const resizeObserver = useRef<ResizeObserver>();
 
@@ -19,7 +19,6 @@ const useTransitionHeight: (
     if (element) {
       const observer = new ResizeObserver(() => {
         const { height } = element.getBoundingClientRect();
-        console.log('Observer1', height);
         height && setHeight(height);
       });
       observer.observe(element, { box: 'border-box' });
@@ -28,12 +27,15 @@ const useTransitionHeight: (
   }, []);
 
   useLayoutEffect(() => {
-    if (state === 'preEnter') {
-      const height = elementRef.current?.getBoundingClientRect().height;
-      console.log('height', height);
-      setHeight(height);
-    }
+    state === 'preEnter' && setHeight(elementRef.current?.getBoundingClientRect().height);
   }, [state]);
+
+  const height =
+    state === 'preEnter' || state === 'exiting'
+      ? 0
+      : state === 'entering' || state === 'preExit'
+      ? _height
+      : undefined;
 
   return [height, cbRef, elementRef];
 };

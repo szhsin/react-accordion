@@ -13,13 +13,11 @@ var AccordionItem = function AccordionItem(_ref) {
 
   _useAccordionItem$sta = _useAccordionItem$sta === void 0 ? {} : _useAccordionItem$sta;
   var state = _useAccordionItem$sta.state;
-  var hidden = !state || state === 'exited';
 
   var _useTransitionHeight = useTransitionHeight(state),
       height = _useTransitionHeight[0],
       panelRef = _useTransitionHeight[1];
 
-  console.log('state', state);
   return /*#__PURE__*/jsxs("div", {
     ref: itemRef,
     children: [/*#__PURE__*/jsx("h3", {
@@ -32,13 +30,13 @@ var AccordionItem = function AccordionItem(_ref) {
         },
         children: header
       })
-    }), /*#__PURE__*/jsx("div", {
+    }), state && state !== 'unmounted' && /*#__PURE__*/jsx("div", {
       role: "region",
       className: state,
       style: {
-        display: hidden ? 'none' : 'block',
-        height: state === 'exiting' || state === 'preEnter' ? 0 : state === 'preExit' || state === 'entering' ? height : undefined,
-        transition: 'height .25s ease-in-out',
+        display: !state || state === 'exited' ? 'none' : undefined,
+        height: height,
+        transition: 'height .3s ease-in-out',
         overflow: 'hidden'
       },
       children: /*#__PURE__*/jsx("div", {

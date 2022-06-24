@@ -1,4 +1,3 @@
-/// <reference types="react" />
 declare const useAccordionItem: <K extends Element>() => {
     toggle: (key: Element, toEnter?: boolean | undefined) => void;
     endTransition: (key: Element) => void;

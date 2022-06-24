@@ -81,7 +81,8 @@ var useAccordionItem = function useAccordionItem() {
       preEnter: true,
       preExit: true,
       timeout: 250,
-      initialEntered: false
+      unmountOnExit: true,
+      mountOnEnter: true
     });
     return function () {
       return void deleteItem(item);
@@ -95,7 +96,7 @@ var useAccordionItem = function useAccordionItem() {
 
 var useTransitionHeight = function useTransitionHeight(state) {
   var _useState = react.useState(),
-      height = _useState[0],
+      _height = _useState[0],
       setHeight = _useState[1];
 
   var elementRef = react.useRef(null);
@@ -113,7 +114,6 @@ var useTransitionHeight = function useTransitionHeight(state) {
         var _element$getBoundingC = element.getBoundingClientRect(),
             height = _element$getBoundingC.height;
 
-        console.log('Observer1', height);
         height && setHeight(height);
       });
       observer.observe(element, {
@@ -123,15 +123,11 @@ var useTransitionHeight = function useTransitionHeight(state) {
     }
   }, []);
   react.useLayoutEffect(function () {
-    if (state === 'preEnter') {
-      var _elementRef$current;
+    var _elementRef$current;
 
-      var _height = (_elementRef$current = elementRef.current) == null ? void 0 : _elementRef$current.getBoundingClientRect().height;
-
-      console.log('height', _height);
-      setHeight(_height);
-    }
+    state === 'preEnter' && setHeight((_elementRef$current = elementRef.current) == null ? void 0 : _elementRef$current.getBoundingClientRect().height);
   }, [state]);
+  var height = state === 'preEnter' || state === 'exiting' ? 0 : state === 'entering' || state === 'preExit' ? _height : undefined;
   return [height, cbRef, elementRef];
 };
 
@@ -146,13 +142,11 @@ var AccordionItem = function AccordionItem(_ref) {
 
   _useAccordionItem$sta = _useAccordionItem$sta === void 0 ? {} : _useAccordionItem$sta;
   var state = _useAccordionItem$sta.state;
-  var hidden = !state || state === 'exited';
 
   var _useTransitionHeight = useTransitionHeight(state),
       height = _useTransitionHeight[0],
       panelRef = _useTransitionHeight[1];
 
-  console.log('state', state);
   return /*#__PURE__*/jsxRuntime.jsxs("div", {
     ref: itemRef,
     children: [/*#__PURE__*/jsxRuntime.jsx("h3", {
@@ -165,13 +159,13 @@ var AccordionItem = function AccordionItem(_ref) {
         },
         children: header
       })
-    }), /*#__PURE__*/jsxRuntime.jsx("div", {
+    }), state && state !== 'unmounted' && /*#__PURE__*/jsxRuntime.jsx("div", {
       role: "region",
       className: state,
       style: {
-        display: hidden ? 'none' : 'block',
-        height: state === 'exiting' || state === 'preEnter' ? 0 : state === 'preExit' || state === 'entering' ? height : undefined,
-        transition: 'height .25s ease-in-out',
+        display: !state || state === 'exited' ? 'none' : undefined,
+        height: height,
+        transition: 'height .3s ease-in-out',
         overflow: 'hidden'
       },
       children: /*#__PURE__*/jsxRuntime.jsx("div", {
