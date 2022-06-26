@@ -1,9 +1,9 @@
-import { ReactNode } from 'react';
+import { AccordionProviderProps } from '../utils/constants';
 import { AccordionProvider } from './AccordionProvider';
 
-const Accordion = ({ children }: { children?: ReactNode }) => {
+const Accordion = ({ children, ...rest }: AccordionProviderProps) => {
   return (
-    <AccordionProvider>
+    <AccordionProvider {...rest}>
       <div>{children}</div>
     </AccordionProvider>
   );

@@ -1,5 +1,3 @@
-import { ReactNode } from 'react';
-declare const AccordionProvider: ({ children }: {
-    children?: ReactNode;
-}) => JSX.Element;
+import { AccordionProviderProps } from '../utils/constants';
+declare const AccordionProvider: ({ transition, children, ...rest }: AccordionProviderProps) => JSX.Element;
 export { AccordionProvider };

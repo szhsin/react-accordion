@@ -6,33 +6,6 @@ var reactTransitionState = require('react-transition-state');
 var react = require('react');
 var jsxRuntime = require('react/jsx-runtime');
 
-var AccordionContext = /*#__PURE__*/react.createContext({});
-
-var AccordionProvider = function AccordionProvider(_ref) {
-  var children = _ref.children;
-  var transitionMap = reactTransitionState.useTransitionMap({
-    singleEnter: true,
-    preEnter: true,
-    preExit: true,
-    timeout: 300,
-    unmountOnExit: true,
-    mountOnEnter: true
-  });
-  return /*#__PURE__*/jsxRuntime.jsx(AccordionContext.Provider, {
-    value: transitionMap,
-    children: children
-  });
-};
-
-var Accordion = function Accordion(_ref) {
-  var children = _ref.children;
-  return /*#__PURE__*/jsxRuntime.jsx(AccordionProvider, {
-    children: /*#__PURE__*/jsxRuntime.jsx("div", {
-      children: children
-    })
-  });
-};
-
 function _extends() {
   _extends = Object.assign ? Object.assign.bind() : function (target) {
     for (var i = 1; i < arguments.length; i++) {
@@ -64,6 +37,49 @@ function _objectWithoutPropertiesLoose(source, excluded) {
 
   return target;
 }
+
+var AccordionContext = /*#__PURE__*/react.createContext({});
+
+var _excluded$2 = ["transition", "children"];
+
+var getTransition = function getTransition(transition, name) {
+  return transition === true || !!(transition && transition[name]);
+};
+
+var AccordionProvider = function AccordionProvider(_ref) {
+  var transition = _ref.transition,
+      children = _ref.children,
+      rest = _objectWithoutPropertiesLoose(_ref, _excluded$2);
+
+  var mountOnEnter = rest.mountOnEnter,
+      initialEntered = rest.initialEntered;
+  var transitionMap = reactTransitionState.useTransitionMap(_extends({
+    enter: getTransition(transition, 'enter'),
+    exit: getTransition(transition, 'exit'),
+    preEnter: getTransition(transition, 'preEnter'),
+    preExit: getTransition(transition, 'preExit')
+  }, rest));
+  return /*#__PURE__*/jsxRuntime.jsx(AccordionContext.Provider, {
+    value: _extends({
+      mountOnEnter: mountOnEnter,
+      initialEntered: initialEntered
+    }, transitionMap),
+    children: children
+  });
+};
+
+var _excluded$1 = ["children"];
+
+var Accordion = function Accordion(_ref) {
+  var children = _ref.children,
+      rest = _objectWithoutPropertiesLoose(_ref, _excluded$1);
+
+  return /*#__PURE__*/jsxRuntime.jsx(AccordionProvider, _extends({}, rest, {
+    children: /*#__PURE__*/jsxRuntime.jsx("div", {
+      children: children
+    })
+  }));
+};
 
 var _excluded = ["stateMap", "setItem", "deleteItem"];
 

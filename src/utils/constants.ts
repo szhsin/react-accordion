@@ -1,4 +1,24 @@
-import { createContext } from 'react';
-import { TransitionMapResult } from 'react-transition-state';
+import { createContext, ReactNode } from 'react';
+import { TransitionMapResult, TransitionMapOptions } from 'react-transition-state';
 
-export const AccordionContext = createContext<Partial<TransitionMapResult<Element>>>({});
+export type TransitionProp =
+  | boolean
+  | {
+      enter?: boolean;
+      exit?: boolean;
+      preEnter?: boolean;
+      preExit?: boolean;
+    };
+
+export interface AccordionProviderProps
+  extends Omit<TransitionMapOptions<Element>, 'enter' | 'exit' | 'preEnter' | 'preExit'> {
+  transition?: TransitionProp;
+  children?: ReactNode;
+}
+
+export const AccordionContext = createContext<
+  Partial<TransitionMapResult<Element>> & {
+    mountOnEnter?: boolean;
+    initialEntered?: boolean;
+  }
+>({});
