@@ -114,12 +114,14 @@ var useAccordionItem = function useAccordionItem(_temp) {
 
   var _initialEntered = itemInitialEntered == null ? initialEntered : itemInitialEntered;
 
-  var initialState = _initialEntered ? 'entered' : mountOnEnter ? 'unmounted' : 'exited';
+  var initialState = {
+    state: _initialEntered ? 'entered' : mountOnEnter ? 'unmounted' : 'exited',
+    isMounted: !mountOnEnter,
+    isEnter: !!_initialEntered
+  };
   return _extends({
     itemRef: ref,
-    state: stateMap.get(ref.current) || {
-      state: initialState
-    }
+    state: stateMap.get(ref.current) || initialState
   }, rest);
 };
 
@@ -172,7 +174,9 @@ var AccordionItem = function AccordionItem(_ref) {
   }),
       itemRef = _useAccordionItem.itemRef,
       toggle = _useAccordionItem.toggle,
-      state = _useAccordionItem.state.state;
+      _useAccordionItem$sta = _useAccordionItem.state,
+      state = _useAccordionItem$sta.state,
+      isMounted = _useAccordionItem$sta.isMounted;
 
   var _useTransitionHeight = useTransitionHeight(state),
       height = _useTransitionHeight[0],
@@ -191,7 +195,7 @@ var AccordionItem = function AccordionItem(_ref) {
         },
         children: header
       })
-    }), state !== 'unmounted' && /*#__PURE__*/jsxRuntime.jsx("div", {
+    }), isMounted && /*#__PURE__*/jsxRuntime.jsx("div", {
       role: "region",
       className: state,
       style: {

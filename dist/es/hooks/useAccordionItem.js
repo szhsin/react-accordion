@@ -34,12 +34,14 @@ var useAccordionItem = function useAccordionItem(_temp) {
 
   var _initialEntered = itemInitialEntered == null ? initialEntered : itemInitialEntered;
 
-  var initialState = _initialEntered ? 'entered' : mountOnEnter ? 'unmounted' : 'exited';
+  var initialState = {
+    state: _initialEntered ? 'entered' : mountOnEnter ? 'unmounted' : 'exited',
+    isMounted: !mountOnEnter,
+    isEnter: !!_initialEntered
+  };
   return _extends({
     itemRef: ref,
-    state: stateMap.get(ref.current) || {
-      state: initialState
-    }
+    state: stateMap.get(ref.current) || initialState
   }, rest);
 };
 

@@ -14,16 +14,16 @@ const AccordionItem = ({
   const {
     itemRef,
     toggle,
-    state: { state }
+    state: { state, isMounted }
   } = useAccordionItem<HTMLDivElement>({ initialEntered });
   const [height, panelRef] = useTransitionHeight(state);
 
   return (
-    <div ref={itemRef} className='szh-accordion__item'>
+    <div ref={itemRef} className="szh-accordion__item">
       <h3 style={{ margin: 0 }}>
         <button onClick={() => toggle(itemRef.current!)}>{header}</button>
       </h3>
-      {state !== 'unmounted' && (
+      {isMounted && (
         <div
           role="region"
           className={state}

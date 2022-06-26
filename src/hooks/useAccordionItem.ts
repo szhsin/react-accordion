@@ -1,5 +1,5 @@
 import { useContext, useEffect, useRef } from 'react';
-import { TransitionItemOptions, TransitionState } from 'react-transition-state';
+import { TransitionItemOptions, State } from 'react-transition-state';
 import { AccordionContext } from '../utils/constants';
 
 const useAccordionItem = <K extends Element>({
@@ -21,15 +21,15 @@ const useAccordionItem = <K extends Element>({
   }, [setItem, deleteItem, itemInitialEntered]);
 
   const _initialEntered = itemInitialEntered == null ? initialEntered : itemInitialEntered;
-  const initialState: TransitionState = _initialEntered
-    ? 'entered'
-    : mountOnEnter
-    ? 'unmounted'
-    : 'exited';
+  const initialState: State = {
+    state: _initialEntered ? 'entered' : mountOnEnter ? 'unmounted' : 'exited',
+    isMounted: !mountOnEnter,
+    isEnter: !!_initialEntered
+  };
 
   return {
     itemRef: ref,
-    state: stateMap!.get(ref.current!) || { state: initialState },
+    state: stateMap!.get(ref.current!) || initialState,
     ...(rest as Required<typeof rest>)
   };
 };

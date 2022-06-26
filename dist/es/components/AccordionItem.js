@@ -12,7 +12,9 @@ var AccordionItem = function AccordionItem(_ref) {
   }),
       itemRef = _useAccordionItem.itemRef,
       toggle = _useAccordionItem.toggle,
-      state = _useAccordionItem.state.state;
+      _useAccordionItem$sta = _useAccordionItem.state,
+      state = _useAccordionItem$sta.state,
+      isMounted = _useAccordionItem$sta.isMounted;
 
   var _useTransitionHeight = useTransitionHeight(state),
       height = _useTransitionHeight[0],
@@ -31,7 +33,7 @@ var AccordionItem = function AccordionItem(_ref) {
         },
         children: header
       })
-    }), state !== 'unmounted' && /*#__PURE__*/jsx("div", {
+    }), isMounted && /*#__PURE__*/jsx("div", {
       role: "region",
       className: state,
       style: {
