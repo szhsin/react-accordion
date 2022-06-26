@@ -1,5 +1,6 @@
-import { RefObject, useState, useRef, useCallback, useLayoutEffect } from 'react';
+import { RefObject, useState, useRef, useCallback } from 'react';
 import { TransitionState } from 'react-transition-state';
+import { useLayoutEffect } from '../utils/useIsomorphicLayoutEffect';
 
 const useTransitionHeight: (
   state?: TransitionState

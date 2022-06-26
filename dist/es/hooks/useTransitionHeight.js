@@ -1,4 +1,5 @@
-import { useState, useRef, useCallback, useLayoutEffect } from 'react';
+import { useState, useRef, useCallback } from 'react';
+import { useLayoutEffect as useIsomorphicLayoutEffect } from '../utils/useIsomorphicLayoutEffect.js';
 
 var useTransitionHeight = function useTransitionHeight(state) {
   var _useState = useState(),
@@ -28,7 +29,7 @@ var useTransitionHeight = function useTransitionHeight(state) {
       resizeObserver.current = observer;
     }
   }, []);
-  useLayoutEffect(function () {
+  useIsomorphicLayoutEffect(function () {
     var _elementRef$current;
 
     state === 'preEnter' && setHeight((_elementRef$current = elementRef.current) == null ? void 0 : _elementRef$current.getBoundingClientRect().height);
