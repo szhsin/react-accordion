@@ -4,7 +4,10 @@ import { AccordionContext } from '../utils/constants.js';
 
 var _excluded = ["stateMap", "setItem", "deleteItem"];
 
-var useAccordionItem = function useAccordionItem() {
+var useAccordionItem = function useAccordionItem(_temp) {
+  var _ref = _temp === void 0 ? {} : _temp,
+      initialEntered = _ref.initialEntered;
+
   var ref = useRef(null);
 
   var _useContext = useContext(AccordionContext),
@@ -20,16 +23,12 @@ var useAccordionItem = function useAccordionItem() {
   useEffect(function () {
     var item = ref.current;
     setItem(item, {
-      preEnter: true,
-      preExit: true,
-      timeout: 250,
-      unmountOnExit: true,
-      mountOnEnter: true
+      initialEntered: initialEntered
     });
     return function () {
       return void deleteItem(item);
     };
-  }, [setItem, deleteItem]);
+  }, [setItem, deleteItem, initialEntered]);
   return _extends({
     itemRef: ref,
     state: stateMap.get(ref.current)

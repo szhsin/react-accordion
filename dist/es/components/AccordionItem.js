@@ -3,10 +3,13 @@ import { useTransitionHeight } from '../hooks/useTransitionHeight.js';
 import { jsxs, jsx } from 'react/jsx-runtime';
 
 var AccordionItem = function AccordionItem(_ref) {
-  var header = _ref.header,
+  var initialEntered = _ref.initialEntered,
+      header = _ref.header,
       children = _ref.children;
 
-  var _useAccordionItem = useAccordionItem(),
+  var _useAccordionItem = useAccordionItem({
+    initialEntered: initialEntered
+  }),
       itemRef = _useAccordionItem.itemRef,
       toggle = _useAccordionItem.toggle,
       _useAccordionItem$sta = _useAccordionItem.state;
@@ -34,7 +37,7 @@ var AccordionItem = function AccordionItem(_ref) {
       role: "region",
       className: state,
       style: {
-        display: !state || state === 'exited' ? 'none' : undefined,
+        display: state === 'exited' ? 'none' : undefined,
         height: height,
         transition: 'height .3s ease-in-out',
         overflow: 'hidden'

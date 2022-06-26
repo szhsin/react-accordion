@@ -2,8 +2,20 @@ import { ReactNode } from 'react';
 import { useAccordionItem } from '../hooks/useAccordionItem';
 import { useTransitionHeight } from '../hooks/useTransitionHeight';
 
-const AccordionItem = ({ header, children }: { header: ReactNode; children?: ReactNode }) => {
-  const { itemRef, toggle, state: { state } = {} } = useAccordionItem<HTMLDivElement>();
+const AccordionItem = ({
+  initialEntered,
+  header,
+  children
+}: {
+  initialEntered?: boolean;
+  header: ReactNode;
+  children?: ReactNode;
+}) => {
+  const {
+    itemRef,
+    toggle,
+    state: { state } = {}
+  } = useAccordionItem<HTMLDivElement>({ initialEntered });
   const [height, panelRef] = useTransitionHeight(state);
 
   return (

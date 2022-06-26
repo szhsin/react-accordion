@@ -5,7 +5,12 @@ import { jsx } from 'react/jsx-runtime';
 var AccordionProvider = function AccordionProvider(_ref) {
   var children = _ref.children;
   var transitionMap = useTransitionMap({
-    singleEnter: true
+    singleEnter: true,
+    preEnter: true,
+    preExit: true,
+    timeout: 300,
+    unmountOnExit: true,
+    mountOnEnter: true
   });
   return /*#__PURE__*/jsx(AccordionContext.Provider, {
     value: transitionMap,

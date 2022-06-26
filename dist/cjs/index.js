@@ -11,7 +11,12 @@ var AccordionContext = /*#__PURE__*/react.createContext({});
 var AccordionProvider = function AccordionProvider(_ref) {
   var children = _ref.children;
   var transitionMap = reactTransitionState.useTransitionMap({
-    singleEnter: true
+    singleEnter: true,
+    preEnter: true,
+    preExit: true,
+    timeout: 300,
+    unmountOnExit: true,
+    mountOnEnter: true
   });
   return /*#__PURE__*/jsxRuntime.jsx(AccordionContext.Provider, {
     value: transitionMap,
@@ -62,7 +67,10 @@ function _objectWithoutPropertiesLoose(source, excluded) {
 
 var _excluded = ["stateMap", "setItem", "deleteItem"];
 
-var useAccordionItem = function useAccordionItem() {
+var useAccordionItem = function useAccordionItem(_temp) {
+  var _ref = _temp === void 0 ? {} : _temp,
+      initialEntered = _ref.initialEntered;
+
   var ref = react.useRef(null);
 
   var _useContext = react.useContext(AccordionContext),
@@ -78,21 +86,19 @@ var useAccordionItem = function useAccordionItem() {
   react.useEffect(function () {
     var item = ref.current;
     setItem(item, {
-      preEnter: true,
-      preExit: true,
-      timeout: 250,
-      unmountOnExit: true,
-      mountOnEnter: true
+      initialEntered: initialEntered
     });
     return function () {
       return void deleteItem(item);
     };
-  }, [setItem, deleteItem]);
+  }, [setItem, deleteItem, initialEntered]);
   return _extends({
     itemRef: ref,
     state: stateMap.get(ref.current)
   }, rest);
 };
+
+var useIsomorphicLayoutEffect = typeof window !== 'undefined' && typeof window.document !== 'undefined' && typeof window.document.createElement !== 'undefined' ? react.useLayoutEffect : react.useEffect;
 
 var useTransitionHeight = function useTransitionHeight(state) {
   var _useState = react.useState(),
@@ -122,7 +128,7 @@ var useTransitionHeight = function useTransitionHeight(state) {
       resizeObserver.current = observer;
     }
   }, []);
-  react.useLayoutEffect(function () {
+  useIsomorphicLayoutEffect(function () {
     var _elementRef$current;
 
     state === 'preEnter' && setHeight((_elementRef$current = elementRef.current) == null ? void 0 : _elementRef$current.getBoundingClientRect().height);
@@ -132,10 +138,13 @@ var useTransitionHeight = function useTransitionHeight(state) {
 };
 
 var AccordionItem = function AccordionItem(_ref) {
-  var header = _ref.header,
+  var initialEntered = _ref.initialEntered,
+      header = _ref.header,
       children = _ref.children;
 
-  var _useAccordionItem = useAccordionItem(),
+  var _useAccordionItem = useAccordionItem({
+    initialEntered: initialEntered
+  }),
       itemRef = _useAccordionItem.itemRef,
       toggle = _useAccordionItem.toggle,
       _useAccordionItem$sta = _useAccordionItem.state;
@@ -163,7 +172,7 @@ var AccordionItem = function AccordionItem(_ref) {
       role: "region",
       className: state,
       style: {
-        display: !state || state === 'exited' ? 'none' : undefined,
+        display: state === 'exited' ? 'none' : undefined,
         height: height,
         transition: 'height .3s ease-in-out',
         overflow: 'hidden'
