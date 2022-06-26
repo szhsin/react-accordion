@@ -76,16 +76,17 @@ var Accordion = function Accordion(_ref) {
 
   return /*#__PURE__*/jsxRuntime.jsx(AccordionProvider, _extends({}, rest, {
     children: /*#__PURE__*/jsxRuntime.jsx("div", {
+      className: "szh-accordion",
       children: children
     })
   }));
 };
 
-var _excluded = ["stateMap", "setItem", "deleteItem"];
+var _excluded = ["stateMap", "setItem", "deleteItem", "mountOnEnter", "initialEntered"];
 
 var useAccordionItem = function useAccordionItem(_temp) {
   var _ref = _temp === void 0 ? {} : _temp,
-      initialEntered = _ref.initialEntered;
+      itemInitialEntered = _ref.initialEntered;
 
   var ref = react.useRef(null);
 
@@ -93,6 +94,8 @@ var useAccordionItem = function useAccordionItem(_temp) {
       stateMap = _useContext.stateMap,
       setItem = _useContext.setItem,
       deleteItem = _useContext.deleteItem,
+      mountOnEnter = _useContext.mountOnEnter,
+      initialEntered = _useContext.initialEntered,
       rest = _objectWithoutPropertiesLoose(_useContext, _excluded);
 
   if (process.env.NODE_ENV !== 'production' && !stateMap) {
@@ -102,15 +105,21 @@ var useAccordionItem = function useAccordionItem(_temp) {
   react.useEffect(function () {
     var item = ref.current;
     setItem(item, {
-      initialEntered: initialEntered
+      initialEntered: itemInitialEntered
     });
     return function () {
       return void deleteItem(item);
     };
-  }, [setItem, deleteItem, initialEntered]);
+  }, [setItem, deleteItem, itemInitialEntered]);
+
+  var _initialEntered = itemInitialEntered == null ? initialEntered : itemInitialEntered;
+
+  var initialState = _initialEntered ? 'entered' : mountOnEnter ? 'unmounted' : 'exited';
   return _extends({
     itemRef: ref,
-    state: stateMap.get(ref.current)
+    state: stateMap.get(ref.current) || {
+      state: initialState
+    }
   }, rest);
 };
 
@@ -163,10 +172,7 @@ var AccordionItem = function AccordionItem(_ref) {
   }),
       itemRef = _useAccordionItem.itemRef,
       toggle = _useAccordionItem.toggle,
-      _useAccordionItem$sta = _useAccordionItem.state;
-
-  _useAccordionItem$sta = _useAccordionItem$sta === void 0 ? {} : _useAccordionItem$sta;
-  var state = _useAccordionItem$sta.state;
+      state = _useAccordionItem.state.state;
 
   var _useTransitionHeight = useTransitionHeight(state),
       height = _useTransitionHeight[0],
@@ -174,6 +180,7 @@ var AccordionItem = function AccordionItem(_ref) {
 
   return /*#__PURE__*/jsxRuntime.jsxs("div", {
     ref: itemRef,
+    className: "szh-accordion__item",
     children: [/*#__PURE__*/jsxRuntime.jsx("h3", {
       style: {
         margin: 0
@@ -184,7 +191,7 @@ var AccordionItem = function AccordionItem(_ref) {
         },
         children: header
       })
-    }), state && state !== 'unmounted' && /*#__PURE__*/jsxRuntime.jsx("div", {
+    }), state !== 'unmounted' && /*#__PURE__*/jsxRuntime.jsx("div", {
       role: "region",
       className: state,
       style: {

@@ -10,6 +10,7 @@ var Accordion = function Accordion(_ref) {
 
   return /*#__PURE__*/jsx(AccordionProvider, _extends({}, rest, {
     children: /*#__PURE__*/jsx("div", {
+      className: "szh-accordion",
       children: children
     })
   }));

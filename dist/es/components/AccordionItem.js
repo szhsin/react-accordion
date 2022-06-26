@@ -12,10 +12,7 @@ var AccordionItem = function AccordionItem(_ref) {
   }),
       itemRef = _useAccordionItem.itemRef,
       toggle = _useAccordionItem.toggle,
-      _useAccordionItem$sta = _useAccordionItem.state;
-
-  _useAccordionItem$sta = _useAccordionItem$sta === void 0 ? {} : _useAccordionItem$sta;
-  var state = _useAccordionItem$sta.state;
+      state = _useAccordionItem.state.state;
 
   var _useTransitionHeight = useTransitionHeight(state),
       height = _useTransitionHeight[0],
@@ -23,6 +20,7 @@ var AccordionItem = function AccordionItem(_ref) {
 
   return /*#__PURE__*/jsxs("div", {
     ref: itemRef,
+    className: "szh-accordion__item",
     children: [/*#__PURE__*/jsx("h3", {
       style: {
         margin: 0
@@ -33,7 +31,7 @@ var AccordionItem = function AccordionItem(_ref) {
         },
         children: header
       })
-    }), state && state !== 'unmounted' && /*#__PURE__*/jsx("div", {
+    }), state !== 'unmounted' && /*#__PURE__*/jsx("div", {
       role: "region",
       className: state,
       style: {
