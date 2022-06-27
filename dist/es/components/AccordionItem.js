@@ -3,11 +3,13 @@ import { useTransitionHeight } from '../hooks/useTransitionHeight.js';
 import { jsxs, jsx } from 'react/jsx-runtime';
 
 var AccordionItem = function AccordionItem(_ref) {
-  var initialEntered = _ref.initialEntered,
+  var itemKey = _ref.itemKey,
+      initialEntered = _ref.initialEntered,
       header = _ref.header,
       children = _ref.children;
 
   var _useAccordionItem = useAccordionItem({
+    itemKey: itemKey,
     initialEntered: initialEntered
   }),
       itemRef = _useAccordionItem.itemRef,
@@ -29,7 +31,7 @@ var AccordionItem = function AccordionItem(_ref) {
       },
       children: /*#__PURE__*/jsx("button", {
         onClick: function onClick() {
-          return toggle(itemRef.current);
+          return toggle(itemKey != null ? itemKey : itemRef.current);
         },
         children: header
       })

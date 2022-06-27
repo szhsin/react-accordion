@@ -1,6 +1,7 @@
 import { createContext, ReactNode } from 'react';
 import { TransitionMapResult, TransitionMapOptions } from 'react-transition-state';
 
+export type ItemKey = Element | string | number;
 export type TransitionProp =
   | boolean
   | {
@@ -11,13 +12,13 @@ export type TransitionProp =
     };
 
 export interface AccordionProviderProps
-  extends Omit<TransitionMapOptions<Element>, 'enter' | 'exit' | 'preEnter' | 'preExit'> {
+  extends Omit<TransitionMapOptions<ItemKey>, 'enter' | 'exit' | 'preEnter' | 'preExit'> {
   transition?: TransitionProp;
   children?: ReactNode;
 }
 
 export const AccordionContext = createContext<
-  Partial<TransitionMapResult<Element>> & {
+  Partial<TransitionMapResult<ItemKey>> & {
     mountOnEnter?: boolean;
     initialEntered?: boolean;
   }

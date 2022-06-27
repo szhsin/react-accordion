@@ -1,5 +1,10 @@
 import { useTransitionMap } from 'react-transition-state';
-import { AccordionContext, TransitionProp, AccordionProviderProps } from '../utils/constants';
+import {
+  AccordionContext,
+  TransitionProp,
+  AccordionProviderProps,
+  ItemKey
+} from '../utils/constants';
 
 const getTransition = (
   transition: TransitionProp | undefined,
@@ -8,7 +13,7 @@ const getTransition = (
 
 const AccordionProvider = ({ transition, children, ...rest }: AccordionProviderProps) => {
   const { mountOnEnter, initialEntered } = rest;
-  const transitionMap = useTransitionMap<Element>({
+  const transitionMap = useTransitionMap<ItemKey>({
     enter: getTransition(transition, 'enter'),
     exit: getTransition(transition, 'exit'),
     preEnter: getTransition(transition, 'preEnter'),

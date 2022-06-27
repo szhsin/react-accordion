@@ -86,9 +86,10 @@ var _excluded = ["stateMap", "setItem", "deleteItem", "mountOnEnter", "initialEn
 
 var useAccordionItem = function useAccordionItem(_temp) {
   var _ref = _temp === void 0 ? {} : _temp,
+      itemKey = _ref.itemKey,
       itemInitialEntered = _ref.initialEntered;
 
-  var ref = react.useRef(null);
+  var itemRef = react.useRef(null);
 
   var _useContext = react.useContext(AccordionContext),
       stateMap = _useContext.stateMap,
@@ -103,16 +104,16 @@ var useAccordionItem = function useAccordionItem(_temp) {
   }
 
   react.useEffect(function () {
-    var item = ref.current;
-    setItem(item, {
+    var key = itemKey != null ? itemKey : itemRef.current;
+    setItem(key, {
       initialEntered: itemInitialEntered
     });
     return function () {
-      return void deleteItem(item);
+      return void deleteItem(key);
     };
-  }, [setItem, deleteItem, itemInitialEntered]);
+  }, [setItem, deleteItem, itemKey, itemInitialEntered]);
 
-  var _initialEntered = itemInitialEntered == null ? initialEntered : itemInitialEntered;
+  var _initialEntered = itemInitialEntered != null ? itemInitialEntered : initialEntered;
 
   var initialState = {
     state: _initialEntered ? 'entered' : mountOnEnter ? 'unmounted' : 'exited',
@@ -120,8 +121,8 @@ var useAccordionItem = function useAccordionItem(_temp) {
     isEnter: !!_initialEntered
   };
   return _extends({
-    itemRef: ref,
-    state: stateMap.get(ref.current) || initialState
+    itemRef: itemRef,
+    state: stateMap.get(itemKey != null ? itemKey : itemRef.current) || initialState
   }, rest);
 };
 
@@ -165,11 +166,13 @@ var useTransitionHeight = function useTransitionHeight(state) {
 };
 
 var AccordionItem = function AccordionItem(_ref) {
-  var initialEntered = _ref.initialEntered,
+  var itemKey = _ref.itemKey,
+      initialEntered = _ref.initialEntered,
       header = _ref.header,
       children = _ref.children;
 
   var _useAccordionItem = useAccordionItem({
+    itemKey: itemKey,
     initialEntered: initialEntered
   }),
       itemRef = _useAccordionItem.itemRef,
@@ -191,7 +194,7 @@ var AccordionItem = function AccordionItem(_ref) {
       },
       children: /*#__PURE__*/jsxRuntime.jsx("button", {
         onClick: function onClick() {
-          return toggle(itemRef.current);
+          return toggle(itemKey != null ? itemKey : itemRef.current);
         },
         children: header
       })

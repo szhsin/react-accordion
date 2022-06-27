@@ -3,10 +3,12 @@ import { useAccordionItem } from '../hooks/useAccordionItem';
 import { useTransitionHeight } from '../hooks/useTransitionHeight';
 
 const AccordionItem = ({
+  itemKey,
   initialEntered,
   header,
   children
 }: {
+  itemKey?: string | number;
   initialEntered?: boolean;
   header: ReactNode;
   children?: ReactNode;
@@ -15,13 +17,13 @@ const AccordionItem = ({
     itemRef,
     toggle,
     state: { state, isMounted }
-  } = useAccordionItem<HTMLDivElement>({ initialEntered });
+  } = useAccordionItem<HTMLDivElement>({ itemKey, initialEntered });
   const [height, panelRef] = useTransitionHeight(state);
 
   return (
     <div ref={itemRef} className="szh-accordion__item">
       <h3 style={{ margin: 0 }}>
-        <button onClick={() => toggle(itemRef.current!)}>{header}</button>
+        <button onClick={() => toggle(itemKey ?? itemRef.current!)}>{header}</button>
       </h3>
       {isMounted && (
         <div

@@ -1,11 +1,12 @@
 import { useContext, useEffect, useRef } from 'react';
-import { TransitionItemOptions, State } from 'react-transition-state';
+import { State } from 'react-transition-state';
 import { AccordionContext } from '../utils/constants';
 
 const useAccordionItem = <K extends Element>({
+  itemKey,
   initialEntered: itemInitialEntered
-}: TransitionItemOptions = {}) => {
-  const ref = useRef<K>(null);
+}: { itemKey?: string | number; initialEntered?: boolean } = {}) => {
+  const itemRef = useRef<K>(null);
   const { stateMap, setItem, deleteItem, mountOnEnter, initialEntered, ...rest } =
     useContext(AccordionContext);
   if (process.env.NODE_ENV !== 'production' && !stateMap) {
@@ -15,12 +16,12 @@ const useAccordionItem = <K extends Element>({
   }
 
   useEffect(() => {
-    const item = ref.current!;
-    setItem!(item, { initialEntered: itemInitialEntered });
-    return () => void deleteItem!(item);
-  }, [setItem, deleteItem, itemInitialEntered]);
+    const key = itemKey ?? itemRef.current!;
+    setItem!(key, { initialEntered: itemInitialEntered });
+    return () => void deleteItem!(key);
+  }, [setItem, deleteItem, itemKey, itemInitialEntered]);
 
-  const _initialEntered = itemInitialEntered == null ? initialEntered : itemInitialEntered;
+  const _initialEntered = itemInitialEntered ?? initialEntered;
   const initialState: State = {
     state: _initialEntered ? 'entered' : mountOnEnter ? 'unmounted' : 'exited',
     isMounted: !mountOnEnter,
@@ -28,8 +29,8 @@ const useAccordionItem = <K extends Element>({
   };
 
   return {
-    itemRef: ref,
-    state: stateMap!.get(ref.current!) || initialState,
+    itemRef,
+    state: stateMap!.get(itemKey ?? itemRef.current!) || initialState,
     ...(rest as Required<typeof rest>)
   };
 };
