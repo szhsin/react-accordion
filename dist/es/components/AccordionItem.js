@@ -31,7 +31,7 @@ var AccordionItem = function AccordionItem(_ref) {
       },
       children: /*#__PURE__*/jsx("button", {
         onClick: function onClick() {
-          return toggle(itemKey != null ? itemKey : itemRef.current);
+          return toggle();
         },
         children: header
       })

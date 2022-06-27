@@ -40,7 +40,7 @@ function _objectWithoutPropertiesLoose(source, excluded) {
 
 var AccordionContext = /*#__PURE__*/react.createContext({});
 
-var _excluded$2 = ["transition", "children"];
+var _excluded$1 = ["transition", "children"];
 
 var getTransition = function getTransition(transition, name) {
   return transition === true || !!(transition && transition[name]);
@@ -49,7 +49,7 @@ var getTransition = function getTransition(transition, name) {
 var AccordionProvider = function AccordionProvider(_ref) {
   var transition = _ref.transition,
       children = _ref.children,
-      rest = _objectWithoutPropertiesLoose(_ref, _excluded$2);
+      rest = _objectWithoutPropertiesLoose(_ref, _excluded$1);
 
   var mountOnEnter = rest.mountOnEnter,
       initialEntered = rest.initialEntered;
@@ -68,11 +68,11 @@ var AccordionProvider = function AccordionProvider(_ref) {
   });
 };
 
-var _excluded$1 = ["children"];
+var _excluded = ["children"];
 
 var Accordion = function Accordion(_ref) {
   var children = _ref.children,
-      rest = _objectWithoutPropertiesLoose(_ref, _excluded$1);
+      rest = _objectWithoutPropertiesLoose(_ref, _excluded);
 
   return /*#__PURE__*/jsxRuntime.jsx(AccordionProvider, _extends({}, rest, {
     children: /*#__PURE__*/jsxRuntime.jsx("div", {
@@ -81,8 +81,6 @@ var Accordion = function Accordion(_ref) {
     })
   }));
 };
-
-var _excluded = ["stateMap", "setItem", "deleteItem", "mountOnEnter", "initialEntered"];
 
 var useAccordionItem = function useAccordionItem(_temp) {
   var _ref = _temp === void 0 ? {} : _temp,
@@ -95,9 +93,10 @@ var useAccordionItem = function useAccordionItem(_temp) {
       stateMap = _useContext.stateMap,
       setItem = _useContext.setItem,
       deleteItem = _useContext.deleteItem,
+      _toggle = _useContext.toggle,
+      _endTransition = _useContext.endTransition,
       mountOnEnter = _useContext.mountOnEnter,
-      initialEntered = _useContext.initialEntered,
-      rest = _objectWithoutPropertiesLoose(_useContext, _excluded);
+      initialEntered = _useContext.initialEntered;
 
   if (process.env.NODE_ENV !== 'production' && !stateMap) {
     throw new Error("[React-Accordion] Cannot find a <AccordionProvider/> above this AccordionItem.");
@@ -120,10 +119,17 @@ var useAccordionItem = function useAccordionItem(_temp) {
     isMounted: !mountOnEnter,
     isEnter: !!_initialEntered
   };
-  return _extends({
+  var key = itemKey != null ? itemKey : itemRef.current;
+  return {
     itemRef: itemRef,
-    state: stateMap.get(itemKey != null ? itemKey : itemRef.current) || initialState
-  }, rest);
+    state: stateMap.get(key) || initialState,
+    toggle: function toggle(toEnter) {
+      return _toggle(key, toEnter);
+    },
+    endTransition: function endTransition() {
+      return _endTransition(key);
+    }
+  };
 };
 
 var useIsomorphicLayoutEffect = typeof window !== 'undefined' && typeof window.document !== 'undefined' && typeof window.document.createElement !== 'undefined' ? react.useLayoutEffect : react.useEffect;
@@ -194,7 +200,7 @@ var AccordionItem = function AccordionItem(_ref) {
       },
       children: /*#__PURE__*/jsxRuntime.jsx("button", {
         onClick: function onClick() {
-          return toggle(itemKey != null ? itemKey : itemRef.current);
+          return toggle();
         },
         children: header
       })

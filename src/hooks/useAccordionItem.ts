@@ -7,7 +7,7 @@ const useAccordionItem = <K extends Element>({
   initialEntered: itemInitialEntered
 }: { itemKey?: string | number; initialEntered?: boolean } = {}) => {
   const itemRef = useRef<K>(null);
-  const { stateMap, setItem, deleteItem, mountOnEnter, initialEntered, ...rest } =
+  const { stateMap, setItem, deleteItem, toggle, endTransition, mountOnEnter, initialEntered } =
     useContext(AccordionContext);
   if (process.env.NODE_ENV !== 'production' && !stateMap) {
     throw new Error(
@@ -28,10 +28,12 @@ const useAccordionItem = <K extends Element>({
     isEnter: !!_initialEntered
   };
 
+  const key = itemKey ?? itemRef.current!;
   return {
     itemRef,
-    state: stateMap!.get(itemKey ?? itemRef.current!) || initialState,
-    ...(rest as Required<typeof rest>)
+    state: stateMap!.get(key) || initialState,
+    toggle: (toEnter?: boolean) => toggle!(key, toEnter),
+    endTransition: () => endTransition!(key)
   };
 };
 

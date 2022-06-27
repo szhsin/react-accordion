@@ -23,7 +23,7 @@ const AccordionItem = ({
   return (
     <div ref={itemRef} className="szh-accordion__item">
       <h3 style={{ margin: 0 }}>
-        <button onClick={() => toggle(itemKey ?? itemRef.current!)}>{header}</button>
+        <button onClick={() => toggle()}>{header}</button>
       </h3>
       {isMounted && (
         <div
