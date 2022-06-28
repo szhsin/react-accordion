@@ -13,11 +13,11 @@ const Home: NextPage = () => {
       </Head>
 
       <main className={styles.main}>
-        <Accordion>
-          <AccordionItem header="header 1">
+        <Accordion singleEnter transition timeout={300}>
+          <AccordionItem header="header 1" itemKey="hello">
             content 1<textarea />
           </AccordionItem>
-          <AccordionItem header="header 2">
+          <AccordionItem header="header 2" initialEntered>
             content 2<div>more</div>
             <Accordion>
               <AccordionItem header="header 1">content 1</AccordionItem>
@@ -30,7 +30,7 @@ const Home: NextPage = () => {
               </AccordionItem>
             </Accordion>
           </AccordionItem>
-          <AccordionItem header="header 3">
+          <AccordionItem header="header 3" itemKey={3}>
             content 3<div>more</div>
             <div>more</div>
           </AccordionItem>
