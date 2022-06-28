@@ -15,6 +15,9 @@ coverage/
 logs
 *.log
 
+# typescript
+*.tsbuildinfo
+
 # misc
 .DS_Store
 .npm

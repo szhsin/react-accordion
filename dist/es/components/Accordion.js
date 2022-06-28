@@ -1,14 +1,18 @@
 import { objectWithoutPropertiesLoose as _objectWithoutPropertiesLoose, extends as _extends } from '../_virtual/_rollupPluginBabelHelpers.js';
-import { jsxs } from 'react/jsx-runtime';
+import { AccordionProvider } from './AccordionProvider.js';
+import { jsx } from 'react/jsx-runtime';
 
-var _excluded = ["message"];
+var _excluded = ["children"];
 
 var Accordion = function Accordion(_ref) {
-  var message = _ref.message,
+  var children = _ref.children,
       rest = _objectWithoutPropertiesLoose(_ref, _excluded);
 
-  return /*#__PURE__*/jsxs("div", _extends({}, rest, {
-    children: ["Accordion component ", message]
+  return /*#__PURE__*/jsx(AccordionProvider, _extends({}, rest, {
+    children: /*#__PURE__*/jsx("div", {
+      className: "szh-accordion",
+      children: children
+    })
   }));
 };
 

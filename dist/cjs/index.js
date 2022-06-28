@@ -2,6 +2,8 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
+var reactTransitionState = require('react-transition-state');
+var react = require('react');
 var jsxRuntime = require('react/jsx-runtime');
 
 function _extends() {
@@ -36,15 +38,192 @@ function _objectWithoutPropertiesLoose(source, excluded) {
   return target;
 }
 
-var _excluded = ["message"];
+var AccordionContext = /*#__PURE__*/react.createContext({});
+
+var _excluded$1 = ["transition", "children"];
+
+var getTransition = function getTransition(transition, name) {
+  return transition === true || !!(transition && transition[name]);
+};
+
+var AccordionProvider = function AccordionProvider(_ref) {
+  var transition = _ref.transition,
+      children = _ref.children,
+      rest = _objectWithoutPropertiesLoose(_ref, _excluded$1);
+
+  var mountOnEnter = rest.mountOnEnter,
+      initialEntered = rest.initialEntered;
+  var transitionMap = reactTransitionState.useTransitionMap(_extends({
+    enter: getTransition(transition, 'enter'),
+    exit: getTransition(transition, 'exit'),
+    preEnter: getTransition(transition, 'preEnter'),
+    preExit: getTransition(transition, 'preExit')
+  }, rest));
+  return /*#__PURE__*/jsxRuntime.jsx(AccordionContext.Provider, {
+    value: _extends({
+      mountOnEnter: mountOnEnter,
+      initialEntered: initialEntered
+    }, transitionMap),
+    children: children
+  });
+};
+
+var _excluded = ["children"];
 
 var Accordion = function Accordion(_ref) {
-  var message = _ref.message,
+  var children = _ref.children,
       rest = _objectWithoutPropertiesLoose(_ref, _excluded);
 
-  return /*#__PURE__*/jsxRuntime.jsxs("div", _extends({}, rest, {
-    children: ["Accordion component ", message]
+  return /*#__PURE__*/jsxRuntime.jsx(AccordionProvider, _extends({}, rest, {
+    children: /*#__PURE__*/jsxRuntime.jsx("div", {
+      className: "szh-accordion",
+      children: children
+    })
   }));
 };
 
+var useAccordionItem = function useAccordionItem(_temp) {
+  var _ref = _temp === void 0 ? {} : _temp,
+      itemKey = _ref.itemKey,
+      itemInitialEntered = _ref.initialEntered;
+
+  var itemRef = react.useRef(null);
+
+  var _useContext = react.useContext(AccordionContext),
+      stateMap = _useContext.stateMap,
+      setItem = _useContext.setItem,
+      deleteItem = _useContext.deleteItem,
+      _toggle = _useContext.toggle,
+      _endTransition = _useContext.endTransition,
+      mountOnEnter = _useContext.mountOnEnter,
+      initialEntered = _useContext.initialEntered;
+
+  if (process.env.NODE_ENV !== 'production' && !stateMap) {
+    throw new Error("[React-Accordion] Cannot find a <AccordionProvider/> above this AccordionItem.");
+  }
+
+  react.useEffect(function () {
+    var key = itemKey != null ? itemKey : itemRef.current;
+    setItem(key, {
+      initialEntered: itemInitialEntered
+    });
+    return function () {
+      return void deleteItem(key);
+    };
+  }, [setItem, deleteItem, itemKey, itemInitialEntered]);
+
+  var _initialEntered = itemInitialEntered != null ? itemInitialEntered : initialEntered;
+
+  var initialState = {
+    state: _initialEntered ? 'entered' : mountOnEnter ? 'unmounted' : 'exited',
+    isMounted: !mountOnEnter,
+    isEnter: !!_initialEntered
+  };
+  var key = itemKey != null ? itemKey : itemRef.current;
+  return {
+    itemRef: itemRef,
+    state: stateMap.get(key) || initialState,
+    toggle: function toggle(toEnter) {
+      return _toggle(key, toEnter);
+    },
+    endTransition: function endTransition() {
+      return _endTransition(key);
+    }
+  };
+};
+
+var useIsomorphicLayoutEffect = typeof window !== 'undefined' && typeof window.document !== 'undefined' && typeof window.document.createElement !== 'undefined' ? react.useLayoutEffect : react.useEffect;
+
+var useTransitionHeight = function useTransitionHeight(state) {
+  var _useState = react.useState(),
+      _height = _useState[0],
+      setHeight = _useState[1];
+
+  var elementRef = react.useRef(null);
+  var resizeObserver = react.useRef();
+  var cbRef = react.useCallback(function (element) {
+    var _resizeObserver$curre;
+
+    elementRef.current = element;
+    if (typeof ResizeObserver !== 'function') return;
+    (_resizeObserver$curre = resizeObserver.current) == null ? void 0 : _resizeObserver$curre.disconnect();
+    resizeObserver.current = undefined;
+
+    if (element) {
+      var observer = new ResizeObserver(function () {
+        var _element$getBoundingC = element.getBoundingClientRect(),
+            height = _element$getBoundingC.height;
+
+        height && setHeight(height);
+      });
+      observer.observe(element, {
+        box: 'border-box'
+      });
+      resizeObserver.current = observer;
+    }
+  }, []);
+  useIsomorphicLayoutEffect(function () {
+    var _elementRef$current;
+
+    state === 'preEnter' && setHeight((_elementRef$current = elementRef.current) == null ? void 0 : _elementRef$current.getBoundingClientRect().height);
+  }, [state]);
+  var height = state === 'preEnter' || state === 'exiting' ? 0 : state === 'entering' || state === 'preExit' ? _height : undefined;
+  return [height, cbRef, elementRef];
+};
+
+var AccordionItem = function AccordionItem(_ref) {
+  var itemKey = _ref.itemKey,
+      initialEntered = _ref.initialEntered,
+      header = _ref.header,
+      children = _ref.children;
+
+  var _useAccordionItem = useAccordionItem({
+    itemKey: itemKey,
+    initialEntered: initialEntered
+  }),
+      itemRef = _useAccordionItem.itemRef,
+      toggle = _useAccordionItem.toggle,
+      _useAccordionItem$sta = _useAccordionItem.state,
+      state = _useAccordionItem$sta.state,
+      isMounted = _useAccordionItem$sta.isMounted;
+
+  var _useTransitionHeight = useTransitionHeight(state),
+      height = _useTransitionHeight[0],
+      panelRef = _useTransitionHeight[1];
+
+  return /*#__PURE__*/jsxRuntime.jsxs("div", {
+    ref: itemRef,
+    className: "szh-accordion__item",
+    children: [/*#__PURE__*/jsxRuntime.jsx("h3", {
+      style: {
+        margin: 0
+      },
+      children: /*#__PURE__*/jsxRuntime.jsx("button", {
+        onClick: function onClick() {
+          return toggle();
+        },
+        children: header
+      })
+    }), isMounted && /*#__PURE__*/jsxRuntime.jsx("div", {
+      role: "region",
+      className: state,
+      style: {
+        display: state === 'exited' ? 'none' : undefined,
+        height: height,
+        transition: 'height .3s ease-in-out',
+        overflow: 'hidden'
+      },
+      children: /*#__PURE__*/jsxRuntime.jsx("div", {
+        ref: panelRef,
+        style: {
+          padding: '1rem'
+        },
+        children: children
+      })
+    })]
+  });
+};
+
 exports.Accordion = Accordion;
+exports.AccordionItem = AccordionItem;
+exports.useAccordionItem = useAccordionItem;

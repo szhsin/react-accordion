@@ -1,5 +1,3 @@
-/// <reference types="react" />
-declare const Accordion: ({ message, ...rest }: {
-    message: string;
-}) => JSX.Element;
+import { AccordionProviderProps } from '../utils/constants';
+declare const Accordion: ({ children, ...rest }: AccordionProviderProps) => JSX.Element;
 export { Accordion };
