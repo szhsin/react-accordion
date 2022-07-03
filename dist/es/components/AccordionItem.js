@@ -1,3 +1,5 @@
+import { AccordionBlock } from '../utils/constants.js';
+import { bem } from '../utils/bem.js';
 import { useAccordionItem } from '../hooks/useAccordionItem.js';
 import { useTransitionHeight } from '../hooks/useTransitionHeight.js';
 import { jsxs, jsx } from 'react/jsx-runtime';
@@ -5,6 +7,7 @@ import { jsxs, jsx } from 'react/jsx-runtime';
 var AccordionItem = function AccordionItem(_ref) {
   var itemKey = _ref.itemKey,
       initialEntered = _ref.initialEntered,
+      className = _ref.className,
       header = _ref.header,
       children = _ref.children;
 
@@ -16,7 +19,8 @@ var AccordionItem = function AccordionItem(_ref) {
       toggle = _useAccordionItem.toggle,
       _useAccordionItem$sta = _useAccordionItem.state,
       state = _useAccordionItem$sta.state,
-      isMounted = _useAccordionItem$sta.isMounted;
+      isMounted = _useAccordionItem$sta.isMounted,
+      isEnter = _useAccordionItem$sta.isEnter;
 
   var _useTransitionHeight = useTransitionHeight(state),
       height = _useTransitionHeight[0],
@@ -24,15 +28,17 @@ var AccordionItem = function AccordionItem(_ref) {
 
   return /*#__PURE__*/jsxs("div", {
     ref: itemRef,
-    className: "szh-accordion__item",
+    className: bem(AccordionBlock, 'item', {
+      state: state,
+      expanded: isEnter
+    }, className),
     children: [/*#__PURE__*/jsx("h3", {
       style: {
         margin: 0
       },
       children: /*#__PURE__*/jsx("button", {
-        onClick: function onClick() {
-          return toggle();
-        },
+        type: "button",
+        onClick: toggle,
         children: header
       })
     }), isMounted && /*#__PURE__*/jsx("div", {

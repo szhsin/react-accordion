@@ -1,29 +1,39 @@
-import { ReactNode } from 'react';
+import { ReactNode, MouseEventHandler } from 'react';
+import { TransitionState } from 'react-transition-state';
+import { AccordionBlock, ClassNameProp } from '../utils/constants';
+import { bem } from '../utils/bem';
 import { useAccordionItem } from '../hooks/useAccordionItem';
 import { useTransitionHeight } from '../hooks/useTransitionHeight';
 
 const AccordionItem = ({
   itemKey,
   initialEntered,
+  className,
   header,
   children
 }: {
   itemKey?: string | number;
   initialEntered?: boolean;
+  className?: ClassNameProp<{ state: TransitionState; expanded: boolean }>;
   header: ReactNode;
   children?: ReactNode;
 }) => {
   const {
     itemRef,
     toggle,
-    state: { state, isMounted }
+    state: { state, isMounted, isEnter }
   } = useAccordionItem<HTMLDivElement>({ itemKey, initialEntered });
   const [height, panelRef] = useTransitionHeight(state);
 
   return (
-    <div ref={itemRef} className="szh-accordion__item">
+    <div
+      ref={itemRef}
+      className={bem(AccordionBlock, 'item', { state, expanded: isEnter }, className)}
+    >
       <h3 style={{ margin: 0 }}>
-        <button onClick={() => toggle()}>{header}</button>
+        <button type="button" onClick={toggle as unknown as MouseEventHandler<Element>}>
+          {header}
+        </button>
       </h3>
       {isMounted && (
         <div
