@@ -2,8 +2,8 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-var reactTransitionState = require('react-transition-state');
 var react = require('react');
+var reactTransitionState = require('react-transition-state');
 var jsxRuntime = require('react/jsx-runtime');
 
 function _extends() {
@@ -38,7 +38,28 @@ function _objectWithoutPropertiesLoose(source, excluded) {
   return target;
 }
 
+var AccordionBlock = 'szh-accordion';
 var AccordionContext = /*#__PURE__*/react.createContext({});
+
+var bem = function bem(block, element, modifiers, className) {
+  var blockElement = element ? block + "__" + element : block;
+  var classString = blockElement;
+
+  for (var _i2 = 0, _Object$keys2 = Object.keys(modifiers || {}); _i2 < _Object$keys2.length; _i2++) {
+    var name = _Object$keys2[_i2];
+    var value = modifiers[name];
+    if (value) classString += " " + blockElement + "--" + (value === true ? name : name + "-" + value);
+  }
+
+  var expandedClassName = typeof className === 'function' ? className(modifiers) : className;
+
+  if (typeof expandedClassName === 'string') {
+    expandedClassName = expandedClassName.trim();
+    if (expandedClassName) classString += " " + expandedClassName;
+  }
+
+  return classString;
+};
 
 var _excluded$1 = ["transition", "children"];
 
@@ -68,15 +89,16 @@ var AccordionProvider = function AccordionProvider(_ref) {
   });
 };
 
-var _excluded = ["children"];
+var _excluded = ["className", "children"];
 
 var Accordion = function Accordion(_ref) {
-  var children = _ref.children,
+  var className = _ref.className,
+      children = _ref.children,
       rest = _objectWithoutPropertiesLoose(_ref, _excluded);
 
   return /*#__PURE__*/jsxRuntime.jsx(AccordionProvider, _extends({}, rest, {
     children: /*#__PURE__*/jsxRuntime.jsx("div", {
-      className: "szh-accordion",
+      className: bem(AccordionBlock, undefined, undefined, className),
       children: children
     })
   }));
@@ -174,6 +196,7 @@ var useTransitionHeight = function useTransitionHeight(state) {
 var AccordionItem = function AccordionItem(_ref) {
   var itemKey = _ref.itemKey,
       initialEntered = _ref.initialEntered,
+      className = _ref.className,
       header = _ref.header,
       children = _ref.children;
 
@@ -185,7 +208,8 @@ var AccordionItem = function AccordionItem(_ref) {
       toggle = _useAccordionItem.toggle,
       _useAccordionItem$sta = _useAccordionItem.state,
       state = _useAccordionItem$sta.state,
-      isMounted = _useAccordionItem$sta.isMounted;
+      isMounted = _useAccordionItem$sta.isMounted,
+      isEnter = _useAccordionItem$sta.isEnter;
 
   var _useTransitionHeight = useTransitionHeight(state),
       height = _useTransitionHeight[0],
@@ -193,15 +217,17 @@ var AccordionItem = function AccordionItem(_ref) {
 
   return /*#__PURE__*/jsxRuntime.jsxs("div", {
     ref: itemRef,
-    className: "szh-accordion__item",
+    className: bem(AccordionBlock, 'item', {
+      state: state,
+      expanded: isEnter
+    }, className),
     children: [/*#__PURE__*/jsxRuntime.jsx("h3", {
       style: {
         margin: 0
       },
       children: /*#__PURE__*/jsxRuntime.jsx("button", {
-        onClick: function onClick() {
-          return toggle();
-        },
+        type: "button",
+        onClick: toggle,
         children: header
       })
     }), isMounted && /*#__PURE__*/jsxRuntime.jsx("div", {

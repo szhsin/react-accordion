@@ -1,3 +1,6 @@
+/// <reference types="react" />
 import { AccordionProviderProps } from '../utils/constants';
-declare const Accordion: ({ children, ...rest }: AccordionProviderProps) => JSX.Element;
+declare const Accordion: ({ className, children, ...rest }: AccordionProviderProps & {
+    className?: string | undefined;
+}) => JSX.Element;
 export { Accordion };

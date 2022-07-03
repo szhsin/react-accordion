@@ -1,3 +1,4 @@
+/// <reference types="react" />
 import { State } from 'react-transition-state';
 declare const useAccordionItem: <K extends Element>({ itemKey, initialEntered: itemInitialEntered }?: {
     itemKey?: string | number | undefined;
