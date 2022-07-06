@@ -119,10 +119,11 @@ var useAccordion = function useAccordion() {
 
   var ref = react.useRef(null);
 
-  var moveFocus = function moveFocus(moveUp) {
+  var moveFocus = function moveFocus(moveUp, e) {
     var _document = document,
         activeElement = _document.activeElement;
-    if (!activeElement || !activeElement.hasAttribute(ACCORDION_BTN_ATTR)) return;
+    if (!activeElement || !activeElement.hasAttribute(ACCORDION_BTN_ATTR) || getAccordion(activeElement) !== e.currentTarget) return;
+    e.preventDefault();
     var buttons = ref.current.querySelectorAll("[" + ACCORDION_BTN_ATTR + "]");
 
     for (var i = 0; i < buttons.length; i++) {
@@ -134,13 +135,7 @@ var useAccordion = function useAccordion() {
   };
 
   var accordionProps = (_accordionProps = {}, _accordionProps[ACCORDION_ATTR] = '', _accordionProps.onKeyDown = function onKeyDown(e) {
-    if (e.key === 'ArrowUp') {
-      moveFocus(true);
-    } else if (e.key === 'ArrowDown') {
-      moveFocus(false);
-    }
-
-    e.stopPropagation();
+    return e.key === 'ArrowUp' ? moveFocus(true, e) : e.key === 'ArrowDown' && moveFocus(false, e);
   }, _accordionProps);
   return {
     ref: ref,

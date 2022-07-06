@@ -1,7 +1,7 @@
-import { useRef, HTMLAttributes } from 'react';
+import { useRef, HTMLAttributes, KeyboardEvent } from 'react';
 import { ACCORDION_ATTR, ACCORDION_BTN_ATTR } from '../utils/constants';
 
-const getAccordion = (node: HTMLElement) => {
+const getAccordion = (node: Element) => {
   do {
     node = node.parentElement!;
   } while (node && !node.hasAttribute(ACCORDION_ATTR));
@@ -22,9 +22,17 @@ const getSiblingNode = (moveUp: boolean, current: number, nodes: NodeListOf<HTML
 const useAccordion = <E extends Element>() => {
   const ref = useRef<E>(null);
 
-  const moveFocus = (moveUp: boolean) => {
+  const moveFocus = (moveUp: boolean, e: KeyboardEvent<Element>) => {
     const { activeElement } = document;
-    if (!activeElement || !activeElement.hasAttribute(ACCORDION_BTN_ATTR)) return;
+    if (
+      !activeElement ||
+      !activeElement.hasAttribute(ACCORDION_BTN_ATTR) ||
+      getAccordion(activeElement) !== e.currentTarget
+    )
+      return;
+
+    e.preventDefault();
+    
     const buttons = ref.current!.querySelectorAll<HTMLElement>(`[${ACCORDION_BTN_ATTR}]`);
     for (let i = 0; i < buttons.length; i++) {
       if (buttons[i] === activeElement) {
@@ -36,14 +44,8 @@ const useAccordion = <E extends Element>() => {
 
   const accordionProps: HTMLAttributes<Element> = {
     [ACCORDION_ATTR]: '',
-    onKeyDown: (e) => {
-      if (e.key === 'ArrowUp') {
-        moveFocus(true);
-      } else if (e.key === 'ArrowDown') {
-        moveFocus(false);
-      }
-      e.stopPropagation();
-    }
+    onKeyDown: (e) =>
+      e.key === 'ArrowUp' ? moveFocus(true, e) : e.key === 'ArrowDown' && moveFocus(false, e)
   };
   return {
     ref,
