@@ -9,14 +9,10 @@ const Accordion = ({
   children,
   ...rest
 }: AccordionProviderProps & { className?: string }) => {
-  const { ref, accordionProps } = useAccordion<HTMLDivElement>();
+  const { accordionProps } = useAccordion();
   return (
     <AccordionProvider {...rest}>
-      <div
-        ref={ref}
-        {...accordionProps}
-        className={bem(ACCORDION_BLOCK, undefined, undefined, className)}
-      >
+      <div {...accordionProps} className={bem(ACCORDION_BLOCK, undefined, undefined, className)}>
         {children}
       </div>
     </AccordionProvider>

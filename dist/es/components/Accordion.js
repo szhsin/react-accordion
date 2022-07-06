@@ -13,13 +13,10 @@ var Accordion = function Accordion(_ref) {
       rest = _objectWithoutPropertiesLoose(_ref, _excluded);
 
   var _useAccordion = useAccordion(),
-      ref = _useAccordion.ref,
       accordionProps = _useAccordion.accordionProps;
 
   return /*#__PURE__*/jsx(AccordionProvider, _extends({}, rest, {
-    children: /*#__PURE__*/jsx("div", _extends({
-      ref: ref
-    }, accordionProps, {
+    children: /*#__PURE__*/jsx("div", _extends({}, accordionProps, {
       className: bem(ACCORDION_BLOCK, undefined, undefined, className),
       children: children
     }))

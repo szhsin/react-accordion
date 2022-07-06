@@ -1,6 +1,5 @@
 import { HTMLAttributes } from 'react';
-declare const useAccordion: <E extends Element>() => {
-    ref: import("react").RefObject<E>;
+declare const useAccordion: () => {
     accordionProps: HTMLAttributes<Element>;
 };
 export { useAccordion };

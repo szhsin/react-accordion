@@ -1,4 +1,3 @@
-import { useRef } from 'react';
 import { ACCORDION_ATTR, ACCORDION_BTN_ATTR } from '../utils/constants.js';
 
 var getAccordion = function getAccordion(node) {
@@ -24,31 +23,28 @@ var getSiblingNode = function getSiblingNode(moveUp, current, nodes) {
   return nodes[next];
 };
 
+var moveFocus = function moveFocus(moveUp, e) {
+  var _document = document,
+      activeElement = _document.activeElement;
+  if (!activeElement || !activeElement.hasAttribute(ACCORDION_BTN_ATTR) || getAccordion(activeElement) !== e.currentTarget) return;
+  e.preventDefault();
+  var buttons = e.currentTarget.querySelectorAll("[" + ACCORDION_BTN_ATTR + "]");
+
+  for (var i = 0; i < buttons.length; i++) {
+    if (buttons[i] === activeElement) {
+      getSiblingNode(moveUp, i, buttons).focus();
+      break;
+    }
+  }
+};
+
 var useAccordion = function useAccordion() {
   var _accordionProps;
-
-  var ref = useRef(null);
-
-  var moveFocus = function moveFocus(moveUp, e) {
-    var _document = document,
-        activeElement = _document.activeElement;
-    if (!activeElement || !activeElement.hasAttribute(ACCORDION_BTN_ATTR) || getAccordion(activeElement) !== e.currentTarget) return;
-    e.preventDefault();
-    var buttons = ref.current.querySelectorAll("[" + ACCORDION_BTN_ATTR + "]");
-
-    for (var i = 0; i < buttons.length; i++) {
-      if (buttons[i] === activeElement) {
-        getSiblingNode(moveUp, i, buttons).focus();
-        break;
-      }
-    }
-  };
 
   var accordionProps = (_accordionProps = {}, _accordionProps[ACCORDION_ATTR] = '', _accordionProps.onKeyDown = function onKeyDown(e) {
     return e.key === 'ArrowUp' ? moveFocus(true, e) : e.key === 'ArrowDown' && moveFocus(false, e);
   }, _accordionProps);
   return {
-    ref: ref,
     accordionProps: accordionProps
   };
 };

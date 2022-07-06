@@ -114,31 +114,28 @@ var getSiblingNode = function getSiblingNode(moveUp, current, nodes) {
   return nodes[next];
 };
 
+var moveFocus = function moveFocus(moveUp, e) {
+  var _document = document,
+      activeElement = _document.activeElement;
+  if (!activeElement || !activeElement.hasAttribute(ACCORDION_BTN_ATTR) || getAccordion(activeElement) !== e.currentTarget) return;
+  e.preventDefault();
+  var buttons = e.currentTarget.querySelectorAll("[" + ACCORDION_BTN_ATTR + "]");
+
+  for (var i = 0; i < buttons.length; i++) {
+    if (buttons[i] === activeElement) {
+      getSiblingNode(moveUp, i, buttons).focus();
+      break;
+    }
+  }
+};
+
 var useAccordion = function useAccordion() {
   var _accordionProps;
-
-  var ref = react.useRef(null);
-
-  var moveFocus = function moveFocus(moveUp, e) {
-    var _document = document,
-        activeElement = _document.activeElement;
-    if (!activeElement || !activeElement.hasAttribute(ACCORDION_BTN_ATTR) || getAccordion(activeElement) !== e.currentTarget) return;
-    e.preventDefault();
-    var buttons = ref.current.querySelectorAll("[" + ACCORDION_BTN_ATTR + "]");
-
-    for (var i = 0; i < buttons.length; i++) {
-      if (buttons[i] === activeElement) {
-        getSiblingNode(moveUp, i, buttons).focus();
-        break;
-      }
-    }
-  };
 
   var accordionProps = (_accordionProps = {}, _accordionProps[ACCORDION_ATTR] = '', _accordionProps.onKeyDown = function onKeyDown(e) {
     return e.key === 'ArrowUp' ? moveFocus(true, e) : e.key === 'ArrowDown' && moveFocus(false, e);
   }, _accordionProps);
   return {
-    ref: ref,
     accordionProps: accordionProps
   };
 };
@@ -151,13 +148,10 @@ var Accordion = function Accordion(_ref) {
       rest = _objectWithoutPropertiesLoose(_ref, _excluded);
 
   var _useAccordion = useAccordion(),
-      ref = _useAccordion.ref,
       accordionProps = _useAccordion.accordionProps;
 
   return /*#__PURE__*/jsxRuntime.jsx(AccordionProvider, _extends({}, rest, {
-    children: /*#__PURE__*/jsxRuntime.jsx("div", _extends({
-      ref: ref
-    }, accordionProps, {
+    children: /*#__PURE__*/jsxRuntime.jsx("div", _extends({}, accordionProps, {
       className: bem(ACCORDION_BLOCK, undefined, undefined, className),
       children: children
     }))
