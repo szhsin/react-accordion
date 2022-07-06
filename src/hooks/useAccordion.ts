@@ -20,8 +20,6 @@ const moveFocus = (moveUp: boolean, e: KeyboardEvent<Element>) => {
   )
     return;
 
-  e.preventDefault();
-
   const nodes = e.currentTarget.querySelectorAll<HTMLElement>(`[${ACCORDION_BTN_ATTR}]`);
   const { length } = nodes;
   for (let i = 0; i < length; i++) {
@@ -29,7 +27,10 @@ const moveFocus = (moveUp: boolean, e: KeyboardEvent<Element>) => {
       let next = getNextIndex(moveUp, i, length);
       while (getAccordion(nodes[i]) !== getAccordion(nodes[next]))
         next = getNextIndex(moveUp, next, length);
-      nodes[next].focus();
+      if (i !== next) {
+        e.preventDefault();
+        nodes[next].focus();
+      }
       break;
     }
   }

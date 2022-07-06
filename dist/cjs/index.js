@@ -107,7 +107,6 @@ var moveFocus = function moveFocus(moveUp, e) {
   var _document = document,
       activeElement = _document.activeElement;
   if (!activeElement || !activeElement.hasAttribute(ACCORDION_BTN_ATTR) || getAccordion(activeElement) !== e.currentTarget) return;
-  e.preventDefault();
   var nodes = e.currentTarget.querySelectorAll("[" + ACCORDION_BTN_ATTR + "]");
   var length = nodes.length;
 
@@ -119,7 +118,11 @@ var moveFocus = function moveFocus(moveUp, e) {
         next = getNextIndex(moveUp, next, length);
       }
 
-      nodes[next].focus();
+      if (i !== next) {
+        e.preventDefault();
+        nodes[next].focus();
+      }
+
       break;
     }
   }
