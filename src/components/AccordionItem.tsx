@@ -1,6 +1,6 @@
 import { ReactNode, MouseEventHandler } from 'react';
 import { TransitionState } from 'react-transition-state';
-import { AccordionBlock, ClassNameProp } from '../utils/constants';
+import { ACCORDION_BLOCK, ClassNameProp } from '../utils/constants';
 import { bem } from '../utils/bem';
 import { useAccordionItem } from '../hooks/useAccordionItem';
 import { useTransitionHeight } from '../hooks/useTransitionHeight';
@@ -20,6 +20,7 @@ const AccordionItem = ({
 }) => {
   const {
     itemRef,
+    buttonProps,
     toggle,
     state: { state, isMounted, isEnter }
   } = useAccordionItem<HTMLDivElement>({ itemKey, initialEntered });
@@ -28,10 +29,14 @@ const AccordionItem = ({
   return (
     <div
       ref={itemRef}
-      className={bem(AccordionBlock, 'item', { state, expanded: isEnter }, className)}
+      className={bem(ACCORDION_BLOCK, 'item', { state, expanded: isEnter }, className)}
     >
       <h3 style={{ margin: 0 }}>
-        <button type="button" onClick={toggle as unknown as MouseEventHandler<Element>}>
+        <button
+          {...buttonProps}
+          type="button"
+          onClick={toggle as unknown as MouseEventHandler<Element>}
+        >
           {header}
         </button>
       </h3>

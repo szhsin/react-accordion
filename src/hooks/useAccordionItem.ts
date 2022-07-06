@@ -1,6 +1,6 @@
 import { useContext, useEffect, useRef } from 'react';
 import { State } from 'react-transition-state';
-import { AccordionContext } from '../utils/constants';
+import { AccordionContext, ACCORDION_BTN_ATTR } from '../utils/constants';
 
 const useAccordionItem = <K extends Element>({
   itemKey,
@@ -31,6 +31,7 @@ const useAccordionItem = <K extends Element>({
   const key = itemKey ?? itemRef.current!;
   return {
     itemRef,
+    buttonProps: { [ACCORDION_BTN_ATTR]: '' },
     state: stateMap!.get(key) || initialState,
     toggle: (toEnter?: boolean) => toggle!(key, toEnter),
     endTransition: () => endTransition!(key)
