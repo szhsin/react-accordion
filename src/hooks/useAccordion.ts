@@ -11,14 +11,6 @@ const getAccordion = (node: Element) => {
 const getNextIndex = (moveUp: boolean, current: number, length: number) =>
   moveUp ? (current > 0 ? current - 1 : length - 1) : (current + 1) % length;
 
-const getSiblingNode = (moveUp: boolean, current: number, nodes: NodeListOf<HTMLElement>) => {
-  const { length } = nodes;
-  let next = getNextIndex(moveUp, current, length);
-  while (getAccordion(nodes[current]) !== getAccordion(nodes[next]))
-    next = getNextIndex(moveUp, next, length);
-  return nodes[next];
-};
-
 const moveFocus = (moveUp: boolean, e: KeyboardEvent<Element>) => {
   const { activeElement } = document;
   if (
@@ -30,10 +22,14 @@ const moveFocus = (moveUp: boolean, e: KeyboardEvent<Element>) => {
 
   e.preventDefault();
 
-  const buttons = e.currentTarget.querySelectorAll<HTMLElement>(`[${ACCORDION_BTN_ATTR}]`);
-  for (let i = 0; i < buttons.length; i++) {
-    if (buttons[i] === activeElement) {
-      getSiblingNode(moveUp, i, buttons).focus();
+  const nodes = e.currentTarget.querySelectorAll<HTMLElement>(`[${ACCORDION_BTN_ATTR}]`);
+  const { length } = nodes;
+  for (let i = 0; i < length; i++) {
+    if (nodes[i] === activeElement) {
+      let next = getNextIndex(moveUp, i, length);
+      while (getAccordion(nodes[i]) !== getAccordion(nodes[next]))
+        next = getNextIndex(moveUp, next, length);
+      nodes[next].focus();
       break;
     }
   }
