@@ -4,14 +4,14 @@ import { useLayoutEffect } from '../utils/useIsomorphicLayoutEffect';
 
 const useTransitionHeight: (
   state?: TransitionState
-) => [number | undefined, (element: HTMLElement | null) => void, RefObject<HTMLElement>] = (
+) => [number | undefined, (element: Element | null) => void, RefObject<Element>] = (
   state?: TransitionState
 ) => {
   const [_height, setHeight] = useState<number>();
-  const elementRef = useRef<HTMLElement | null>(null);
+  const elementRef = useRef<Element | null>(null);
   const resizeObserver = useRef<ResizeObserver>();
 
-  const cbRef = useCallback((element: HTMLElement | null) => {
+  const cbRef = useCallback((element: Element | null) => {
     elementRef.current = element;
     if (typeof ResizeObserver !== 'function') return;
     resizeObserver.current?.disconnect();
