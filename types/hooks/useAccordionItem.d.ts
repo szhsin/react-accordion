@@ -5,6 +5,9 @@ declare const useAccordionItem: <K extends Element>({ itemKey, initialEntered: i
     initialEntered?: boolean | undefined;
 }) => {
     itemRef: import("react").RefObject<K>;
+    buttonProps: {
+        [x: string]: string;
+    };
     state: State;
     toggle: (toEnter?: boolean) => void;
     endTransition: () => void;

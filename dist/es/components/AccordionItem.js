@@ -1,4 +1,5 @@
-import { AccordionBlock } from '../utils/constants.js';
+import { extends as _extends } from '../_virtual/_rollupPluginBabelHelpers.js';
+import { ACCORDION_BLOCK } from '../utils/constants.js';
 import { bem } from '../utils/bem.js';
 import { useAccordionItem } from '../hooks/useAccordionItem.js';
 import { useTransitionHeight } from '../hooks/useTransitionHeight.js';
@@ -16,6 +17,7 @@ var AccordionItem = function AccordionItem(_ref) {
     initialEntered: initialEntered
   }),
       itemRef = _useAccordionItem.itemRef,
+      buttonProps = _useAccordionItem.buttonProps,
       toggle = _useAccordionItem.toggle,
       _useAccordionItem$sta = _useAccordionItem.state,
       state = _useAccordionItem$sta.state,
@@ -28,7 +30,7 @@ var AccordionItem = function AccordionItem(_ref) {
 
   return /*#__PURE__*/jsxs("div", {
     ref: itemRef,
-    className: bem(AccordionBlock, 'item', {
+    className: bem(ACCORDION_BLOCK, 'item', {
       state: state,
       expanded: isEnter
     }, className),
@@ -36,11 +38,11 @@ var AccordionItem = function AccordionItem(_ref) {
       style: {
         margin: 0
       },
-      children: /*#__PURE__*/jsx("button", {
+      children: /*#__PURE__*/jsx("button", _extends({}, buttonProps, {
         type: "button",
         onClick: toggle,
         children: header
-      })
+      }))
     }), isMounted && /*#__PURE__*/jsx("div", {
       role: "region",
       className: state,

@@ -1,7 +1,9 @@
 import { useRef, useContext, useEffect } from 'react';
-import { AccordionContext } from '../utils/constants.js';
+import { AccordionContext, ACCORDION_BTN_ATTR } from '../utils/constants.js';
 
 var useAccordionItem = function useAccordionItem(_temp) {
+  var _buttonProps;
+
   var _ref = _temp === void 0 ? {} : _temp,
       itemKey = _ref.itemKey,
       itemInitialEntered = _ref.initialEntered;
@@ -41,6 +43,7 @@ var useAccordionItem = function useAccordionItem(_temp) {
   var key = itemKey != null ? itemKey : itemRef.current;
   return {
     itemRef: itemRef,
+    buttonProps: (_buttonProps = {}, _buttonProps[ACCORDION_BTN_ATTR] = '', _buttonProps),
     state: stateMap.get(key) || initialState,
     toggle: function toggle(toEnter) {
       return _toggle(key, toEnter);

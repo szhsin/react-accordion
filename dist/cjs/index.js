@@ -38,7 +38,9 @@ function _objectWithoutPropertiesLoose(source, excluded) {
   return target;
 }
 
-var AccordionBlock = 'szh-accordion';
+var ACCORDION_BLOCK = 'szh-accordion';
+var ACCORDION_BTN_ATTR = "data-" + ACCORDION_BLOCK + "-btn";
+var ACCORDION_ATTR = "data-" + ACCORDION_BLOCK;
 var AccordionContext = /*#__PURE__*/react.createContext({});
 
 var bem = function bem(block, element, modifiers, className) {
@@ -89,6 +91,63 @@ var AccordionProvider = function AccordionProvider(_ref) {
   });
 };
 
+var getAccordion = function getAccordion(node) {
+  do {
+    node = node.parentElement;
+  } while (node && !node.hasAttribute(ACCORDION_ATTR));
+
+  return node;
+};
+
+var getNextIndex = function getNextIndex(moveUp, current, length) {
+  return moveUp ? current > 0 ? current - 1 : length - 1 : (current + 1) % length;
+};
+
+var getSiblingNode = function getSiblingNode(moveUp, current, nodes) {
+  var length = nodes.length;
+  var next = getNextIndex(moveUp, current, length);
+
+  while (getAccordion(nodes[current]) !== getAccordion(nodes[next])) {
+    next = getNextIndex(moveUp, next, length);
+  }
+
+  return nodes[next];
+};
+
+var useAccordion = function useAccordion() {
+  var _accordionProps;
+
+  var ref = react.useRef(null);
+
+  var moveFocus = function moveFocus(moveUp) {
+    var _document = document,
+        activeElement = _document.activeElement;
+    if (!activeElement || !activeElement.hasAttribute(ACCORDION_BTN_ATTR)) return;
+    var buttons = ref.current.querySelectorAll("[" + ACCORDION_BTN_ATTR + "]");
+
+    for (var i = 0; i < buttons.length; i++) {
+      if (buttons[i] === activeElement) {
+        getSiblingNode(moveUp, i, buttons).focus();
+        break;
+      }
+    }
+  };
+
+  var accordionProps = (_accordionProps = {}, _accordionProps[ACCORDION_ATTR] = '', _accordionProps.onKeyDown = function onKeyDown(e) {
+    if (e.key === 'ArrowUp') {
+      moveFocus(true);
+    } else if (e.key === 'ArrowDown') {
+      moveFocus(false);
+    }
+
+    e.stopPropagation();
+  }, _accordionProps);
+  return {
+    ref: ref,
+    accordionProps: accordionProps
+  };
+};
+
 var _excluded = ["className", "children"];
 
 var Accordion = function Accordion(_ref) {
@@ -96,15 +155,23 @@ var Accordion = function Accordion(_ref) {
       children = _ref.children,
       rest = _objectWithoutPropertiesLoose(_ref, _excluded);
 
+  var _useAccordion = useAccordion(),
+      ref = _useAccordion.ref,
+      accordionProps = _useAccordion.accordionProps;
+
   return /*#__PURE__*/jsxRuntime.jsx(AccordionProvider, _extends({}, rest, {
-    children: /*#__PURE__*/jsxRuntime.jsx("div", {
-      className: bem(AccordionBlock, undefined, undefined, className),
+    children: /*#__PURE__*/jsxRuntime.jsx("div", _extends({
+      ref: ref
+    }, accordionProps, {
+      className: bem(ACCORDION_BLOCK, undefined, undefined, className),
       children: children
-    })
+    }))
   }));
 };
 
 var useAccordionItem = function useAccordionItem(_temp) {
+  var _buttonProps;
+
   var _ref = _temp === void 0 ? {} : _temp,
       itemKey = _ref.itemKey,
       itemInitialEntered = _ref.initialEntered;
@@ -144,6 +211,7 @@ var useAccordionItem = function useAccordionItem(_temp) {
   var key = itemKey != null ? itemKey : itemRef.current;
   return {
     itemRef: itemRef,
+    buttonProps: (_buttonProps = {}, _buttonProps[ACCORDION_BTN_ATTR] = '', _buttonProps),
     state: stateMap.get(key) || initialState,
     toggle: function toggle(toEnter) {
       return _toggle(key, toEnter);
@@ -205,6 +273,7 @@ var AccordionItem = function AccordionItem(_ref) {
     initialEntered: initialEntered
   }),
       itemRef = _useAccordionItem.itemRef,
+      buttonProps = _useAccordionItem.buttonProps,
       toggle = _useAccordionItem.toggle,
       _useAccordionItem$sta = _useAccordionItem.state,
       state = _useAccordionItem$sta.state,
@@ -217,7 +286,7 @@ var AccordionItem = function AccordionItem(_ref) {
 
   return /*#__PURE__*/jsxRuntime.jsxs("div", {
     ref: itemRef,
-    className: bem(AccordionBlock, 'item', {
+    className: bem(ACCORDION_BLOCK, 'item', {
       state: state,
       expanded: isEnter
     }, className),
@@ -225,11 +294,11 @@ var AccordionItem = function AccordionItem(_ref) {
       style: {
         margin: 0
       },
-      children: /*#__PURE__*/jsxRuntime.jsx("button", {
+      children: /*#__PURE__*/jsxRuntime.jsx("button", _extends({}, buttonProps, {
         type: "button",
         onClick: toggle,
         children: header
-      })
+      }))
     }), isMounted && /*#__PURE__*/jsxRuntime.jsx("div", {
       role: "region",
       className: state,
