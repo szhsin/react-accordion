@@ -41,15 +41,17 @@ var useAccordionItem = function useAccordionItem(_temp) {
     isEnter: !!_initialEntered
   };
   var key = itemKey != null ? itemKey : itemRef.current;
+  var state = stateMap.get(key) || initialState;
 
   var toggleItem = function toggleItem(toEnter) {
     return toggle(key, toEnter);
   };
 
+  var buttonProps = (_buttonProps = {}, _buttonProps[ACCORDION_BTN_ATTR] = '', _buttonProps['aria-expanded'] = state.isEnter, _buttonProps.onClick = toggleItem, _buttonProps);
   return {
     itemRef: itemRef,
-    buttonProps: (_buttonProps = {}, _buttonProps[ACCORDION_BTN_ATTR] = '', _buttonProps.onClick = toggleItem, _buttonProps),
-    state: stateMap.get(key) || initialState,
+    buttonProps: buttonProps,
+    state: state,
     toggle: toggleItem,
     endTransition: function endTransition() {
       return _endTransition(key);

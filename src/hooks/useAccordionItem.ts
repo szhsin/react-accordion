@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, MouseEventHandler } from 'react';
+import { useContext, useEffect, useRef, MouseEventHandler, HTMLAttributes } from 'react';
 import { State } from 'react-transition-state';
 import { AccordionContext, ACCORDION_BTN_ATTR } from '../utils/constants';
 
@@ -27,16 +27,19 @@ const useAccordionItem = <K extends Element>({
     isMounted: !mountOnEnter,
     isEnter: !!_initialEntered
   };
-
   const key = itemKey ?? itemRef.current!;
+  const state = stateMap!.get(key) || initialState;
   const toggleItem = (toEnter?: boolean) => toggle!(key, toEnter);
+  const buttonProps: HTMLAttributes<Element> = {
+    [ACCORDION_BTN_ATTR]: '',
+    'aria-expanded': state.isEnter,
+    onClick: toggleItem as unknown as MouseEventHandler<Element>
+  };
+
   return {
     itemRef,
-    buttonProps: {
-      [ACCORDION_BTN_ATTR]: '',
-      onClick: toggleItem as unknown as MouseEventHandler<Element>
-    },
-    state: stateMap!.get(key) || initialState,
+    buttonProps,
+    state,
     toggle: toggleItem,
     endTransition: () => endTransition!(key)
   };
