@@ -12,7 +12,7 @@ const Accordion = ({
   const { accordionProps } = useAccordion();
   return (
     <AccordionProvider {...rest}>
-      <div {...accordionProps} className={bem(ACCORDION_BLOCK, undefined, undefined, className)}>
+      <div className={bem(ACCORDION_BLOCK, undefined, undefined, className)} {...accordionProps}>
         {children}
       </div>
     </AccordionProvider>

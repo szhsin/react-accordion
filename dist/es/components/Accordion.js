@@ -16,8 +16,9 @@ var Accordion = function Accordion(_ref) {
       accordionProps = _useAccordion.accordionProps;
 
   return /*#__PURE__*/jsx(AccordionProvider, _extends({}, rest, {
-    children: /*#__PURE__*/jsx("div", _extends({}, accordionProps, {
-      className: bem(ACCORDION_BLOCK, undefined, undefined, className),
+    children: /*#__PURE__*/jsx("div", _extends({
+      className: bem(ACCORDION_BLOCK, undefined, undefined, className)
+    }, accordionProps, {
       children: children
     }))
   }));

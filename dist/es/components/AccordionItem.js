@@ -18,7 +18,6 @@ var AccordionItem = function AccordionItem(_ref) {
   }),
       itemRef = _useAccordionItem.itemRef,
       buttonProps = _useAccordionItem.buttonProps,
-      toggle = _useAccordionItem.toggle,
       _useAccordionItem$sta = _useAccordionItem.state,
       state = _useAccordionItem$sta.state,
       isMounted = _useAccordionItem$sta.isMounted,
@@ -38,9 +37,9 @@ var AccordionItem = function AccordionItem(_ref) {
       style: {
         margin: 0
       },
-      children: /*#__PURE__*/jsx("button", _extends({}, buttonProps, {
-        type: "button",
-        onClick: toggle,
+      children: /*#__PURE__*/jsx("button", _extends({
+        type: "button"
+      }, buttonProps, {
         children: header
       }))
     }), isMounted && /*#__PURE__*/jsx("div", {

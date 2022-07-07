@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef } from 'react';
+import { useContext, useEffect, useRef, MouseEventHandler } from 'react';
 import { State } from 'react-transition-state';
 import { AccordionContext, ACCORDION_BTN_ATTR } from '../utils/constants';
 
@@ -29,11 +29,15 @@ const useAccordionItem = <K extends Element>({
   };
 
   const key = itemKey ?? itemRef.current!;
+  const toggleItem = (toEnter?: boolean) => toggle!(key, toEnter);
   return {
     itemRef,
-    buttonProps: { [ACCORDION_BTN_ATTR]: '' },
+    buttonProps: {
+      [ACCORDION_BTN_ATTR]: '',
+      onClick: toggleItem as unknown as MouseEventHandler<Element>
+    },
     state: stateMap!.get(key) || initialState,
-    toggle: (toEnter?: boolean) => toggle!(key, toEnter),
+    toggle: toggleItem,
     endTransition: () => endTransition!(key)
   };
 };

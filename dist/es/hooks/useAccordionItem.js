@@ -14,7 +14,7 @@ var useAccordionItem = function useAccordionItem(_temp) {
       stateMap = _useContext.stateMap,
       setItem = _useContext.setItem,
       deleteItem = _useContext.deleteItem,
-      _toggle = _useContext.toggle,
+      toggle = _useContext.toggle,
       _endTransition = _useContext.endTransition,
       mountOnEnter = _useContext.mountOnEnter,
       initialEntered = _useContext.initialEntered;
@@ -41,13 +41,16 @@ var useAccordionItem = function useAccordionItem(_temp) {
     isEnter: !!_initialEntered
   };
   var key = itemKey != null ? itemKey : itemRef.current;
+
+  var toggleItem = function toggleItem(toEnter) {
+    return toggle(key, toEnter);
+  };
+
   return {
     itemRef: itemRef,
-    buttonProps: (_buttonProps = {}, _buttonProps[ACCORDION_BTN_ATTR] = '', _buttonProps),
+    buttonProps: (_buttonProps = {}, _buttonProps[ACCORDION_BTN_ATTR] = '', _buttonProps.onClick = toggleItem, _buttonProps),
     state: stateMap.get(key) || initialState,
-    toggle: function toggle(toEnter) {
-      return _toggle(key, toEnter);
-    },
+    toggle: toggleItem,
     endTransition: function endTransition() {
       return _endTransition(key);
     }

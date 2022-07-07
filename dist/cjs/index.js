@@ -150,8 +150,9 @@ var Accordion = function Accordion(_ref) {
       accordionProps = _useAccordion.accordionProps;
 
   return /*#__PURE__*/jsxRuntime.jsx(AccordionProvider, _extends({}, rest, {
-    children: /*#__PURE__*/jsxRuntime.jsx("div", _extends({}, accordionProps, {
-      className: bem(ACCORDION_BLOCK, undefined, undefined, className),
+    children: /*#__PURE__*/jsxRuntime.jsx("div", _extends({
+      className: bem(ACCORDION_BLOCK, undefined, undefined, className)
+    }, accordionProps, {
       children: children
     }))
   }));
@@ -170,7 +171,7 @@ var useAccordionItem = function useAccordionItem(_temp) {
       stateMap = _useContext.stateMap,
       setItem = _useContext.setItem,
       deleteItem = _useContext.deleteItem,
-      _toggle = _useContext.toggle,
+      toggle = _useContext.toggle,
       _endTransition = _useContext.endTransition,
       mountOnEnter = _useContext.mountOnEnter,
       initialEntered = _useContext.initialEntered;
@@ -197,13 +198,16 @@ var useAccordionItem = function useAccordionItem(_temp) {
     isEnter: !!_initialEntered
   };
   var key = itemKey != null ? itemKey : itemRef.current;
+
+  var toggleItem = function toggleItem(toEnter) {
+    return toggle(key, toEnter);
+  };
+
   return {
     itemRef: itemRef,
-    buttonProps: (_buttonProps = {}, _buttonProps[ACCORDION_BTN_ATTR] = '', _buttonProps),
+    buttonProps: (_buttonProps = {}, _buttonProps[ACCORDION_BTN_ATTR] = '', _buttonProps.onClick = toggleItem, _buttonProps),
     state: stateMap.get(key) || initialState,
-    toggle: function toggle(toEnter) {
-      return _toggle(key, toEnter);
-    },
+    toggle: toggleItem,
     endTransition: function endTransition() {
       return _endTransition(key);
     }
@@ -262,7 +266,6 @@ var AccordionItem = function AccordionItem(_ref) {
   }),
       itemRef = _useAccordionItem.itemRef,
       buttonProps = _useAccordionItem.buttonProps,
-      toggle = _useAccordionItem.toggle,
       _useAccordionItem$sta = _useAccordionItem.state,
       state = _useAccordionItem$sta.state,
       isMounted = _useAccordionItem$sta.isMounted,
@@ -282,9 +285,9 @@ var AccordionItem = function AccordionItem(_ref) {
       style: {
         margin: 0
       },
-      children: /*#__PURE__*/jsxRuntime.jsx("button", _extends({}, buttonProps, {
-        type: "button",
-        onClick: toggle,
+      children: /*#__PURE__*/jsxRuntime.jsx("button", _extends({
+        type: "button"
+      }, buttonProps, {
         children: header
       }))
     }), isMounted && /*#__PURE__*/jsxRuntime.jsx("div", {
