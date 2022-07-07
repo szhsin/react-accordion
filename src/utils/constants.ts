@@ -1,7 +1,9 @@
 import { createContext, ReactNode } from 'react';
 import { TransitionMapResult, TransitionMapOptions } from 'react-transition-state';
 
-export const AccordionBlock = 'szh-accordion';
+export const ACCORDION_BLOCK = 'szh-accordion';
+export const ACCORDION_BTN_ATTR = `data-${ACCORDION_BLOCK}-btn`;
+export const ACCORDION_ATTR = `data-${ACCORDION_BLOCK}`;
 
 export type Modifiers = Record<string, boolean | string>;
 export type ClassNameProp<M extends Modifiers> = string | ((modifiers: M) => string);

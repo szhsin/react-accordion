@@ -1,16 +1,20 @@
 import { AccordionProviderProps } from '../utils/constants';
-import { AccordionBlock } from '../utils/constants';
+import { ACCORDION_BLOCK } from '../utils/constants';
 import { bem } from '../utils/bem';
 import { AccordionProvider } from './AccordionProvider';
+import { useAccordion } from '../hooks/useAccordion';
 
 const Accordion = ({
   className,
   children,
   ...rest
 }: AccordionProviderProps & { className?: string }) => {
+  const { accordionProps } = useAccordion();
   return (
     <AccordionProvider {...rest}>
-      <div className={bem(AccordionBlock, undefined, undefined, className)}>{children}</div>
+      <div {...accordionProps} className={bem(ACCORDION_BLOCK, undefined, undefined, className)}>
+        {children}
+      </div>
     </AccordionProvider>
   );
 };
