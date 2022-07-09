@@ -39,6 +39,7 @@ function _objectWithoutPropertiesLoose(source, excluded) {
 }
 
 var ACCORDION_BLOCK = 'szh-accordion';
+var ACCORDION_PREFIX = 'szh-adn';
 var ACCORDION_BTN_ATTR = "data-" + ACCORDION_BLOCK + "-btn";
 var ACCORDION_ATTR = "data-" + ACCORDION_BLOCK;
 var AccordionContext = /*#__PURE__*/react.createContext({});
@@ -158,6 +159,21 @@ var Accordion = function Accordion(_ref) {
   }));
 };
 
+var current = 0;
+
+var useIdShim = function useIdShim() {
+  var _useState = react.useState(),
+      id = _useState[0],
+      setId = _useState[1];
+
+  react.useEffect(function () {
+    return setId(++current);
+  }, []);
+  return id && ACCORDION_PREFIX + "-" + id;
+};
+
+var _useId = react.useId || useIdShim;
+
 var useAccordionItem = function useAccordionItem(_temp) {
   var _buttonProps;
 
@@ -204,10 +220,20 @@ var useAccordionItem = function useAccordionItem(_temp) {
     return toggle(key, toEnter);
   };
 
-  var buttonProps = (_buttonProps = {}, _buttonProps[ACCORDION_BTN_ATTR] = '', _buttonProps['aria-expanded'] = state.isEnter, _buttonProps.onClick = toggleItem, _buttonProps);
+  var buttonId = _useId();
+  var panelId = _useId();
+  var buttonProps = (_buttonProps = {
+    id: buttonId
+  }, _buttonProps[ACCORDION_BTN_ATTR] = '', _buttonProps['aria-controls'] = panelId, _buttonProps['aria-expanded'] = state.isEnter, _buttonProps.onClick = toggleItem, _buttonProps);
+  var panelProps = {
+    id: panelId,
+    'aria-labelledby': buttonId,
+    role: 'region'
+  };
   return {
     itemRef: itemRef,
     buttonProps: buttonProps,
+    panelProps: panelProps,
     state: state,
     toggle: toggleItem,
     endTransition: function endTransition() {
@@ -268,6 +294,7 @@ var AccordionItem = function AccordionItem(_ref) {
   }),
       itemRef = _useAccordionItem.itemRef,
       buttonProps = _useAccordionItem.buttonProps,
+      panelProps = _useAccordionItem.panelProps,
       _useAccordionItem$sta = _useAccordionItem.state,
       state = _useAccordionItem$sta.state,
       isMounted = _useAccordionItem$sta.isMounted,
@@ -293,21 +320,17 @@ var AccordionItem = function AccordionItem(_ref) {
         children: header
       }))
     }), isMounted && /*#__PURE__*/jsxRuntime.jsx("div", {
-      role: "region",
-      className: state,
       style: {
         display: state === 'exited' ? 'none' : undefined,
         height: height,
         transition: 'height .3s ease-in-out',
         overflow: 'hidden'
       },
-      children: /*#__PURE__*/jsxRuntime.jsx("div", {
-        ref: panelRef,
-        style: {
-          padding: '1rem'
-        },
+      children: /*#__PURE__*/jsxRuntime.jsx("div", _extends({
+        ref: panelRef
+      }, panelProps, {
         children: children
-      })
+      }))
     })]
   });
 };

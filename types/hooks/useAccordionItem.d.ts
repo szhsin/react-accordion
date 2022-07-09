@@ -6,6 +6,7 @@ declare const useAccordionItem: <K extends Element>({ itemKey, initialEntered: i
 }) => {
     itemRef: import("react").RefObject<K>;
     buttonProps: HTMLAttributes<Element>;
+    panelProps: HTMLAttributes<Element>;
     state: State;
     toggle: (toEnter?: boolean) => void;
     endTransition: () => void;

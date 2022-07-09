@@ -21,6 +21,7 @@ const AccordionItem = ({
   const {
     itemRef,
     buttonProps,
+    panelProps,
     state: { state, isMounted, isEnter }
   } = useAccordionItem<HTMLDivElement>({ itemKey, initialEntered });
   const [height, panelRef] = useTransitionHeight(state);
@@ -37,8 +38,6 @@ const AccordionItem = ({
       </h3>
       {isMounted && (
         <div
-          role="region"
-          className={state}
           style={{
             display: state === 'exited' ? 'none' : undefined,
             height,
@@ -46,7 +45,7 @@ const AccordionItem = ({
             overflow: 'hidden'
           }}
         >
-          <div ref={panelRef} style={{ padding: '1rem' }}>
+          <div ref={panelRef} {...panelProps}>
             {children}
           </div>
         </div>
