@@ -29,7 +29,7 @@ const AccordionItem = ({
   return (
     <div
       ref={itemRef}
-      className={bem(ACCORDION_BLOCK, 'item', { state, expanded: isEnter }, className)}
+      className={bem(ACCORDION_BLOCK, 'item', { state, expanded: isEnter }, className, true)}
     >
       <h3 style={{ margin: 0 }}>
         <button type="button" {...buttonProps}>

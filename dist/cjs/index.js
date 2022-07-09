@@ -44,16 +44,14 @@ var ACCORDION_BTN_ATTR = "data-" + ACCORDION_BLOCK + "-btn";
 var ACCORDION_ATTR = "data-" + ACCORDION_BLOCK;
 var AccordionContext = /*#__PURE__*/react.createContext({});
 
-var bem = function bem(block, element, modifiers, className) {
+var bem = function bem(block, element, modifiers, className, addModifier) {
   var blockElement = element ? block + "__" + element : block;
   var classString = blockElement;
-
-  for (var _i2 = 0, _Object$keys2 = Object.keys(modifiers || {}); _i2 < _Object$keys2.length; _i2++) {
+  if (addModifier && modifiers) for (var _i2 = 0, _Object$keys2 = Object.keys(modifiers); _i2 < _Object$keys2.length; _i2++) {
     var name = _Object$keys2[_i2];
     var value = modifiers[name];
     if (value) classString += " " + blockElement + "--" + (value === true ? name : name + "-" + value);
   }
-
   var expandedClassName = typeof className === 'function' ? className(modifiers) : className;
 
   if (typeof expandedClassName === 'string') {
@@ -312,7 +310,7 @@ var AccordionItem = function AccordionItem(_ref) {
     className: bem(ACCORDION_BLOCK, 'item', {
       state: state,
       expanded: isEnter
-    }, className),
+    }, className, true),
     children: [/*#__PURE__*/jsxRuntime.jsx("h3", {
       style: {
         margin: 0

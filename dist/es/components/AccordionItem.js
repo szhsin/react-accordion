@@ -33,7 +33,7 @@ var AccordionItem = function AccordionItem(_ref) {
     className: bem(ACCORDION_BLOCK, 'item', {
       state: state,
       expanded: isEnter
-    }, className),
+    }, className, true),
     children: [/*#__PURE__*/jsx("h3", {
       style: {
         margin: 0
