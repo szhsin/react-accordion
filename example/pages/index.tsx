@@ -24,11 +24,11 @@ const Home: NextPage = () => {
           <AccordionItem header="header 2" initialEntered>
             content 2<div>more</div>
             <Accordion>
-              <AccordionItem header="header 1">content 1</AccordionItem>
-              <AccordionItem header="header 2">
+              <AccordionItem header="header 2.1">content 1</AccordionItem>
+              <AccordionItem header="header 2.2">
                 content 2<div>more</div>
               </AccordionItem>
-              <AccordionItem header="header 3">
+              <AccordionItem header="header 2.3">
                 content 3<div>more</div>
                 <div style={{ height: 500 }}>more</div>
               </AccordionItem>
