@@ -2,8 +2,8 @@ import { ReactNode } from 'react';
 import { TransitionState } from 'react-transition-state';
 import { ClassNameProp, ElementProps } from '../utils/constants';
 declare type ItemModifiers = {
-    state: TransitionState;
-    expanded: boolean;
+    readonly state: TransitionState;
+    readonly expanded: boolean;
 };
 declare const AccordionItem: ({ itemKey, initialEntered, className, header, headerProps, buttonProps, contentProps, panelProps, children }: {
     itemKey?: string | number | undefined;

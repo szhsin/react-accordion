@@ -6,7 +6,9 @@ export const ACCORDION_PREFIX = 'szh-adn';
 export const ACCORDION_BTN_ATTR = `data-${ACCORDION_BLOCK}-btn`;
 export const ACCORDION_ATTR = `data-${ACCORDION_BLOCK}`;
 
-export type Modifiers = Record<string, boolean | string>;
+export type Modifiers = {
+  readonly [index: string]: boolean | string;
+};
 export type ClassNameProp<M extends Modifiers> = string | ((modifiers: M) => string);
 export interface ElementProps<E extends HTMLElement, M extends Modifiers>
   extends Omit<HTMLAttributes<E>, 'className' | 'children'> {

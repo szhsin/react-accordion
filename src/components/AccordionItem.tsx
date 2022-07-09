@@ -6,8 +6,8 @@ import { useAccordionItem } from '../hooks/useAccordionItem';
 import { useHeightTransition } from '../hooks/useHeightTransition';
 
 type ItemModifiers = {
-  state: TransitionState;
-  expanded: boolean;
+  readonly state: TransitionState;
+  readonly expanded: boolean;
 };
 
 const AccordionItem = ({
