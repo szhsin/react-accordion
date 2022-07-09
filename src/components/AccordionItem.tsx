@@ -10,6 +10,18 @@ type ItemModifiers = {
   readonly expanded: boolean;
 };
 
+interface AccordionItemProps {
+  itemKey?: string | number;
+  initialEntered?: boolean;
+  className?: ClassNameProp<ItemModifiers>;
+  header?: ReactNode;
+  headerProps?: ElementProps<HTMLHeadingElement, ItemModifiers>;
+  buttonProps?: ElementProps<HTMLButtonElement, ItemModifiers>;
+  contentProps?: ElementProps<HTMLDivElement, ItemModifiers>;
+  panelProps?: ElementProps<HTMLDivElement, ItemModifiers>;
+  children?: ReactNode;
+}
+
 const AccordionItem = ({
   itemKey,
   initialEntered,
@@ -20,17 +32,7 @@ const AccordionItem = ({
   contentProps,
   panelProps,
   children
-}: {
-  itemKey?: string | number;
-  initialEntered?: boolean;
-  className?: ClassNameProp<ItemModifiers>;
-  header: ReactNode;
-  headerProps?: ElementProps<HTMLHeadingElement, ItemModifiers>;
-  buttonProps?: ElementProps<HTMLButtonElement, ItemModifiers>;
-  contentProps?: ElementProps<HTMLDivElement, ItemModifiers>;
-  panelProps?: ElementProps<HTMLDivElement, ItemModifiers>;
-  children?: ReactNode;
-}) => {
+}: AccordionItemProps) => {
   const {
     itemRef,
     buttonProps: _buttonProps,
@@ -80,4 +82,4 @@ const AccordionItem = ({
   );
 };
 
-export { AccordionItem };
+export { AccordionItem, AccordionItemProps };

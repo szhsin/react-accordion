@@ -5,15 +5,16 @@ declare type ItemModifiers = {
     readonly state: TransitionState;
     readonly expanded: boolean;
 };
-declare const AccordionItem: ({ itemKey, initialEntered, className, header, headerProps, buttonProps, contentProps, panelProps, children }: {
-    itemKey?: string | number | undefined;
-    initialEntered?: boolean | undefined;
-    className?: ClassNameProp<ItemModifiers> | undefined;
-    header: ReactNode;
-    headerProps?: ElementProps<HTMLHeadingElement, ItemModifiers> | undefined;
-    buttonProps?: ElementProps<HTMLButtonElement, ItemModifiers> | undefined;
-    contentProps?: ElementProps<HTMLDivElement, ItemModifiers> | undefined;
-    panelProps?: ElementProps<HTMLDivElement, ItemModifiers> | undefined;
+interface AccordionItemProps {
+    itemKey?: string | number;
+    initialEntered?: boolean;
+    className?: ClassNameProp<ItemModifiers>;
+    header?: ReactNode;
+    headerProps?: ElementProps<HTMLHeadingElement, ItemModifiers>;
+    buttonProps?: ElementProps<HTMLButtonElement, ItemModifiers>;
+    contentProps?: ElementProps<HTMLDivElement, ItemModifiers>;
+    panelProps?: ElementProps<HTMLDivElement, ItemModifiers>;
     children?: ReactNode;
-}) => JSX.Element;
-export { AccordionItem };
+}
+declare const AccordionItem: ({ itemKey, initialEntered, className, header, headerProps, buttonProps, contentProps, panelProps, children }: AccordionItemProps) => JSX.Element;
+export { AccordionItem, AccordionItemProps };
