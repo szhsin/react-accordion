@@ -1,10 +1,10 @@
-import { RefObject, useState, useRef, useCallback } from 'react';
+import { RefObject, CSSProperties, useState, useRef, useCallback } from 'react';
 import { TransitionState } from 'react-transition-state';
 import { useLayoutEffect } from '../utils/useIsomorphicLayoutEffect';
 
 const useHeightTransition: (
   state?: TransitionState
-) => [number | undefined, (element: Element | null) => void, RefObject<Element>] = (
+) => [CSSProperties, (element: Element | null) => void, RefObject<Element>] = (
   state?: TransitionState
 ) => {
   const [_height, setHeight] = useState<number>();
@@ -38,7 +38,7 @@ const useHeightTransition: (
       ? _height
       : undefined;
 
-  return [height, cbRef, elementRef];
+  return [{ height, overflow: state !== 'entered' ? 'hidden' : undefined }, cbRef, elementRef];
 };
 
 export { useHeightTransition };

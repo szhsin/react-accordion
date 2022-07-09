@@ -25,7 +25,7 @@ var AccordionItem = function AccordionItem(_ref) {
       isEnter = _useAccordionItem$sta.isEnter;
 
   var _useHeightTransition = useHeightTransition(state),
-      height = _useHeightTransition[0],
+      transitionStyle = _useHeightTransition[0],
       panelRef = _useHeightTransition[1];
 
   return /*#__PURE__*/jsxs("div", {
@@ -44,12 +44,9 @@ var AccordionItem = function AccordionItem(_ref) {
         children: header
       }))
     }), isMounted && /*#__PURE__*/jsx("div", {
-      style: {
-        display: state === 'exited' ? 'none' : undefined,
-        height: height,
-        transition: 'height .3s ease-in-out',
-        overflow: 'hidden'
-      },
+      style: _extends({
+        display: state === 'exited' ? 'none' : undefined
+      }, transitionStyle),
       children: /*#__PURE__*/jsx("div", _extends({
         ref: panelRef
       }, panelProps, {

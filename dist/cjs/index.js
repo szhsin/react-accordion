@@ -278,7 +278,10 @@ var useHeightTransition = function useHeightTransition(state) {
     state === 'preEnter' && setHeight((_elementRef$current = elementRef.current) == null ? void 0 : _elementRef$current.getBoundingClientRect().height);
   }, [state]);
   var height = state === 'preEnter' || state === 'exiting' ? 0 : state === 'entering' || state === 'preExit' ? _height : undefined;
-  return [height, cbRef, elementRef];
+  return [{
+    height: height,
+    overflow: state !== 'entered' ? 'hidden' : undefined
+  }, cbRef, elementRef];
 };
 
 var AccordionItem = function AccordionItem(_ref) {
@@ -301,7 +304,7 @@ var AccordionItem = function AccordionItem(_ref) {
       isEnter = _useAccordionItem$sta.isEnter;
 
   var _useHeightTransition = useHeightTransition(state),
-      height = _useHeightTransition[0],
+      transitionStyle = _useHeightTransition[0],
       panelRef = _useHeightTransition[1];
 
   return /*#__PURE__*/jsxRuntime.jsxs("div", {
@@ -320,12 +323,9 @@ var AccordionItem = function AccordionItem(_ref) {
         children: header
       }))
     }), isMounted && /*#__PURE__*/jsxRuntime.jsx("div", {
-      style: {
-        display: state === 'exited' ? 'none' : undefined,
-        height: height,
-        transition: 'height .3s ease-in-out',
-        overflow: 'hidden'
-      },
+      style: _extends({
+        display: state === 'exited' ? 'none' : undefined
+      }, transitionStyle),
       children: /*#__PURE__*/jsxRuntime.jsx("div", _extends({
         ref: panelRef
       }, panelProps, {

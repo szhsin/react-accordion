@@ -1,4 +1,4 @@
-import { RefObject } from 'react';
+import { RefObject, CSSProperties } from 'react';
 import { TransitionState } from 'react-transition-state';
-declare const useHeightTransition: (state?: TransitionState) => [number | undefined, (element: Element | null) => void, RefObject<Element>];
+declare const useHeightTransition: (state?: TransitionState) => [CSSProperties, (element: Element | null) => void, RefObject<Element>];
 export { useHeightTransition };

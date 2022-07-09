@@ -24,7 +24,7 @@ const AccordionItem = ({
     panelProps,
     state: { state, isMounted, isEnter }
   } = useAccordionItem<HTMLDivElement>({ itemKey, initialEntered });
-  const [height, panelRef] = useHeightTransition(state);
+  const [transitionStyle, panelRef] = useHeightTransition(state);
 
   return (
     <div
@@ -40,9 +40,7 @@ const AccordionItem = ({
         <div
           style={{
             display: state === 'exited' ? 'none' : undefined,
-            height,
-            transition: 'height .3s ease-in-out',
-            overflow: 'hidden'
+            ...transitionStyle
           }}
         >
           <div ref={panelRef} {...panelProps}>

@@ -35,7 +35,10 @@ var useHeightTransition = function useHeightTransition(state) {
     state === 'preEnter' && setHeight((_elementRef$current = elementRef.current) == null ? void 0 : _elementRef$current.getBoundingClientRect().height);
   }, [state]);
   var height = state === 'preEnter' || state === 'exiting' ? 0 : state === 'entering' || state === 'preExit' ? _height : undefined;
-  return [height, cbRef, elementRef];
+  return [{
+    height: height,
+    overflow: state !== 'entered' ? 'hidden' : undefined
+  }, cbRef, elementRef];
 };
 
 export { useHeightTransition };
