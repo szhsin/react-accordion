@@ -3,11 +3,11 @@ import { State } from 'react-transition-state';
 import { AccordionContext, ACCORDION_BTN_ATTR } from '../utils/constants';
 import { useId } from './useId';
 
-const useAccordionItem = <K extends Element>({
+const useAccordionItem = <E extends Element>({
   itemKey,
   initialEntered: itemInitialEntered
 }: { itemKey?: string | number; initialEntered?: boolean } = {}) => {
-  const itemRef = useRef<K>(null);
+  const itemRef = useRef<E>(null);
   const { stateMap, setItem, deleteItem, toggle, endTransition, mountOnEnter, initialEntered } =
     useContext(AccordionContext);
   if (process.env.NODE_ENV !== 'production' && !stateMap) {
@@ -41,7 +41,6 @@ const useAccordionItem = <K extends Element>({
     'aria-expanded': state.isEnter,
     onClick: toggleItem as unknown as MouseEventHandler<Element>
   };
-
   const panelProps: HTMLAttributes<Element> = {
     id: panelId,
     'aria-labelledby': buttonId,

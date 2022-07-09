@@ -2,7 +2,7 @@ import { RefObject, useState, useRef, useCallback } from 'react';
 import { TransitionState } from 'react-transition-state';
 import { useLayoutEffect } from '../utils/useIsomorphicLayoutEffect';
 
-const useTransitionHeight: (
+const useHeightTransition: (
   state?: TransitionState
 ) => [number | undefined, (element: Element | null) => void, RefObject<Element>] = (
   state?: TransitionState
@@ -41,4 +41,4 @@ const useTransitionHeight: (
   return [height, cbRef, elementRef];
 };
 
-export { useTransitionHeight };
+export { useHeightTransition };

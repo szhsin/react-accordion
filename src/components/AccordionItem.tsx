@@ -3,7 +3,7 @@ import { TransitionState } from 'react-transition-state';
 import { ACCORDION_BLOCK, ClassNameProp } from '../utils/constants';
 import { bem } from '../utils/bem';
 import { useAccordionItem } from '../hooks/useAccordionItem';
-import { useTransitionHeight } from '../hooks/useTransitionHeight';
+import { useHeightTransition } from '../hooks/useHeightTransition';
 
 const AccordionItem = ({
   itemKey,
@@ -24,7 +24,7 @@ const AccordionItem = ({
     panelProps,
     state: { state, isMounted, isEnter }
   } = useAccordionItem<HTMLDivElement>({ itemKey, initialEntered });
-  const [height, panelRef] = useTransitionHeight(state);
+  const [height, panelRef] = useHeightTransition(state);
 
   return (
     <div

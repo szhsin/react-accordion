@@ -1,7 +1,7 @@
 import { useState, useRef, useCallback } from 'react';
 import { useLayoutEffect as useIsomorphicLayoutEffect } from '../utils/useIsomorphicLayoutEffect.js';
 
-var useTransitionHeight = function useTransitionHeight(state) {
+var useHeightTransition = function useHeightTransition(state) {
   var _useState = useState(),
       _height = _useState[0],
       setHeight = _useState[1];
@@ -38,4 +38,4 @@ var useTransitionHeight = function useTransitionHeight(state) {
   return [height, cbRef, elementRef];
 };
 
-export { useTransitionHeight };
+export { useHeightTransition };

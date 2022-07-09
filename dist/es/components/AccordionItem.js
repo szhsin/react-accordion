@@ -2,7 +2,7 @@ import { extends as _extends } from '../_virtual/_rollupPluginBabelHelpers.js';
 import { ACCORDION_BLOCK } from '../utils/constants.js';
 import { bem } from '../utils/bem.js';
 import { useAccordionItem } from '../hooks/useAccordionItem.js';
-import { useTransitionHeight } from '../hooks/useTransitionHeight.js';
+import { useHeightTransition } from '../hooks/useHeightTransition.js';
 import { jsxs, jsx } from 'react/jsx-runtime';
 
 var AccordionItem = function AccordionItem(_ref) {
@@ -24,9 +24,9 @@ var AccordionItem = function AccordionItem(_ref) {
       isMounted = _useAccordionItem$sta.isMounted,
       isEnter = _useAccordionItem$sta.isEnter;
 
-  var _useTransitionHeight = useTransitionHeight(state),
-      height = _useTransitionHeight[0],
-      panelRef = _useTransitionHeight[1];
+  var _useHeightTransition = useHeightTransition(state),
+      height = _useHeightTransition[0],
+      panelRef = _useHeightTransition[1];
 
   return /*#__PURE__*/jsxs("div", {
     ref: itemRef,

@@ -244,7 +244,7 @@ var useAccordionItem = function useAccordionItem(_temp) {
 
 var useIsomorphicLayoutEffect = typeof window !== 'undefined' && typeof window.document !== 'undefined' && typeof window.document.createElement !== 'undefined' ? react.useLayoutEffect : react.useEffect;
 
-var useTransitionHeight = function useTransitionHeight(state) {
+var useHeightTransition = function useHeightTransition(state) {
   var _useState = react.useState(),
       _height = _useState[0],
       setHeight = _useState[1];
@@ -300,9 +300,9 @@ var AccordionItem = function AccordionItem(_ref) {
       isMounted = _useAccordionItem$sta.isMounted,
       isEnter = _useAccordionItem$sta.isEnter;
 
-  var _useTransitionHeight = useTransitionHeight(state),
-      height = _useTransitionHeight[0],
-      panelRef = _useTransitionHeight[1];
+  var _useHeightTransition = useHeightTransition(state),
+      height = _useHeightTransition[0],
+      panelRef = _useHeightTransition[1];
 
   return /*#__PURE__*/jsxRuntime.jsxs("div", {
     ref: itemRef,
