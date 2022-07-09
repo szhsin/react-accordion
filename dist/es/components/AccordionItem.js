@@ -18,7 +18,7 @@ var AccordionItem = function AccordionItem(_ref) {
   }),
       itemRef = _useAccordionItem.itemRef,
       buttonProps = _useAccordionItem.buttonProps,
-      toggle = _useAccordionItem.toggle,
+      panelProps = _useAccordionItem.panelProps,
       _useAccordionItem$sta = _useAccordionItem.state,
       state = _useAccordionItem$sta.state,
       isMounted = _useAccordionItem$sta.isMounted,
@@ -38,27 +38,23 @@ var AccordionItem = function AccordionItem(_ref) {
       style: {
         margin: 0
       },
-      children: /*#__PURE__*/jsx("button", _extends({}, buttonProps, {
-        type: "button",
-        onClick: toggle,
+      children: /*#__PURE__*/jsx("button", _extends({
+        type: "button"
+      }, buttonProps, {
         children: header
       }))
     }), isMounted && /*#__PURE__*/jsx("div", {
-      role: "region",
-      className: state,
       style: {
         display: state === 'exited' ? 'none' : undefined,
         height: height,
         transition: 'height .3s ease-in-out',
         overflow: 'hidden'
       },
-      children: /*#__PURE__*/jsx("div", {
-        ref: panelRef,
-        style: {
-          padding: '1rem'
-        },
+      children: /*#__PURE__*/jsx("div", _extends({
+        ref: panelRef
+      }, panelProps, {
         children: children
-      })
+      }))
     })]
   });
 };

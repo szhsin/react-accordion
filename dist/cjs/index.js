@@ -39,6 +39,7 @@ function _objectWithoutPropertiesLoose(source, excluded) {
 }
 
 var ACCORDION_BLOCK = 'szh-accordion';
+var ACCORDION_PREFIX = 'szh-adn';
 var ACCORDION_BTN_ATTR = "data-" + ACCORDION_BLOCK + "-btn";
 var ACCORDION_ATTR = "data-" + ACCORDION_BLOCK;
 var AccordionContext = /*#__PURE__*/react.createContext({});
@@ -150,12 +151,28 @@ var Accordion = function Accordion(_ref) {
       accordionProps = _useAccordion.accordionProps;
 
   return /*#__PURE__*/jsxRuntime.jsx(AccordionProvider, _extends({}, rest, {
-    children: /*#__PURE__*/jsxRuntime.jsx("div", _extends({}, accordionProps, {
-      className: bem(ACCORDION_BLOCK, undefined, undefined, className),
+    children: /*#__PURE__*/jsxRuntime.jsx("div", _extends({
+      className: bem(ACCORDION_BLOCK, undefined, undefined, className)
+    }, accordionProps, {
       children: children
     }))
   }));
 };
+
+var current = 0;
+
+var useIdShim = function useIdShim() {
+  var _useState = react.useState(),
+      id = _useState[0],
+      setId = _useState[1];
+
+  react.useEffect(function () {
+    return setId(++current);
+  }, []);
+  return id && ACCORDION_PREFIX + "-" + id;
+};
+
+var _useId = react.useId || useIdShim;
 
 var useAccordionItem = function useAccordionItem(_temp) {
   var _buttonProps;
@@ -170,7 +187,7 @@ var useAccordionItem = function useAccordionItem(_temp) {
       stateMap = _useContext.stateMap,
       setItem = _useContext.setItem,
       deleteItem = _useContext.deleteItem,
-      _toggle = _useContext.toggle,
+      toggle = _useContext.toggle,
       _endTransition = _useContext.endTransition,
       mountOnEnter = _useContext.mountOnEnter,
       initialEntered = _useContext.initialEntered;
@@ -197,13 +214,28 @@ var useAccordionItem = function useAccordionItem(_temp) {
     isEnter: !!_initialEntered
   };
   var key = itemKey != null ? itemKey : itemRef.current;
+  var state = stateMap.get(key) || initialState;
+
+  var toggleItem = function toggleItem(toEnter) {
+    return toggle(key, toEnter);
+  };
+
+  var buttonId = _useId();
+  var panelId = _useId();
+  var buttonProps = (_buttonProps = {
+    id: buttonId
+  }, _buttonProps[ACCORDION_BTN_ATTR] = '', _buttonProps['aria-controls'] = panelId, _buttonProps['aria-expanded'] = state.isEnter, _buttonProps.onClick = toggleItem, _buttonProps);
+  var panelProps = {
+    id: panelId,
+    'aria-labelledby': buttonId,
+    role: 'region'
+  };
   return {
     itemRef: itemRef,
-    buttonProps: (_buttonProps = {}, _buttonProps[ACCORDION_BTN_ATTR] = '', _buttonProps),
-    state: stateMap.get(key) || initialState,
-    toggle: function toggle(toEnter) {
-      return _toggle(key, toEnter);
-    },
+    buttonProps: buttonProps,
+    panelProps: panelProps,
+    state: state,
+    toggle: toggleItem,
     endTransition: function endTransition() {
       return _endTransition(key);
     }
@@ -262,7 +294,7 @@ var AccordionItem = function AccordionItem(_ref) {
   }),
       itemRef = _useAccordionItem.itemRef,
       buttonProps = _useAccordionItem.buttonProps,
-      toggle = _useAccordionItem.toggle,
+      panelProps = _useAccordionItem.panelProps,
       _useAccordionItem$sta = _useAccordionItem.state,
       state = _useAccordionItem$sta.state,
       isMounted = _useAccordionItem$sta.isMounted,
@@ -282,27 +314,23 @@ var AccordionItem = function AccordionItem(_ref) {
       style: {
         margin: 0
       },
-      children: /*#__PURE__*/jsxRuntime.jsx("button", _extends({}, buttonProps, {
-        type: "button",
-        onClick: toggle,
+      children: /*#__PURE__*/jsxRuntime.jsx("button", _extends({
+        type: "button"
+      }, buttonProps, {
         children: header
       }))
     }), isMounted && /*#__PURE__*/jsxRuntime.jsx("div", {
-      role: "region",
-      className: state,
       style: {
         display: state === 'exited' ? 'none' : undefined,
         height: height,
         transition: 'height .3s ease-in-out',
         overflow: 'hidden'
       },
-      children: /*#__PURE__*/jsxRuntime.jsx("div", {
-        ref: panelRef,
-        style: {
-          padding: '1rem'
-        },
+      children: /*#__PURE__*/jsxRuntime.jsx("div", _extends({
+        ref: panelRef
+      }, panelProps, {
         children: children
-      })
+      }))
     })]
   });
 };

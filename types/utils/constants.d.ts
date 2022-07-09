@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
 import { TransitionMapResult, TransitionMapOptions } from 'react-transition-state';
 export declare const ACCORDION_BLOCK = "szh-accordion";
+export declare const ACCORDION_PREFIX = "szh-adn";
 export declare const ACCORDION_BTN_ATTR: string;
 export declare const ACCORDION_ATTR: string;
 export declare type Modifiers = Record<string, boolean | string>;

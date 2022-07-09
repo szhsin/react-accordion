@@ -1,4 +1,4 @@
-import { ReactNode, MouseEventHandler } from 'react';
+import { ReactNode } from 'react';
 import { TransitionState } from 'react-transition-state';
 import { ACCORDION_BLOCK, ClassNameProp } from '../utils/constants';
 import { bem } from '../utils/bem';
@@ -21,7 +21,7 @@ const AccordionItem = ({
   const {
     itemRef,
     buttonProps,
-    toggle,
+    panelProps,
     state: { state, isMounted, isEnter }
   } = useAccordionItem<HTMLDivElement>({ itemKey, initialEntered });
   const [height, panelRef] = useTransitionHeight(state);
@@ -32,18 +32,12 @@ const AccordionItem = ({
       className={bem(ACCORDION_BLOCK, 'item', { state, expanded: isEnter }, className)}
     >
       <h3 style={{ margin: 0 }}>
-        <button
-          {...buttonProps}
-          type="button"
-          onClick={toggle as unknown as MouseEventHandler<Element>}
-        >
+        <button type="button" {...buttonProps}>
           {header}
         </button>
       </h3>
       {isMounted && (
         <div
-          role="region"
-          className={state}
           style={{
             display: state === 'exited' ? 'none' : undefined,
             height,
@@ -51,7 +45,7 @@ const AccordionItem = ({
             overflow: 'hidden'
           }}
         >
-          <div ref={panelRef} style={{ padding: '1rem' }}>
+          <div ref={panelRef} {...panelProps}>
             {children}
           </div>
         </div>

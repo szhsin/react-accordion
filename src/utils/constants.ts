@@ -2,6 +2,7 @@ import { createContext, ReactNode } from 'react';
 import { TransitionMapResult, TransitionMapOptions } from 'react-transition-state';
 
 export const ACCORDION_BLOCK = 'szh-accordion';
+export const ACCORDION_PREFIX = 'szh-adn';
 export const ACCORDION_BTN_ATTR = `data-${ACCORDION_BLOCK}-btn`;
 export const ACCORDION_ATTR = `data-${ACCORDION_BLOCK}`;
 
