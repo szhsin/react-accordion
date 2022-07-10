@@ -5,7 +5,7 @@ import { AccordionProvider } from './AccordionProvider.js';
 import { useAccordion } from '../hooks/useAccordion.js';
 import { jsx } from 'react/jsx-runtime';
 
-var _excluded = ["className", "allowMultiple", "initialEntered", "mountOnEnter", "unmountOnExit", "transition", "timeout", "onChange"];
+var _excluded = ["className", "allowMultiple", "initialEntered", "mountOnEnter", "unmountOnExit", "transition", "timeout", "onStateChange"];
 
 var Accordion = function Accordion(_ref) {
   var className = _ref.className,
@@ -15,7 +15,7 @@ var Accordion = function Accordion(_ref) {
       unmountOnExit = _ref.unmountOnExit,
       transition = _ref.transition,
       timeout = _ref.timeout,
-      onChange = _ref.onChange,
+      onStateChange = _ref.onStateChange,
       rest = _objectWithoutPropertiesLoose(_ref, _excluded);
 
   var _useAccordion = useAccordion(),
@@ -28,7 +28,7 @@ var Accordion = function Accordion(_ref) {
     unmountOnExit: unmountOnExit,
     transition: transition,
     timeout: timeout,
-    onChange: onChange,
+    onStateChange: onStateChange,
     children: /*#__PURE__*/jsx("div", _extends({}, rest, accordionProps, {
       className: bem(ACCORDION_BLOCK, undefined, undefined, className)
     }))

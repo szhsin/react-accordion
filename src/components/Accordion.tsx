@@ -3,9 +3,7 @@ import { bem } from '../utils/bem';
 import { AccordionProvider } from './AccordionProvider';
 import { useAccordion } from '../hooks/useAccordion';
 
-interface AccordionProps
-  extends AccordionProviderProps,
-    Omit<ElementProps<HTMLDivElement, string>, 'onChange'> {}
+interface AccordionProps extends AccordionProviderProps, ElementProps<HTMLDivElement, string> {}
 
 const Accordion = ({
   className,
@@ -15,7 +13,7 @@ const Accordion = ({
   unmountOnExit,
   transition,
   timeout,
-  onChange,
+  onStateChange,
   ...rest
 }: AccordionProps) => {
   const { accordionProps } = useAccordion();
@@ -27,7 +25,7 @@ const Accordion = ({
       unmountOnExit={unmountOnExit}
       transition={transition}
       timeout={timeout}
-      onChange={onChange}
+      onStateChange={onStateChange}
     >
       <div
         {...rest}

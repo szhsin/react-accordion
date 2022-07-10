@@ -1,5 +1,6 @@
+/// <reference types="react" />
 import { AccordionProviderProps, ElementProps } from '../utils/constants';
-interface AccordionProps extends AccordionProviderProps, Omit<ElementProps<HTMLDivElement, string>, 'onChange'> {
+interface AccordionProps extends AccordionProviderProps, ElementProps<HTMLDivElement, string> {
 }
-declare const Accordion: ({ className, allowMultiple, initialEntered, mountOnEnter, unmountOnExit, transition, timeout, onChange, ...rest }: AccordionProps) => JSX.Element;
+declare const Accordion: ({ className, allowMultiple, initialEntered, mountOnEnter, unmountOnExit, transition, timeout, onStateChange, ...rest }: AccordionProps) => JSX.Element;
 export { Accordion };
