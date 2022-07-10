@@ -23,13 +23,14 @@ const useAccordionItem = <E extends Element>({
   }, [setItem, deleteItem, itemKey, itemInitialEntered]);
 
   const _initialEntered = itemInitialEntered ?? initialEntered;
-  const initialState: State = {
+  const initialStates: State = {
     state: _initialEntered ? 'entered' : mountOnEnter ? 'unmounted' : 'exited',
     isMounted: !mountOnEnter,
-    isEnter: !!_initialEntered
+    isEnter: !!_initialEntered,
+    isResolved: true
   };
   const key = itemKey ?? itemRef.current!;
-  const state = stateMap!.get(key) || initialState;
+  const states = stateMap!.get(key) || initialStates;
   const toggleItem = (toEnter?: boolean) => toggle!(key, toEnter);
 
   const buttonId = useId();
@@ -38,7 +39,7 @@ const useAccordionItem = <E extends Element>({
     id: buttonId,
     [ACCORDION_BTN_ATTR]: '',
     'aria-controls': panelId,
-    'aria-expanded': state.isEnter,
+    'aria-expanded': states.isEnter,
     onClick: toggleItem as unknown as MouseEventHandler<Element>
   };
   const panelProps: HTMLAttributes<Element> = {
@@ -49,9 +50,9 @@ const useAccordionItem = <E extends Element>({
 
   return {
     itemRef,
+    states,
     buttonProps,
     panelProps,
-    state,
     toggle: toggleItem,
     endTransition: () => endTransition!(key)
   };

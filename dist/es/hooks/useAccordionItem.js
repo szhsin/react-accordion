@@ -36,13 +36,14 @@ var useAccordionItem = function useAccordionItem(_temp) {
 
   var _initialEntered = itemInitialEntered != null ? itemInitialEntered : initialEntered;
 
-  var initialState = {
+  var initialStates = {
     state: _initialEntered ? 'entered' : mountOnEnter ? 'unmounted' : 'exited',
     isMounted: !mountOnEnter,
-    isEnter: !!_initialEntered
+    isEnter: !!_initialEntered,
+    isResolved: true
   };
   var key = itemKey != null ? itemKey : itemRef.current;
-  var state = stateMap.get(key) || initialState;
+  var states = stateMap.get(key) || initialStates;
 
   var toggleItem = function toggleItem(toEnter) {
     return toggle(key, toEnter);
@@ -52,7 +53,7 @@ var useAccordionItem = function useAccordionItem(_temp) {
   var panelId = _useId();
   var buttonProps = (_buttonProps = {
     id: buttonId
-  }, _buttonProps[ACCORDION_BTN_ATTR] = '', _buttonProps['aria-controls'] = panelId, _buttonProps['aria-expanded'] = state.isEnter, _buttonProps.onClick = toggleItem, _buttonProps);
+  }, _buttonProps[ACCORDION_BTN_ATTR] = '', _buttonProps['aria-controls'] = panelId, _buttonProps['aria-expanded'] = states.isEnter, _buttonProps.onClick = toggleItem, _buttonProps);
   var panelProps = {
     id: panelId,
     'aria-labelledby': buttonId,
@@ -60,9 +61,9 @@ var useAccordionItem = function useAccordionItem(_temp) {
   };
   return {
     itemRef: itemRef,
+    states: states,
     buttonProps: buttonProps,
     panelProps: panelProps,
-    state: state,
     toggle: toggleItem,
     endTransition: function endTransition() {
       return _endTransition(key);

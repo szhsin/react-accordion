@@ -138,7 +138,7 @@ var useAccordion = function useAccordion() {
   };
 };
 
-var _excluded$1 = ["className", "allowMultiple", "initialEntered", "mountOnEnter", "unmountOnExit", "transition", "timeout", "onChange"];
+var _excluded$1 = ["className", "allowMultiple", "initialEntered", "mountOnEnter", "unmountOnExit", "transition", "timeout", "onStateChange"];
 
 var Accordion = function Accordion(_ref) {
   var className = _ref.className,
@@ -148,7 +148,7 @@ var Accordion = function Accordion(_ref) {
       unmountOnExit = _ref.unmountOnExit,
       transition = _ref.transition,
       timeout = _ref.timeout,
-      onChange = _ref.onChange,
+      onStateChange = _ref.onStateChange,
       rest = _objectWithoutPropertiesLoose(_ref, _excluded$1);
 
   var _useAccordion = useAccordion(),
@@ -161,7 +161,7 @@ var Accordion = function Accordion(_ref) {
     unmountOnExit: unmountOnExit,
     transition: transition,
     timeout: timeout,
-    onChange: onChange,
+    onStateChange: onStateChange,
     children: /*#__PURE__*/jsxRuntime.jsx("div", _extends({}, rest, accordionProps, {
       className: bem(ACCORDION_BLOCK, undefined, undefined, className)
     }))
@@ -217,13 +217,14 @@ var useAccordionItem = function useAccordionItem(_temp) {
 
   var _initialEntered = itemInitialEntered != null ? itemInitialEntered : initialEntered;
 
-  var initialState = {
+  var initialStates = {
     state: _initialEntered ? 'entered' : mountOnEnter ? 'unmounted' : 'exited',
     isMounted: !mountOnEnter,
-    isEnter: !!_initialEntered
+    isEnter: !!_initialEntered,
+    isResolved: true
   };
   var key = itemKey != null ? itemKey : itemRef.current;
-  var state = stateMap.get(key) || initialState;
+  var states = stateMap.get(key) || initialStates;
 
   var toggleItem = function toggleItem(toEnter) {
     return toggle(key, toEnter);
@@ -233,7 +234,7 @@ var useAccordionItem = function useAccordionItem(_temp) {
   var panelId = _useId();
   var buttonProps = (_buttonProps = {
     id: buttonId
-  }, _buttonProps[ACCORDION_BTN_ATTR] = '', _buttonProps['aria-controls'] = panelId, _buttonProps['aria-expanded'] = state.isEnter, _buttonProps.onClick = toggleItem, _buttonProps);
+  }, _buttonProps[ACCORDION_BTN_ATTR] = '', _buttonProps['aria-controls'] = panelId, _buttonProps['aria-expanded'] = states.isEnter, _buttonProps.onClick = toggleItem, _buttonProps);
   var panelProps = {
     id: panelId,
     'aria-labelledby': buttonId,
@@ -241,9 +242,9 @@ var useAccordionItem = function useAccordionItem(_temp) {
   };
   return {
     itemRef: itemRef,
+    states: states,
     buttonProps: buttonProps,
     panelProps: panelProps,
-    state: state,
     toggle: toggleItem,
     endTransition: function endTransition() {
       return _endTransition(key);
@@ -253,7 +254,10 @@ var useAccordionItem = function useAccordionItem(_temp) {
 
 var useIsomorphicLayoutEffect = typeof window !== 'undefined' && typeof window.document !== 'undefined' && typeof window.document.createElement !== 'undefined' ? react.useLayoutEffect : react.useEffect;
 
-var useHeightTransition = function useHeightTransition(state) {
+var useHeightTransition = function useHeightTransition(_ref) {
+  var state = _ref.state,
+      isResolved = _ref.isResolved;
+
   var _useState = react.useState(),
       _height = _useState[0],
       setHeight = _useState[1];
@@ -289,7 +293,7 @@ var useHeightTransition = function useHeightTransition(state) {
   var height = state === 'preEnter' || state === 'exiting' ? 0 : state === 'entering' || state === 'preExit' ? _height : undefined;
   return [{
     height: height,
-    overflow: state !== 'entered' ? 'hidden' : undefined
+    overflow: isResolved ? undefined : 'hidden'
   }, cbRef, elementRef];
 };
 
@@ -312,17 +316,17 @@ var AccordionItem = function AccordionItem(_ref) {
     initialEntered: initialEntered
   }),
       itemRef = _useAccordionItem.itemRef,
+      states = _useAccordionItem.states,
       _buttonProps = _useAccordionItem.buttonProps,
-      _panelProps = _useAccordionItem.panelProps,
-      _useAccordionItem$sta = _useAccordionItem.state,
-      state = _useAccordionItem$sta.state,
-      isMounted = _useAccordionItem$sta.isMounted,
-      isEnter = _useAccordionItem$sta.isEnter;
+      _panelProps = _useAccordionItem.panelProps;
 
-  var _useHeightTransition = useHeightTransition(state),
+  var _useHeightTransition = useHeightTransition(states),
       transitionStyle = _useHeightTransition[0],
       panelRef = _useHeightTransition[1];
 
+  var state = states.state,
+      isMounted = states.isMounted,
+      isEnter = states.isEnter;
   var modifiers = {
     state: state,
     expanded: isEnter

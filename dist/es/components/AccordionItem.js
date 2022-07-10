@@ -24,17 +24,17 @@ var AccordionItem = function AccordionItem(_ref) {
     initialEntered: initialEntered
   }),
       itemRef = _useAccordionItem.itemRef,
+      states = _useAccordionItem.states,
       _buttonProps = _useAccordionItem.buttonProps,
-      _panelProps = _useAccordionItem.panelProps,
-      _useAccordionItem$sta = _useAccordionItem.state,
-      state = _useAccordionItem$sta.state,
-      isMounted = _useAccordionItem$sta.isMounted,
-      isEnter = _useAccordionItem$sta.isEnter;
+      _panelProps = _useAccordionItem.panelProps;
 
-  var _useHeightTransition = useHeightTransition(state),
+  var _useHeightTransition = useHeightTransition(states),
       transitionStyle = _useHeightTransition[0],
       panelRef = _useHeightTransition[1];
 
+  var state = states.state,
+      isMounted = states.isMounted,
+      isEnter = states.isEnter;
   var modifiers = {
     state: state,
     expanded: isEnter

@@ -1,7 +1,10 @@
 import { useState, useRef, useCallback } from 'react';
 import { useLayoutEffect as useIsomorphicLayoutEffect } from '../utils/useIsomorphicLayoutEffect.js';
 
-var useHeightTransition = function useHeightTransition(state) {
+var useHeightTransition = function useHeightTransition(_ref) {
+  var state = _ref.state,
+      isResolved = _ref.isResolved;
+
   var _useState = useState(),
       _height = _useState[0],
       setHeight = _useState[1];
@@ -37,7 +40,7 @@ var useHeightTransition = function useHeightTransition(state) {
   var height = state === 'preEnter' || state === 'exiting' ? 0 : state === 'entering' || state === 'preExit' ? _height : undefined;
   return [{
     height: height,
-    overflow: state !== 'entered' ? 'hidden' : undefined
+    overflow: isResolved ? undefined : 'hidden'
   }, cbRef, elementRef];
 };
 

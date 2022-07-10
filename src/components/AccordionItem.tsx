@@ -37,11 +37,12 @@ const AccordionItem = ({
 }: AccordionItemProps) => {
   const {
     itemRef,
+    states,
     buttonProps: _buttonProps,
-    panelProps: _panelProps,
-    state: { state, isMounted, isEnter }
+    panelProps: _panelProps
   } = useAccordionItem<HTMLDivElement>({ itemKey, initialEntered });
-  const [transitionStyle, panelRef] = useHeightTransition(state);
+  const [transitionStyle, panelRef] = useHeightTransition(states);
+  const { state, isMounted, isEnter } = states;
   const modifiers: ItemModifiers = { state, expanded: isEnter };
 
   return (
