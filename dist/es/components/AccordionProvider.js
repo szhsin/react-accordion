@@ -3,20 +3,20 @@ import { useTransitionMap } from 'react-transition-state';
 import { AccordionContext } from '../utils/constants.js';
 import { jsx } from 'react/jsx-runtime';
 
-var _excluded = ["transition", "children"];
+var _excluded = ["allowMultiple", "transition", "children"];
 
 var getTransition = function getTransition(transition, name) {
   return transition === true || !!(transition && transition[name]);
 };
 
 var AccordionProvider = function AccordionProvider(_ref) {
-  var transition = _ref.transition,
+  var allowMultiple = _ref.allowMultiple,
+      transition = _ref.transition,
       children = _ref.children,
       rest = _objectWithoutPropertiesLoose(_ref, _excluded);
 
-  var mountOnEnter = rest.mountOnEnter,
-      initialEntered = rest.initialEntered;
   var transitionMap = useTransitionMap(_extends({
+    singleEnter: !allowMultiple,
     enter: getTransition(transition, 'enter'),
     exit: getTransition(transition, 'exit'),
     preEnter: getTransition(transition, 'preEnter'),
@@ -24,8 +24,8 @@ var AccordionProvider = function AccordionProvider(_ref) {
   }, rest));
   return /*#__PURE__*/jsx(AccordionContext.Provider, {
     value: _extends({
-      mountOnEnter: mountOnEnter,
-      initialEntered: initialEntered
+      mountOnEnter: rest.mountOnEnter,
+      initialEntered: rest.initialEntered
     }, transitionMap),
     children: children
   });

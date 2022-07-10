@@ -5,15 +5,15 @@ import { AccordionProvider } from './AccordionProvider.js';
 import { useAccordion } from '../hooks/useAccordion.js';
 import { jsx } from 'react/jsx-runtime';
 
-var _excluded = ["className", "transition", "initialEntered", "mountOnEnter", "unmountOnExit", "singleEnter", "timeout", "onChange"];
+var _excluded = ["className", "allowMultiple", "initialEntered", "mountOnEnter", "unmountOnExit", "transition", "timeout", "onChange"];
 
 var Accordion = function Accordion(_ref) {
   var className = _ref.className,
-      transition = _ref.transition,
+      allowMultiple = _ref.allowMultiple,
       initialEntered = _ref.initialEntered,
       mountOnEnter = _ref.mountOnEnter,
       unmountOnExit = _ref.unmountOnExit,
-      singleEnter = _ref.singleEnter,
+      transition = _ref.transition,
       timeout = _ref.timeout,
       onChange = _ref.onChange,
       rest = _objectWithoutPropertiesLoose(_ref, _excluded);
@@ -22,11 +22,11 @@ var Accordion = function Accordion(_ref) {
       accordionProps = _useAccordion.accordionProps;
 
   return /*#__PURE__*/jsx(AccordionProvider, {
-    transition: transition,
+    allowMultiple: allowMultiple,
     initialEntered: initialEntered,
     mountOnEnter: mountOnEnter,
     unmountOnExit: unmountOnExit,
-    singleEnter: singleEnter,
+    transition: transition,
     timeout: timeout,
     onChange: onChange,
     children: /*#__PURE__*/jsx("div", _extends({}, rest, accordionProps, {

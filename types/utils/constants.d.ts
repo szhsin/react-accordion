@@ -20,7 +20,8 @@ export declare type TransitionProp = boolean | {
     preEnter?: boolean;
     preExit?: boolean;
 };
-export interface AccordionProviderProps extends Omit<TransitionMapOptions<ItemKey>, 'enter' | 'exit' | 'preEnter' | 'preExit'> {
+export interface AccordionProviderProps extends Omit<TransitionMapOptions<ItemKey>, 'enter' | 'exit' | 'preEnter' | 'preExit' | 'singleEnter'> {
+    allowMultiple?: boolean;
     transition?: TransitionProp;
     children?: ReactNode;
 }

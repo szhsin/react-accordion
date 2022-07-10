@@ -28,7 +28,11 @@ export type TransitionProp =
     };
 
 export interface AccordionProviderProps
-  extends Omit<TransitionMapOptions<ItemKey>, 'enter' | 'exit' | 'preEnter' | 'preExit'> {
+  extends Omit<
+    TransitionMapOptions<ItemKey>,
+    'enter' | 'exit' | 'preEnter' | 'preExit' | 'singleEnter'
+  > {
+  allowMultiple?: boolean;
   transition?: TransitionProp;
   children?: ReactNode;
 }

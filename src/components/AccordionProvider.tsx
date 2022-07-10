@@ -11,9 +11,14 @@ const getTransition = (
   name: 'enter' | 'exit' | 'preEnter' | 'preExit'
 ): boolean => transition === true || !!(transition && transition[name]);
 
-const AccordionProvider = ({ transition, children, ...rest }: AccordionProviderProps) => {
-  const { mountOnEnter, initialEntered } = rest;
+const AccordionProvider = ({
+  allowMultiple,
+  transition,
+  children,
+  ...rest
+}: AccordionProviderProps) => {
   const transitionMap = useTransitionMap<ItemKey>({
+    singleEnter: !allowMultiple,
     enter: getTransition(transition, 'enter'),
     exit: getTransition(transition, 'exit'),
     preEnter: getTransition(transition, 'preEnter'),
@@ -21,7 +26,13 @@ const AccordionProvider = ({ transition, children, ...rest }: AccordionProviderP
     ...rest
   });
   return (
-    <AccordionContext.Provider value={{ mountOnEnter, initialEntered, ...transitionMap }}>
+    <AccordionContext.Provider
+      value={{
+        mountOnEnter: rest.mountOnEnter,
+        initialEntered: rest.initialEntered,
+        ...transitionMap
+      }}
+    >
       {children}
     </AccordionContext.Provider>
   );

@@ -9,11 +9,11 @@ interface AccordionProps
 
 const Accordion = ({
   className,
-  transition,
+  allowMultiple,
   initialEntered,
   mountOnEnter,
   unmountOnExit,
-  singleEnter,
+  transition,
   timeout,
   onChange,
   ...rest
@@ -21,11 +21,11 @@ const Accordion = ({
   const { accordionProps } = useAccordion();
   return (
     <AccordionProvider
-      transition={transition}
+      allowMultiple={allowMultiple}
       initialEntered={initialEntered}
       mountOnEnter={mountOnEnter}
       unmountOnExit={unmountOnExit}
-      singleEnter={singleEnter}
+      transition={transition}
       timeout={timeout}
       onChange={onChange}
     >

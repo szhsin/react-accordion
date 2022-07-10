@@ -62,20 +62,20 @@ var bem = function bem(block, element, modifiers, className, addModifier) {
   return classString;
 };
 
-var _excluded$2 = ["transition", "children"];
+var _excluded$2 = ["allowMultiple", "transition", "children"];
 
 var getTransition = function getTransition(transition, name) {
   return transition === true || !!(transition && transition[name]);
 };
 
 var AccordionProvider = function AccordionProvider(_ref) {
-  var transition = _ref.transition,
+  var allowMultiple = _ref.allowMultiple,
+      transition = _ref.transition,
       children = _ref.children,
       rest = _objectWithoutPropertiesLoose(_ref, _excluded$2);
 
-  var mountOnEnter = rest.mountOnEnter,
-      initialEntered = rest.initialEntered;
   var transitionMap = reactTransitionState.useTransitionMap(_extends({
+    singleEnter: !allowMultiple,
     enter: getTransition(transition, 'enter'),
     exit: getTransition(transition, 'exit'),
     preEnter: getTransition(transition, 'preEnter'),
@@ -83,8 +83,8 @@ var AccordionProvider = function AccordionProvider(_ref) {
   }, rest));
   return /*#__PURE__*/jsxRuntime.jsx(AccordionContext.Provider, {
     value: _extends({
-      mountOnEnter: mountOnEnter,
-      initialEntered: initialEntered
+      mountOnEnter: rest.mountOnEnter,
+      initialEntered: rest.initialEntered
     }, transitionMap),
     children: children
   });
@@ -138,15 +138,15 @@ var useAccordion = function useAccordion() {
   };
 };
 
-var _excluded$1 = ["className", "transition", "initialEntered", "mountOnEnter", "unmountOnExit", "singleEnter", "timeout", "onChange"];
+var _excluded$1 = ["className", "allowMultiple", "initialEntered", "mountOnEnter", "unmountOnExit", "transition", "timeout", "onChange"];
 
 var Accordion = function Accordion(_ref) {
   var className = _ref.className,
-      transition = _ref.transition,
+      allowMultiple = _ref.allowMultiple,
       initialEntered = _ref.initialEntered,
       mountOnEnter = _ref.mountOnEnter,
       unmountOnExit = _ref.unmountOnExit,
-      singleEnter = _ref.singleEnter,
+      transition = _ref.transition,
       timeout = _ref.timeout,
       onChange = _ref.onChange,
       rest = _objectWithoutPropertiesLoose(_ref, _excluded$1);
@@ -155,11 +155,11 @@ var Accordion = function Accordion(_ref) {
       accordionProps = _useAccordion.accordionProps;
 
   return /*#__PURE__*/jsxRuntime.jsx(AccordionProvider, {
-    transition: transition,
+    allowMultiple: allowMultiple,
     initialEntered: initialEntered,
     mountOnEnter: mountOnEnter,
     unmountOnExit: unmountOnExit,
-    singleEnter: singleEnter,
+    transition: transition,
     timeout: timeout,
     onChange: onChange,
     children: /*#__PURE__*/jsxRuntime.jsx("div", _extends({}, rest, accordionProps, {
