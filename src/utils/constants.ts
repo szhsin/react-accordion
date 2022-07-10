@@ -3,8 +3,8 @@ import { TransitionMapResult, TransitionMapOptions } from 'react-transition-stat
 
 export const ACCORDION_BLOCK = 'szh-accordion';
 export const ACCORDION_PREFIX = 'szh-adn';
-export const ACCORDION_BTN_ATTR = `data-${ACCORDION_BLOCK}-btn`;
-export const ACCORDION_ATTR = `data-${ACCORDION_BLOCK}`;
+export const ACCORDION_ATTR = `data-${ACCORDION_PREFIX}`;
+export const ACCORDION_BTN_ATTR = `data-${ACCORDION_PREFIX}-btn`;
 
 export type Modifiers = {
   readonly [index: string]: boolean | string;

@@ -40,8 +40,8 @@ function _objectWithoutPropertiesLoose(source, excluded) {
 
 var ACCORDION_BLOCK = 'szh-accordion';
 var ACCORDION_PREFIX = 'szh-adn';
-var ACCORDION_BTN_ATTR = "data-" + ACCORDION_BLOCK + "-btn";
-var ACCORDION_ATTR = "data-" + ACCORDION_BLOCK;
+var ACCORDION_ATTR = "data-" + ACCORDION_PREFIX;
+var ACCORDION_BTN_ATTR = "data-" + ACCORDION_PREFIX + "-btn";
 var AccordionContext = /*#__PURE__*/react.createContext({});
 
 var bem = function bem(block, element, modifiers, className, addModifier) {

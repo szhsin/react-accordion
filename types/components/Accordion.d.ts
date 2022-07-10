@@ -1,3 +1,4 @@
+/// <reference types="react" />
 import { AccordionProviderProps, ElementProps } from '../utils/constants';
 interface AccordionProps extends AccordionProviderProps, Omit<ElementProps<HTMLDivElement, string>, 'onChange'> {
 }
