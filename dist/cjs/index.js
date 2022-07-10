@@ -62,7 +62,7 @@ var bem = function bem(block, element, modifiers, className, addModifier) {
   return classString;
 };
 
-var _excluded$1 = ["transition", "children"];
+var _excluded$2 = ["transition", "children"];
 
 var getTransition = function getTransition(transition, name) {
   return transition === true || !!(transition && transition[name]);
@@ -71,7 +71,7 @@ var getTransition = function getTransition(transition, name) {
 var AccordionProvider = function AccordionProvider(_ref) {
   var transition = _ref.transition,
       children = _ref.children,
-      rest = _objectWithoutPropertiesLoose(_ref, _excluded$1);
+      rest = _objectWithoutPropertiesLoose(_ref, _excluded$2);
 
   var mountOnEnter = rest.mountOnEnter,
       initialEntered = rest.initialEntered;
@@ -138,12 +138,12 @@ var useAccordion = function useAccordion() {
   };
 };
 
-var _excluded = ["className", "children"];
+var _excluded$1 = ["className", "children"];
 
 var Accordion = function Accordion(_ref) {
   var className = _ref.className,
       children = _ref.children,
-      rest = _objectWithoutPropertiesLoose(_ref, _excluded);
+      rest = _objectWithoutPropertiesLoose(_ref, _excluded$1);
 
   var _useAccordion = useAccordion(),
       accordionProps = _useAccordion.accordionProps;
@@ -282,6 +282,8 @@ var useHeightTransition = function useHeightTransition(state) {
   }, cbRef, elementRef];
 };
 
+var _excluded = ["itemKey", "initialEntered", "className", "header", "headerProps", "buttonProps", "contentProps", "panelProps", "children"];
+
 var AccordionItem = function AccordionItem(_ref) {
   var itemKey = _ref.itemKey,
       initialEntered = _ref.initialEntered,
@@ -291,7 +293,8 @@ var AccordionItem = function AccordionItem(_ref) {
       buttonProps = _ref.buttonProps,
       contentProps = _ref.contentProps,
       panelProps = _ref.panelProps,
-      children = _ref.children;
+      children = _ref.children,
+      rest = _objectWithoutPropertiesLoose(_ref, _excluded);
 
   var _useAccordionItem = useAccordionItem({
     itemKey: itemKey,
@@ -313,7 +316,7 @@ var AccordionItem = function AccordionItem(_ref) {
     state: state,
     expanded: isEnter
   };
-  return /*#__PURE__*/jsxRuntime.jsxs("div", {
+  return /*#__PURE__*/jsxRuntime.jsxs("div", _extends({}, rest, {
     ref: itemRef,
     className: bem(ACCORDION_BLOCK, 'item', modifiers, className, true),
     children: [/*#__PURE__*/jsxRuntime.jsx("h3", _extends({}, headerProps, {
@@ -337,7 +340,7 @@ var AccordionItem = function AccordionItem(_ref) {
         children: children
       }))
     }))]
-  });
+  }));
 };
 
 exports.Accordion = Accordion;

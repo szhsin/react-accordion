@@ -1,9 +1,11 @@
-import { extends as _extends } from '../_virtual/_rollupPluginBabelHelpers.js';
+import { objectWithoutPropertiesLoose as _objectWithoutPropertiesLoose, extends as _extends } from '../_virtual/_rollupPluginBabelHelpers.js';
 import { ACCORDION_BLOCK } from '../utils/constants.js';
 import { bem } from '../utils/bem.js';
 import { useAccordionItem } from '../hooks/useAccordionItem.js';
 import { useHeightTransition } from '../hooks/useHeightTransition.js';
 import { jsxs, jsx } from 'react/jsx-runtime';
+
+var _excluded = ["itemKey", "initialEntered", "className", "header", "headerProps", "buttonProps", "contentProps", "panelProps", "children"];
 
 var AccordionItem = function AccordionItem(_ref) {
   var itemKey = _ref.itemKey,
@@ -14,7 +16,8 @@ var AccordionItem = function AccordionItem(_ref) {
       buttonProps = _ref.buttonProps,
       contentProps = _ref.contentProps,
       panelProps = _ref.panelProps,
-      children = _ref.children;
+      children = _ref.children,
+      rest = _objectWithoutPropertiesLoose(_ref, _excluded);
 
   var _useAccordionItem = useAccordionItem({
     itemKey: itemKey,
@@ -36,7 +39,7 @@ var AccordionItem = function AccordionItem(_ref) {
     state: state,
     expanded: isEnter
   };
-  return /*#__PURE__*/jsxs("div", {
+  return /*#__PURE__*/jsxs("div", _extends({}, rest, {
     ref: itemRef,
     className: bem(ACCORDION_BLOCK, 'item', modifiers, className, true),
     children: [/*#__PURE__*/jsx("h3", _extends({}, headerProps, {
@@ -60,7 +63,7 @@ var AccordionItem = function AccordionItem(_ref) {
         children: children
       }))
     }))]
-  });
+  }));
 };
 
 export { AccordionItem };

@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import { TransitionState } from 'react-transition-state';
-import { ACCORDION_BLOCK, ClassNameProp, ElementProps } from '../utils/constants';
+import { ACCORDION_BLOCK, ElementProps } from '../utils/constants';
 import { bem } from '../utils/bem';
 import { useAccordionItem } from '../hooks/useAccordionItem';
 import { useHeightTransition } from '../hooks/useHeightTransition';
@@ -10,15 +10,16 @@ type ItemModifiers = {
   readonly expanded: boolean;
 };
 
-interface AccordionItemProps {
+type ItemElementProps<E extends HTMLElement> = ElementProps<E, ItemModifiers>;
+
+interface AccordionItemProps extends ItemElementProps<HTMLDivElement> {
   itemKey?: string | number;
   initialEntered?: boolean;
-  className?: ClassNameProp<ItemModifiers>;
   header?: ReactNode;
-  headerProps?: ElementProps<HTMLHeadingElement, ItemModifiers>;
-  buttonProps?: ElementProps<HTMLButtonElement, ItemModifiers>;
-  contentProps?: ElementProps<HTMLDivElement, ItemModifiers>;
-  panelProps?: ElementProps<HTMLDivElement, ItemModifiers>;
+  headerProps?: ItemElementProps<HTMLHeadingElement>;
+  buttonProps?: ItemElementProps<HTMLButtonElement>;
+  contentProps?: ItemElementProps<HTMLDivElement>;
+  panelProps?: ItemElementProps<HTMLDivElement>;
   children?: ReactNode;
 }
 
@@ -31,7 +32,8 @@ const AccordionItem = ({
   buttonProps,
   contentProps,
   panelProps,
-  children
+  children,
+  ...rest
 }: AccordionItemProps) => {
   const {
     itemRef,
@@ -43,7 +45,11 @@ const AccordionItem = ({
   const modifiers: ItemModifiers = { state, expanded: isEnter };
 
   return (
-    <div ref={itemRef} className={bem(ACCORDION_BLOCK, 'item', modifiers, className, true)}>
+    <div
+      {...rest}
+      ref={itemRef}
+      className={bem(ACCORDION_BLOCK, 'item', modifiers, className, true)}
+    >
       <h3
         {...headerProps}
         style={{ margin: 0, ...headerProps?.style }}
