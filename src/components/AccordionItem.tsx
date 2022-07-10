@@ -16,11 +16,11 @@ interface AccordionItemProps extends ItemElementProps<HTMLDivElement> {
   itemKey?: string | number;
   initialEntered?: boolean;
   header?: ReactNode;
+  children?: ReactNode;
   headerProps?: ItemElementProps<HTMLHeadingElement>;
   buttonProps?: ItemElementProps<HTMLButtonElement>;
   contentProps?: ItemElementProps<HTMLDivElement>;
   panelProps?: ItemElementProps<HTMLDivElement>;
-  children?: ReactNode;
 }
 
 const AccordionItem = ({

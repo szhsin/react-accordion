@@ -10,10 +10,10 @@ export type Modifiers = {
   readonly [index: string]: boolean | string;
 };
 export type ClassNameProp<M extends Modifiers> = string | ((modifiers: M) => string);
-export interface ElementProps<E extends HTMLElement, M extends Modifiers>
+export interface ElementProps<E extends HTMLElement, M extends Modifiers | string>
   extends Omit<HTMLAttributes<E>, 'className' | 'children'> {
   ref?: Ref<E>;
-  className?: ClassNameProp<M>;
+  className?: M extends Modifiers ? ClassNameProp<M> : string;
   'data-testid'?: string | number;
 }
 

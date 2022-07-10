@@ -1,6 +1,5 @@
-/// <reference types="react" />
-import { AccordionProviderProps } from '../utils/constants';
-declare const Accordion: ({ className, children, ...rest }: AccordionProviderProps & {
-    className?: string | undefined;
-}) => JSX.Element;
+import { AccordionProviderProps, ElementProps } from '../utils/constants';
+interface AccordionProps extends AccordionProviderProps, Omit<ElementProps<HTMLDivElement, string>, 'onChange'> {
+}
+declare const Accordion: ({ className, transition, initialEntered, mountOnEnter, unmountOnExit, singleEnter, timeout, onChange, ...rest }: AccordionProps) => JSX.Element;
 export { Accordion };

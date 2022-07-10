@@ -138,23 +138,34 @@ var useAccordion = function useAccordion() {
   };
 };
 
-var _excluded$1 = ["className", "children"];
+var _excluded$1 = ["className", "transition", "initialEntered", "mountOnEnter", "unmountOnExit", "singleEnter", "timeout", "onChange"];
 
 var Accordion = function Accordion(_ref) {
   var className = _ref.className,
-      children = _ref.children,
+      transition = _ref.transition,
+      initialEntered = _ref.initialEntered,
+      mountOnEnter = _ref.mountOnEnter,
+      unmountOnExit = _ref.unmountOnExit,
+      singleEnter = _ref.singleEnter,
+      timeout = _ref.timeout,
+      onChange = _ref.onChange,
       rest = _objectWithoutPropertiesLoose(_ref, _excluded$1);
 
   var _useAccordion = useAccordion(),
       accordionProps = _useAccordion.accordionProps;
 
-  return /*#__PURE__*/jsxRuntime.jsx(AccordionProvider, _extends({}, rest, {
-    children: /*#__PURE__*/jsxRuntime.jsx("div", _extends({
+  return /*#__PURE__*/jsxRuntime.jsx(AccordionProvider, {
+    transition: transition,
+    initialEntered: initialEntered,
+    mountOnEnter: mountOnEnter,
+    unmountOnExit: unmountOnExit,
+    singleEnter: singleEnter,
+    timeout: timeout,
+    onChange: onChange,
+    children: /*#__PURE__*/jsxRuntime.jsx("div", _extends({}, rest, accordionProps, {
       className: bem(ACCORDION_BLOCK, undefined, undefined, className)
-    }, accordionProps, {
-      children: children
     }))
-  }));
+  });
 };
 
 var current = 0;
