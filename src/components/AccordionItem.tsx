@@ -1,51 +1,86 @@
 import { ReactNode } from 'react';
 import { TransitionState } from 'react-transition-state';
-import { ACCORDION_BLOCK, ClassNameProp } from '../utils/constants';
+import { ACCORDION_BLOCK, ElementProps } from '../utils/constants';
 import { bem } from '../utils/bem';
 import { useAccordionItem } from '../hooks/useAccordionItem';
-import { useTransitionHeight } from '../hooks/useTransitionHeight';
+import { useHeightTransition } from '../hooks/useHeightTransition';
+
+type ItemModifiers = {
+  readonly state: TransitionState;
+  readonly expanded: boolean;
+};
+
+type ItemElementProps<E extends HTMLElement> = ElementProps<E, ItemModifiers>;
+
+interface AccordionItemProps extends ItemElementProps<HTMLDivElement> {
+  itemKey?: string | number;
+  initialEntered?: boolean;
+  header?: ReactNode;
+  children?: ReactNode;
+  headerProps?: ItemElementProps<HTMLHeadingElement>;
+  buttonProps?: ItemElementProps<HTMLButtonElement>;
+  contentProps?: ItemElementProps<HTMLDivElement>;
+  panelProps?: ItemElementProps<HTMLDivElement>;
+}
 
 const AccordionItem = ({
   itemKey,
   initialEntered,
   className,
   header,
-  children
-}: {
-  itemKey?: string | number;
-  initialEntered?: boolean;
-  className?: ClassNameProp<{ state: TransitionState; expanded: boolean }>;
-  header: ReactNode;
-  children?: ReactNode;
-}) => {
+  headerProps,
+  buttonProps,
+  contentProps,
+  panelProps,
+  children,
+  ...rest
+}: AccordionItemProps) => {
   const {
     itemRef,
-    buttonProps,
-    panelProps,
-    state: { state, isMounted, isEnter }
+    states,
+    buttonProps: _buttonProps,
+    panelProps: _panelProps
   } = useAccordionItem<HTMLDivElement>({ itemKey, initialEntered });
-  const [height, panelRef] = useTransitionHeight(state);
+  const [transitionStyle, panelRef] = useHeightTransition(states);
+  const { state, isMounted, isEnter } = states;
+  const modifiers: ItemModifiers = { state, expanded: isEnter };
 
   return (
     <div
+      {...rest}
       ref={itemRef}
-      className={bem(ACCORDION_BLOCK, 'item', { state, expanded: isEnter }, className)}
+      className={bem(ACCORDION_BLOCK, 'item', modifiers, className, true)}
     >
-      <h3 style={{ margin: 0 }}>
-        <button type="button" {...buttonProps}>
+      <h3
+        {...headerProps}
+        style={{ margin: 0, ...headerProps?.style }}
+        className={bem(ACCORDION_BLOCK, 'header', modifiers, headerProps?.className)}
+      >
+        <button
+          {...buttonProps}
+          {..._buttonProps}
+          type="button"
+          className={bem(ACCORDION_BLOCK, 'btn', modifiers, buttonProps?.className)}
+        >
           {header}
         </button>
       </h3>
       {isMounted && (
         <div
+          {...contentProps}
           style={{
             display: state === 'exited' ? 'none' : undefined,
-            height,
-            transition: 'height .3s ease-in-out',
-            overflow: 'hidden'
+            ...transitionStyle,
+            ...contentProps?.style
           }}
+          className={bem(ACCORDION_BLOCK, 'content', modifiers, contentProps?.className)}
         >
-          <div ref={panelRef} {...panelProps}>
+          <div
+            {...panelProps}
+            {..._panelProps}
+            ref={panelRef}
+            className={bem(ACCORDION_BLOCK, 'panel', modifiers, panelProps?.className)}
+          >
             {children}
           </div>
         </div>
@@ -54,4 +89,4 @@ const AccordionItem = ({
   );
 };
 
-export { AccordionItem };
+export { AccordionItem, AccordionItemProps };

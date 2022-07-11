@@ -8,15 +8,17 @@ const bem = <M extends Modifiers>(
   block: string,
   element?: string,
   modifiers?: M,
-  className?: ClassNameProp<M>
+  className?: ClassNameProp<M>,
+  addModifier?: boolean
 ) => {
   const blockElement = element ? `${block}__${element}` : block;
 
   let classString = blockElement;
-  for (const name of Object.keys(modifiers || {})) {
-    const value = modifiers![name];
-    if (value) classString += ` ${blockElement}--${value === true ? name : `${name}-${value}`}`;
-  }
+  if (addModifier && modifiers)
+    for (const name of Object.keys(modifiers)) {
+      const value = modifiers[name];
+      if (value) classString += ` ${blockElement}--${value === true ? name : `${name}-${value}`}`;
+    }
 
   let expandedClassName = typeof className === 'function' ? className(modifiers!) : className;
   if (typeof expandedClassName === 'string') {

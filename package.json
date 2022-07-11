@@ -37,7 +37,7 @@
     "react-dom": ">=16.14.0"
   },
   "dependencies": {
-    "react-transition-state": "^1.2.0-alpha.4"
+    "react-transition-state": "^1.2.0-alpha.5"
   },
   "devDependencies": {
     "@babel/core": "^7.18.6",

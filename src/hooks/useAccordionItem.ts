@@ -3,11 +3,11 @@ import { State } from 'react-transition-state';
 import { AccordionContext, ACCORDION_BTN_ATTR } from '../utils/constants';
 import { useId } from './useId';
 
-const useAccordionItem = <K extends Element>({
+const useAccordionItem = <E extends Element>({
   itemKey,
   initialEntered: itemInitialEntered
 }: { itemKey?: string | number; initialEntered?: boolean } = {}) => {
-  const itemRef = useRef<K>(null);
+  const itemRef = useRef<E>(null);
   const { stateMap, setItem, deleteItem, toggle, endTransition, mountOnEnter, initialEntered } =
     useContext(AccordionContext);
   if (process.env.NODE_ENV !== 'production' && !stateMap) {
@@ -23,13 +23,14 @@ const useAccordionItem = <K extends Element>({
   }, [setItem, deleteItem, itemKey, itemInitialEntered]);
 
   const _initialEntered = itemInitialEntered ?? initialEntered;
-  const initialState: State = {
+  const initialStates: State = {
     state: _initialEntered ? 'entered' : mountOnEnter ? 'unmounted' : 'exited',
     isMounted: !mountOnEnter,
-    isEnter: !!_initialEntered
+    isEnter: !!_initialEntered,
+    isResolved: true
   };
   const key = itemKey ?? itemRef.current!;
-  const state = stateMap!.get(key) || initialState;
+  const states = stateMap!.get(key) || initialStates;
   const toggleItem = (toEnter?: boolean) => toggle!(key, toEnter);
 
   const buttonId = useId();
@@ -38,10 +39,9 @@ const useAccordionItem = <K extends Element>({
     id: buttonId,
     [ACCORDION_BTN_ATTR]: '',
     'aria-controls': panelId,
-    'aria-expanded': state.isEnter,
+    'aria-expanded': states.isEnter,
     onClick: toggleItem as unknown as MouseEventHandler<Element>
   };
-
   const panelProps: HTMLAttributes<Element> = {
     id: panelId,
     'aria-labelledby': buttonId,
@@ -50,9 +50,9 @@ const useAccordionItem = <K extends Element>({
 
   return {
     itemRef,
+    states,
     buttonProps,
     panelProps,
-    state,
     toggle: toggleItem,
     endTransition: () => endTransition!(key)
   };

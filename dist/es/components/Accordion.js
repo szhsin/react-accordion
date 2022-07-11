@@ -5,23 +5,34 @@ import { AccordionProvider } from './AccordionProvider.js';
 import { useAccordion } from '../hooks/useAccordion.js';
 import { jsx } from 'react/jsx-runtime';
 
-var _excluded = ["className", "children"];
+var _excluded = ["className", "allowMultiple", "initialEntered", "mountOnEnter", "unmountOnExit", "transition", "transitionTimeout", "onStateChange"];
 
 var Accordion = function Accordion(_ref) {
   var className = _ref.className,
-      children = _ref.children,
+      allowMultiple = _ref.allowMultiple,
+      initialEntered = _ref.initialEntered,
+      mountOnEnter = _ref.mountOnEnter,
+      unmountOnExit = _ref.unmountOnExit,
+      transition = _ref.transition,
+      transitionTimeout = _ref.transitionTimeout,
+      onStateChange = _ref.onStateChange,
       rest = _objectWithoutPropertiesLoose(_ref, _excluded);
 
   var _useAccordion = useAccordion(),
       accordionProps = _useAccordion.accordionProps;
 
-  return /*#__PURE__*/jsx(AccordionProvider, _extends({}, rest, {
-    children: /*#__PURE__*/jsx("div", _extends({
+  return /*#__PURE__*/jsx(AccordionProvider, {
+    allowMultiple: allowMultiple,
+    initialEntered: initialEntered,
+    mountOnEnter: mountOnEnter,
+    unmountOnExit: unmountOnExit,
+    transition: transition,
+    transitionTimeout: transitionTimeout,
+    onStateChange: onStateChange,
+    children: /*#__PURE__*/jsx("div", _extends({}, rest, accordionProps, {
       className: bem(ACCORDION_BLOCK, undefined, undefined, className)
-    }, accordionProps, {
-      children: children
     }))
-  }));
+  });
 };
 
 export { Accordion };

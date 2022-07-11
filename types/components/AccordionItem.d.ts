@@ -1,14 +1,20 @@
 import { ReactNode } from 'react';
 import { TransitionState } from 'react-transition-state';
-import { ClassNameProp } from '../utils/constants';
-declare const AccordionItem: ({ itemKey, initialEntered, className, header, children }: {
-    itemKey?: string | number | undefined;
-    initialEntered?: boolean | undefined;
-    className?: ClassNameProp<{
-        state: TransitionState;
-        expanded: boolean;
-    }> | undefined;
-    header: ReactNode;
+import { ElementProps } from '../utils/constants';
+declare type ItemModifiers = {
+    readonly state: TransitionState;
+    readonly expanded: boolean;
+};
+declare type ItemElementProps<E extends HTMLElement> = ElementProps<E, ItemModifiers>;
+interface AccordionItemProps extends ItemElementProps<HTMLDivElement> {
+    itemKey?: string | number;
+    initialEntered?: boolean;
+    header?: ReactNode;
     children?: ReactNode;
-}) => JSX.Element;
-export { AccordionItem };
+    headerProps?: ItemElementProps<HTMLHeadingElement>;
+    buttonProps?: ItemElementProps<HTMLButtonElement>;
+    contentProps?: ItemElementProps<HTMLDivElement>;
+    panelProps?: ItemElementProps<HTMLDivElement>;
+}
+declare const AccordionItem: ({ itemKey, initialEntered, className, header, headerProps, buttonProps, contentProps, panelProps, children, ...rest }: AccordionItemProps) => JSX.Element;
+export { AccordionItem, AccordionItemProps };

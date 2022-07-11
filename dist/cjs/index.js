@@ -40,20 +40,18 @@ function _objectWithoutPropertiesLoose(source, excluded) {
 
 var ACCORDION_BLOCK = 'szh-accordion';
 var ACCORDION_PREFIX = 'szh-adn';
-var ACCORDION_BTN_ATTR = "data-" + ACCORDION_BLOCK + "-btn";
-var ACCORDION_ATTR = "data-" + ACCORDION_BLOCK;
+var ACCORDION_ATTR = "data-" + ACCORDION_PREFIX;
+var ACCORDION_BTN_ATTR = "data-" + ACCORDION_PREFIX + "-btn";
 var AccordionContext = /*#__PURE__*/react.createContext({});
 
-var bem = function bem(block, element, modifiers, className) {
+var bem = function bem(block, element, modifiers, className, addModifier) {
   var blockElement = element ? block + "__" + element : block;
   var classString = blockElement;
-
-  for (var _i2 = 0, _Object$keys2 = Object.keys(modifiers || {}); _i2 < _Object$keys2.length; _i2++) {
+  if (addModifier && modifiers) for (var _i2 = 0, _Object$keys2 = Object.keys(modifiers); _i2 < _Object$keys2.length; _i2++) {
     var name = _Object$keys2[_i2];
     var value = modifiers[name];
     if (value) classString += " " + blockElement + "--" + (value === true ? name : name + "-" + value);
   }
-
   var expandedClassName = typeof className === 'function' ? className(modifiers) : className;
 
   if (typeof expandedClassName === 'string') {
@@ -64,20 +62,22 @@ var bem = function bem(block, element, modifiers, className) {
   return classString;
 };
 
-var _excluded$1 = ["transition", "children"];
+var _excluded$2 = ["allowMultiple", "transition", "transitionTimeout", "children"];
 
 var getTransition = function getTransition(transition, name) {
   return transition === true || !!(transition && transition[name]);
 };
 
 var AccordionProvider = function AccordionProvider(_ref) {
-  var transition = _ref.transition,
+  var allowMultiple = _ref.allowMultiple,
+      transition = _ref.transition,
+      transitionTimeout = _ref.transitionTimeout,
       children = _ref.children,
-      rest = _objectWithoutPropertiesLoose(_ref, _excluded$1);
+      rest = _objectWithoutPropertiesLoose(_ref, _excluded$2);
 
-  var mountOnEnter = rest.mountOnEnter,
-      initialEntered = rest.initialEntered;
   var transitionMap = reactTransitionState.useTransitionMap(_extends({
+    singleEnter: !allowMultiple,
+    timeout: transitionTimeout,
     enter: getTransition(transition, 'enter'),
     exit: getTransition(transition, 'exit'),
     preEnter: getTransition(transition, 'preEnter'),
@@ -85,8 +85,8 @@ var AccordionProvider = function AccordionProvider(_ref) {
   }, rest));
   return /*#__PURE__*/jsxRuntime.jsx(AccordionContext.Provider, {
     value: _extends({
-      mountOnEnter: mountOnEnter,
-      initialEntered: initialEntered
+      mountOnEnter: rest.mountOnEnter,
+      initialEntered: rest.initialEntered
     }, transitionMap),
     children: children
   });
@@ -140,23 +140,34 @@ var useAccordion = function useAccordion() {
   };
 };
 
-var _excluded = ["className", "children"];
+var _excluded$1 = ["className", "allowMultiple", "initialEntered", "mountOnEnter", "unmountOnExit", "transition", "transitionTimeout", "onStateChange"];
 
 var Accordion = function Accordion(_ref) {
   var className = _ref.className,
-      children = _ref.children,
-      rest = _objectWithoutPropertiesLoose(_ref, _excluded);
+      allowMultiple = _ref.allowMultiple,
+      initialEntered = _ref.initialEntered,
+      mountOnEnter = _ref.mountOnEnter,
+      unmountOnExit = _ref.unmountOnExit,
+      transition = _ref.transition,
+      transitionTimeout = _ref.transitionTimeout,
+      onStateChange = _ref.onStateChange,
+      rest = _objectWithoutPropertiesLoose(_ref, _excluded$1);
 
   var _useAccordion = useAccordion(),
       accordionProps = _useAccordion.accordionProps;
 
-  return /*#__PURE__*/jsxRuntime.jsx(AccordionProvider, _extends({}, rest, {
-    children: /*#__PURE__*/jsxRuntime.jsx("div", _extends({
+  return /*#__PURE__*/jsxRuntime.jsx(AccordionProvider, {
+    allowMultiple: allowMultiple,
+    initialEntered: initialEntered,
+    mountOnEnter: mountOnEnter,
+    unmountOnExit: unmountOnExit,
+    transition: transition,
+    transitionTimeout: transitionTimeout,
+    onStateChange: onStateChange,
+    children: /*#__PURE__*/jsxRuntime.jsx("div", _extends({}, rest, accordionProps, {
       className: bem(ACCORDION_BLOCK, undefined, undefined, className)
-    }, accordionProps, {
-      children: children
     }))
-  }));
+  });
 };
 
 var current = 0;
@@ -208,13 +219,14 @@ var useAccordionItem = function useAccordionItem(_temp) {
 
   var _initialEntered = itemInitialEntered != null ? itemInitialEntered : initialEntered;
 
-  var initialState = {
+  var initialStates = {
     state: _initialEntered ? 'entered' : mountOnEnter ? 'unmounted' : 'exited',
     isMounted: !mountOnEnter,
-    isEnter: !!_initialEntered
+    isEnter: !!_initialEntered,
+    isResolved: true
   };
   var key = itemKey != null ? itemKey : itemRef.current;
-  var state = stateMap.get(key) || initialState;
+  var states = stateMap.get(key) || initialStates;
 
   var toggleItem = function toggleItem(toEnter) {
     return toggle(key, toEnter);
@@ -224,7 +236,7 @@ var useAccordionItem = function useAccordionItem(_temp) {
   var panelId = _useId();
   var buttonProps = (_buttonProps = {
     id: buttonId
-  }, _buttonProps[ACCORDION_BTN_ATTR] = '', _buttonProps['aria-controls'] = panelId, _buttonProps['aria-expanded'] = state.isEnter, _buttonProps.onClick = toggleItem, _buttonProps);
+  }, _buttonProps[ACCORDION_BTN_ATTR] = '', _buttonProps['aria-controls'] = panelId, _buttonProps['aria-expanded'] = states.isEnter, _buttonProps.onClick = toggleItem, _buttonProps);
   var panelProps = {
     id: panelId,
     'aria-labelledby': buttonId,
@@ -232,9 +244,9 @@ var useAccordionItem = function useAccordionItem(_temp) {
   };
   return {
     itemRef: itemRef,
+    states: states,
     buttonProps: buttonProps,
     panelProps: panelProps,
-    state: state,
     toggle: toggleItem,
     endTransition: function endTransition() {
       return _endTransition(key);
@@ -244,7 +256,10 @@ var useAccordionItem = function useAccordionItem(_temp) {
 
 var useIsomorphicLayoutEffect = typeof window !== 'undefined' && typeof window.document !== 'undefined' && typeof window.document.createElement !== 'undefined' ? react.useLayoutEffect : react.useEffect;
 
-var useTransitionHeight = function useTransitionHeight(state) {
+var useHeightTransition = function useHeightTransition(_ref) {
+  var state = _ref.state,
+      isResolved = _ref.isResolved;
+
   var _useState = react.useState(),
       _height = _useState[0],
       setHeight = _useState[1];
@@ -278,61 +293,71 @@ var useTransitionHeight = function useTransitionHeight(state) {
     state === 'preEnter' && setHeight((_elementRef$current = elementRef.current) == null ? void 0 : _elementRef$current.getBoundingClientRect().height);
   }, [state]);
   var height = state === 'preEnter' || state === 'exiting' ? 0 : state === 'entering' || state === 'preExit' ? _height : undefined;
-  return [height, cbRef, elementRef];
+  return [{
+    height: height,
+    overflow: isResolved ? undefined : 'hidden'
+  }, cbRef, elementRef];
 };
+
+var _excluded = ["itemKey", "initialEntered", "className", "header", "headerProps", "buttonProps", "contentProps", "panelProps", "children"];
 
 var AccordionItem = function AccordionItem(_ref) {
   var itemKey = _ref.itemKey,
       initialEntered = _ref.initialEntered,
       className = _ref.className,
       header = _ref.header,
-      children = _ref.children;
+      headerProps = _ref.headerProps,
+      buttonProps = _ref.buttonProps,
+      contentProps = _ref.contentProps,
+      panelProps = _ref.panelProps,
+      children = _ref.children,
+      rest = _objectWithoutPropertiesLoose(_ref, _excluded);
 
   var _useAccordionItem = useAccordionItem({
     itemKey: itemKey,
     initialEntered: initialEntered
   }),
       itemRef = _useAccordionItem.itemRef,
-      buttonProps = _useAccordionItem.buttonProps,
-      panelProps = _useAccordionItem.panelProps,
-      _useAccordionItem$sta = _useAccordionItem.state,
-      state = _useAccordionItem$sta.state,
-      isMounted = _useAccordionItem$sta.isMounted,
-      isEnter = _useAccordionItem$sta.isEnter;
+      states = _useAccordionItem.states,
+      _buttonProps = _useAccordionItem.buttonProps,
+      _panelProps = _useAccordionItem.panelProps;
 
-  var _useTransitionHeight = useTransitionHeight(state),
-      height = _useTransitionHeight[0],
-      panelRef = _useTransitionHeight[1];
+  var _useHeightTransition = useHeightTransition(states),
+      transitionStyle = _useHeightTransition[0],
+      panelRef = _useHeightTransition[1];
 
-  return /*#__PURE__*/jsxRuntime.jsxs("div", {
+  var state = states.state,
+      isMounted = states.isMounted,
+      isEnter = states.isEnter;
+  var modifiers = {
+    state: state,
+    expanded: isEnter
+  };
+  return /*#__PURE__*/jsxRuntime.jsxs("div", _extends({}, rest, {
     ref: itemRef,
-    className: bem(ACCORDION_BLOCK, 'item', {
-      state: state,
-      expanded: isEnter
-    }, className),
-    children: [/*#__PURE__*/jsxRuntime.jsx("h3", {
-      style: {
+    className: bem(ACCORDION_BLOCK, 'item', modifiers, className, true),
+    children: [/*#__PURE__*/jsxRuntime.jsx("h3", _extends({}, headerProps, {
+      style: _extends({
         margin: 0
-      },
-      children: /*#__PURE__*/jsxRuntime.jsx("button", _extends({
-        type: "button"
-      }, buttonProps, {
+      }, headerProps == null ? void 0 : headerProps.style),
+      className: bem(ACCORDION_BLOCK, 'header', modifiers, headerProps == null ? void 0 : headerProps.className),
+      children: /*#__PURE__*/jsxRuntime.jsx("button", _extends({}, buttonProps, _buttonProps, {
+        type: "button",
+        className: bem(ACCORDION_BLOCK, 'btn', modifiers, buttonProps == null ? void 0 : buttonProps.className),
         children: header
       }))
-    }), isMounted && /*#__PURE__*/jsxRuntime.jsx("div", {
-      style: {
-        display: state === 'exited' ? 'none' : undefined,
-        height: height,
-        transition: 'height .3s ease-in-out',
-        overflow: 'hidden'
-      },
-      children: /*#__PURE__*/jsxRuntime.jsx("div", _extends({
-        ref: panelRef
-      }, panelProps, {
+    })), isMounted && /*#__PURE__*/jsxRuntime.jsx("div", _extends({}, contentProps, {
+      style: _extends({
+        display: state === 'exited' ? 'none' : undefined
+      }, transitionStyle, contentProps == null ? void 0 : contentProps.style),
+      className: bem(ACCORDION_BLOCK, 'content', modifiers, contentProps == null ? void 0 : contentProps.className),
+      children: /*#__PURE__*/jsxRuntime.jsx("div", _extends({}, panelProps, _panelProps, {
+        ref: panelRef,
+        className: bem(ACCORDION_BLOCK, 'panel', modifiers, panelProps == null ? void 0 : panelProps.className),
         children: children
       }))
-    })]
-  });
+    }))]
+  }));
 };
 
 exports.Accordion = Accordion;

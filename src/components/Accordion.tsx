@@ -1,20 +1,37 @@
-import { AccordionProviderProps } from '../utils/constants';
-import { ACCORDION_BLOCK } from '../utils/constants';
+import { ACCORDION_BLOCK, AccordionProviderProps, ElementProps } from '../utils/constants';
 import { bem } from '../utils/bem';
 import { AccordionProvider } from './AccordionProvider';
 import { useAccordion } from '../hooks/useAccordion';
 
+interface AccordionProps extends AccordionProviderProps, ElementProps<HTMLDivElement, string> {}
+
 const Accordion = ({
   className,
-  children,
+  allowMultiple,
+  initialEntered,
+  mountOnEnter,
+  unmountOnExit,
+  transition,
+  transitionTimeout,
+  onStateChange,
   ...rest
-}: AccordionProviderProps & { className?: string }) => {
+}: AccordionProps) => {
   const { accordionProps } = useAccordion();
   return (
-    <AccordionProvider {...rest}>
-      <div className={bem(ACCORDION_BLOCK, undefined, undefined, className)} {...accordionProps}>
-        {children}
-      </div>
+    <AccordionProvider
+      allowMultiple={allowMultiple}
+      initialEntered={initialEntered}
+      mountOnEnter={mountOnEnter}
+      unmountOnExit={unmountOnExit}
+      transition={transition}
+      transitionTimeout={transitionTimeout}
+      onStateChange={onStateChange}
+    >
+      <div
+        {...rest}
+        {...accordionProps}
+        className={bem(ACCORDION_BLOCK, undefined, undefined, className)}
+      />
     </AccordionProvider>
   );
 };
