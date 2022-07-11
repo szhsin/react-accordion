@@ -62,7 +62,7 @@ var bem = function bem(block, element, modifiers, className, addModifier) {
   return classString;
 };
 
-var _excluded$2 = ["allowMultiple", "transition", "children"];
+var _excluded$2 = ["allowMultiple", "transition", "transitionTimeout", "children"];
 
 var getTransition = function getTransition(transition, name) {
   return transition === true || !!(transition && transition[name]);
@@ -71,11 +71,13 @@ var getTransition = function getTransition(transition, name) {
 var AccordionProvider = function AccordionProvider(_ref) {
   var allowMultiple = _ref.allowMultiple,
       transition = _ref.transition,
+      transitionTimeout = _ref.transitionTimeout,
       children = _ref.children,
       rest = _objectWithoutPropertiesLoose(_ref, _excluded$2);
 
   var transitionMap = reactTransitionState.useTransitionMap(_extends({
     singleEnter: !allowMultiple,
+    timeout: transitionTimeout,
     enter: getTransition(transition, 'enter'),
     exit: getTransition(transition, 'exit'),
     preEnter: getTransition(transition, 'preEnter'),
@@ -138,7 +140,7 @@ var useAccordion = function useAccordion() {
   };
 };
 
-var _excluded$1 = ["className", "allowMultiple", "initialEntered", "mountOnEnter", "unmountOnExit", "transition", "timeout", "onStateChange"];
+var _excluded$1 = ["className", "allowMultiple", "initialEntered", "mountOnEnter", "unmountOnExit", "transition", "transitionTimeout", "onStateChange"];
 
 var Accordion = function Accordion(_ref) {
   var className = _ref.className,
@@ -147,7 +149,7 @@ var Accordion = function Accordion(_ref) {
       mountOnEnter = _ref.mountOnEnter,
       unmountOnExit = _ref.unmountOnExit,
       transition = _ref.transition,
-      timeout = _ref.timeout,
+      transitionTimeout = _ref.transitionTimeout,
       onStateChange = _ref.onStateChange,
       rest = _objectWithoutPropertiesLoose(_ref, _excluded$1);
 
@@ -160,7 +162,7 @@ var Accordion = function Accordion(_ref) {
     mountOnEnter: mountOnEnter,
     unmountOnExit: unmountOnExit,
     transition: transition,
-    timeout: timeout,
+    transitionTimeout: transitionTimeout,
     onStateChange: onStateChange,
     children: /*#__PURE__*/jsxRuntime.jsx("div", _extends({}, rest, accordionProps, {
       className: bem(ACCORDION_BLOCK, undefined, undefined, className)

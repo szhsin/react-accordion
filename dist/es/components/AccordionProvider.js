@@ -3,7 +3,7 @@ import { useTransitionMap } from 'react-transition-state';
 import { AccordionContext } from '../utils/constants.js';
 import { jsx } from 'react/jsx-runtime';
 
-var _excluded = ["allowMultiple", "transition", "children"];
+var _excluded = ["allowMultiple", "transition", "transitionTimeout", "children"];
 
 var getTransition = function getTransition(transition, name) {
   return transition === true || !!(transition && transition[name]);
@@ -12,11 +12,13 @@ var getTransition = function getTransition(transition, name) {
 var AccordionProvider = function AccordionProvider(_ref) {
   var allowMultiple = _ref.allowMultiple,
       transition = _ref.transition,
+      transitionTimeout = _ref.transitionTimeout,
       children = _ref.children,
       rest = _objectWithoutPropertiesLoose(_ref, _excluded);
 
   var transitionMap = useTransitionMap(_extends({
     singleEnter: !allowMultiple,
+    timeout: transitionTimeout,
     enter: getTransition(transition, 'enter'),
     exit: getTransition(transition, 'exit'),
     preEnter: getTransition(transition, 'preEnter'),

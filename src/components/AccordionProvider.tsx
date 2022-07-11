@@ -14,11 +14,13 @@ const getTransition = (
 const AccordionProvider = ({
   allowMultiple,
   transition,
+  transitionTimeout,
   children,
   ...rest
 }: AccordionProviderProps) => {
   const transitionMap = useTransitionMap<ItemKey>({
     singleEnter: !allowMultiple,
+    timeout: transitionTimeout,
     enter: getTransition(transition, 'enter'),
     exit: getTransition(transition, 'exit'),
     preEnter: getTransition(transition, 'preEnter'),

@@ -1,5 +1,9 @@
 import { createContext, ReactNode, HTMLAttributes, Ref } from 'react';
-import { TransitionMapResult, TransitionMapOptions } from 'react-transition-state';
+import {
+  TransitionMapResult,
+  TransitionMapOptions,
+  TransitionOptions
+} from 'react-transition-state';
 
 export const ACCORDION_BLOCK = 'szh-accordion';
 export const ACCORDION_PREFIX = 'szh-adn';
@@ -30,10 +34,11 @@ export type TransitionProp =
 export interface AccordionProviderProps
   extends Omit<
     TransitionMapOptions<ItemKey>,
-    'enter' | 'exit' | 'preEnter' | 'preExit' | 'singleEnter'
+    'enter' | 'exit' | 'preEnter' | 'preExit' | 'singleEnter' | 'timeout'
   > {
   allowMultiple?: boolean;
   transition?: TransitionProp;
+  transitionTimeout?: TransitionOptions['timeout'];
   children?: ReactNode;
 }
 

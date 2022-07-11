@@ -12,7 +12,7 @@ const Accordion = ({
   mountOnEnter,
   unmountOnExit,
   transition,
-  timeout,
+  transitionTimeout,
   onStateChange,
   ...rest
 }: AccordionProps) => {
@@ -24,7 +24,7 @@ const Accordion = ({
       mountOnEnter={mountOnEnter}
       unmountOnExit={unmountOnExit}
       transition={transition}
-      timeout={timeout}
+      transitionTimeout={transitionTimeout}
       onStateChange={onStateChange}
     >
       <div
