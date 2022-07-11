@@ -109,3 +109,7 @@
     flex-direction: column;
   }
 }
+
+.itemContent {
+  transition: height 0.3s ease-in-out;
+}
