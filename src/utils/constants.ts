@@ -1,4 +1,4 @@
-import { createContext, ReactNode, HTMLAttributes, Ref } from 'react';
+import { createContext, HTMLAttributes, Ref } from 'react';
 import {
   TransitionMapResult,
   TransitionMapOptions,
@@ -31,7 +31,7 @@ export type TransitionProp =
       preExit?: boolean;
     };
 
-export interface AccordionProviderProps
+export interface AccordionProviderOptions
   extends Omit<
     TransitionMapOptions<ItemKey>,
     'enter' | 'exit' | 'preEnter' | 'preExit' | 'singleEnter' | 'timeout'
@@ -39,12 +39,11 @@ export interface AccordionProviderProps
   allowMultiple?: boolean;
   transition?: TransitionProp;
   transitionTimeout?: TransitionOptions['timeout'];
-  children?: ReactNode;
 }
 
-export const AccordionContext = createContext<
-  Partial<TransitionMapResult<ItemKey>> & {
-    mountOnEnter?: boolean;
-    initialEntered?: boolean;
-  }
->({});
+export interface AccordionProviderValue extends Partial<TransitionMapResult<ItemKey>> {
+  mountOnEnter?: boolean;
+  initialEntered?: boolean;
+}
+
+export const AccordionContext = createContext<AccordionProviderValue>({});

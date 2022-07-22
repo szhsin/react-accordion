@@ -2,8 +2,8 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-var react = require('react');
 var reactTransitionState = require('react-transition-state');
+var react = require('react');
 var jsxRuntime = require('react/jsx-runtime');
 
 function _extends() {
@@ -38,6 +38,33 @@ function _objectWithoutPropertiesLoose(source, excluded) {
   return target;
 }
 
+var _excluded$3 = ["allowMultiple", "transition", "transitionTimeout"];
+
+var getTransition = function getTransition(transition, name) {
+  return transition === true || !!(transition && transition[name]);
+};
+
+var useAccordionProvider = function useAccordionProvider(_temp) {
+  var _ref = _temp === void 0 ? {} : _temp,
+      allowMultiple = _ref.allowMultiple,
+      transition = _ref.transition,
+      transitionTimeout = _ref.transitionTimeout,
+      rest = _objectWithoutPropertiesLoose(_ref, _excluded$3);
+
+  var transitionMap = reactTransitionState.useTransitionMap(_extends({
+    singleEnter: !allowMultiple,
+    timeout: transitionTimeout,
+    enter: getTransition(transition, 'enter'),
+    exit: getTransition(transition, 'exit'),
+    preEnter: getTransition(transition, 'preEnter'),
+    preExit: getTransition(transition, 'preExit')
+  }, rest));
+  return _extends({
+    mountOnEnter: !!rest.mountOnEnter,
+    initialEntered: !!rest.initialEntered
+  }, transitionMap);
+};
+
 var ACCORDION_BLOCK = 'szh-accordion';
 var ACCORDION_PREFIX = 'szh-adn';
 var ACCORDION_ATTR = "data-" + ACCORDION_PREFIX;
@@ -62,34 +89,8 @@ var bem = function bem(block, element, modifiers, className, addModifier) {
   return classString;
 };
 
-var _excluded$2 = ["allowMultiple", "transition", "transitionTimeout", "children"];
-
-var getTransition = function getTransition(transition, name) {
-  return transition === true || !!(transition && transition[name]);
-};
-
-var AccordionProvider = function AccordionProvider(_ref) {
-  var allowMultiple = _ref.allowMultiple,
-      transition = _ref.transition,
-      transitionTimeout = _ref.transitionTimeout,
-      children = _ref.children,
-      rest = _objectWithoutPropertiesLoose(_ref, _excluded$2);
-
-  var transitionMap = reactTransitionState.useTransitionMap(_extends({
-    singleEnter: !allowMultiple,
-    timeout: transitionTimeout,
-    enter: getTransition(transition, 'enter'),
-    exit: getTransition(transition, 'exit'),
-    preEnter: getTransition(transition, 'preEnter'),
-    preExit: getTransition(transition, 'preExit')
-  }, rest));
-  return /*#__PURE__*/jsxRuntime.jsx(AccordionContext.Provider, {
-    value: _extends({
-      mountOnEnter: rest.mountOnEnter,
-      initialEntered: rest.initialEntered
-    }, transitionMap),
-    children: children
-  });
+var AccordionProvider = function AccordionProvider(props) {
+  return /*#__PURE__*/jsxRuntime.jsx(AccordionContext.Provider, _extends({}, props));
 };
 
 var getAccordion = function getAccordion(node) {
@@ -140,11 +141,28 @@ var useAccordion = function useAccordion() {
   };
 };
 
-var _excluded$1 = ["className", "allowMultiple", "initialEntered", "mountOnEnter", "unmountOnExit", "transition", "transitionTimeout", "onStateChange"];
+var _excluded$2 = ["providerValue", "className"];
+
+var ControlledAccordion = function ControlledAccordion(_ref) {
+  var providerValue = _ref.providerValue,
+      className = _ref.className,
+      rest = _objectWithoutPropertiesLoose(_ref, _excluded$2);
+
+  var _useAccordion = useAccordion(),
+      accordionProps = _useAccordion.accordionProps;
+
+  return /*#__PURE__*/jsxRuntime.jsx(AccordionProvider, {
+    value: providerValue,
+    children: /*#__PURE__*/jsxRuntime.jsx("div", _extends({}, rest, accordionProps, {
+      className: bem(ACCORDION_BLOCK, undefined, undefined, className)
+    }))
+  });
+};
+
+var _excluded$1 = ["allowMultiple", "initialEntered", "mountOnEnter", "unmountOnExit", "transition", "transitionTimeout", "onStateChange"];
 
 var Accordion = function Accordion(_ref) {
-  var className = _ref.className,
-      allowMultiple = _ref.allowMultiple,
+  var allowMultiple = _ref.allowMultiple,
       initialEntered = _ref.initialEntered,
       mountOnEnter = _ref.mountOnEnter,
       unmountOnExit = _ref.unmountOnExit,
@@ -153,21 +171,18 @@ var Accordion = function Accordion(_ref) {
       onStateChange = _ref.onStateChange,
       rest = _objectWithoutPropertiesLoose(_ref, _excluded$1);
 
-  var _useAccordion = useAccordion(),
-      accordionProps = _useAccordion.accordionProps;
-
-  return /*#__PURE__*/jsxRuntime.jsx(AccordionProvider, {
+  var providerValue = useAccordionProvider({
     allowMultiple: allowMultiple,
     initialEntered: initialEntered,
     mountOnEnter: mountOnEnter,
     unmountOnExit: unmountOnExit,
     transition: transition,
     transitionTimeout: transitionTimeout,
-    onStateChange: onStateChange,
-    children: /*#__PURE__*/jsxRuntime.jsx("div", _extends({}, rest, accordionProps, {
-      className: bem(ACCORDION_BLOCK, undefined, undefined, className)
-    }))
+    onStateChange: onStateChange
   });
+  return /*#__PURE__*/jsxRuntime.jsx(ControlledAccordion, _extends({}, rest, {
+    providerValue: providerValue
+  }));
 };
 
 var current = 0;
@@ -362,4 +377,5 @@ var AccordionItem = function AccordionItem(_ref) {
 
 exports.Accordion = Accordion;
 exports.AccordionItem = AccordionItem;
-exports.useAccordionItem = useAccordionItem;
+exports.ControlledAccordion = ControlledAccordion;
+exports.useAccordionProvider = useAccordionProvider;

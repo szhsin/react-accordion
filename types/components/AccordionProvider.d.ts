@@ -1,4 +1,7 @@
-/// <reference types="react" />
-import { AccordionProviderProps } from '../utils/constants';
-declare const AccordionProvider: ({ allowMultiple, transition, transitionTimeout, children, ...rest }: AccordionProviderProps) => JSX.Element;
+import { ReactNode } from 'react';
+import { AccordionProviderValue } from '../utils/constants';
+declare const AccordionProvider: (props: {
+    value: AccordionProviderValue;
+    children?: ReactNode;
+}) => JSX.Element;
 export { AccordionProvider };

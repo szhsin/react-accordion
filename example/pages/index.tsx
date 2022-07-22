@@ -1,7 +1,13 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import { useRef, useEffect } from 'react';
-import { Accordion, AccordionItem as Item, AccordionItemProps } from '@szhsin/react-accordion';
+import {
+  Accordion,
+  AccordionItem as Item,
+  AccordionItemProps,
+  ControlledAccordion,
+  useAccordionProvider
+} from '@szhsin/react-accordion';
 import styles from '../styles/Home.module.css';
 
 const AccordionItem = (props: AccordionItemProps) => (
@@ -13,6 +19,13 @@ const AccordionItem = (props: AccordionItemProps) => (
 );
 
 const Home: NextPage = () => {
+  const providerValue = useAccordionProvider({
+    transition: true,
+    transitionTimeout: 300,
+    onStateChange: (e) =>
+      e.key === 'key1' && e.current.isResolved && console.log('state changed:', e.current.state)
+  });
+  const { toggle } = providerValue;
   const ref = useRef<HTMLHeadingElement>(null);
   useEffect(() => {
     console.log('ref', ref);
@@ -26,16 +39,15 @@ const Home: NextPage = () => {
       </Head>
 
       <main className={styles.main}>
-        <Accordion
-          transition
-          transitionTimeout={300}
+        <div style={{ marginBottom: '2rem' }}>
+          <button onClick={() => toggle('key1')}>Toggle 1</button>
+          <button onClick={() => toggle(3, true)}>Open 3</button>
+          <button onClick={() => toggle(3, false)}>Close 3</button>
+        </div>
+        <ControlledAccordion
+          providerValue={providerValue}
           id="ac1"
           onMouseLeave={() => console.log('mouse leave accordion')}
-          onStateChange={(e) =>
-            e.key === 'key1' &&
-            e.current.isResolved &&
-            console.log('state changed:', e.current.state)
-          }
         >
           <AccordionItem
             headerProps={{
@@ -73,7 +85,7 @@ const Home: NextPage = () => {
             </Accordion>
             <button>more</button>
           </AccordionItem>
-        </Accordion>
+        </ControlledAccordion>
       </main>
 
       <footer className={styles.footer}></footer>

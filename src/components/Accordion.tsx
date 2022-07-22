@@ -1,12 +1,12 @@
-import { ACCORDION_BLOCK, AccordionProviderProps, ElementProps } from '../utils/constants';
-import { bem } from '../utils/bem';
-import { AccordionProvider } from './AccordionProvider';
-import { useAccordion } from '../hooks/useAccordion';
+import { AccordionProviderOptions } from '../utils/constants';
+import { useAccordionProvider } from '../hooks/useAccordionProvider';
+import { ControlledAccordion, ControlledAccordionProps } from './ControlledAccordion';
 
-interface AccordionProps extends AccordionProviderProps, ElementProps<HTMLDivElement, string> {}
+interface AccordionProps
+  extends AccordionProviderOptions,
+    Omit<ControlledAccordionProps, 'providerValue'> {}
 
 const Accordion = ({
-  className,
   allowMultiple,
   initialEntered,
   mountOnEnter,
@@ -16,24 +16,16 @@ const Accordion = ({
   onStateChange,
   ...rest
 }: AccordionProps) => {
-  const { accordionProps } = useAccordion();
-  return (
-    <AccordionProvider
-      allowMultiple={allowMultiple}
-      initialEntered={initialEntered}
-      mountOnEnter={mountOnEnter}
-      unmountOnExit={unmountOnExit}
-      transition={transition}
-      transitionTimeout={transitionTimeout}
-      onStateChange={onStateChange}
-    >
-      <div
-        {...rest}
-        {...accordionProps}
-        className={bem(ACCORDION_BLOCK, undefined, undefined, className)}
-      />
-    </AccordionProvider>
-  );
+  const providerValue = useAccordionProvider({
+    allowMultiple,
+    initialEntered,
+    mountOnEnter,
+    unmountOnExit,
+    transition,
+    transitionTimeout,
+    onStateChange
+  });
+  return <ControlledAccordion {...rest} providerValue={providerValue} />;
 };
 
 export { Accordion };

@@ -1,6 +1,7 @@
 /// <reference types="react" />
-import { AccordionProviderProps, ElementProps } from '../utils/constants';
-interface AccordionProps extends AccordionProviderProps, ElementProps<HTMLDivElement, string> {
+import { AccordionProviderOptions } from '../utils/constants';
+import { ControlledAccordionProps } from './ControlledAccordion';
+interface AccordionProps extends AccordionProviderOptions, Omit<ControlledAccordionProps, 'providerValue'> {
 }
-declare const Accordion: ({ className, allowMultiple, initialEntered, mountOnEnter, unmountOnExit, transition, transitionTimeout, onStateChange, ...rest }: AccordionProps) => JSX.Element;
+declare const Accordion: ({ allowMultiple, initialEntered, mountOnEnter, unmountOnExit, transition, transitionTimeout, onStateChange, ...rest }: AccordionProps) => JSX.Element;
 export { Accordion };
