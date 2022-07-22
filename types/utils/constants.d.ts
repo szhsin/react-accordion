@@ -1,4 +1,4 @@
-import { ReactNode, HTMLAttributes, Ref } from 'react';
+import { HTMLAttributes, Ref } from 'react';
 import { TransitionMapResult, TransitionMapOptions, TransitionOptions } from 'react-transition-state';
 export declare const ACCORDION_BLOCK = "szh-accordion";
 export declare const ACCORDION_PREFIX = "szh-adn";
@@ -20,13 +20,13 @@ export declare type TransitionProp = boolean | {
     preEnter?: boolean;
     preExit?: boolean;
 };
-export interface AccordionProviderProps extends Omit<TransitionMapOptions<ItemKey>, 'enter' | 'exit' | 'preEnter' | 'preExit' | 'singleEnter' | 'timeout'> {
+export interface AccordionProviderOptions extends Omit<TransitionMapOptions<ItemKey>, 'enter' | 'exit' | 'preEnter' | 'preExit' | 'singleEnter' | 'timeout'> {
     allowMultiple?: boolean;
     transition?: TransitionProp;
     transitionTimeout?: TransitionOptions['timeout'];
-    children?: ReactNode;
 }
-export declare const AccordionContext: import("react").Context<Partial<TransitionMapResult<ItemKey>> & {
-    mountOnEnter?: boolean | undefined;
-    initialEntered?: boolean | undefined;
-}>;
+export interface AccordionProviderValue extends Partial<TransitionMapResult<ItemKey>> {
+    mountOnEnter?: boolean;
+    initialEntered?: boolean;
+}
+export declare const AccordionContext: import("react").Context<AccordionProviderValue>;

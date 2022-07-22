@@ -1,4 +1,5 @@
 export { Accordion } from './components/Accordion';
+export { ControlledAccordion } from './components/ControlledAccordion';
 export { AccordionItem } from './components/AccordionItem';
-export { useAccordionItem } from './hooks/useAccordionItem';
+export { useAccordionProvider } from './hooks/useAccordionProvider';
 export type { AccordionItemProps } from './components/AccordionItem';
