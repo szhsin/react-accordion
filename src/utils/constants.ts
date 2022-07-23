@@ -1,4 +1,4 @@
-import { createContext, HTMLAttributes, Ref } from 'react';
+import { createContext, HTMLAttributes } from 'react';
 import {
   TransitionMapResult,
   TransitionMapOptions,
@@ -16,7 +16,6 @@ export type Modifiers = {
 export type ClassNameProp<M extends Modifiers> = string | ((modifiers: M) => string);
 export interface ElementProps<E extends HTMLElement, M extends Modifiers | string>
   extends Omit<HTMLAttributes<E>, 'className' | 'children'> {
-  ref?: Ref<E>;
   className?: M extends Modifiers ? ClassNameProp<M> : string;
   'data-testid'?: string | number;
 }
