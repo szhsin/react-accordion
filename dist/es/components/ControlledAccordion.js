@@ -23,5 +23,6 @@ var ControlledAccordion = /*#__PURE__*/forwardRef(function (_ref, ref) {
     }))
   });
 });
+ControlledAccordion.displayName = 'ControlledAccordion';
 
 export { ControlledAccordion };

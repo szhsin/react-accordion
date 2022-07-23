@@ -25,4 +25,6 @@ const ControlledAccordion = forwardRef<HTMLDivElement, ControlledAccordionProps>
   }
 );
 
+ControlledAccordion.displayName = 'ControlledAccordion';
+
 export { ControlledAccordion, ControlledAccordionProps };

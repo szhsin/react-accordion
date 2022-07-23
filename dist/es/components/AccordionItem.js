@@ -66,5 +66,6 @@ var AccordionItem = /*#__PURE__*/forwardRef(function (_ref, forwardedRef) {
     }))]
   }));
 });
+AccordionItem.displayName = 'AccordionItem';
 
 export { AccordionItem };

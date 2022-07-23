@@ -34,4 +34,6 @@ const Accordion = forwardRef<HTMLDivElement, AccordionProps>(
   }
 );
 
+Accordion.displayName = 'Accordion';
+
 export { Accordion };

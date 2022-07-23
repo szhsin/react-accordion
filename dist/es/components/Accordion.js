@@ -29,5 +29,6 @@ var Accordion = /*#__PURE__*/forwardRef(function (_ref, ref) {
     providerValue: providerValue
   }));
 });
+Accordion.displayName = 'Accordion';
 
 export { Accordion };

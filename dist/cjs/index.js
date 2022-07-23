@@ -158,6 +158,7 @@ var ControlledAccordion = /*#__PURE__*/react.forwardRef(function (_ref, ref) {
     }))
   });
 });
+ControlledAccordion.displayName = 'ControlledAccordion';
 
 var _excluded$1 = ["allowMultiple", "initialEntered", "mountOnEnter", "unmountOnExit", "transition", "transitionTimeout", "onStateChange"];
 var Accordion = /*#__PURE__*/react.forwardRef(function (_ref, ref) {
@@ -184,6 +185,7 @@ var Accordion = /*#__PURE__*/react.forwardRef(function (_ref, ref) {
     providerValue: providerValue
   }));
 });
+Accordion.displayName = 'Accordion';
 
 var current = 0;
 
@@ -388,6 +390,7 @@ var AccordionItem = /*#__PURE__*/react.forwardRef(function (_ref, forwardedRef) 
     }))]
   }));
 });
+AccordionItem.displayName = 'AccordionItem';
 
 exports.Accordion = Accordion;
 exports.AccordionItem = AccordionItem;
