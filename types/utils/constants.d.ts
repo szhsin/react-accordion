@@ -1,4 +1,4 @@
-import { HTMLAttributes, Ref } from 'react';
+import { HTMLAttributes } from 'react';
 import { TransitionMapResult, TransitionMapOptions, TransitionOptions } from 'react-transition-state';
 export declare const ACCORDION_BLOCK = "szh-accordion";
 export declare const ACCORDION_PREFIX = "szh-adn";
@@ -9,7 +9,6 @@ export declare type Modifiers = {
 };
 export declare type ClassNameProp<M extends Modifiers> = string | ((modifiers: M) => string);
 export interface ElementProps<E extends HTMLElement, M extends Modifiers | string> extends Omit<HTMLAttributes<E>, 'className' | 'children'> {
-    ref?: Ref<E>;
     className?: M extends Modifiers ? ClassNameProp<M> : string;
     'data-testid'?: string | number;
 }

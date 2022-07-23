@@ -1,13 +1,14 @@
 import { objectWithoutPropertiesLoose as _objectWithoutPropertiesLoose, extends as _extends } from '../_virtual/_rollupPluginBabelHelpers.js';
+import { forwardRef } from 'react';
 import { ACCORDION_BLOCK } from '../utils/constants.js';
 import { bem } from '../utils/bem.js';
 import { useAccordionItem } from '../hooks/useAccordionItem.js';
 import { useHeightTransition } from '../hooks/useHeightTransition.js';
+import { useMergeRef } from '../hooks/useMergeRef.js';
 import { jsxs, jsx } from 'react/jsx-runtime';
 
 var _excluded = ["itemKey", "initialEntered", "className", "header", "headerProps", "buttonProps", "contentProps", "panelProps", "children"];
-
-var AccordionItem = function AccordionItem(_ref) {
+var AccordionItem = /*#__PURE__*/forwardRef(function (_ref, forwardedRef) {
   var itemKey = _ref.itemKey,
       initialEntered = _ref.initialEntered,
       className = _ref.className,
@@ -30,8 +31,9 @@ var AccordionItem = function AccordionItem(_ref) {
 
   var _useHeightTransition = useHeightTransition(states),
       transitionStyle = _useHeightTransition[0],
-      panelRef = _useHeightTransition[1];
+      _panelRef = _useHeightTransition[1];
 
+  var panelRef = useMergeRef(panelProps == null ? void 0 : panelProps.ref, _panelRef);
   var state = states.state,
       isMounted = states.isMounted,
       isEnter = states.isEnter;
@@ -40,7 +42,7 @@ var AccordionItem = function AccordionItem(_ref) {
     expanded: isEnter
   };
   return /*#__PURE__*/jsxs("div", _extends({}, rest, {
-    ref: itemRef,
+    ref: useMergeRef(forwardedRef, itemRef),
     className: bem(ACCORDION_BLOCK, 'item', modifiers, className, true),
     children: [/*#__PURE__*/jsx("h3", _extends({}, headerProps, {
       style: _extends({
@@ -64,6 +66,7 @@ var AccordionItem = function AccordionItem(_ref) {
       }))
     }))]
   }));
-};
+});
+AccordionItem.displayName = 'AccordionItem';
 
 export { AccordionItem };

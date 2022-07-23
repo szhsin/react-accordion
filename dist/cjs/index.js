@@ -2,8 +2,8 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-var reactTransitionState = require('react-transition-state');
 var react = require('react');
+var reactTransitionState = require('react-transition-state');
 var jsxRuntime = require('react/jsx-runtime');
 
 function _extends() {
@@ -142,8 +142,7 @@ var useAccordion = function useAccordion() {
 };
 
 var _excluded$2 = ["providerValue", "className"];
-
-var ControlledAccordion = function ControlledAccordion(_ref) {
+var ControlledAccordion = /*#__PURE__*/react.forwardRef(function (_ref, ref) {
   var providerValue = _ref.providerValue,
       className = _ref.className,
       rest = _objectWithoutPropertiesLoose(_ref, _excluded$2);
@@ -154,14 +153,15 @@ var ControlledAccordion = function ControlledAccordion(_ref) {
   return /*#__PURE__*/jsxRuntime.jsx(AccordionProvider, {
     value: providerValue,
     children: /*#__PURE__*/jsxRuntime.jsx("div", _extends({}, rest, accordionProps, {
+      ref: ref,
       className: bem(ACCORDION_BLOCK, undefined, undefined, className)
     }))
   });
-};
+});
+ControlledAccordion.displayName = 'ControlledAccordion';
 
 var _excluded$1 = ["allowMultiple", "initialEntered", "mountOnEnter", "unmountOnExit", "transition", "transitionTimeout", "onStateChange"];
-
-var Accordion = function Accordion(_ref) {
+var Accordion = /*#__PURE__*/react.forwardRef(function (_ref, ref) {
   var allowMultiple = _ref.allowMultiple,
       initialEntered = _ref.initialEntered,
       mountOnEnter = _ref.mountOnEnter,
@@ -181,9 +181,11 @@ var Accordion = function Accordion(_ref) {
     onStateChange: onStateChange
   });
   return /*#__PURE__*/jsxRuntime.jsx(ControlledAccordion, _extends({}, rest, {
+    ref: ref,
     providerValue: providerValue
   }));
-};
+});
+Accordion.displayName = 'Accordion';
 
 var current = 0;
 
@@ -307,16 +309,30 @@ var useHeightTransition = function useHeightTransition(_ref) {
 
     state === 'preEnter' && setHeight((_elementRef$current = elementRef.current) == null ? void 0 : _elementRef$current.getBoundingClientRect().height);
   }, [state]);
-  var height = state === 'preEnter' || state === 'exiting' ? 0 : state === 'entering' || state === 'preExit' ? _height : undefined;
-  return [{
-    height: height,
+  var style = {
+    height: state === 'preEnter' || state === 'exiting' ? 0 : state === 'entering' || state === 'preExit' ? _height : undefined,
     overflow: isResolved ? undefined : 'hidden'
-  }, cbRef, elementRef];
+  };
+  return [style, cbRef, elementRef];
 };
 
-var _excluded = ["itemKey", "initialEntered", "className", "header", "headerProps", "buttonProps", "contentProps", "panelProps", "children"];
+function setRef(ref, instance) {
+  typeof ref === 'function' ? ref(instance) : ref.current = instance;
+}
 
-var AccordionItem = function AccordionItem(_ref) {
+function useMergeRef(refA, refB) {
+  return react.useMemo(function () {
+    if (!refA) return refB;
+    if (!refB) return refA;
+    return function (instance) {
+      setRef(refA, instance);
+      setRef(refB, instance);
+    };
+  }, [refA, refB]);
+}
+
+var _excluded = ["itemKey", "initialEntered", "className", "header", "headerProps", "buttonProps", "contentProps", "panelProps", "children"];
+var AccordionItem = /*#__PURE__*/react.forwardRef(function (_ref, forwardedRef) {
   var itemKey = _ref.itemKey,
       initialEntered = _ref.initialEntered,
       className = _ref.className,
@@ -339,8 +355,9 @@ var AccordionItem = function AccordionItem(_ref) {
 
   var _useHeightTransition = useHeightTransition(states),
       transitionStyle = _useHeightTransition[0],
-      panelRef = _useHeightTransition[1];
+      _panelRef = _useHeightTransition[1];
 
+  var panelRef = useMergeRef(panelProps == null ? void 0 : panelProps.ref, _panelRef);
   var state = states.state,
       isMounted = states.isMounted,
       isEnter = states.isEnter;
@@ -349,7 +366,7 @@ var AccordionItem = function AccordionItem(_ref) {
     expanded: isEnter
   };
   return /*#__PURE__*/jsxRuntime.jsxs("div", _extends({}, rest, {
-    ref: itemRef,
+    ref: useMergeRef(forwardedRef, itemRef),
     className: bem(ACCORDION_BLOCK, 'item', modifiers, className, true),
     children: [/*#__PURE__*/jsxRuntime.jsx("h3", _extends({}, headerProps, {
       style: _extends({
@@ -373,7 +390,8 @@ var AccordionItem = function AccordionItem(_ref) {
       }))
     }))]
   }));
-};
+});
+AccordionItem.displayName = 'AccordionItem';
 
 exports.Accordion = Accordion;
 exports.AccordionItem = AccordionItem;
