@@ -14,26 +14,27 @@ const AccordionItem = forwardRef<HTMLDivElement, AccordionItemProps>((props, ref
   <Item
     {...props}
     ref={ref}
-    contentProps={{ className: styles.itemContent }}
-    panelProps={{ style: { padding: '1rem' } }}
+    contentProps={{ ...props.contentProps, className: styles.itemContent }}
+    panelProps={{ ...props.panelProps, style: { padding: '1rem' } }}
   />
 ));
 
 AccordionItem.displayName = 'MyAccordionItem';
 
+const panelRef = (element: HTMLDivElement | null) => console.log('panelRef', element);
+
 const Home: NextPage = () => {
   const providerValue = useAccordionProvider({
+    mountOnEnter: true,
     transition: true,
     transitionTimeout: 300,
     onStateChange: (e) =>
       e.key === 'key1' && e.current.isResolved && console.log('state changed:', e.current.state)
   });
   const { toggle } = providerValue;
-  const headerRef = useRef<HTMLHeadingElement>(null);
   const accordionRef = useRef<HTMLDivElement>(null);
   const itemRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    console.log('headerRef', headerRef.current);
     console.log('accordionRef', accordionRef.current);
     console.log('itemRef', itemRef.current);
   }, []);
@@ -59,13 +60,13 @@ const Home: NextPage = () => {
         >
           <AccordionItem
             headerProps={{
-              ref: headerRef,
               className: (e) => {
                 return e.state;
               },
               'aria-labelledby': '33',
               'data-testid': 32
             }}
+            panelProps={{ ref: panelRef }}
             header="header 1"
             itemKey="key1"
             onMouseEnter={() => console.log('mouse enter item 1')}

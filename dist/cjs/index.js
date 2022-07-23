@@ -309,11 +309,11 @@ var useHeightTransition = function useHeightTransition(_ref) {
 
     state === 'preEnter' && setHeight((_elementRef$current = elementRef.current) == null ? void 0 : _elementRef$current.getBoundingClientRect().height);
   }, [state]);
-  var height = state === 'preEnter' || state === 'exiting' ? 0 : state === 'entering' || state === 'preExit' ? _height : undefined;
-  return [{
-    height: height,
+  var style = {
+    height: state === 'preEnter' || state === 'exiting' ? 0 : state === 'entering' || state === 'preExit' ? _height : undefined,
     overflow: isResolved ? undefined : 'hidden'
-  }, cbRef, elementRef];
+  };
+  return [style, cbRef, elementRef];
 };
 
 function setRef(ref, instance) {
@@ -355,8 +355,9 @@ var AccordionItem = /*#__PURE__*/react.forwardRef(function (_ref, forwardedRef) 
 
   var _useHeightTransition = useHeightTransition(states),
       transitionStyle = _useHeightTransition[0],
-      panelRef = _useHeightTransition[1];
+      _panelRef = _useHeightTransition[1];
 
+  var panelRef = useMergeRef(panelProps == null ? void 0 : panelProps.ref, _panelRef);
   var state = states.state,
       isMounted = states.isMounted,
       isEnter = states.isEnter;

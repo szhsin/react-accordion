@@ -31,8 +31,9 @@ var AccordionItem = /*#__PURE__*/forwardRef(function (_ref, forwardedRef) {
 
   var _useHeightTransition = useHeightTransition(states),
       transitionStyle = _useHeightTransition[0],
-      panelRef = _useHeightTransition[1];
+      _panelRef = _useHeightTransition[1];
 
+  var panelRef = useMergeRef(panelProps == null ? void 0 : panelProps.ref, _panelRef);
   var state = states.state,
       isMounted = states.isMounted,
       isEnter = states.isEnter;

@@ -48,7 +48,8 @@ const AccordionItem = forwardRef<HTMLDivElement, AccordionItemProps>(
       buttonProps: _buttonProps,
       panelProps: _panelProps
     } = useAccordionItem<HTMLDivElement>({ itemKey, initialEntered });
-    const [transitionStyle, panelRef] = useHeightTransition(states);
+    const [transitionStyle, _panelRef] = useHeightTransition<HTMLDivElement>(states);
+    const panelRef = useMergeRef(panelProps?.ref, _panelRef);
     const { state, isMounted, isEnter } = states;
     const modifiers: ItemModifiers = { state, expanded: isEnter };
 

@@ -2,17 +2,12 @@ import { RefObject, CSSProperties, useState, useRef, useCallback } from 'react';
 import { State } from 'react-transition-state';
 import { useLayoutEffect } from '../utils/useIsomorphicLayoutEffect';
 
-const useHeightTransition: (
-  states: State
-) => [CSSProperties, (element: Element | null) => void, RefObject<Element>] = ({
-  state,
-  isResolved
-}) => {
+const useHeightTransition = <E extends Element>({ state, isResolved }: State) => {
   const [_height, setHeight] = useState<number>();
-  const elementRef = useRef<Element | null>(null);
+  const elementRef = useRef<E | null>(null);
   const resizeObserver = useRef<ResizeObserver>();
 
-  const cbRef = useCallback((element: Element | null) => {
+  const cbRef = useCallback((element: E | null) => {
     elementRef.current = element;
     if (typeof ResizeObserver !== 'function') return;
     resizeObserver.current?.disconnect();
@@ -32,14 +27,16 @@ const useHeightTransition: (
     state === 'preEnter' && setHeight(elementRef.current?.getBoundingClientRect().height);
   }, [state]);
 
-  const height =
-    state === 'preEnter' || state === 'exiting'
-      ? 0
-      : state === 'entering' || state === 'preExit'
-      ? _height
-      : undefined;
-
-  return [{ height, overflow: isResolved ? undefined : 'hidden' }, cbRef, elementRef];
+  const style: CSSProperties = {
+    height:
+      state === 'preEnter' || state === 'exiting'
+        ? 0
+        : state === 'entering' || state === 'preExit'
+        ? _height
+        : undefined,
+    overflow: isResolved ? undefined : 'hidden'
+  };
+  return [style, cbRef, elementRef as RefObject<E>] as const;
 };
 
 export { useHeightTransition };
