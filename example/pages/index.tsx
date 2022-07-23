@@ -1,6 +1,6 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, forwardRef } from 'react';
 import {
   Accordion,
   AccordionItem as Item,
@@ -10,13 +10,16 @@ import {
 } from '@szhsin/react-accordion';
 import styles from '../styles/Home.module.css';
 
-const AccordionItem = (props: AccordionItemProps) => (
+const AccordionItem = forwardRef<HTMLDivElement, AccordionItemProps>((props, ref) => (
   <Item
     {...props}
+    ref={ref}
     contentProps={{ className: styles.itemContent }}
     panelProps={{ style: { padding: '1rem' } }}
   />
-);
+));
+
+AccordionItem.displayName = 'MyAccordionItem';
 
 const Home: NextPage = () => {
   const providerValue = useAccordionProvider({
@@ -26,9 +29,13 @@ const Home: NextPage = () => {
       e.key === 'key1' && e.current.isResolved && console.log('state changed:', e.current.state)
   });
   const { toggle } = providerValue;
-  const ref = useRef<HTMLHeadingElement>(null);
+  const headerRef = useRef<HTMLHeadingElement>(null);
+  const accordionRef = useRef<HTMLDivElement>(null);
+  const itemRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    console.log('ref', ref);
+    console.log('headerRef', headerRef.current);
+    console.log('accordionRef', accordionRef.current);
+    console.log('itemRef', itemRef.current);
   }, []);
   return (
     <div className={styles.container}>
@@ -45,13 +52,14 @@ const Home: NextPage = () => {
           <button onClick={() => toggle(3, false)}>Close 3</button>
         </div>
         <ControlledAccordion
+          ref={accordionRef}
           providerValue={providerValue}
           id="ac1"
           onMouseLeave={() => console.log('mouse leave accordion')}
         >
           <AccordionItem
             headerProps={{
-              ref: ref,
+              ref: headerRef,
               className: (e) => {
                 return e.state;
               },
@@ -65,9 +73,14 @@ const Home: NextPage = () => {
           >
             content 1<textarea />
           </AccordionItem>
-          <AccordionItem header="header 2" initialEntered style={{ border: '1px solid' }}>
+          <AccordionItem
+            header="header 2"
+            initialEntered
+            style={{ border: '1px solid' }}
+            ref={itemRef}
+          >
             content 2<div data-testid="3">more</div>
-            <Accordion allowMultiple>
+            <Accordion allowMultiple ref={console.log}>
               <AccordionItem header="header 2.1">content 1</AccordionItem>
               <AccordionItem header="header 2.2">
                 content 2<div>more</div>
