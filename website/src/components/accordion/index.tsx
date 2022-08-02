@@ -1,5 +1,6 @@
 import React from 'react';
 import { Accordion, AccordionItem } from '@szhsin/react-accordion';
+import ChevronDown from '@site/static/img/chevron-down.svg';
 import styles from './styles.module.css';
 
 const StyledAccordion = (props) => <Accordion {...props} transition transitionTimeout={200} />;
@@ -7,6 +8,12 @@ const StyledAccordion = (props) => <Accordion {...props} transition transitionTi
 const StyledAccordionItem = (props) => (
   <AccordionItem
     {...props}
+    header={
+      <>
+        {props.header}
+        <ChevronDown className={styles.chevron} />
+      </>
+    }
     className={styles.item}
     buttonProps={{
       className: ({ expanded }) => (expanded ? styles.buttonExpanded : styles.button)

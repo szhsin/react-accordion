@@ -26,7 +26,8 @@
 
 .button {
   cursor: pointer;
-  display: block;
+  display: flex;
+  align-items: center;
   width: 100%;
   padding: 1rem 1.25rem;
   font-size: 1rem;
@@ -51,6 +52,15 @@
 .button:focus-visible {
   position: relative;
   box-shadow: 0 0 0 3px var(--ifm-color-primary);
+}
+
+.chevron {
+  margin-left: auto;
+  transition: transform 0.2s ease-in-out;
+}
+
+.buttonExpanded .chevron {
+  transform: rotate(180deg);
 }
 
 .content {
