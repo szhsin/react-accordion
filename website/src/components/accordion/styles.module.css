@@ -1,0 +1,62 @@
+.item {
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-top-width: 0;
+}
+
+.item:first-of-type {
+  border-top-width: 1px;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+}
+
+.item:last-of-type {
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+
+.item:first-of-type .button {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.item:last-of-type .button:not(.buttonExpanded) {
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.button {
+  cursor: pointer;
+  display: block;
+  width: 100%;
+  padding: 1rem 1.25rem;
+  font-size: 1rem;
+  font-weight: 400;
+  text-align: left;
+  background-color: transparent;
+  border: none;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.buttonExpanded {
+  composes: button;
+  box-shadow: inset 0 -1px 0 0 var(--ifm-color-emphasis-300);
+  color: var(--ifm-color-primary);
+  background-color: var(--accordion-background);
+}
+
+.button:focus {
+  outline: none;
+}
+
+.button:focus-visible {
+  position: relative;
+  box-shadow: 0 0 0 3px var(--ifm-color-primary);
+}
+
+.content {
+  transition: height 0.2s ease-in-out;
+}
+
+.panel {
+  padding: 1rem 1.25rem;
+}
