@@ -1,3 +1,7 @@
+.accordion {
+  margin-bottom: 1.5rem;
+}
+
 .item {
   border: 1px solid var(--ifm-color-emphasis-300);
   border-top-width: 0;

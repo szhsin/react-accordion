@@ -1,0 +1,38 @@
+---
+sidebar_position: 1
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import CodeBlock from '@theme/CodeBlock';
+import basicSource from '!!raw-loader!@site/src/components/basic';
+import { transformCodeBlock } from '@site/src/utils';
+import Basic from '@site/src/components/basic';
+
+# Getting Started
+
+## Install
+
+<Tabs>
+<TabItem value="npm" label="npm">
+
+```bash
+npm install @szhsin/react-accordion
+```
+
+</TabItem>
+<TabItem value="yarn" label="Yarn">
+
+```bash
+yarn add @szhsin/react-accordion
+```
+
+</TabItem>
+</Tabs>
+
+### Basic example
+
+By default, only one accordion item can be expanded at one time.
+<Basic/>
+
+<CodeBlock language="jsx">{transformCodeBlock(basicSource)}</CodeBlock>

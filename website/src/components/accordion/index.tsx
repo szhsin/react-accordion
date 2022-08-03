@@ -3,7 +3,9 @@ import { Accordion, AccordionItem } from '@szhsin/react-accordion';
 import ChevronDown from '@site/static/img/chevron-down.svg';
 import styles from './styles.module.css';
 
-const StyledAccordion = (props) => <Accordion {...props} transition transitionTimeout={200} />;
+const StyledAccordion = (props) => (
+  <Accordion {...props} className={styles.accordion} transition transitionTimeout={200} />
+);
 
 const StyledAccordionItem = (props) => (
   <AccordionItem
