@@ -24,7 +24,7 @@ const config = {
   // to replace "en" with "zh-Hans".
   i18n: {
     defaultLocale: 'en',
-    locales: ['en'],
+    locales: ['en']
   },
 
   presets: [
@@ -33,20 +33,21 @@ const config = {
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
+          routeBasePath: '/',
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/'
         },
         blog: false,
-        googleAnalytics:false,
-        gtag:false,
+        googleAnalytics: false,
+        gtag: false,
         theme: {
-          customCss: require.resolve('./src/css/custom.css'),
-        },
-      }),
-    ],
+          customCss: require.resolve('./src/css/custom.css')
+        }
+      })
+    ]
   ],
 
   themeConfig:
@@ -56,21 +57,21 @@ const config = {
         title: 'React Accordion',
         logo: {
           alt: 'Logo',
-          src: 'img/logo.svg',
+          src: 'img/logo.svg'
         },
         items: [
           {
             type: 'doc',
-            docId: 'intro',
+            docId: 'docs/getting-started',
             position: 'left',
-            label: 'Tutorial',
+            label: 'Docs'
           },
           {
             href: 'https://github.com/szhsin/react-accordion',
             label: 'GitHub',
-            position: 'right',
-          },
-        ],
+            position: 'right'
+          }
+        ]
       },
       footer: {
         style: 'dark',
@@ -80,44 +81,44 @@ const config = {
             items: [
               {
                 label: 'Tutorial',
-                to: '/docs/intro',
-              },
-            ],
+                to: '/docs/intro'
+              }
+            ]
           },
           {
             title: 'Community',
             items: [
               {
                 label: 'Stack Overflow',
-                href: 'https://stackoverflow.com/questions/tagged/docusaurus',
+                href: 'https://stackoverflow.com/questions/tagged/docusaurus'
               },
               {
                 label: 'Discord',
-                href: 'https://discordapp.com/invite/docusaurus',
+                href: 'https://discordapp.com/invite/docusaurus'
               },
               {
                 label: 'Twitter',
-                href: 'https://twitter.com/docusaurus',
-              },
-            ],
+                href: 'https://twitter.com/docusaurus'
+              }
+            ]
           },
           {
             title: 'More',
             items: [
               {
                 label: 'GitHub',
-                href: 'https://github.com/szhsin/react-accordion',
-              },
-            ],
-          },
+                href: 'https://github.com/szhsin/react-accordion'
+              }
+            ]
+          }
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} Zheng Song. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} Zheng Song. Built with Docusaurus.`
       },
       prism: {
         theme: lightCodeTheme,
-        darkTheme: darkCodeTheme,
-      },
-    }),
+        darkTheme: darkCodeTheme
+      }
+    })
 };
 
 module.exports = config;
