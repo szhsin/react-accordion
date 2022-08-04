@@ -48,8 +48,8 @@ module.exports = {
       type: 'category',
       label: 'Tutorial',
       // highlight-next-line
-      items: ['hello'],
-    },
-  ],
+      items: ['hello']
+    }
+  ]
 };
 ```
