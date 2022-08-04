@@ -32,6 +32,8 @@ yarn add @szhsin/react-accordion
 
 ## Basic example
 
+An accordion is created by wrapping any number of `AccordionItem` components inside an `Accordion` component.
+
 By default, only one accordion item can be expanded at one time.
 
 <Basic />
@@ -59,3 +61,10 @@ export default function Basic() {
   );
 }
 ```
+
+:::info
+
+Although the `header` prop of `AccordionItem` looks like some simple text content,
+you may provide it with any JSX elements or React components, which allows the item header to be easily customised.
+
+:::
