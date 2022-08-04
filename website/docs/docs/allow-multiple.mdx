@@ -3,7 +3,7 @@ sidebar_position: 2
 ---
 
 import CodeBlock from '@theme/CodeBlock';
-import multipleSource from '!!raw-loader!@site/src/components/Multiple';
+import source from '!!raw-loader!@site/src/components/Multiple';
 import { transformCodeBlock } from '@site/src/utils';
 import Multiple from '@site/src/components/Multiple';
 
@@ -15,4 +15,4 @@ You could use the `allowMultiple` prop to expand multiple accordion items at onc
 
 <Multiple />
 
-<CodeBlock language="jsx">{transformCodeBlock(multipleSource)}</CodeBlock>
+<CodeBlock language="jsx">{transformCodeBlock(source)}</CodeBlock>

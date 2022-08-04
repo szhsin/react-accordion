@@ -1,0 +1,9 @@
+.title {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.description {
+  color: var(--ifm-color-gray-600);
+  margin: 0;
+}

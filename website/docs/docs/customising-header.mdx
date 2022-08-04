@@ -1,0 +1,22 @@
+---
+sidebar_position: 4
+---
+
+import CodeBlock from '@theme/CodeBlock';
+import source from '!!raw-loader!@site/src/components/CustomisingHeader';
+import styles from '!!raw-loader!@site/src/components/CustomisingHeader/styles.module.css';
+import { transformCodeBlock } from '@site/src/utils';
+import CustomisingHeader from '@site/src/components/CustomisingHeader';
+
+# Customising header
+
+You may provide the `header` prop of `AccordionItem` with any JSX elements or React components,
+allowing the item header be to freely customised.
+
+<CustomisingHeader />
+
+<CodeBlock language="jsx">{transformCodeBlock(source)}</CodeBlock>
+
+<CodeBlock language="css" title="styles.module.css">
+  {styles}
+</CodeBlock>

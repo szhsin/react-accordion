@@ -4,9 +4,6 @@ sidebar_position: 1
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
-import CodeBlock from '@theme/CodeBlock';
-import basicSource from '!!raw-loader!@site/src/components/Basic';
-import { transformCodeBlock } from '@site/src/utils';
 import Basic from '@site/src/components/Basic';
 
 # Getting Started
@@ -65,6 +62,7 @@ export default function Basic() {
 :::info
 
 Although the `header` prop of `AccordionItem` looks like some simple text content,
-you may provide it with any JSX elements or React components, which allows the item header to be easily customised.
+you may provide it with any JSX elements or React components,
+which allows the item header to be [easily customised](./customising-header).
 
 :::
