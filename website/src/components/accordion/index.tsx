@@ -1,15 +1,10 @@
 import React from 'react';
-import {
-  Accordion,
-  AccordionItem,
-  AccordionProps,
-  AccordionItemProps
-} from '@szhsin/react-accordion';
+import * as ReactAccordion from '@szhsin/react-accordion';
 import ChevronDown from '@site/static/img/chevron-down.svg';
 import styles from './styles.module.css';
 
-const StyledAccordion = (props: AccordionProps) => (
-  <Accordion
+const Accordion = (props: ReactAccordion.AccordionProps) => (
+  <ReactAccordion.Accordion
     {...props}
     className={styles.accordion}
     transition
@@ -17,8 +12,14 @@ const StyledAccordion = (props: AccordionProps) => (
   />
 );
 
-const StyledAccordionItem = (props: AccordionItemProps) => (
-  <AccordionItem
+const ControlledAccordion = (
+  props: ReactAccordion.ControlledAccordionProps
+) => (
+  <ReactAccordion.ControlledAccordion {...props} className={styles.accordion} />
+);
+
+const AccordionItem = (props: ReactAccordion.AccordionItemProps) => (
+  <ReactAccordion.AccordionItem
     {...props}
     header={
       <>
@@ -36,7 +37,5 @@ const StyledAccordionItem = (props: AccordionItemProps) => (
   />
 );
 
-export {
-  StyledAccordion as Accordion,
-  StyledAccordionItem as AccordionItem
-};
+export * from '@szhsin/react-accordion';
+export { Accordion, ControlledAccordion, AccordionItem };
