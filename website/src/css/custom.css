@@ -18,6 +18,10 @@
   --accordion-background: #d1efde;
 }
 
+.theme-code-block-highlighted-line {
+  box-shadow: inset 3px 0 0 0 var(--ifm-color-primary);
+}
+
 /* For readability concerns, you should choose a lighter palette in dark mode. */
 [data-theme='dark'] {
   --ifm-color-primary: #25c2a0;
