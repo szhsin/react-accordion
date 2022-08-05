@@ -2,14 +2,14 @@
 // Note: type annotations allow type checking and IDEs autocompletion
 
 const lightCodeTheme = require('prism-react-renderer/themes/github');
-const darkCodeTheme = require('prism-react-renderer/themes/palenight');
+const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'React Accordion',
   tagline: 'An accessible React accordion library',
-  url: 'https://your-docusaurus-test-site.com',
-  baseUrl: '/',
+  url: 'https://szhsin.github.io',
+  baseUrl: '/react-accordion/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
@@ -38,7 +38,7 @@ const config = {
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/'
+            'https://github.com/szhsin/react-accordion/tree/master/website/'
         },
         blog: false,
         googleAnalytics: false,
@@ -55,10 +55,6 @@ const config = {
     ({
       navbar: {
         title: 'React Accordion',
-        logo: {
-          alt: 'Logo',
-          src: 'img/logo.svg'
-        },
         items: [
           {
             type: 'doc',
@@ -81,7 +77,7 @@ const config = {
             items: [
               {
                 label: 'Tutorial',
-                to: '/docs/intro'
+                to: '/docs/getting-started'
               }
             ]
           },
@@ -117,6 +113,9 @@ const config = {
       prism: {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme
+      },
+      colorMode: {
+        defaultMode: 'dark'
       }
     })
 };
