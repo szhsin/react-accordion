@@ -8,5 +8,5 @@
     "strict": true,
     "skipLibCheck": true
   },
-  "exclude": ["example/", "types/"]
+  "exclude": ["example/", "website/", "types/"]
 }
