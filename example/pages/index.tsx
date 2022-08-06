@@ -67,7 +67,7 @@ const Home: NextPage = () => {
               'data-testid': 32
             }}
             panelProps={{ ref: panelRef }}
-            header="header 1"
+            header={({ states: { isEnter } }) => `header 1 (${isEnter})`}
             itemKey="key1"
             onMouseEnter={() => console.log('mouse enter item 1')}
             className={({ state }) => (state === 'entered' ? 'open' : 'closed')}
@@ -93,11 +93,15 @@ const Home: NextPage = () => {
             </Accordion>
           </AccordionItem>
           <AccordionItem header="header 3" itemKey={3} buttonProps={{ 'data-testid': 'button3' }}>
-            content 3<div>more</div>
-            <Accordion>
-              <AccordionItem header="header 3.1">content 3.1</AccordionItem>
-            </Accordion>
-            <button>more</button>
+            {({ toggle }) => (
+              <>
+                content 3<div>more</div>
+                <Accordion>
+                  <AccordionItem header="header 3.1">content 3.1</AccordionItem>
+                </Accordion>
+                <button onClick={() => toggle(false)}>Close</button>
+              </>
+            )}
           </AccordionItem>
         </ControlledAccordion>
       </main>
