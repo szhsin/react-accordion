@@ -21,12 +21,14 @@ const ControlledAccordion = (
 const AccordionItem = (props: ReactAccordion.AccordionItemProps) => (
   <ReactAccordion.AccordionItem
     {...props}
-    header={
+    header={(renderProps) => (
       <>
-        {props.header}
+        {typeof props.header === 'function'
+          ? props.header(renderProps)
+          : props.header}
         <ChevronDown className={styles.chevron} />
       </>
-    }
+    )}
     className={styles.item}
     buttonProps={{
       className: ({ expanded }) =>

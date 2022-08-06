@@ -1,0 +1,19 @@
+---
+sidebar_position: 6
+---
+
+import CodeBlock from '@theme/CodeBlock';
+import source from '!!raw-loader!@site/src/components/AccessingState';
+import { transformCodeBlock } from '@site/src/utils';
+import AccessingState from '@site/src/components/AccessingState';
+
+# Accessing item state
+
+Both the `header` and `children` props of `AccordionItem` component support
+the [render prop](https://reactjs.org/docs/render-props.html) pattern, which can
+be used to access item state, along with a `toggle` function to open or close
+the current item.
+
+<AccessingState />
+
+<CodeBlock language="jsx">{transformCodeBlock(source)}</CodeBlock>
