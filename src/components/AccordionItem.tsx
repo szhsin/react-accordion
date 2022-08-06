@@ -1,5 +1,5 @@
 import { ReactNode, ForwardedRef, forwardRef } from 'react';
-import { TransitionState } from 'react-transition-state';
+import { TransitionState, State } from 'react-transition-state';
 import { ACCORDION_BLOCK, ElementProps } from '../utils/constants';
 import { bem } from '../utils/bem';
 import { useAccordionItem } from '../hooks/useAccordionItem';
@@ -15,16 +15,29 @@ interface ItemElementProps<E extends HTMLElement> extends ElementProps<E, ItemMo
   ref?: ForwardedRef<E>;
 }
 
+interface RenderProps {
+  states: State;
+  toggle: (toEnter?: boolean) => void;
+}
+
+type NodeOrFunc = ReactNode | ((props: RenderProps) => ReactNode);
+
 interface AccordionItemProps extends ElementProps<HTMLDivElement, ItemModifiers> {
   itemKey?: string | number;
   initialEntered?: boolean;
-  header?: ReactNode;
-  children?: ReactNode;
+  header?: NodeOrFunc;
+  children?: NodeOrFunc;
   headerProps?: ItemElementProps<HTMLHeadingElement>;
   buttonProps?: ItemElementProps<HTMLButtonElement>;
   contentProps?: ItemElementProps<HTMLDivElement>;
   panelProps?: ItemElementProps<HTMLDivElement>;
 }
+
+const getRenderNode: <P>(
+  nodeOrFunc: ReactNode | ((props: P) => ReactNode),
+  props: P
+) => ReactNode = (nodeOrFunc, props) =>
+  typeof nodeOrFunc === 'function' ? nodeOrFunc(props) : nodeOrFunc;
 
 const AccordionItem = forwardRef<HTMLDivElement, AccordionItemProps>(
   (
@@ -45,6 +58,7 @@ const AccordionItem = forwardRef<HTMLDivElement, AccordionItemProps>(
     const {
       itemRef,
       states,
+      toggle,
       buttonProps: _buttonProps,
       panelProps: _panelProps
     } = useAccordionItem<HTMLDivElement>({ itemKey, initialEntered });
@@ -52,6 +66,7 @@ const AccordionItem = forwardRef<HTMLDivElement, AccordionItemProps>(
     const panelRef = useMergeRef(panelProps?.ref, _panelRef);
     const { state, isMounted, isEnter } = states;
     const modifiers: ItemModifiers = { state, expanded: isEnter };
+    const renderProps: RenderProps = { states, toggle };
 
     return (
       <div
@@ -70,7 +85,7 @@ const AccordionItem = forwardRef<HTMLDivElement, AccordionItemProps>(
             type="button"
             className={bem(ACCORDION_BLOCK, 'btn', modifiers, buttonProps?.className)}
           >
-            {header}
+            {getRenderNode(header, renderProps)}
           </button>
         </h3>
         {isMounted && (
@@ -89,7 +104,7 @@ const AccordionItem = forwardRef<HTMLDivElement, AccordionItemProps>(
               ref={panelRef}
               className={bem(ACCORDION_BLOCK, 'panel', modifiers, panelProps?.className)}
             >
-              {children}
+              {getRenderNode(children, renderProps)}
             </div>
           </div>
         )}

@@ -8,6 +8,11 @@ import { useMergeRef } from '../hooks/useMergeRef.js';
 import { jsxs, jsx } from 'react/jsx-runtime';
 
 var _excluded = ["itemKey", "initialEntered", "className", "header", "headerProps", "buttonProps", "contentProps", "panelProps", "children"];
+
+var getRenderNode = function getRenderNode(nodeOrFunc, props) {
+  return typeof nodeOrFunc === 'function' ? nodeOrFunc(props) : nodeOrFunc;
+};
+
 var AccordionItem = /*#__PURE__*/forwardRef(function (_ref, forwardedRef) {
   var itemKey = _ref.itemKey,
       initialEntered = _ref.initialEntered,
@@ -26,6 +31,7 @@ var AccordionItem = /*#__PURE__*/forwardRef(function (_ref, forwardedRef) {
   }),
       itemRef = _useAccordionItem.itemRef,
       states = _useAccordionItem.states,
+      toggle = _useAccordionItem.toggle,
       _buttonProps = _useAccordionItem.buttonProps,
       _panelProps = _useAccordionItem.panelProps;
 
@@ -41,6 +47,10 @@ var AccordionItem = /*#__PURE__*/forwardRef(function (_ref, forwardedRef) {
     state: state,
     expanded: isEnter
   };
+  var renderProps = {
+    states: states,
+    toggle: toggle
+  };
   return /*#__PURE__*/jsxs("div", _extends({}, rest, {
     ref: useMergeRef(forwardedRef, itemRef),
     className: bem(ACCORDION_BLOCK, 'item', modifiers, className, true),
@@ -52,7 +62,7 @@ var AccordionItem = /*#__PURE__*/forwardRef(function (_ref, forwardedRef) {
       children: /*#__PURE__*/jsx("button", _extends({}, buttonProps, _buttonProps, {
         type: "button",
         className: bem(ACCORDION_BLOCK, 'btn', modifiers, buttonProps == null ? void 0 : buttonProps.className),
-        children: header
+        children: getRenderNode(header, renderProps)
       }))
     })), isMounted && /*#__PURE__*/jsx("div", _extends({}, contentProps, {
       style: _extends({
@@ -62,7 +72,7 @@ var AccordionItem = /*#__PURE__*/forwardRef(function (_ref, forwardedRef) {
       children: /*#__PURE__*/jsx("div", _extends({}, panelProps, _panelProps, {
         ref: panelRef,
         className: bem(ACCORDION_BLOCK, 'panel', modifiers, panelProps == null ? void 0 : panelProps.className),
-        children: children
+        children: getRenderNode(children, renderProps)
       }))
     }))]
   }));

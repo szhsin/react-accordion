@@ -1,6 +1,6 @@
 {
   "name": "@szhsin/react-accordion",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "An accessible React accordion library",
   "author": "Zheng Song",
   "license": "MIT",
@@ -14,7 +14,8 @@
   "files": [
     "dist/",
     "types/*.d.ts",
-    "types/components/"
+    "types/components/",
+    "types/hooks/"
   ],
   "scripts": {
     "start": "run-p watch \"types -- --watch\"",

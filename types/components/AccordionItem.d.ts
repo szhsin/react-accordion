@@ -1,5 +1,5 @@
 import { ReactNode, ForwardedRef } from 'react';
-import { TransitionState } from 'react-transition-state';
+import { TransitionState, State } from 'react-transition-state';
 import { ElementProps } from '../utils/constants';
 declare type ItemModifiers = {
     readonly state: TransitionState;
@@ -8,11 +8,16 @@ declare type ItemModifiers = {
 interface ItemElementProps<E extends HTMLElement> extends ElementProps<E, ItemModifiers> {
     ref?: ForwardedRef<E>;
 }
+interface RenderProps {
+    states: State;
+    toggle: (toEnter?: boolean) => void;
+}
+declare type NodeOrFunc = ReactNode | ((props: RenderProps) => ReactNode);
 interface AccordionItemProps extends ElementProps<HTMLDivElement, ItemModifiers> {
     itemKey?: string | number;
     initialEntered?: boolean;
-    header?: ReactNode;
-    children?: ReactNode;
+    header?: NodeOrFunc;
+    children?: NodeOrFunc;
     headerProps?: ItemElementProps<HTMLHeadingElement>;
     buttonProps?: ItemElementProps<HTMLButtonElement>;
     contentProps?: ItemElementProps<HTMLDivElement>;
