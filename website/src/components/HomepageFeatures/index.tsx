@@ -1,72 +1,73 @@
-/* eslint-disable */
-
 import React from 'react';
-import clsx from 'clsx';
+import Link from '@docusaurus/Link';
 import styles from './styles.module.css';
 
 type FeatureItem = {
   title: string;
-  Svg: React.ComponentType<React.ComponentProps<'svg'>>;
   description: JSX.Element;
 };
 
-const FeatureList: FeatureItem[] = [
+const featureList: FeatureItem[] = [
   {
-    title: 'Easy to Use',
-    Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
+    title: 'Unstyled Components',
     description: (
       <>
-        Docusaurus was designed from the ground up to be easily installed and
-        used to get your website up and running quickly.
+        Offering behaviour and state/data management without enforcing any
+        styles. Freely customising for your React app or design system.
       </>
     )
   },
   {
-    title: 'Focus on What Matters',
-    Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
+    title: 'Headless UI Primitives',
     description: (
       <>
-        Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go
-        ahead and move your docs into the <code>docs</code> directory.
+        While the components render markup with good default settings, the React
+        Hooks give you complete control of render outputs.
       </>
     )
   },
   {
-    title: 'Powered by React',
-    Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
+    title: 'WAI-ARIA Compliant',
     description: (
       <>
-        Extend or customize your website layout by reusing React. Docusaurus can
-        be extended while reusing the same header and footer.
+        Fully accessible and compliant with the{' '}
+        <Link to="https://www.w3.org/WAI/ARIA/apg/patterns/accordion/">
+          Accordion Pattern
+        </Link>
+        . Supports keyboard navigation.
+      </>
+    )
+  },
+  {
+    title: 'Transition and Animation',
+    description: (
+      <>
+        Supports open and close animation with full state transition cycle,
+        thanks to the{' '}
+        <Link to="https://github.com/szhsin/react-transition-state">
+          react-transition-state
+        </Link>{' '}
+        library.
       </>
     )
   }
 ];
 
-function Feature({ title, Svg, description }: FeatureItem) {
+function Feature({ title, description }: FeatureItem) {
   return (
-    <div className={clsx('col col--4')}>
-      <div className="text--center">
-        <Svg className={styles.featureSvg} role="img" />
-      </div>
-      <div className="text--center padding-horiz--md">
-        <h3>{title}</h3>
-        <p>{description}</p>
-      </div>
+    <div className={styles.feature}>
+      <h3>{title}</h3>
+      <p>{description}</p>
     </div>
   );
 }
 
 export default function HomepageFeatures(): JSX.Element {
   return (
-    <section className={styles.features}>
-      <div className="container">
-        <div className="row">
-          {FeatureList.map((props, idx) => (
-            <Feature key={idx} {...props} />
-          ))}
-        </div>
-      </div>
+    <section className={styles.featureList}>
+      {featureList.map((props, idx) => (
+        <Feature key={idx} {...props} />
+      ))}
     </section>
   );
 }
