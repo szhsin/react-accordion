@@ -1,4 +1,5 @@
 build/
+static/
 coverage/
 dist/
 types/
