@@ -1,37 +1,25 @@
-import { useContext, useEffect, useRef, MouseEventHandler, HTMLAttributes } from 'react';
-import { State } from 'react-transition-state';
-import { AccordionContext, ACCORDION_BTN_ATTR } from '../utils/constants';
+import { useEffect, useRef, MouseEventHandler, HTMLAttributes } from 'react';
+import { ACCORDION_BTN_ATTR } from '../utils/constants';
 import { useId } from './useId';
+import { useAccordionContext, getItemStates } from './useAccordionContext';
 
 const useAccordionItem = <E extends Element>({
   itemKey,
-  initialEntered: itemInitialEntered
+  initialEntered
 }: { itemKey?: string | number; initialEntered?: boolean } = {}) => {
   const itemRef = useRef<E>(null);
-  const { stateMap, setItem, deleteItem, toggle, endTransition, mountOnEnter, initialEntered } =
-    useContext(AccordionContext);
-  if (process.env.NODE_ENV !== 'production' && !stateMap) {
-    throw new Error(
-      `[React-Accordion] Cannot find a <AccordionProvider/> above this AccordionItem.`
-    );
-  }
+  const context = useAccordionContext();
+  const { setItem, deleteItem, toggle } = context;
 
   useEffect(() => {
     const key = itemKey ?? itemRef.current!;
-    setItem!(key, { initialEntered: itemInitialEntered });
-    return () => void deleteItem!(key);
-  }, [setItem, deleteItem, itemKey, itemInitialEntered]);
+    setItem(key, { initialEntered });
+    return () => void deleteItem(key);
+  }, [setItem, deleteItem, itemKey, initialEntered]);
 
-  const _initialEntered = itemInitialEntered ?? initialEntered;
-  const initialStates: State = {
-    state: _initialEntered ? 'entered' : mountOnEnter ? 'unmounted' : 'exited',
-    isMounted: !mountOnEnter,
-    isEnter: !!_initialEntered,
-    isResolved: true
-  };
   const key = itemKey ?? itemRef.current!;
-  const states = stateMap!.get(key) || initialStates;
-  const toggleItem = (toEnter?: boolean) => toggle!(key, toEnter);
+  const states = getItemStates(context, key, initialEntered);
+  const toggleItem = (toEnter?: boolean) => toggle(key, toEnter);
 
   const buttonId = useId();
   const panelId = useId();
@@ -53,8 +41,7 @@ const useAccordionItem = <E extends Element>({
     states,
     buttonProps,
     panelProps,
-    toggle: toggleItem,
-    endTransition: () => endTransition!(key)
+    toggle: toggleItem
   };
 };
 

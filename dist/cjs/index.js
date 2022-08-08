@@ -202,48 +202,54 @@ var useIdShim = function useIdShim() {
 
 var _useId = react.useId || useIdShim;
 
+function getItemStates(providerValue, key, itemInitialEntered) {
+  var stateMap = providerValue.stateMap,
+      mountOnEnter = providerValue.mountOnEnter,
+      initialEntered = providerValue.initialEntered;
+
+  var _initialEntered = itemInitialEntered != null ? itemInitialEntered : initialEntered;
+
+  return stateMap.get(key) || {
+    state: _initialEntered ? 'entered' : mountOnEnter ? 'unmounted' : 'exited',
+    isMounted: !mountOnEnter,
+    isEnter: _initialEntered,
+    isResolved: true
+  };
+}
+
+var useAccordionContext = function useAccordionContext() {
+  var context = react.useContext(AccordionContext);
+
+  if (process.env.NODE_ENV !== 'production' && !context.stateMap) {
+    throw new Error('[React-Accordion] Cannot find a <AccordionProvider/> above this AccordionItem.');
+  }
+
+  return context;
+};
+
 var useAccordionItem = function useAccordionItem(_temp) {
   var _buttonProps;
 
   var _ref = _temp === void 0 ? {} : _temp,
       itemKey = _ref.itemKey,
-      itemInitialEntered = _ref.initialEntered;
+      initialEntered = _ref.initialEntered;
 
   var itemRef = react.useRef(null);
-
-  var _useContext = react.useContext(AccordionContext),
-      stateMap = _useContext.stateMap,
-      setItem = _useContext.setItem,
-      deleteItem = _useContext.deleteItem,
-      toggle = _useContext.toggle,
-      _endTransition = _useContext.endTransition,
-      mountOnEnter = _useContext.mountOnEnter,
-      initialEntered = _useContext.initialEntered;
-
-  if (process.env.NODE_ENV !== 'production' && !stateMap) {
-    throw new Error("[React-Accordion] Cannot find a <AccordionProvider/> above this AccordionItem.");
-  }
-
+  var context = useAccordionContext();
+  var setItem = context.setItem,
+      deleteItem = context.deleteItem,
+      toggle = context.toggle;
   react.useEffect(function () {
     var key = itemKey != null ? itemKey : itemRef.current;
     setItem(key, {
-      initialEntered: itemInitialEntered
+      initialEntered: initialEntered
     });
     return function () {
       return void deleteItem(key);
     };
-  }, [setItem, deleteItem, itemKey, itemInitialEntered]);
-
-  var _initialEntered = itemInitialEntered != null ? itemInitialEntered : initialEntered;
-
-  var initialStates = {
-    state: _initialEntered ? 'entered' : mountOnEnter ? 'unmounted' : 'exited',
-    isMounted: !mountOnEnter,
-    isEnter: !!_initialEntered,
-    isResolved: true
-  };
+  }, [setItem, deleteItem, itemKey, initialEntered]);
   var key = itemKey != null ? itemKey : itemRef.current;
-  var states = stateMap.get(key) || initialStates;
+  var states = getItemStates(context, key, initialEntered);
 
   var toggleItem = function toggleItem(toEnter) {
     return toggle(key, toEnter);
@@ -264,10 +270,7 @@ var useAccordionItem = function useAccordionItem(_temp) {
     states: states,
     buttonProps: buttonProps,
     panelProps: panelProps,
-    toggle: toggleItem,
-    endTransition: function endTransition() {
-      return _endTransition(key);
-    }
+    toggle: toggleItem
   };
 };
 
@@ -403,7 +406,21 @@ var AccordionItem = /*#__PURE__*/react.forwardRef(function (_ref, forwardedRef) 
 });
 AccordionItem.displayName = 'AccordionItem';
 
+var useAccordionState = function useAccordionState() {
+  var context = useAccordionContext();
+  return {
+    getItemStates: function getItemStates$1(key, _temp) {
+      var _ref = _temp === void 0 ? {} : _temp,
+          initialEntered = _ref.initialEntered;
+
+      return getItemStates(context, key, initialEntered);
+    },
+    toggle: context.toggle
+  };
+};
+
 exports.Accordion = Accordion;
 exports.AccordionItem = AccordionItem;
 exports.ControlledAccordion = ControlledAccordion;
 exports.useAccordionProvider = useAccordionProvider;
+exports.useAccordionState = useAccordionState;
