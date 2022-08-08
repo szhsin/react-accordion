@@ -11,9 +11,7 @@ const getTransition = (
   name: 'enter' | 'exit' | 'preEnter' | 'preExit'
 ): boolean => transition === true || !!(transition && transition[name]);
 
-const useAccordionProvider: (
-  options?: AccordionProviderOptions
-) => Required<AccordionProviderValue> = ({
+const useAccordionProvider: (options?: AccordionProviderOptions) => AccordionProviderValue = ({
   allowMultiple,
   transition,
   transitionTimeout,

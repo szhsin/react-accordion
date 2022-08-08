@@ -24,8 +24,8 @@ export interface AccordionProviderOptions extends Omit<TransitionMapOptions<Item
     transition?: TransitionProp;
     transitionTimeout?: TransitionOptions['timeout'];
 }
-export interface AccordionProviderValue extends Partial<TransitionMapResult<ItemKey>> {
-    mountOnEnter?: boolean;
-    initialEntered?: boolean;
+export interface AccordionProviderValue extends TransitionMapResult<ItemKey> {
+    mountOnEnter: boolean;
+    initialEntered: boolean;
 }
-export declare const AccordionContext: import("react").Context<AccordionProviderValue>;
+export declare const AccordionContext: import("react").Context<Partial<AccordionProviderValue>>;

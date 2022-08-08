@@ -40,9 +40,9 @@ export interface AccordionProviderOptions
   transitionTimeout?: TransitionOptions['timeout'];
 }
 
-export interface AccordionProviderValue extends Partial<TransitionMapResult<ItemKey>> {
-  mountOnEnter?: boolean;
-  initialEntered?: boolean;
+export interface AccordionProviderValue extends TransitionMapResult<ItemKey> {
+  mountOnEnter: boolean;
+  initialEntered: boolean;
 }
 
-export const AccordionContext = createContext<AccordionProviderValue>({});
+export const AccordionContext = createContext<Partial<AccordionProviderValue>>({});

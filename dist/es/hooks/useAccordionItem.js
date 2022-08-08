@@ -1,49 +1,31 @@
-import { useRef, useContext, useEffect } from 'react';
-import { AccordionContext, ACCORDION_BTN_ATTR } from '../utils/constants.js';
+import { useRef, useEffect } from 'react';
+import { ACCORDION_BTN_ATTR } from '../utils/constants.js';
 import { useId as _useId } from './useId.js';
+import { useAccordionContext, getItemStates } from './useAccordionContext.js';
 
 var useAccordionItem = function useAccordionItem(_temp) {
   var _buttonProps;
 
   var _ref = _temp === void 0 ? {} : _temp,
       itemKey = _ref.itemKey,
-      itemInitialEntered = _ref.initialEntered;
+      initialEntered = _ref.initialEntered;
 
   var itemRef = useRef(null);
-
-  var _useContext = useContext(AccordionContext),
-      stateMap = _useContext.stateMap,
-      setItem = _useContext.setItem,
-      deleteItem = _useContext.deleteItem,
-      toggle = _useContext.toggle,
-      _endTransition = _useContext.endTransition,
-      mountOnEnter = _useContext.mountOnEnter,
-      initialEntered = _useContext.initialEntered;
-
-  if (process.env.NODE_ENV !== 'production' && !stateMap) {
-    throw new Error("[React-Accordion] Cannot find a <AccordionProvider/> above this AccordionItem.");
-  }
-
+  var context = useAccordionContext();
+  var setItem = context.setItem,
+      deleteItem = context.deleteItem,
+      toggle = context.toggle;
   useEffect(function () {
     var key = itemKey != null ? itemKey : itemRef.current;
     setItem(key, {
-      initialEntered: itemInitialEntered
+      initialEntered: initialEntered
     });
     return function () {
       return void deleteItem(key);
     };
-  }, [setItem, deleteItem, itemKey, itemInitialEntered]);
-
-  var _initialEntered = itemInitialEntered != null ? itemInitialEntered : initialEntered;
-
-  var initialStates = {
-    state: _initialEntered ? 'entered' : mountOnEnter ? 'unmounted' : 'exited',
-    isMounted: !mountOnEnter,
-    isEnter: !!_initialEntered,
-    isResolved: true
-  };
+  }, [setItem, deleteItem, itemKey, initialEntered]);
   var key = itemKey != null ? itemKey : itemRef.current;
-  var states = stateMap.get(key) || initialStates;
+  var states = getItemStates(context, key, initialEntered);
 
   var toggleItem = function toggleItem(toEnter) {
     return toggle(key, toEnter);
@@ -64,10 +46,7 @@ var useAccordionItem = function useAccordionItem(_temp) {
     states: states,
     buttonProps: buttonProps,
     panelProps: panelProps,
-    toggle: toggleItem,
-    endTransition: function endTransition() {
-      return _endTransition(key);
-    }
+    toggle: toggleItem
   };
 };
 
