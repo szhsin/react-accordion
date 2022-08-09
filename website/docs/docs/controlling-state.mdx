@@ -3,15 +3,18 @@ sidebar_position: 5
 ---
 
 import CodeBlock from '@theme/CodeBlock';
-import source from '!!raw-loader!@site/src/components/ControllingState';
 import { transformCodeBlock } from '@site/src/utils';
+import controllingStateSource from '!!raw-loader!@site/src/components/ControllingState';
+import useStateHookSource from '!!raw-loader!@site/src/components/UseStateHook';
 import ControllingState from '@site/src/components/ControllingState';
+import UseStateHook from '@site/src/components/UseStateHook';
 
 # Controlling state
 
+## From above `Accordion`
+
 If you want to programmatically open or close accordion items from a component that
-is above the accordion in the React tree, you could use the `ControlledAccordion`
-and `useAccordionProvider`.
+is above `Accordion` in the React tree, you could use the `ControlledAccordion` and `useAccordionProvider`.
 
 The value returned from `useAccordionProvider` contains a `toggle` function which
 can be used to open or close any accordion items. This value should also be given
@@ -24,7 +27,9 @@ or to toggle between the two states if the parameter is omitted.
 
 <ControllingState />
 
-<CodeBlock language="jsx">{transformCodeBlock(source)}</CodeBlock>
+<CodeBlock language="jsx">
+  {transformCodeBlock(controllingStateSource)}
+</CodeBlock>
 
 :::caution NOTE
 
@@ -32,5 +37,23 @@ The `itemKey` prop of `AccordionItem` is not required to be globally unique,
 but it should be unique among its sibling `AccordionItem` components.
 
 Also, you don't need to specify the `itemKey` prop if you don't want to toggle that item.
+
+:::
+
+## From underneath `Accordion`
+
+To programmatically open or close accordion items or access the state from a component that
+is underneath `Accordion` in the React tree, use the `useAccordionState` hook.
+
+<UseStateHook />
+
+<CodeBlock language="jsx">
+  {transformCodeBlock(useStateHookSource)}
+</CodeBlock>
+
+:::tip
+
+If you want to access and control state of the _**current**_ item, there is a simpler way
+to achieve it using the [render prop pattern](./accessing-state).
 
 :::

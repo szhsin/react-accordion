@@ -12,7 +12,9 @@ export default function Footer() {
           href: 'https://github.com/szhsin/react-accordion'
         }}
       />
-      <div className={styles.license}>Released under the MIT License.</div>
+      <div className={styles.license}>
+        Released under the MIT License.
+      </div>
       <div>Copyright © {new Date().getFullYear()} Zheng Song.</div>
     </footer>
   );
