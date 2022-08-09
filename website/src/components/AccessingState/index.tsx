@@ -1,7 +1,7 @@
 import React from 'react';
 import { Accordion, AccordionItem } from '../accordion';
 
-export default function AccessingState() {
+export default function Example() {
   return (
     <Accordion>
       <AccordionItem
@@ -12,8 +12,9 @@ export default function AccessingState() {
         {({ toggle }) => (
           <>
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+              sed do eiusmod tempor incididunt ut labore et dolore magna
+              aliqua.
             </p>
 
             {/* `toggle` function is also available from the render prop */}
@@ -26,9 +27,9 @@ export default function AccessingState() {
       </AccordionItem>
 
       <AccordionItem header="Where does it come from?">
-        Quisque eget luctus mi, vehicula mollis lorem. Proin fringilla vel erat
-        quis sodales. Nam ex enim, eleifend venenatis lectus vitae, accumsan
-        auctor mi.
+        Quisque eget luctus mi, vehicula mollis lorem. Proin fringilla
+        vel erat quis sodales. Nam ex enim, eleifend venenatis lectus
+        vitae, accumsan auctor mi.
       </AccordionItem>
     </Accordion>
   );

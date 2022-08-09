@@ -15,7 +15,10 @@ const Accordion = (props: ReactAccordion.AccordionProps) => (
 const ControlledAccordion = (
   props: ReactAccordion.ControlledAccordionProps
 ) => (
-  <ReactAccordion.ControlledAccordion {...props} className={styles.accordion} />
+  <ReactAccordion.ControlledAccordion
+    {...props}
+    className={styles.accordion}
+  />
 );
 
 const AccordionItem = (props: ReactAccordion.AccordionItemProps) => (

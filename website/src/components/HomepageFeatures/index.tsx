@@ -12,8 +12,9 @@ const featureList: FeatureItem[] = [
     title: 'Unstyled Components',
     description: (
       <>
-        Offering behaviour and state/data management without enforcing any
-        styles. Freely customising for your React app or design system.
+        Providing behaviour and data/state management without enforcing
+        any styles. Freely customising for your React app or design
+        system.
       </>
     )
   },
@@ -21,8 +22,8 @@ const featureList: FeatureItem[] = [
     title: 'Headless UI Primitives',
     description: (
       <>
-        While the components render markup with good default settings, the React
-        Hooks give you complete control of render outputs.
+        While the components render markup with good default settings,
+        the React Hooks give you complete control of render outputs.
       </>
     )
   },
@@ -42,8 +43,8 @@ const featureList: FeatureItem[] = [
     title: 'Transition and Animation',
     description: (
       <>
-        Supports open and close animation with full state transition cycle,
-        thanks to the{' '}
+        Supports open and close animation with full state transition
+        cycle, thanks to the{' '}
         <Link to="https://github.com/szhsin/react-transition-state">
           react-transition-state
         </Link>{' '}
