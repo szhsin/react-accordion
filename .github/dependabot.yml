@@ -10,6 +10,10 @@ updates:
     schedule:
       interval: 'daily'
   - package-ecosystem: 'npm'
+    directory: '/website'
+    schedule:
+      interval: 'daily'
+  - package-ecosystem: 'npm'
     directory: '/example'
     schedule:
       interval: 'daily'
