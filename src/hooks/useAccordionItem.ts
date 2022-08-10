@@ -1,7 +1,7 @@
 import { useEffect, useRef, MouseEventHandler, HTMLAttributes } from 'react';
 import { ACCORDION_BTN_ATTR } from '../utils/constants';
 import { useId } from './useId';
-import { useAccordionContext, getItemStates } from './useAccordionContext';
+import { useAccordionContext, getItemState } from './useAccordionContext';
 
 const useAccordionItem = <E extends Element>({
   itemKey,
@@ -18,7 +18,7 @@ const useAccordionItem = <E extends Element>({
   }, [setItem, deleteItem, itemKey, initialEntered]);
 
   const key = itemKey ?? itemRef.current!;
-  const states = getItemStates(context, key, initialEntered);
+  const state = getItemState(context, key, initialEntered);
   const toggleItem = (toEnter?: boolean) => toggle(key, toEnter);
 
   const buttonId = useId();
@@ -27,7 +27,7 @@ const useAccordionItem = <E extends Element>({
     id: buttonId,
     [ACCORDION_BTN_ATTR]: '',
     'aria-controls': panelId,
-    'aria-expanded': states.isEnter,
+    'aria-expanded': state.isEnter,
     onClick: toggleItem as unknown as MouseEventHandler<Element>
   };
   const panelProps: HTMLAttributes<Element> = {
@@ -38,9 +38,9 @@ const useAccordionItem = <E extends Element>({
 
   return {
     itemRef,
-    states,
     buttonProps,
     panelProps,
+    state,
     toggle: toggleItem
   };
 };

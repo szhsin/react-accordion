@@ -202,7 +202,7 @@ var useIdShim = function useIdShim() {
 
 var _useId = react.useId || useIdShim;
 
-function getItemStates(providerValue, key, itemInitialEntered) {
+function getItemState(providerValue, key, itemInitialEntered) {
   var stateMap = providerValue.stateMap,
       mountOnEnter = providerValue.mountOnEnter,
       initialEntered = providerValue.initialEntered;
@@ -210,7 +210,7 @@ function getItemStates(providerValue, key, itemInitialEntered) {
   var _initialEntered = itemInitialEntered != null ? itemInitialEntered : initialEntered;
 
   return stateMap.get(key) || {
-    state: _initialEntered ? 'entered' : mountOnEnter ? 'unmounted' : 'exited',
+    status: _initialEntered ? 'entered' : mountOnEnter ? 'unmounted' : 'exited',
     isMounted: !mountOnEnter,
     isEnter: _initialEntered,
     isResolved: true
@@ -249,7 +249,7 @@ var useAccordionItem = function useAccordionItem(_temp) {
     };
   }, [setItem, deleteItem, itemKey, initialEntered]);
   var key = itemKey != null ? itemKey : itemRef.current;
-  var states = getItemStates(context, key, initialEntered);
+  var state = getItemState(context, key, initialEntered);
 
   var toggleItem = function toggleItem(toEnter) {
     return toggle(key, toEnter);
@@ -259,7 +259,7 @@ var useAccordionItem = function useAccordionItem(_temp) {
   var panelId = _useId();
   var buttonProps = (_buttonProps = {
     id: buttonId
-  }, _buttonProps[ACCORDION_BTN_ATTR] = '', _buttonProps['aria-controls'] = panelId, _buttonProps['aria-expanded'] = states.isEnter, _buttonProps.onClick = toggleItem, _buttonProps);
+  }, _buttonProps[ACCORDION_BTN_ATTR] = '', _buttonProps['aria-controls'] = panelId, _buttonProps['aria-expanded'] = state.isEnter, _buttonProps.onClick = toggleItem, _buttonProps);
   var panelProps = {
     id: panelId,
     'aria-labelledby': buttonId,
@@ -267,9 +267,9 @@ var useAccordionItem = function useAccordionItem(_temp) {
   };
   return {
     itemRef: itemRef,
-    states: states,
     buttonProps: buttonProps,
     panelProps: panelProps,
+    state: state,
     toggle: toggleItem
   };
 };
@@ -277,7 +277,7 @@ var useAccordionItem = function useAccordionItem(_temp) {
 var useIsomorphicLayoutEffect = typeof window !== 'undefined' && typeof window.document !== 'undefined' && typeof window.document.createElement !== 'undefined' ? react.useLayoutEffect : react.useEffect;
 
 var useHeightTransition = function useHeightTransition(_ref) {
-  var state = _ref.state,
+  var status = _ref.status,
       isResolved = _ref.isResolved;
 
   var _useState = react.useState(),
@@ -310,10 +310,10 @@ var useHeightTransition = function useHeightTransition(_ref) {
   useIsomorphicLayoutEffect(function () {
     var _elementRef$current;
 
-    state === 'preEnter' && setHeight((_elementRef$current = elementRef.current) == null ? void 0 : _elementRef$current.getBoundingClientRect().height);
-  }, [state]);
+    status === 'preEnter' && setHeight((_elementRef$current = elementRef.current) == null ? void 0 : _elementRef$current.getBoundingClientRect().height);
+  }, [status]);
   var style = {
-    height: state === 'preEnter' || state === 'exiting' ? 0 : state === 'entering' || state === 'preExit' ? _height : undefined,
+    height: status === 'preEnter' || status === 'exiting' ? 0 : status === 'entering' || status === 'preExit' ? _height : undefined,
     overflow: isResolved ? undefined : 'hidden'
   };
   return [style, cbRef, elementRef];
@@ -357,25 +357,25 @@ var AccordionItem = /*#__PURE__*/react.forwardRef(function (_ref, forwardedRef) 
     initialEntered: initialEntered
   }),
       itemRef = _useAccordionItem.itemRef,
-      states = _useAccordionItem.states,
+      state = _useAccordionItem.state,
       toggle = _useAccordionItem.toggle,
       _buttonProps = _useAccordionItem.buttonProps,
       _panelProps = _useAccordionItem.panelProps;
 
-  var _useHeightTransition = useHeightTransition(states),
+  var _useHeightTransition = useHeightTransition(state),
       transitionStyle = _useHeightTransition[0],
       _panelRef = _useHeightTransition[1];
 
   var panelRef = useMergeRef(panelProps == null ? void 0 : panelProps.ref, _panelRef);
-  var state = states.state,
-      isMounted = states.isMounted,
-      isEnter = states.isEnter;
+  var status = state.status,
+      isMounted = state.isMounted,
+      isEnter = state.isEnter;
   var modifiers = {
-    state: state,
+    status: status,
     expanded: isEnter
   };
   var renderProps = {
-    states: states,
+    state: state,
     toggle: toggle
   };
   return /*#__PURE__*/jsxRuntime.jsxs("div", _extends({}, rest, {
@@ -393,7 +393,7 @@ var AccordionItem = /*#__PURE__*/react.forwardRef(function (_ref, forwardedRef) 
       }))
     })), isMounted && /*#__PURE__*/jsxRuntime.jsx("div", _extends({}, contentProps, {
       style: _extends({
-        display: state === 'exited' ? 'none' : undefined
+        display: status === 'exited' ? 'none' : undefined
       }, transitionStyle, contentProps == null ? void 0 : contentProps.style),
       className: bem(ACCORDION_BLOCK, 'content', modifiers, contentProps == null ? void 0 : contentProps.className),
       children: /*#__PURE__*/jsxRuntime.jsx("div", _extends({}, panelProps, _panelProps, {
@@ -409,11 +409,11 @@ AccordionItem.displayName = 'AccordionItem';
 var useAccordionState = function useAccordionState() {
   var context = useAccordionContext();
   return {
-    getItemStates: function getItemStates$1(key, _temp) {
+    getItemState: function getItemState$1(key, _temp) {
       var _ref = _temp === void 0 ? {} : _temp,
           initialEntered = _ref.initialEntered;
 
-      return getItemStates(context, key, initialEntered);
+      return getItemState(context, key, initialEntered);
     },
     toggle: context.toggle
   };

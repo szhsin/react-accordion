@@ -21,6 +21,7 @@ export default function Example() {
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
         eiusmod tempor incididunt ut labore et dolore magna aliqua.
       </AccordionItem>
+
       <AccordionItem header="Where does it come from?">
         Quisque eget luctus mi, vehicula mollis lorem. Proin fringilla
         vel erat quis sodales. Nam ex enim, eleifend venenatis lectus

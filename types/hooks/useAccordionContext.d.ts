@@ -1,5 +1,5 @@
-import { State } from 'react-transition-state';
+import { TransitionState } from 'react-transition-state';
 import { AccordionProviderValue, ItemKey } from '../utils/constants';
-declare function getItemStates(providerValue: AccordionProviderValue, key: ItemKey, itemInitialEntered?: boolean): State;
+declare function getItemState(providerValue: AccordionProviderValue, key: ItemKey, itemInitialEntered?: boolean): TransitionState;
 declare const useAccordionContext: () => AccordionProviderValue;
-export { useAccordionContext, getItemStates };
+export { useAccordionContext, getItemState };

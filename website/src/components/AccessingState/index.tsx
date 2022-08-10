@@ -7,7 +7,7 @@ export default function Example() {
       <AccordionItem
         // Accessing item state by giving a function to the `header` prop
         // highlight-next-line
-        header={({ states }) => `Item expanded: ${states.isEnter}`}
+        header={({ state }) => `Item expanded: ${state.isEnter}`}
       >
         {({ toggle }) => (
           <>
