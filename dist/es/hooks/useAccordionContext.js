@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { AccordionContext } from '../utils/constants.js';
 
-function getItemStates(providerValue, key, itemInitialEntered) {
+function getItemState(providerValue, key, itemInitialEntered) {
   var stateMap = providerValue.stateMap,
       mountOnEnter = providerValue.mountOnEnter,
       initialEntered = providerValue.initialEntered;
@@ -9,7 +9,7 @@ function getItemStates(providerValue, key, itemInitialEntered) {
   var _initialEntered = itemInitialEntered != null ? itemInitialEntered : initialEntered;
 
   return stateMap.get(key) || {
-    state: _initialEntered ? 'entered' : mountOnEnter ? 'unmounted' : 'exited',
+    status: _initialEntered ? 'entered' : mountOnEnter ? 'unmounted' : 'exited',
     isMounted: !mountOnEnter,
     isEnter: _initialEntered,
     isResolved: true
@@ -26,4 +26,4 @@ var useAccordionContext = function useAccordionContext() {
   return context;
 };
 
-export { getItemStates, useAccordionContext };
+export { getItemState, useAccordionContext };

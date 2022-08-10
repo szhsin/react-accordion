@@ -1,7 +1,7 @@
 import { useRef, useEffect } from 'react';
 import { ACCORDION_BTN_ATTR } from '../utils/constants.js';
 import { useId as _useId } from './useId.js';
-import { useAccordionContext, getItemStates } from './useAccordionContext.js';
+import { useAccordionContext, getItemState } from './useAccordionContext.js';
 
 var useAccordionItem = function useAccordionItem(_temp) {
   var _buttonProps;
@@ -25,7 +25,7 @@ var useAccordionItem = function useAccordionItem(_temp) {
     };
   }, [setItem, deleteItem, itemKey, initialEntered]);
   var key = itemKey != null ? itemKey : itemRef.current;
-  var states = getItemStates(context, key, initialEntered);
+  var state = getItemState(context, key, initialEntered);
 
   var toggleItem = function toggleItem(toEnter) {
     return toggle(key, toEnter);
@@ -35,7 +35,7 @@ var useAccordionItem = function useAccordionItem(_temp) {
   var panelId = _useId();
   var buttonProps = (_buttonProps = {
     id: buttonId
-  }, _buttonProps[ACCORDION_BTN_ATTR] = '', _buttonProps['aria-controls'] = panelId, _buttonProps['aria-expanded'] = states.isEnter, _buttonProps.onClick = toggleItem, _buttonProps);
+  }, _buttonProps[ACCORDION_BTN_ATTR] = '', _buttonProps['aria-controls'] = panelId, _buttonProps['aria-expanded'] = state.isEnter, _buttonProps.onClick = toggleItem, _buttonProps);
   var panelProps = {
     id: panelId,
     'aria-labelledby': buttonId,
@@ -43,9 +43,9 @@ var useAccordionItem = function useAccordionItem(_temp) {
   };
   return {
     itemRef: itemRef,
-    states: states,
     buttonProps: buttonProps,
     panelProps: panelProps,
+    state: state,
     toggle: toggleItem
   };
 };

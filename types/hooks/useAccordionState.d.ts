@@ -1,8 +1,8 @@
 import { ItemKey } from '../utils/constants';
 declare const useAccordionState: () => {
-    getItemStates: (key: ItemKey, { initialEntered }?: {
+    getItemState: (key: ItemKey, { initialEntered }?: {
         initialEntered?: boolean | undefined;
-    }) => import("react-transition-state").State;
+    }) => import("react-transition-state").TransitionState;
     toggle: (key: ItemKey, toEnter?: boolean | undefined) => void;
 };
 export { useAccordionState };

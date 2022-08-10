@@ -30,25 +30,25 @@ var AccordionItem = /*#__PURE__*/forwardRef(function (_ref, forwardedRef) {
     initialEntered: initialEntered
   }),
       itemRef = _useAccordionItem.itemRef,
-      states = _useAccordionItem.states,
+      state = _useAccordionItem.state,
       toggle = _useAccordionItem.toggle,
       _buttonProps = _useAccordionItem.buttonProps,
       _panelProps = _useAccordionItem.panelProps;
 
-  var _useHeightTransition = useHeightTransition(states),
+  var _useHeightTransition = useHeightTransition(state),
       transitionStyle = _useHeightTransition[0],
       _panelRef = _useHeightTransition[1];
 
   var panelRef = useMergeRef(panelProps == null ? void 0 : panelProps.ref, _panelRef);
-  var state = states.state,
-      isMounted = states.isMounted,
-      isEnter = states.isEnter;
+  var status = state.status,
+      isMounted = state.isMounted,
+      isEnter = state.isEnter;
   var modifiers = {
-    state: state,
+    status: status,
     expanded: isEnter
   };
   var renderProps = {
-    states: states,
+    state: state,
     toggle: toggle
   };
   return /*#__PURE__*/jsxs("div", _extends({}, rest, {
@@ -66,7 +66,7 @@ var AccordionItem = /*#__PURE__*/forwardRef(function (_ref, forwardedRef) {
       }))
     })), isMounted && /*#__PURE__*/jsx("div", _extends({}, contentProps, {
       style: _extends({
-        display: state === 'exited' ? 'none' : undefined
+        display: status === 'exited' ? 'none' : undefined
       }, transitionStyle, contentProps == null ? void 0 : contentProps.style),
       className: bem(ACCORDION_BLOCK, 'content', modifiers, contentProps == null ? void 0 : contentProps.className),
       children: /*#__PURE__*/jsx("div", _extends({}, panelProps, _panelProps, {

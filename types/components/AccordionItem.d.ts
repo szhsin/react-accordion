@@ -1,15 +1,15 @@
 import { ReactNode, ForwardedRef } from 'react';
-import { TransitionState, State } from 'react-transition-state';
+import { TransitionState, TransitionStatus } from 'react-transition-state';
 import { ElementProps } from '../utils/constants';
 declare type ItemModifiers = {
-    readonly state: TransitionState;
+    readonly status: TransitionStatus;
     readonly expanded: boolean;
 };
 interface ItemElementProps<E extends HTMLElement> extends ElementProps<E, ItemModifiers> {
     ref?: ForwardedRef<E>;
 }
 interface RenderProps {
-    states: State;
+    state: TransitionState;
     toggle: (toEnter?: boolean) => void;
 }
 declare type NodeOrFunc = ReactNode | ((props: RenderProps) => ReactNode);

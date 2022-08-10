@@ -1,5 +1,5 @@
 import { ReactNode, ForwardedRef, forwardRef } from 'react';
-import { TransitionState, State } from 'react-transition-state';
+import { TransitionState, TransitionStatus } from 'react-transition-state';
 import { ACCORDION_BLOCK, ElementProps } from '../utils/constants';
 import { bem } from '../utils/bem';
 import { useAccordionItem } from '../hooks/useAccordionItem';
@@ -7,7 +7,7 @@ import { useHeightTransition } from '../hooks/useHeightTransition';
 import { useMergeRef } from '../hooks/useMergeRef';
 
 type ItemModifiers = {
-  readonly state: TransitionState;
+  readonly status: TransitionStatus;
   readonly expanded: boolean;
 };
 
@@ -16,7 +16,7 @@ interface ItemElementProps<E extends HTMLElement> extends ElementProps<E, ItemMo
 }
 
 interface RenderProps {
-  states: State;
+  state: TransitionState;
   toggle: (toEnter?: boolean) => void;
 }
 
@@ -57,16 +57,16 @@ const AccordionItem = forwardRef<HTMLDivElement, AccordionItemProps>(
   ) => {
     const {
       itemRef,
-      states,
+      state,
       toggle,
       buttonProps: _buttonProps,
       panelProps: _panelProps
     } = useAccordionItem<HTMLDivElement>({ itemKey, initialEntered });
-    const [transitionStyle, _panelRef] = useHeightTransition<HTMLDivElement>(states);
+    const [transitionStyle, _panelRef] = useHeightTransition<HTMLDivElement>(state);
     const panelRef = useMergeRef(panelProps?.ref, _panelRef);
-    const { state, isMounted, isEnter } = states;
-    const modifiers: ItemModifiers = { state, expanded: isEnter };
-    const renderProps: RenderProps = { states, toggle };
+    const { status, isMounted, isEnter } = state;
+    const modifiers: ItemModifiers = { status, expanded: isEnter };
+    const renderProps: RenderProps = { state, toggle };
 
     return (
       <div
@@ -92,7 +92,7 @@ const AccordionItem = forwardRef<HTMLDivElement, AccordionItemProps>(
           <div
             {...contentProps}
             style={{
-              display: state === 'exited' ? 'none' : undefined,
+              display: status === 'exited' ? 'none' : undefined,
               ...transitionStyle,
               ...contentProps?.style
             }}

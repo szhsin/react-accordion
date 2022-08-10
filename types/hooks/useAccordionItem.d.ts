@@ -4,9 +4,9 @@ declare const useAccordionItem: <E extends Element>({ itemKey, initialEntered }?
     initialEntered?: boolean | undefined;
 }) => {
     itemRef: import("react").RefObject<E>;
-    states: import("react-transition-state").State;
     buttonProps: HTMLAttributes<Element>;
     panelProps: HTMLAttributes<Element>;
+    state: import("react-transition-state").TransitionState;
     toggle: (toEnter?: boolean) => void;
 };
 export { useAccordionItem };
