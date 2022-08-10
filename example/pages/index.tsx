@@ -29,7 +29,7 @@ const Home: NextPage = () => {
     transition: true,
     transitionTimeout: 300,
     onStateChange: (e) =>
-      e.key === 'key1' && e.current.isResolved && console.log('state changed:', e.current.state)
+      e.key === 'key1' && e.current.isResolved && console.log('state changed:', e.current.status)
   });
   const { toggle } = providerValue;
   const accordionRef = useRef<HTMLDivElement>(null);
@@ -61,16 +61,16 @@ const Home: NextPage = () => {
           <AccordionItem
             headerProps={{
               className: (e) => {
-                return e.state;
+                return e.status;
               },
               'aria-labelledby': '33',
               'data-testid': 32
             }}
             panelProps={{ ref: panelRef }}
-            header={({ states: { isEnter } }) => `header 1 (${isEnter})`}
+            header={({ state: { isEnter } }) => `header 1 (${isEnter})`}
             itemKey="key1"
             onMouseEnter={() => console.log('mouse enter item 1')}
-            className={({ state }) => (state === 'entered' ? 'open' : 'closed')}
+            className={({ status }) => (status === 'entered' ? 'open' : 'closed')}
           >
             content 1<textarea />
           </AccordionItem>
