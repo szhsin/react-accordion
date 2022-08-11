@@ -421,6 +421,11 @@ var useAccordionState = function useAccordionState() {
 
 exports.Accordion = Accordion;
 exports.AccordionItem = AccordionItem;
+exports.AccordionProvider = AccordionProvider;
 exports.ControlledAccordion = ControlledAccordion;
+exports.useAccordion = useAccordion;
+exports.useAccordionItem = useAccordionItem;
 exports.useAccordionProvider = useAccordionProvider;
 exports.useAccordionState = useAccordionState;
+exports.useHeightTransition = useHeightTransition;
+exports.useMergeRef = useMergeRef;

@@ -115,4 +115,4 @@ const AccordionItem = forwardRef<HTMLDivElement, AccordionItemProps>(
 
 AccordionItem.displayName = 'AccordionItem';
 
-export { AccordionItem, AccordionItemProps };
+export { AccordionItem, AccordionItemProps, ItemModifiers };
