@@ -24,4 +24,4 @@ interface AccordionItemProps extends ElementProps<HTMLDivElement, ItemModifiers>
     panelProps?: ItemElementProps<HTMLDivElement>;
 }
 declare const AccordionItem: import("react").ForwardRefExoticComponent<AccordionItemProps & import("react").RefAttributes<HTMLDivElement>>;
-export { AccordionItem, AccordionItemProps };
+export { AccordionItem, AccordionItemProps, ItemModifiers };
