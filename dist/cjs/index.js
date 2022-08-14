@@ -202,6 +202,27 @@ var useIdShim = function useIdShim() {
 
 var _useId = react.useId || useIdShim;
 
+var useAccordionItem = function useAccordionItem(_ref) {
+  var _buttonProps;
+
+  var state = _ref.state,
+      toggle = _ref.toggle;
+  var buttonId = _useId();
+  var panelId = _useId();
+  var buttonProps = (_buttonProps = {
+    id: buttonId
+  }, _buttonProps[ACCORDION_BTN_ATTR] = '', _buttonProps['aria-controls'] = panelId, _buttonProps['aria-expanded'] = state.isEnter, _buttonProps.onClick = toggle, _buttonProps);
+  var panelProps = {
+    id: panelId,
+    'aria-labelledby': buttonId,
+    role: 'region'
+  };
+  return {
+    buttonProps: buttonProps,
+    panelProps: panelProps
+  };
+};
+
 function getItemState(providerValue, key, itemInitialEntered) {
   var stateMap = providerValue.stateMap,
       mountOnEnter = providerValue.mountOnEnter,
@@ -227,15 +248,15 @@ var useAccordionContext = function useAccordionContext() {
   return context;
 };
 
-var useAccordionItem = function useAccordionItem(_temp) {
-  var _buttonProps;
-
+var useAccordionItemState = function useAccordionItemState(_temp) {
   var _ref = _temp === void 0 ? {} : _temp,
       itemKey = _ref.itemKey,
       initialEntered = _ref.initialEntered;
 
   var itemRef = react.useRef(null);
   var context = useAccordionContext();
+  var key = itemKey != null ? itemKey : itemRef.current;
+  var state = getItemState(context, key, initialEntered);
   var setItem = context.setItem,
       deleteItem = context.deleteItem,
       toggle = context.toggle;
@@ -248,29 +269,12 @@ var useAccordionItem = function useAccordionItem(_temp) {
       return void deleteItem(key);
     };
   }, [setItem, deleteItem, itemKey, initialEntered]);
-  var key = itemKey != null ? itemKey : itemRef.current;
-  var state = getItemState(context, key, initialEntered);
-
-  var toggleItem = function toggleItem(toEnter) {
-    return toggle(key, toEnter);
-  };
-
-  var buttonId = _useId();
-  var panelId = _useId();
-  var buttonProps = (_buttonProps = {
-    id: buttonId
-  }, _buttonProps[ACCORDION_BTN_ATTR] = '', _buttonProps['aria-controls'] = panelId, _buttonProps['aria-expanded'] = state.isEnter, _buttonProps.onClick = toggleItem, _buttonProps);
-  var panelProps = {
-    id: panelId,
-    'aria-labelledby': buttonId,
-    role: 'region'
-  };
   return {
     itemRef: itemRef,
-    buttonProps: buttonProps,
-    panelProps: panelProps,
     state: state,
-    toggle: toggleItem
+    toggle: react.useCallback(function (toEnter) {
+      return toggle(key, toEnter);
+    }, [toggle, key])
   };
 };
 
@@ -334,31 +338,50 @@ function useMergeRef(refA, refB) {
   }, [refA, refB]);
 }
 
-var _excluded = ["itemKey", "initialEntered", "className", "header", "headerProps", "buttonProps", "contentProps", "panelProps", "children"];
+var _excluded = ["itemKey", "initialEntered"],
+    _excluded2 = ["forwardedRef", "itemRef", "state", "toggle", "className", "header", "headerProps", "buttonProps", "contentProps", "panelProps", "children"];
+
+var withAccordionItemState = function withAccordionItemState(WrappedItem) {
+  var WithAccordionItemState = /*#__PURE__*/react.forwardRef(function (_ref, ref) {
+    var itemKey = _ref.itemKey,
+        initialEntered = _ref.initialEntered,
+        rest = _objectWithoutPropertiesLoose(_ref, _excluded);
+
+    return /*#__PURE__*/jsxRuntime.jsx(WrappedItem, _extends({
+      forwardedRef: ref
+    }, rest, useAccordionItemState({
+      itemKey: itemKey,
+      initialEntered: initialEntered
+    })));
+  });
+  WithAccordionItemState.displayName = 'WithAccordionItemState';
+  return WithAccordionItemState;
+};
 
 var getRenderNode = function getRenderNode(nodeOrFunc, props) {
   return typeof nodeOrFunc === 'function' ? nodeOrFunc(props) : nodeOrFunc;
 };
 
-var AccordionItem = /*#__PURE__*/react.forwardRef(function (_ref, forwardedRef) {
-  var itemKey = _ref.itemKey,
-      initialEntered = _ref.initialEntered,
-      className = _ref.className,
-      header = _ref.header,
-      headerProps = _ref.headerProps,
-      buttonProps = _ref.buttonProps,
-      contentProps = _ref.contentProps,
-      panelProps = _ref.panelProps,
-      children = _ref.children,
-      rest = _objectWithoutPropertiesLoose(_ref, _excluded);
+var WrappedItem = /*#__PURE__*/react.memo(function (_ref2) {
+  var forwardedRef = _ref2.forwardedRef,
+      itemRef = _ref2.itemRef,
+      state = _ref2.state,
+      toggle = _ref2.toggle,
+      className = _ref2.className,
+      header = _ref2.header,
+      headerProps = _ref2.headerProps,
+      buttonProps = _ref2.buttonProps,
+      contentProps = _ref2.contentProps,
+      panelProps = _ref2.panelProps,
+      children = _ref2.children,
+      rest = _objectWithoutPropertiesLoose(_ref2, _excluded2);
 
-  var _useAccordionItem = useAccordionItem({
-    itemKey: itemKey,
-    initialEntered: initialEntered
-  }),
-      itemRef = _useAccordionItem.itemRef,
-      state = _useAccordionItem.state,
-      toggle = _useAccordionItem.toggle,
+  var itemState = {
+    state: state,
+    toggle: toggle
+  };
+
+  var _useAccordionItem = useAccordionItem(itemState),
       _buttonProps = _useAccordionItem.buttonProps,
       _panelProps = _useAccordionItem.panelProps;
 
@@ -374,10 +397,6 @@ var AccordionItem = /*#__PURE__*/react.forwardRef(function (_ref, forwardedRef) 
     status: status,
     expanded: isEnter
   };
-  var renderProps = {
-    state: state,
-    toggle: toggle
-  };
   return /*#__PURE__*/jsxRuntime.jsxs("div", _extends({}, rest, {
     ref: useMergeRef(forwardedRef, itemRef),
     className: bem(ACCORDION_BLOCK, 'item', modifiers, className, true),
@@ -389,7 +408,7 @@ var AccordionItem = /*#__PURE__*/react.forwardRef(function (_ref, forwardedRef) 
       children: /*#__PURE__*/jsxRuntime.jsx("button", _extends({}, buttonProps, _buttonProps, {
         type: "button",
         className: bem(ACCORDION_BLOCK, 'btn', modifiers, buttonProps == null ? void 0 : buttonProps.className),
-        children: getRenderNode(header, renderProps)
+        children: getRenderNode(header, itemState)
       }))
     })), isMounted && /*#__PURE__*/jsxRuntime.jsx("div", _extends({}, contentProps, {
       style: _extends({
@@ -399,12 +418,13 @@ var AccordionItem = /*#__PURE__*/react.forwardRef(function (_ref, forwardedRef) 
       children: /*#__PURE__*/jsxRuntime.jsx("div", _extends({}, panelProps, _panelProps, {
         ref: panelRef,
         className: bem(ACCORDION_BLOCK, 'panel', modifiers, panelProps == null ? void 0 : panelProps.className),
-        children: getRenderNode(children, renderProps)
+        children: getRenderNode(children, itemState)
       }))
     }))]
   }));
 });
-AccordionItem.displayName = 'AccordionItem';
+WrappedItem.displayName = 'AccordionItem';
+var AccordionItem = /*#__PURE__*/withAccordionItemState(WrappedItem);
 
 var useAccordionState = function useAccordionState() {
   var context = useAccordionContext();
@@ -429,3 +449,4 @@ exports.useAccordionProvider = useAccordionProvider;
 exports.useAccordionState = useAccordionState;
 exports.useHeightTransition = useHeightTransition;
 exports.useMergeRef = useMergeRef;
+exports.withAccordionItemState = withAccordionItemState;

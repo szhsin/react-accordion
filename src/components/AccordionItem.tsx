@@ -1,8 +1,9 @@
-import { ReactNode, ForwardedRef, forwardRef } from 'react';
-import { TransitionState, TransitionStatus } from 'react-transition-state';
-import { ACCORDION_BLOCK, ElementProps } from '../utils/constants';
+import { ReactNode, RefObject, ForwardedRef, MemoExoticComponent, forwardRef, memo } from 'react';
+import { TransitionStatus } from 'react-transition-state';
+import { ACCORDION_BLOCK, ElementProps, ItemState } from '../utils/constants';
 import { bem } from '../utils/bem';
 import { useAccordionItem } from '../hooks/useAccordionItem';
+import { useAccordionItemState } from '../hooks/useAccordionItemState';
 import { useHeightTransition } from '../hooks/useHeightTransition';
 import { useMergeRef } from '../hooks/useMergeRef';
 
@@ -15,12 +16,7 @@ interface ItemElementProps<E extends HTMLElement> extends ElementProps<E, ItemMo
   ref?: ForwardedRef<E>;
 }
 
-interface RenderProps {
-  state: TransitionState;
-  toggle: (toEnter?: boolean) => void;
-}
-
-type NodeOrFunc = ReactNode | ((props: RenderProps) => ReactNode);
+type NodeOrFunc = ReactNode | ((props: ItemState) => ReactNode);
 
 interface AccordionItemProps extends ElementProps<HTMLDivElement, ItemModifiers> {
   itemKey?: string | number;
@@ -33,40 +29,59 @@ interface AccordionItemProps extends ElementProps<HTMLDivElement, ItemModifiers>
   panelProps?: ItemElementProps<HTMLDivElement>;
 }
 
+interface WrappedItemProps<E>
+  extends ItemState,
+    Omit<AccordionItemProps, 'itemRef' | 'itemKey' | 'initialEntered'> {
+  itemRef: RefObject<E>;
+  forwardedRef: ForwardedRef<E>;
+}
+
+const withAccordionItemState = <E extends Element>(
+  WrappedItem: MemoExoticComponent<(props: WrappedItemProps<E>) => JSX.Element>
+) => {
+  const WithAccordionItemState = forwardRef<E, AccordionItemProps>(
+    ({ itemKey, initialEntered, ...rest }, ref) => {
+      return (
+        <WrappedItem
+          forwardedRef={ref}
+          {...rest}
+          {...useAccordionItemState<E>({ itemKey, initialEntered })}
+        />
+      );
+    }
+  );
+
+  WithAccordionItemState.displayName = 'WithAccordionItemState';
+  return WithAccordionItemState;
+};
+
 const getRenderNode: <P>(
   nodeOrFunc: ReactNode | ((props: P) => ReactNode),
   props: P
 ) => ReactNode = (nodeOrFunc, props) =>
   typeof nodeOrFunc === 'function' ? nodeOrFunc(props) : nodeOrFunc;
 
-const AccordionItem = forwardRef<HTMLDivElement, AccordionItemProps>(
-  (
-    {
-      itemKey,
-      initialEntered,
-      className,
-      header,
-      headerProps,
-      buttonProps,
-      contentProps,
-      panelProps,
-      children,
-      ...rest
-    },
-    forwardedRef
-  ) => {
-    const {
-      itemRef,
-      state,
-      toggle,
-      buttonProps: _buttonProps,
-      panelProps: _panelProps
-    } = useAccordionItem<HTMLDivElement>({ itemKey, initialEntered });
+const WrappedItem = memo(
+  ({
+    forwardedRef,
+    itemRef,
+    state,
+    toggle,
+    className,
+    header,
+    headerProps,
+    buttonProps,
+    contentProps,
+    panelProps,
+    children,
+    ...rest
+  }: WrappedItemProps<HTMLDivElement>) => {
+    const itemState: ItemState = { state, toggle };
+    const { buttonProps: _buttonProps, panelProps: _panelProps } = useAccordionItem(itemState);
     const [transitionStyle, _panelRef] = useHeightTransition<HTMLDivElement>(state);
     const panelRef = useMergeRef(panelProps?.ref, _panelRef);
     const { status, isMounted, isEnter } = state;
     const modifiers: ItemModifiers = { status, expanded: isEnter };
-    const renderProps: RenderProps = { state, toggle };
 
     return (
       <div
@@ -85,7 +100,7 @@ const AccordionItem = forwardRef<HTMLDivElement, AccordionItemProps>(
             type="button"
             className={bem(ACCORDION_BLOCK, 'btn', modifiers, buttonProps?.className)}
           >
-            {getRenderNode(header, renderProps)}
+            {getRenderNode(header, itemState)}
           </button>
         </h3>
         {isMounted && (
@@ -104,7 +119,7 @@ const AccordionItem = forwardRef<HTMLDivElement, AccordionItemProps>(
               ref={panelRef}
               className={bem(ACCORDION_BLOCK, 'panel', modifiers, panelProps?.className)}
             >
-              {getRenderNode(children, renderProps)}
+              {getRenderNode(children, itemState)}
             </div>
           </div>
         )}
@@ -113,6 +128,13 @@ const AccordionItem = forwardRef<HTMLDivElement, AccordionItemProps>(
   }
 );
 
-AccordionItem.displayName = 'AccordionItem';
+WrappedItem.displayName = 'AccordionItem';
+const AccordionItem = withAccordionItemState(WrappedItem);
 
-export { AccordionItem, AccordionItemProps, ItemModifiers };
+export {
+  withAccordionItemState,
+  AccordionItem,
+  AccordionItemProps,
+  WrappedItemProps,
+  ItemModifiers
+};

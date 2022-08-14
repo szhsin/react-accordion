@@ -1,5 +1,5 @@
 import { HTMLAttributes } from 'react';
-import { TransitionMapResult, TransitionMapOptions, TransitionOptions } from 'react-transition-state';
+import { TransitionState, TransitionMapResult, TransitionMapOptions, TransitionOptions } from 'react-transition-state';
 export declare const ACCORDION_BLOCK = "szh-accordion";
 export declare const ACCORDION_PREFIX = "szh-adn";
 export declare const ACCORDION_ATTR: string;
@@ -19,6 +19,10 @@ export declare type TransitionProp = boolean | {
     preEnter?: boolean;
     preExit?: boolean;
 };
+export interface ItemState {
+    readonly state: TransitionState;
+    readonly toggle: (toEnter?: boolean) => void;
+}
 export interface AccordionProviderOptions extends Omit<TransitionMapOptions<ItemKey>, 'enter' | 'exit' | 'preEnter' | 'preExit' | 'singleEnter' | 'timeout'> {
     allowMultiple?: boolean;
     transition?: TransitionProp;
