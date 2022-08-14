@@ -445,6 +445,7 @@ exports.AccordionProvider = AccordionProvider;
 exports.ControlledAccordion = ControlledAccordion;
 exports.useAccordion = useAccordion;
 exports.useAccordionItem = useAccordionItem;
+exports.useAccordionItemState = useAccordionItemState;
 exports.useAccordionProvider = useAccordionProvider;
 exports.useAccordionState = useAccordionState;
 exports.useHeightTransition = useHeightTransition;
