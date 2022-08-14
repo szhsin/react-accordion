@@ -1,12 +1,7 @@
 import { HTMLAttributes } from 'react';
-declare const useAccordionItem: <E extends Element>({ itemKey, initialEntered }?: {
-    itemKey?: string | number | undefined;
-    initialEntered?: boolean | undefined;
-}) => {
-    itemRef: import("react").RefObject<E>;
+import { ItemState } from '../utils/constants';
+declare const useAccordionItem: ({ state, toggle }: ItemState) => {
     buttonProps: HTMLAttributes<Element>;
     panelProps: HTMLAttributes<Element>;
-    state: import("react-transition-state").TransitionState;
-    toggle: (toEnter?: boolean) => void;
 };
 export { useAccordionItem };

@@ -1,5 +1,6 @@
 import { createContext, HTMLAttributes } from 'react';
 import {
+  TransitionState,
   TransitionMapResult,
   TransitionMapOptions,
   TransitionOptions
@@ -29,6 +30,11 @@ export type TransitionProp =
       preEnter?: boolean;
       preExit?: boolean;
     };
+
+export interface ItemState {
+  readonly state: TransitionState;
+  readonly toggle: (toEnter?: boolean) => void;
+}
 
 export interface AccordionProviderOptions
   extends Omit<

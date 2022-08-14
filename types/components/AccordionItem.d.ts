@@ -1,6 +1,6 @@
-import { ReactNode, ForwardedRef } from 'react';
-import { TransitionState, TransitionStatus } from 'react-transition-state';
-import { ElementProps } from '../utils/constants';
+import { ReactNode, RefObject, ForwardedRef, MemoExoticComponent } from 'react';
+import { TransitionStatus } from 'react-transition-state';
+import { ElementProps, ItemState } from '../utils/constants';
 declare type ItemModifiers = {
     readonly status: TransitionStatus;
     readonly expanded: boolean;
@@ -8,11 +8,7 @@ declare type ItemModifiers = {
 interface ItemElementProps<E extends HTMLElement> extends ElementProps<E, ItemModifiers> {
     ref?: ForwardedRef<E>;
 }
-interface RenderProps {
-    state: TransitionState;
-    toggle: (toEnter?: boolean) => void;
-}
-declare type NodeOrFunc = ReactNode | ((props: RenderProps) => ReactNode);
+declare type NodeOrFunc = ReactNode | ((props: ItemState) => ReactNode);
 interface AccordionItemProps extends ElementProps<HTMLDivElement, ItemModifiers> {
     itemKey?: string | number;
     initialEntered?: boolean;
@@ -23,5 +19,10 @@ interface AccordionItemProps extends ElementProps<HTMLDivElement, ItemModifiers>
     contentProps?: ItemElementProps<HTMLDivElement>;
     panelProps?: ItemElementProps<HTMLDivElement>;
 }
+interface WrappedItemProps<E> extends ItemState, Omit<AccordionItemProps, 'itemRef' | 'itemKey' | 'initialEntered'> {
+    itemRef: RefObject<E>;
+    forwardedRef: ForwardedRef<E>;
+}
+declare const withAccordionItemState: <E extends Element>(WrappedItem: MemoExoticComponent<(props: WrappedItemProps<E>) => JSX.Element>) => import("react").ForwardRefExoticComponent<AccordionItemProps & import("react").RefAttributes<E>>;
 declare const AccordionItem: import("react").ForwardRefExoticComponent<AccordionItemProps & import("react").RefAttributes<HTMLDivElement>>;
-export { AccordionItem, AccordionItemProps, ItemModifiers };
+export { withAccordionItemState, AccordionItem, AccordionItemProps, WrappedItemProps, ItemModifiers };
