@@ -1,5 +1,8 @@
 import React from 'react';
-import { useAccordionItem } from '@szhsin/react-accordion';
+import {
+  useAccordionItem,
+  useAccordionItemState
+} from '@szhsin/react-accordion';
 import ChevronDown from '@site/static/img/chevron-down.svg';
 import styles from './styles.module.css';
 
@@ -14,8 +17,12 @@ const AccordionItem = ({
   itemKey?: string | number;
   initialEntered?: boolean;
 }) => {
-  const { itemRef, state, buttonProps, panelProps } =
-    useAccordionItem<HTMLDivElement>({ itemKey, initialEntered });
+  const { itemRef, state, toggle } =
+    useAccordionItemState<HTMLDivElement>({ itemKey, initialEntered });
+  const { buttonProps, panelProps } = useAccordionItem({
+    state,
+    toggle
+  });
   const { status, isMounted, isEnter } = state;
 
   return (
