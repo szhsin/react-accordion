@@ -36,6 +36,11 @@ export interface ItemState {
   readonly toggle: (toEnter?: boolean) => void;
 }
 
+export interface ItemStateOptions {
+  itemKey?: string | number;
+  initialEntered?: boolean;
+}
+
 export interface AccordionProviderOptions
   extends Omit<
     TransitionMapOptions<ItemKey>,

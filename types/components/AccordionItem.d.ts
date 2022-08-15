@@ -1,6 +1,6 @@
 import { ReactNode, RefObject, ForwardedRef, MemoExoticComponent } from 'react';
 import { TransitionStatus } from 'react-transition-state';
-import { ElementProps, ItemState } from '../utils/constants';
+import { ElementProps, ItemState, ItemStateOptions } from '../utils/constants';
 declare type ItemModifiers = {
     readonly status: TransitionStatus;
     readonly expanded: boolean;
@@ -9,9 +9,7 @@ interface ItemElementProps<E extends HTMLElement> extends ElementProps<E, ItemMo
     ref?: ForwardedRef<E>;
 }
 declare type NodeOrFunc = ReactNode | ((props: ItemState) => ReactNode);
-interface AccordionItemProps extends ElementProps<HTMLDivElement, ItemModifiers> {
-    itemKey?: string | number;
-    initialEntered?: boolean;
+interface AccordionItemProps extends ItemStateOptions, ElementProps<HTMLDivElement, ItemModifiers> {
     header?: NodeOrFunc;
     children?: NodeOrFunc;
     headerProps?: ItemElementProps<HTMLHeadingElement>;
@@ -19,10 +17,10 @@ interface AccordionItemProps extends ElementProps<HTMLDivElement, ItemModifiers>
     contentProps?: ItemElementProps<HTMLDivElement>;
     panelProps?: ItemElementProps<HTMLDivElement>;
 }
-interface WrappedItemProps<E> extends ItemState, Omit<AccordionItemProps, 'itemRef' | 'itemKey' | 'initialEntered'> {
+interface ItemStateProps<E extends Element, T = E> extends ItemState {
     itemRef: RefObject<E>;
-    forwardedRef: ForwardedRef<E>;
+    forwardedRef: ForwardedRef<T>;
 }
-declare const withAccordionItemState: <E extends Element>(WrappedItem: MemoExoticComponent<(props: WrappedItemProps<E>) => JSX.Element>) => import("react").ForwardRefExoticComponent<AccordionItemProps & import("react").RefAttributes<E>>;
+declare const withAccordionItemState: <P extends ItemStateOptions, E extends Element, T = E>(WrappedItem: MemoExoticComponent<(props: ItemStateProps<E, T>) => JSX.Element>) => import("react").ForwardRefExoticComponent<import("react").PropsWithoutRef<P> & import("react").RefAttributes<T>>;
 declare const AccordionItem: import("react").ForwardRefExoticComponent<AccordionItemProps & import("react").RefAttributes<HTMLDivElement>>;
-export { withAccordionItemState, AccordionItem, AccordionItemProps, WrappedItemProps, ItemModifiers };
+export { withAccordionItemState, AccordionItem, AccordionItemProps, ItemStateProps, ItemModifiers };

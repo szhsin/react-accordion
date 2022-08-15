@@ -1,10 +1,11 @@
 import { useEffect, useRef, useCallback } from 'react';
+import { ItemStateOptions } from '../utils/constants';
 import { useAccordionContext, getItemState } from './useAccordionContext';
 
 const useAccordionItemState = <E extends Element>({
   itemKey,
   initialEntered
-}: { itemKey?: string | number; initialEntered?: boolean } = {}) => {
+}: ItemStateOptions = {}) => {
   const itemRef = useRef<E>(null);
   const context = useAccordionContext();
   const key = itemKey ?? itemRef.current!;

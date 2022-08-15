@@ -1,6 +1,6 @@
 import { ReactNode, RefObject, ForwardedRef, MemoExoticComponent, forwardRef, memo } from 'react';
 import { TransitionStatus } from 'react-transition-state';
-import { ACCORDION_BLOCK, ElementProps, ItemState } from '../utils/constants';
+import { ACCORDION_BLOCK, ElementProps, ItemState, ItemStateOptions } from '../utils/constants';
 import { bem } from '../utils/bem';
 import { useAccordionItem } from '../hooks/useAccordionItem';
 import { useAccordionItemState } from '../hooks/useAccordionItemState';
@@ -18,9 +18,7 @@ interface ItemElementProps<E extends HTMLElement> extends ElementProps<E, ItemMo
 
 type NodeOrFunc = ReactNode | ((props: ItemState) => ReactNode);
 
-interface AccordionItemProps extends ElementProps<HTMLDivElement, ItemModifiers> {
-  itemKey?: string | number;
-  initialEntered?: boolean;
+interface AccordionItemProps extends ItemStateOptions, ElementProps<HTMLDivElement, ItemModifiers> {
   header?: NodeOrFunc;
   children?: NodeOrFunc;
   headerProps?: ItemElementProps<HTMLHeadingElement>;
@@ -29,27 +27,27 @@ interface AccordionItemProps extends ElementProps<HTMLDivElement, ItemModifiers>
   panelProps?: ItemElementProps<HTMLDivElement>;
 }
 
-interface WrappedItemProps<E>
-  extends ItemState,
-    Omit<AccordionItemProps, 'itemRef' | 'itemKey' | 'initialEntered'> {
+interface ItemStateProps<E extends Element, T = E> extends ItemState {
   itemRef: RefObject<E>;
-  forwardedRef: ForwardedRef<E>;
+  forwardedRef: ForwardedRef<T>;
 }
 
-const withAccordionItemState = <E extends Element>(
-  WrappedItem: MemoExoticComponent<(props: WrappedItemProps<E>) => JSX.Element>
+interface WrappedItemProps<E extends Element>
+  extends ItemStateProps<E>,
+    Omit<AccordionItemProps, 'itemRef' | 'itemKey' | 'initialEntered'> {}
+
+const withAccordionItemState = <P extends ItemStateOptions, E extends Element, T = E>(
+  WrappedItem: MemoExoticComponent<(props: ItemStateProps<E, T>) => JSX.Element>
 ) => {
-  const WithAccordionItemState = forwardRef<E, AccordionItemProps>(
-    ({ itemKey, initialEntered, ...rest }, ref) => {
-      return (
-        <WrappedItem
-          forwardedRef={ref}
-          {...rest}
-          {...useAccordionItemState<E>({ itemKey, initialEntered })}
-        />
-      );
-    }
-  );
+  const WithAccordionItemState = forwardRef<T, P>(({ itemKey, initialEntered, ...rest }, ref) => {
+    return (
+      <WrappedItem
+        forwardedRef={ref}
+        {...rest}
+        {...useAccordionItemState<E>({ itemKey, initialEntered })}
+      />
+    );
+  });
 
   WithAccordionItemState.displayName = 'WithAccordionItemState';
   return WithAccordionItemState;
@@ -129,12 +127,6 @@ const WrappedItem = memo(
 );
 
 WrappedItem.displayName = 'AccordionItem';
-const AccordionItem = withAccordionItemState(WrappedItem);
+const AccordionItem = withAccordionItemState<AccordionItemProps, HTMLDivElement>(WrappedItem);
 
-export {
-  withAccordionItemState,
-  AccordionItem,
-  AccordionItemProps,
-  WrappedItemProps,
-  ItemModifiers
-};
+export { withAccordionItemState, AccordionItem, AccordionItemProps, ItemStateProps, ItemModifiers };
