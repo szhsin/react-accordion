@@ -23,6 +23,10 @@ export interface ItemState {
     readonly state: TransitionState;
     readonly toggle: (toEnter?: boolean) => void;
 }
+export interface ItemStateOptions {
+    itemKey?: string | number;
+    initialEntered?: boolean;
+}
 export interface AccordionProviderOptions extends Omit<TransitionMapOptions<ItemKey>, 'enter' | 'exit' | 'preEnter' | 'preExit' | 'singleEnter' | 'timeout'> {
     allowMultiple?: boolean;
     transition?: TransitionProp;

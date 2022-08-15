@@ -4,6 +4,7 @@ export { AccordionProvider } from './components/AccordionProvider.js';
 export { ControlledAccordion } from './components/ControlledAccordion.js';
 export { useAccordion } from './hooks/useAccordion.js';
 export { useAccordionItem } from './hooks/useAccordionItem.js';
+export { useAccordionItemState } from './hooks/useAccordionItemState.js';
 export { useAccordionProvider } from './hooks/useAccordionProvider.js';
 export { useAccordionState } from './hooks/useAccordionState.js';
 export { useHeightTransition } from './hooks/useHeightTransition.js';
