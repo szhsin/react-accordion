@@ -2,6 +2,7 @@ import { objectWithoutPropertiesLoose as _objectWithoutPropertiesLoose, extends 
 import { forwardRef } from 'react';
 import { ACCORDION_BLOCK } from '../utils/constants.js';
 import { bem } from '../utils/bem.js';
+import { mergeProps } from '../utils/mergeProps.js';
 import { AccordionProvider } from './AccordionProvider.js';
 import { useAccordion } from '../hooks/useAccordion.js';
 import { jsx } from 'react/jsx-runtime';
@@ -17,7 +18,7 @@ var ControlledAccordion = /*#__PURE__*/forwardRef(function (_ref, ref) {
 
   return /*#__PURE__*/jsx(AccordionProvider, {
     value: providerValue,
-    children: /*#__PURE__*/jsx("div", _extends({}, rest, accordionProps, {
+    children: /*#__PURE__*/jsx("div", _extends({}, mergeProps(accordionProps, rest), {
       ref: ref,
       className: bem(ACCORDION_BLOCK, undefined, undefined, className)
     }))

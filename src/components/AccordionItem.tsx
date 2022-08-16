@@ -2,6 +2,7 @@ import { ReactNode, RefObject, ForwardedRef, MemoExoticComponent, forwardRef, me
 import { TransitionStatus } from 'react-transition-state';
 import { ACCORDION_BLOCK, ElementProps, ItemState, ItemStateOptions } from '../utils/constants';
 import { bem } from '../utils/bem';
+import { mergeProps } from '../utils/mergeProps';
 import { useAccordionItem } from '../hooks/useAccordionItem';
 import { useAccordionItemState } from '../hooks/useAccordionItemState';
 import { useHeightTransition } from '../hooks/useHeightTransition';
@@ -39,15 +40,13 @@ interface WrappedItemProps<E extends Element>
 const withAccordionItemState = <P extends ItemStateOptions, E extends Element, T = E>(
   WrappedItem: MemoExoticComponent<(props: ItemStateProps<E, T>) => JSX.Element>
 ) => {
-  const WithAccordionItemState = forwardRef<T, P>(({ itemKey, initialEntered, ...rest }, ref) => {
-    return (
-      <WrappedItem
-        forwardedRef={ref}
-        {...rest}
-        {...useAccordionItemState<E>({ itemKey, initialEntered })}
-      />
-    );
-  });
+  const WithAccordionItemState = forwardRef<T, P>(({ itemKey, initialEntered, ...rest }, ref) => (
+    <WrappedItem
+      forwardedRef={ref}
+      {...rest}
+      {...useAccordionItemState<E>({ itemKey, initialEntered })}
+    />
+  ));
 
   WithAccordionItemState.displayName = 'WithAccordionItemState';
   return WithAccordionItemState;
@@ -93,8 +92,7 @@ const WrappedItem = memo(
           className={bem(ACCORDION_BLOCK, 'header', modifiers, headerProps?.className)}
         >
           <button
-            {...buttonProps}
-            {..._buttonProps}
+            {...mergeProps(_buttonProps, buttonProps)}
             type="button"
             className={bem(ACCORDION_BLOCK, 'btn', modifiers, buttonProps?.className)}
           >
@@ -112,8 +110,7 @@ const WrappedItem = memo(
             className={bem(ACCORDION_BLOCK, 'content', modifiers, contentProps?.className)}
           >
             <div
-              {...panelProps}
-              {..._panelProps}
+              {...mergeProps(_panelProps, panelProps)}
               ref={panelRef}
               className={bem(ACCORDION_BLOCK, 'panel', modifiers, panelProps?.className)}
             >

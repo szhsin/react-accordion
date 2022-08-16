@@ -2,6 +2,7 @@ import { objectWithoutPropertiesLoose as _objectWithoutPropertiesLoose, extends 
 import { forwardRef, memo } from 'react';
 import { ACCORDION_BLOCK } from '../utils/constants.js';
 import { bem } from '../utils/bem.js';
+import { mergeProps } from '../utils/mergeProps.js';
 import { useAccordionItem } from '../hooks/useAccordionItem.js';
 import { useAccordionItemState } from '../hooks/useAccordionItemState.js';
 import { useHeightTransition } from '../hooks/useHeightTransition.js';
@@ -75,7 +76,7 @@ var WrappedItem = /*#__PURE__*/memo(function (_ref2) {
         margin: 0
       }, headerProps == null ? void 0 : headerProps.style),
       className: bem(ACCORDION_BLOCK, 'header', modifiers, headerProps == null ? void 0 : headerProps.className),
-      children: /*#__PURE__*/jsx("button", _extends({}, buttonProps, _buttonProps, {
+      children: /*#__PURE__*/jsx("button", _extends({}, mergeProps(_buttonProps, buttonProps), {
         type: "button",
         className: bem(ACCORDION_BLOCK, 'btn', modifiers, buttonProps == null ? void 0 : buttonProps.className),
         children: getRenderNode(header, itemState)
@@ -85,7 +86,7 @@ var WrappedItem = /*#__PURE__*/memo(function (_ref2) {
         display: status === 'exited' ? 'none' : undefined
       }, transitionStyle, contentProps == null ? void 0 : contentProps.style),
       className: bem(ACCORDION_BLOCK, 'content', modifiers, contentProps == null ? void 0 : contentProps.className),
-      children: /*#__PURE__*/jsx("div", _extends({}, panelProps, _panelProps, {
+      children: /*#__PURE__*/jsx("div", _extends({}, mergeProps(_panelProps, panelProps), {
         ref: panelRef,
         className: bem(ACCORDION_BLOCK, 'panel', modifiers, panelProps == null ? void 0 : panelProps.className),
         children: getRenderNode(children, itemState)

@@ -89,6 +89,27 @@ var bem = function bem(block, element, modifiers, className, addModifier) {
   return classString;
 };
 
+var mergeProps = function mergeProps(target, source) {
+  if (!source) return target;
+
+  var result = _extends({}, target);
+
+  Object.keys(source).forEach(function (key) {
+    var targetProp = target[key];
+    var sourceProp = source[key];
+
+    if (typeof sourceProp === 'function' && targetProp) {
+      result[key] = function () {
+        targetProp.apply(void 0, arguments);
+        sourceProp.apply(void 0, arguments);
+      };
+    } else {
+      result[key] = sourceProp;
+    }
+  });
+  return result;
+};
+
 var AccordionProvider = function AccordionProvider(props) {
   return /*#__PURE__*/jsxRuntime.jsx(AccordionContext.Provider, _extends({}, props));
 };
@@ -152,7 +173,7 @@ var ControlledAccordion = /*#__PURE__*/react.forwardRef(function (_ref, ref) {
 
   return /*#__PURE__*/jsxRuntime.jsx(AccordionProvider, {
     value: providerValue,
-    children: /*#__PURE__*/jsxRuntime.jsx("div", _extends({}, rest, accordionProps, {
+    children: /*#__PURE__*/jsxRuntime.jsx("div", _extends({}, mergeProps(accordionProps, rest), {
       ref: ref,
       className: bem(ACCORDION_BLOCK, undefined, undefined, className)
     }))
@@ -405,7 +426,7 @@ var WrappedItem = /*#__PURE__*/react.memo(function (_ref2) {
         margin: 0
       }, headerProps == null ? void 0 : headerProps.style),
       className: bem(ACCORDION_BLOCK, 'header', modifiers, headerProps == null ? void 0 : headerProps.className),
-      children: /*#__PURE__*/jsxRuntime.jsx("button", _extends({}, buttonProps, _buttonProps, {
+      children: /*#__PURE__*/jsxRuntime.jsx("button", _extends({}, mergeProps(_buttonProps, buttonProps), {
         type: "button",
         className: bem(ACCORDION_BLOCK, 'btn', modifiers, buttonProps == null ? void 0 : buttonProps.className),
         children: getRenderNode(header, itemState)
@@ -415,7 +436,7 @@ var WrappedItem = /*#__PURE__*/react.memo(function (_ref2) {
         display: status === 'exited' ? 'none' : undefined
       }, transitionStyle, contentProps == null ? void 0 : contentProps.style),
       className: bem(ACCORDION_BLOCK, 'content', modifiers, contentProps == null ? void 0 : contentProps.className),
-      children: /*#__PURE__*/jsxRuntime.jsx("div", _extends({}, panelProps, _panelProps, {
+      children: /*#__PURE__*/jsxRuntime.jsx("div", _extends({}, mergeProps(_panelProps, panelProps), {
         ref: panelRef,
         className: bem(ACCORDION_BLOCK, 'panel', modifiers, panelProps == null ? void 0 : panelProps.className),
         children: getRenderNode(children, itemState)
