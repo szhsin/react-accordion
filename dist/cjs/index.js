@@ -360,7 +360,7 @@ function useMergeRef(refA, refB) {
 }
 
 var _excluded = ["itemKey", "initialEntered"],
-    _excluded2 = ["forwardedRef", "itemRef", "state", "toggle", "className", "header", "headerProps", "buttonProps", "contentProps", "panelProps", "children"];
+    _excluded2 = ["forwardedRef", "itemRef", "state", "toggle", "className", "header", "headingProps", "buttonProps", "contentProps", "panelProps", "children"];
 
 var withAccordionItemState = function withAccordionItemState(WrappedItem) {
   var WithAccordionItemState = /*#__PURE__*/react.forwardRef(function (_ref, ref) {
@@ -390,7 +390,7 @@ var WrappedItem = /*#__PURE__*/react.memo(function (_ref2) {
       toggle = _ref2.toggle,
       className = _ref2.className,
       header = _ref2.header,
-      headerProps = _ref2.headerProps,
+      headingProps = _ref2.headingProps,
       buttonProps = _ref2.buttonProps,
       contentProps = _ref2.contentProps,
       panelProps = _ref2.panelProps,
@@ -410,7 +410,7 @@ var WrappedItem = /*#__PURE__*/react.memo(function (_ref2) {
       transitionStyle = _useHeightTransition[0],
       _panelRef = _useHeightTransition[1];
 
-  var panelRef = useMergeRef(panelProps == null ? void 0 : panelProps.ref, _panelRef);
+  var panelRef = useMergeRef(panelProps && panelProps.ref, _panelRef);
   var status = state.status,
       isMounted = state.isMounted,
       isEnter = state.isEnter;
@@ -421,24 +421,24 @@ var WrappedItem = /*#__PURE__*/react.memo(function (_ref2) {
   return /*#__PURE__*/jsxRuntime.jsxs("div", _extends({}, rest, {
     ref: useMergeRef(forwardedRef, itemRef),
     className: bem(ACCORDION_BLOCK, 'item', modifiers, className, true),
-    children: [/*#__PURE__*/jsxRuntime.jsx("h3", _extends({}, headerProps, {
+    children: [/*#__PURE__*/jsxRuntime.jsx("h3", _extends({}, headingProps, {
       style: _extends({
         margin: 0
-      }, headerProps == null ? void 0 : headerProps.style),
-      className: bem(ACCORDION_BLOCK, 'header', modifiers, headerProps == null ? void 0 : headerProps.className),
+      }, headingProps && headingProps.style),
+      className: bem(ACCORDION_BLOCK, 'item-heading', modifiers, headingProps && headingProps.className),
       children: /*#__PURE__*/jsxRuntime.jsx("button", _extends({}, mergeProps(_buttonProps, buttonProps), {
         type: "button",
-        className: bem(ACCORDION_BLOCK, 'btn', modifiers, buttonProps == null ? void 0 : buttonProps.className),
+        className: bem(ACCORDION_BLOCK, 'item-btn', modifiers, buttonProps && buttonProps.className),
         children: getRenderNode(header, itemState)
       }))
     })), isMounted && /*#__PURE__*/jsxRuntime.jsx("div", _extends({}, contentProps, {
       style: _extends({
         display: status === 'exited' ? 'none' : undefined
-      }, transitionStyle, contentProps == null ? void 0 : contentProps.style),
-      className: bem(ACCORDION_BLOCK, 'content', modifiers, contentProps == null ? void 0 : contentProps.className),
+      }, transitionStyle, contentProps && contentProps.style),
+      className: bem(ACCORDION_BLOCK, 'item-content', modifiers, contentProps && contentProps.className),
       children: /*#__PURE__*/jsxRuntime.jsx("div", _extends({}, mergeProps(_panelProps, panelProps), {
         ref: panelRef,
-        className: bem(ACCORDION_BLOCK, 'panel', modifiers, panelProps == null ? void 0 : panelProps.className),
+        className: bem(ACCORDION_BLOCK, 'item-panel', modifiers, panelProps && panelProps.className),
         children: getRenderNode(children, itemState)
       }))
     }))]

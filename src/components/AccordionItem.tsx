@@ -22,7 +22,7 @@ type NodeOrFunc = ReactNode | ((props: ItemState) => ReactNode);
 interface AccordionItemProps extends ItemStateOptions, ElementProps<HTMLDivElement, ItemModifiers> {
   header?: NodeOrFunc;
   children?: NodeOrFunc;
-  headerProps?: ItemElementProps<HTMLHeadingElement>;
+  headingProps?: ItemElementProps<HTMLHeadingElement>;
   buttonProps?: ItemElementProps<HTMLButtonElement>;
   contentProps?: ItemElementProps<HTMLDivElement>;
   panelProps?: ItemElementProps<HTMLDivElement>;
@@ -66,7 +66,7 @@ const WrappedItem = memo(
     toggle,
     className,
     header,
-    headerProps,
+    headingProps,
     buttonProps,
     contentProps,
     panelProps,
@@ -76,7 +76,7 @@ const WrappedItem = memo(
     const itemState: ItemState = { state, toggle };
     const { buttonProps: _buttonProps, panelProps: _panelProps } = useAccordionItem(itemState);
     const [transitionStyle, _panelRef] = useHeightTransition<HTMLDivElement>(state);
-    const panelRef = useMergeRef(panelProps?.ref, _panelRef);
+    const panelRef = useMergeRef(panelProps && panelProps.ref, _panelRef);
     const { status, isMounted, isEnter } = state;
     const modifiers: ItemModifiers = { status, expanded: isEnter };
 
@@ -87,14 +87,24 @@ const WrappedItem = memo(
         className={bem(ACCORDION_BLOCK, 'item', modifiers, className, true)}
       >
         <h3
-          {...headerProps}
-          style={{ margin: 0, ...headerProps?.style }}
-          className={bem(ACCORDION_BLOCK, 'header', modifiers, headerProps?.className)}
+          {...headingProps}
+          style={{ margin: 0, ...(headingProps && headingProps.style) }}
+          className={bem(
+            ACCORDION_BLOCK,
+            'item-heading',
+            modifiers,
+            headingProps && headingProps.className
+          )}
         >
           <button
             {...mergeProps(_buttonProps, buttonProps)}
             type="button"
-            className={bem(ACCORDION_BLOCK, 'btn', modifiers, buttonProps?.className)}
+            className={bem(
+              ACCORDION_BLOCK,
+              'item-btn',
+              modifiers,
+              buttonProps && buttonProps.className
+            )}
           >
             {getRenderNode(header, itemState)}
           </button>
@@ -105,14 +115,24 @@ const WrappedItem = memo(
             style={{
               display: status === 'exited' ? 'none' : undefined,
               ...transitionStyle,
-              ...contentProps?.style
+              ...(contentProps && contentProps.style)
             }}
-            className={bem(ACCORDION_BLOCK, 'content', modifiers, contentProps?.className)}
+            className={bem(
+              ACCORDION_BLOCK,
+              'item-content',
+              modifiers,
+              contentProps && contentProps.className
+            )}
           >
             <div
               {...mergeProps(_panelProps, panelProps)}
               ref={panelRef}
-              className={bem(ACCORDION_BLOCK, 'panel', modifiers, panelProps?.className)}
+              className={bem(
+                ACCORDION_BLOCK,
+                'item-panel',
+                modifiers,
+                panelProps && panelProps.className
+              )}
             >
               {getRenderNode(children, itemState)}
             </div>
