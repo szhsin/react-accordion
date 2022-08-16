@@ -1,12 +1,12 @@
-import { ReactNode, RefObject, ForwardedRef, MemoExoticComponent, forwardRef, memo } from 'react';
+import { ReactNode, ForwardedRef, memo } from 'react';
 import { TransitionStatus } from 'react-transition-state';
 import { ACCORDION_BLOCK, ElementProps, ItemState, ItemStateOptions } from '../utils/constants';
 import { bem } from '../utils/bem';
 import { mergeProps } from '../utils/mergeProps';
 import { useAccordionItem } from '../hooks/useAccordionItem';
-import { useAccordionItemState } from '../hooks/useAccordionItemState';
 import { useHeightTransition } from '../hooks/useHeightTransition';
 import { useMergeRef } from '../hooks/useMergeRef';
+import { withAccordionItemState, ItemStateProps } from './withAccordionItemState';
 
 type ItemModifiers = {
   readonly status: TransitionStatus;
@@ -28,29 +28,9 @@ interface AccordionItemProps extends ItemStateOptions, ElementProps<HTMLDivEleme
   panelProps?: ItemElementProps<HTMLDivElement>;
 }
 
-interface ItemStateProps<E extends Element, T = E> extends ItemState {
-  itemRef: RefObject<E>;
-  forwardedRef: ForwardedRef<T>;
-}
-
 interface WrappedItemProps<E extends Element>
   extends ItemStateProps<E>,
     Omit<AccordionItemProps, 'itemRef' | 'itemKey' | 'initialEntered'> {}
-
-const withAccordionItemState = <P extends ItemStateOptions, E extends Element, T = E>(
-  WrappedItem: MemoExoticComponent<(props: ItemStateProps<E, T>) => JSX.Element>
-) => {
-  const WithAccordionItemState = forwardRef<T, P>(({ itemKey, initialEntered, ...rest }, ref) => (
-    <WrappedItem
-      forwardedRef={ref}
-      {...rest}
-      {...useAccordionItemState<E>({ itemKey, initialEntered })}
-    />
-  ));
-
-  WithAccordionItemState.displayName = 'WithAccordionItemState';
-  return WithAccordionItemState;
-};
 
 const getRenderNode: <P>(
   nodeOrFunc: ReactNode | ((props: P) => ReactNode),
@@ -146,4 +126,4 @@ const WrappedItem = memo(
 WrappedItem.displayName = 'AccordionItem';
 const AccordionItem = withAccordionItemState<AccordionItemProps, HTMLDivElement>(WrappedItem);
 
-export { withAccordionItemState, AccordionItem, AccordionItemProps, ItemStateProps, ItemModifiers };
+export { AccordionItem, AccordionItemProps, ItemModifiers };

@@ -38,7 +38,7 @@ function _objectWithoutPropertiesLoose(source, excluded) {
   return target;
 }
 
-var _excluded$3 = ["allowMultiple", "transition", "transitionTimeout"];
+var _excluded$4 = ["allowMultiple", "transition", "transitionTimeout"];
 
 var getTransition = function getTransition(transition, name) {
   return transition === true || !!(transition && transition[name]);
@@ -49,7 +49,7 @@ var useAccordionProvider = function useAccordionProvider(_temp) {
       allowMultiple = _ref.allowMultiple,
       transition = _ref.transition,
       transitionTimeout = _ref.transitionTimeout,
-      rest = _objectWithoutPropertiesLoose(_ref, _excluded$3);
+      rest = _objectWithoutPropertiesLoose(_ref, _excluded$4);
 
   var transitionMap = reactTransitionState.useTransitionMap(_extends({
     singleEnter: !allowMultiple,
@@ -162,11 +162,11 @@ var useAccordion = function useAccordion() {
   };
 };
 
-var _excluded$2 = ["providerValue", "className"];
+var _excluded$3 = ["providerValue", "className"];
 var ControlledAccordion = /*#__PURE__*/react.forwardRef(function (_ref, ref) {
   var providerValue = _ref.providerValue,
       className = _ref.className,
-      rest = _objectWithoutPropertiesLoose(_ref, _excluded$2);
+      rest = _objectWithoutPropertiesLoose(_ref, _excluded$3);
 
   var _useAccordion = useAccordion(),
       accordionProps = _useAccordion.accordionProps;
@@ -181,7 +181,7 @@ var ControlledAccordion = /*#__PURE__*/react.forwardRef(function (_ref, ref) {
 });
 ControlledAccordion.displayName = 'ControlledAccordion';
 
-var _excluded$1 = ["allowMultiple", "initialEntered", "mountOnEnter", "unmountOnExit", "transition", "transitionTimeout", "onStateChange"];
+var _excluded$2 = ["allowMultiple", "initialEntered", "mountOnEnter", "unmountOnExit", "transition", "transitionTimeout", "onStateChange"];
 var Accordion = /*#__PURE__*/react.forwardRef(function (_ref, ref) {
   var allowMultiple = _ref.allowMultiple,
       initialEntered = _ref.initialEntered,
@@ -190,7 +190,7 @@ var Accordion = /*#__PURE__*/react.forwardRef(function (_ref, ref) {
       transition = _ref.transition,
       transitionTimeout = _ref.transitionTimeout,
       onStateChange = _ref.onStateChange,
-      rest = _objectWithoutPropertiesLoose(_ref, _excluded$1);
+      rest = _objectWithoutPropertiesLoose(_ref, _excluded$2);
 
   var providerValue = useAccordionProvider({
     allowMultiple: allowMultiple,
@@ -241,61 +241,6 @@ var useAccordionItem = function useAccordionItem(_ref) {
   return {
     buttonProps: buttonProps,
     panelProps: panelProps
-  };
-};
-
-function getItemState(providerValue, key, itemInitialEntered) {
-  var stateMap = providerValue.stateMap,
-      mountOnEnter = providerValue.mountOnEnter,
-      initialEntered = providerValue.initialEntered;
-
-  var _initialEntered = itemInitialEntered != null ? itemInitialEntered : initialEntered;
-
-  return stateMap.get(key) || {
-    status: _initialEntered ? 'entered' : mountOnEnter ? 'unmounted' : 'exited',
-    isMounted: !mountOnEnter,
-    isEnter: _initialEntered,
-    isResolved: true
-  };
-}
-
-var useAccordionContext = function useAccordionContext() {
-  var context = react.useContext(AccordionContext);
-
-  if (process.env.NODE_ENV !== 'production' && !context.stateMap) {
-    throw new Error('[React-Accordion] Cannot find a <AccordionProvider/> above this AccordionItem.');
-  }
-
-  return context;
-};
-
-var useAccordionItemState = function useAccordionItemState(_temp) {
-  var _ref = _temp === void 0 ? {} : _temp,
-      itemKey = _ref.itemKey,
-      initialEntered = _ref.initialEntered;
-
-  var itemRef = react.useRef(null);
-  var context = useAccordionContext();
-  var key = itemKey != null ? itemKey : itemRef.current;
-  var state = getItemState(context, key, initialEntered);
-  var setItem = context.setItem,
-      deleteItem = context.deleteItem,
-      toggle = context.toggle;
-  react.useEffect(function () {
-    var key = itemKey != null ? itemKey : itemRef.current;
-    setItem(key, {
-      initialEntered: initialEntered
-    });
-    return function () {
-      return void deleteItem(key);
-    };
-  }, [setItem, deleteItem, itemKey, initialEntered]);
-  return {
-    itemRef: itemRef,
-    state: state,
-    toggle: react.useCallback(function (toEnter) {
-      return toggle(key, toEnter);
-    }, [toggle, key])
   };
 };
 
@@ -359,14 +304,68 @@ function useMergeRef(refA, refB) {
   }, [refA, refB]);
 }
 
-var _excluded = ["itemKey", "initialEntered"],
-    _excluded2 = ["forwardedRef", "itemRef", "state", "toggle", "className", "header", "headingProps", "buttonProps", "contentProps", "panelProps", "children"];
+function getItemState(providerValue, key, itemInitialEntered) {
+  var stateMap = providerValue.stateMap,
+      mountOnEnter = providerValue.mountOnEnter,
+      initialEntered = providerValue.initialEntered;
+
+  var _initialEntered = itemInitialEntered != null ? itemInitialEntered : initialEntered;
+
+  return stateMap.get(key) || {
+    status: _initialEntered ? 'entered' : mountOnEnter ? 'unmounted' : 'exited',
+    isMounted: !mountOnEnter,
+    isEnter: _initialEntered,
+    isResolved: true
+  };
+}
+
+var useAccordionContext = function useAccordionContext() {
+  var context = react.useContext(AccordionContext);
+
+  if (process.env.NODE_ENV !== 'production' && !context.stateMap) {
+    throw new Error('[React-Accordion] Cannot find a <AccordionProvider/> above this AccordionItem.');
+  }
+
+  return context;
+};
+
+var useAccordionItemState = function useAccordionItemState(_temp) {
+  var _ref = _temp === void 0 ? {} : _temp,
+      itemKey = _ref.itemKey,
+      initialEntered = _ref.initialEntered;
+
+  var itemRef = react.useRef(null);
+  var context = useAccordionContext();
+  var key = itemKey != null ? itemKey : itemRef.current;
+  var state = getItemState(context, key, initialEntered);
+  var setItem = context.setItem,
+      deleteItem = context.deleteItem,
+      toggle = context.toggle;
+  react.useEffect(function () {
+    var key = itemKey != null ? itemKey : itemRef.current;
+    setItem(key, {
+      initialEntered: initialEntered
+    });
+    return function () {
+      return void deleteItem(key);
+    };
+  }, [setItem, deleteItem, itemKey, initialEntered]);
+  return {
+    itemRef: itemRef,
+    state: state,
+    toggle: react.useCallback(function (toEnter) {
+      return toggle(key, toEnter);
+    }, [toggle, key])
+  };
+};
+
+var _excluded$1 = ["itemKey", "initialEntered"];
 
 var withAccordionItemState = function withAccordionItemState(WrappedItem) {
   var WithAccordionItemState = /*#__PURE__*/react.forwardRef(function (_ref, ref) {
     var itemKey = _ref.itemKey,
         initialEntered = _ref.initialEntered,
-        rest = _objectWithoutPropertiesLoose(_ref, _excluded);
+        rest = _objectWithoutPropertiesLoose(_ref, _excluded$1);
 
     return /*#__PURE__*/jsxRuntime.jsx(WrappedItem, _extends({
       forwardedRef: ref
@@ -379,23 +378,25 @@ var withAccordionItemState = function withAccordionItemState(WrappedItem) {
   return WithAccordionItemState;
 };
 
+var _excluded = ["forwardedRef", "itemRef", "state", "toggle", "className", "header", "headingProps", "buttonProps", "contentProps", "panelProps", "children"];
+
 var getRenderNode = function getRenderNode(nodeOrFunc, props) {
   return typeof nodeOrFunc === 'function' ? nodeOrFunc(props) : nodeOrFunc;
 };
 
-var WrappedItem = /*#__PURE__*/react.memo(function (_ref2) {
-  var forwardedRef = _ref2.forwardedRef,
-      itemRef = _ref2.itemRef,
-      state = _ref2.state,
-      toggle = _ref2.toggle,
-      className = _ref2.className,
-      header = _ref2.header,
-      headingProps = _ref2.headingProps,
-      buttonProps = _ref2.buttonProps,
-      contentProps = _ref2.contentProps,
-      panelProps = _ref2.panelProps,
-      children = _ref2.children,
-      rest = _objectWithoutPropertiesLoose(_ref2, _excluded2);
+var WrappedItem = /*#__PURE__*/react.memo(function (_ref) {
+  var forwardedRef = _ref.forwardedRef,
+      itemRef = _ref.itemRef,
+      state = _ref.state,
+      toggle = _ref.toggle,
+      className = _ref.className,
+      header = _ref.header,
+      headingProps = _ref.headingProps,
+      buttonProps = _ref.buttonProps,
+      contentProps = _ref.contentProps,
+      panelProps = _ref.panelProps,
+      children = _ref.children,
+      rest = _objectWithoutPropertiesLoose(_ref, _excluded);
 
   var itemState = {
     state: state,

@@ -1,51 +1,33 @@
 import { objectWithoutPropertiesLoose as _objectWithoutPropertiesLoose, extends as _extends } from '../_virtual/_rollupPluginBabelHelpers.js';
-import { forwardRef, memo } from 'react';
+import { memo } from 'react';
 import { ACCORDION_BLOCK } from '../utils/constants.js';
 import { bem } from '../utils/bem.js';
 import { mergeProps } from '../utils/mergeProps.js';
 import { useAccordionItem } from '../hooks/useAccordionItem.js';
-import { useAccordionItemState } from '../hooks/useAccordionItemState.js';
 import { useHeightTransition } from '../hooks/useHeightTransition.js';
 import { useMergeRef } from '../hooks/useMergeRef.js';
-import { jsx, jsxs } from 'react/jsx-runtime';
+import { withAccordionItemState } from './withAccordionItemState.js';
+import { jsxs, jsx } from 'react/jsx-runtime';
 
-var _excluded = ["itemKey", "initialEntered"],
-    _excluded2 = ["forwardedRef", "itemRef", "state", "toggle", "className", "header", "headingProps", "buttonProps", "contentProps", "panelProps", "children"];
-
-var withAccordionItemState = function withAccordionItemState(WrappedItem) {
-  var WithAccordionItemState = /*#__PURE__*/forwardRef(function (_ref, ref) {
-    var itemKey = _ref.itemKey,
-        initialEntered = _ref.initialEntered,
-        rest = _objectWithoutPropertiesLoose(_ref, _excluded);
-
-    return /*#__PURE__*/jsx(WrappedItem, _extends({
-      forwardedRef: ref
-    }, rest, useAccordionItemState({
-      itemKey: itemKey,
-      initialEntered: initialEntered
-    })));
-  });
-  WithAccordionItemState.displayName = 'WithAccordionItemState';
-  return WithAccordionItemState;
-};
+var _excluded = ["forwardedRef", "itemRef", "state", "toggle", "className", "header", "headingProps", "buttonProps", "contentProps", "panelProps", "children"];
 
 var getRenderNode = function getRenderNode(nodeOrFunc, props) {
   return typeof nodeOrFunc === 'function' ? nodeOrFunc(props) : nodeOrFunc;
 };
 
-var WrappedItem = /*#__PURE__*/memo(function (_ref2) {
-  var forwardedRef = _ref2.forwardedRef,
-      itemRef = _ref2.itemRef,
-      state = _ref2.state,
-      toggle = _ref2.toggle,
-      className = _ref2.className,
-      header = _ref2.header,
-      headingProps = _ref2.headingProps,
-      buttonProps = _ref2.buttonProps,
-      contentProps = _ref2.contentProps,
-      panelProps = _ref2.panelProps,
-      children = _ref2.children,
-      rest = _objectWithoutPropertiesLoose(_ref2, _excluded2);
+var WrappedItem = /*#__PURE__*/memo(function (_ref) {
+  var forwardedRef = _ref.forwardedRef,
+      itemRef = _ref.itemRef,
+      state = _ref.state,
+      toggle = _ref.toggle,
+      className = _ref.className,
+      header = _ref.header,
+      headingProps = _ref.headingProps,
+      buttonProps = _ref.buttonProps,
+      contentProps = _ref.contentProps,
+      panelProps = _ref.panelProps,
+      children = _ref.children,
+      rest = _objectWithoutPropertiesLoose(_ref, _excluded);
 
   var itemState = {
     state: state,
@@ -97,4 +79,4 @@ var WrappedItem = /*#__PURE__*/memo(function (_ref2) {
 WrappedItem.displayName = 'AccordionItem';
 var AccordionItem = /*#__PURE__*/withAccordionItemState(WrappedItem);
 
-export { AccordionItem, withAccordionItemState };
+export { AccordionItem };

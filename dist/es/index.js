@@ -1,7 +1,8 @@
 export { Accordion } from './components/Accordion.js';
-export { AccordionItem, withAccordionItemState } from './components/AccordionItem.js';
+export { AccordionItem } from './components/AccordionItem.js';
 export { AccordionProvider } from './components/AccordionProvider.js';
 export { ControlledAccordion } from './components/ControlledAccordion.js';
+export { withAccordionItemState } from './components/withAccordionItemState.js';
 export { useAccordion } from './hooks/useAccordion.js';
 export { useAccordionItem } from './hooks/useAccordionItem.js';
 export { useAccordionItemState } from './hooks/useAccordionItemState.js';
