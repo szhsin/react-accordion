@@ -1,6 +1,7 @@
 import { ReactNode, forwardRef } from 'react';
 import { ACCORDION_BLOCK, AccordionProviderValue, ElementProps } from '../utils/constants';
 import { bem } from '../utils/bem';
+import { mergeProps } from '../utils/mergeProps';
 import { AccordionProvider } from './AccordionProvider';
 import { useAccordion } from '../hooks/useAccordion';
 
@@ -15,8 +16,7 @@ const ControlledAccordion = forwardRef<HTMLDivElement, ControlledAccordionProps>
     return (
       <AccordionProvider value={providerValue}>
         <div
-          {...rest}
-          {...accordionProps}
+          {...mergeProps(accordionProps, rest)}
           ref={ref}
           className={bem(ACCORDION_BLOCK, undefined, undefined, className)}
         />
