@@ -1,4 +1,4 @@
-import { ReactNode, ForwardedRef, memo } from 'react';
+import { ReactNode, ForwardedRef, memo, createElement } from 'react';
 import { TransitionStatus } from 'react-transition-state';
 import { ACCORDION_BLOCK, ElementProps, ItemState, ItemStateOptions } from '../utils/constants';
 import { bem } from '../utils/bem';
@@ -22,6 +22,7 @@ type NodeOrFunc = ReactNode | ((props: ItemState) => ReactNode);
 interface AccordionItemProps extends ItemStateOptions, ElementProps<HTMLDivElement, ItemModifiers> {
   header?: NodeOrFunc;
   children?: NodeOrFunc;
+  headingTag?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
   headingProps?: ItemElementProps<HTMLHeadingElement>;
   buttonProps?: ItemElementProps<HTMLButtonElement>;
   contentProps?: ItemElementProps<HTMLDivElement>;
@@ -46,6 +47,7 @@ const WrappedItem = memo(
     toggle,
     className,
     header,
+    headingTag,
     headingProps,
     buttonProps,
     contentProps,
@@ -66,16 +68,18 @@ const WrappedItem = memo(
         ref={useMergeRef(forwardedRef, itemRef)}
         className={bem(ACCORDION_BLOCK, 'item', modifiers, className, true)}
       >
-        <h3
-          {...headingProps}
-          style={{ margin: 0, ...(headingProps && headingProps.style) }}
-          className={bem(
-            ACCORDION_BLOCK,
-            'item-heading',
-            modifiers,
-            headingProps && headingProps.className
-          )}
-        >
+        {createElement(
+          headingTag || 'h3',
+          {
+            ...headingProps,
+            style: { margin: 0, ...(headingProps && headingProps.style) },
+            className: bem(
+              ACCORDION_BLOCK,
+              'item-heading',
+              modifiers,
+              headingProps && headingProps.className
+            )
+          },
           <button
             {...mergeProps(_buttonProps, buttonProps)}
             type="button"
@@ -88,7 +92,8 @@ const WrappedItem = memo(
           >
             {getRenderNode(header, itemState)}
           </button>
-        </h3>
+        )}
+
         {isMounted && (
           <div
             {...contentProps}

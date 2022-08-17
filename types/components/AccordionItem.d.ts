@@ -12,6 +12,7 @@ declare type NodeOrFunc = ReactNode | ((props: ItemState) => ReactNode);
 interface AccordionItemProps extends ItemStateOptions, ElementProps<HTMLDivElement, ItemModifiers> {
     header?: NodeOrFunc;
     children?: NodeOrFunc;
+    headingTag?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
     headingProps?: ItemElementProps<HTMLHeadingElement>;
     buttonProps?: ItemElementProps<HTMLButtonElement>;
     contentProps?: ItemElementProps<HTMLDivElement>;
