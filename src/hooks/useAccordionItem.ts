@@ -4,7 +4,7 @@ import { useId } from './useId';
 
 const useAccordionItem = ({ state, toggle }: ItemState) => {
   const buttonId = useId();
-  const panelId = useId();
+  const panelId = buttonId && buttonId + '-';
 
   const buttonProps: HTMLAttributes<Element> = {
     id: buttonId,

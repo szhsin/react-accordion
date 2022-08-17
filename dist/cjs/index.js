@@ -229,7 +229,7 @@ var useAccordionItem = function useAccordionItem(_ref) {
   var state = _ref.state,
       toggle = _ref.toggle;
   var buttonId = _useId();
-  var panelId = _useId();
+  var panelId = buttonId && buttonId + '-';
   var buttonProps = (_buttonProps = {
     id: buttonId
   }, _buttonProps[ACCORDION_BTN_ATTR] = '', _buttonProps['aria-controls'] = panelId, _buttonProps['aria-expanded'] = state.isEnter, _buttonProps.onClick = toggle, _buttonProps);
