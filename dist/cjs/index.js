@@ -378,7 +378,7 @@ var withAccordionItemState = function withAccordionItemState(WrappedItem) {
   return WithAccordionItemState;
 };
 
-var _excluded = ["forwardedRef", "itemRef", "state", "toggle", "className", "header", "headingProps", "buttonProps", "contentProps", "panelProps", "children"];
+var _excluded = ["forwardedRef", "itemRef", "state", "toggle", "className", "header", "headingTag", "headingProps", "buttonProps", "contentProps", "panelProps", "children"];
 
 var getRenderNode = function getRenderNode(nodeOrFunc, props) {
   return typeof nodeOrFunc === 'function' ? nodeOrFunc(props) : nodeOrFunc;
@@ -391,6 +391,7 @@ var WrappedItem = /*#__PURE__*/react.memo(function (_ref) {
       toggle = _ref.toggle,
       className = _ref.className,
       header = _ref.header,
+      headingTag = _ref.headingTag,
       headingProps = _ref.headingProps,
       buttonProps = _ref.buttonProps,
       contentProps = _ref.contentProps,
@@ -422,17 +423,16 @@ var WrappedItem = /*#__PURE__*/react.memo(function (_ref) {
   return /*#__PURE__*/jsxRuntime.jsxs("div", _extends({}, rest, {
     ref: useMergeRef(forwardedRef, itemRef),
     className: bem(ACCORDION_BLOCK, 'item', modifiers, className, true),
-    children: [/*#__PURE__*/jsxRuntime.jsx("h3", _extends({}, headingProps, {
+    children: [/*#__PURE__*/react.createElement(headingTag || 'h3', _extends({}, headingProps, {
       style: _extends({
         margin: 0
       }, headingProps && headingProps.style),
-      className: bem(ACCORDION_BLOCK, 'item-heading', modifiers, headingProps && headingProps.className),
-      children: /*#__PURE__*/jsxRuntime.jsx("button", _extends({}, mergeProps(_buttonProps, buttonProps), {
-        type: "button",
-        className: bem(ACCORDION_BLOCK, 'item-btn', modifiers, buttonProps && buttonProps.className),
-        children: getRenderNode(header, itemState)
-      }))
-    })), isMounted && /*#__PURE__*/jsxRuntime.jsx("div", _extends({}, contentProps, {
+      className: bem(ACCORDION_BLOCK, 'item-heading', modifiers, headingProps && headingProps.className)
+    }), /*#__PURE__*/jsxRuntime.jsx("button", _extends({}, mergeProps(_buttonProps, buttonProps), {
+      type: "button",
+      className: bem(ACCORDION_BLOCK, 'item-btn', modifiers, buttonProps && buttonProps.className),
+      children: getRenderNode(header, itemState)
+    }))), isMounted && /*#__PURE__*/jsxRuntime.jsx("div", _extends({}, contentProps, {
       style: _extends({
         display: status === 'exited' ? 'none' : undefined
       }, transitionStyle, contentProps && contentProps.style),
