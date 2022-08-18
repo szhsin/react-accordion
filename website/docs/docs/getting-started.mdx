@@ -5,9 +5,10 @@ sidebar_position: 1
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import CodeBlock from '@theme/CodeBlock';
-import source from '!!raw-loader!@site/src/components/Basic';
+import sourceBasic from '!!raw-loader!@site/src/components/Starter/Basic';
+import sourceArrayMap from '!!raw-loader!@site/src/components/Starter/ArrayMap';
 import { transformCodeBlock } from '@site/src/utils';
-import Basic from '@site/src/components/Basic';
+import Basic from '@site/src/components/Starter/Basic';
 
 # Getting Started
 
@@ -38,7 +39,20 @@ By default, only one accordion item can be expanded at one time.
 
 <Basic />
 
-<CodeBlock language="jsx">{transformCodeBlock(source)}</CodeBlock>
+:::tip
+
+When focus is on an accordion header, you may use the `Arrow Down` and `Arrow Up` keys
+to move focus to the next or previous accordion header.
+
+:::
+
+<CodeBlock language="jsx">{transformCodeBlock(sourceBasic)}</CodeBlock>
+
+Or, if your data is already in an array:
+
+<CodeBlock language="jsx">
+  {transformCodeBlock(sourceArrayMap)}
+</CodeBlock>
 
 :::info
 
@@ -47,3 +61,8 @@ you may provide it with any JSX elements or React components,
 allowing the item header to be [freely customised](./customising-header).
 
 :::
+
+## Accessibility
+
+This library implements WAI-ARIA roles, states, properties, and keyboard interaction,
+which is compliant with the [Accordion Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/).
