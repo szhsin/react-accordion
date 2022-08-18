@@ -27,8 +27,7 @@ export interface ItemStateOptions {
     itemKey?: string | number;
     initialEntered?: boolean;
 }
-export interface AccordionProviderOptions extends Omit<TransitionMapOptions<ItemKey>, 'enter' | 'exit' | 'preEnter' | 'preExit' | 'singleEnter' | 'timeout'> {
-    allowMultiple?: boolean;
+export interface AccordionProviderOptions extends Omit<TransitionMapOptions<ItemKey>, 'enter' | 'exit' | 'preEnter' | 'preExit' | 'timeout'> {
     transition?: TransitionProp;
     transitionTimeout?: TransitionOptions['timeout'];
 }

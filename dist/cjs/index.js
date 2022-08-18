@@ -38,7 +38,7 @@ function _objectWithoutPropertiesLoose(source, excluded) {
   return target;
 }
 
-var _excluded$4 = ["allowMultiple", "transition", "transitionTimeout"];
+var _excluded$4 = ["transition", "transitionTimeout"];
 
 var getTransition = function getTransition(transition, name) {
   return transition === true || !!(transition && transition[name]);
@@ -46,13 +46,11 @@ var getTransition = function getTransition(transition, name) {
 
 var useAccordionProvider = function useAccordionProvider(_temp) {
   var _ref = _temp === void 0 ? {} : _temp,
-      allowMultiple = _ref.allowMultiple,
       transition = _ref.transition,
       transitionTimeout = _ref.transitionTimeout,
       rest = _objectWithoutPropertiesLoose(_ref, _excluded$4);
 
   var transitionMap = reactTransitionState.useTransitionMap(_extends({
-    singleEnter: !allowMultiple,
     timeout: transitionTimeout,
     enter: getTransition(transition, 'enter'),
     exit: getTransition(transition, 'exit'),

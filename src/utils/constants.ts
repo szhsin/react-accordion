@@ -44,9 +44,8 @@ export interface ItemStateOptions {
 export interface AccordionProviderOptions
   extends Omit<
     TransitionMapOptions<ItemKey>,
-    'enter' | 'exit' | 'preEnter' | 'preExit' | 'singleEnter' | 'timeout'
+    'enter' | 'exit' | 'preEnter' | 'preExit' | 'timeout'
   > {
-  allowMultiple?: boolean;
   transition?: TransitionProp;
   transitionTimeout?: TransitionOptions['timeout'];
 }
