@@ -1,7 +1,7 @@
 {
   "name": "@szhsin/react-accordion",
-  "version": "0.10.0",
-  "description": "An accessible React accordion library",
+  "version": "0.10.1",
+  "description": "An unstyled, fully accessible React accordion library.",
   "author": "Zheng Song",
   "license": "MIT",
   "main": "dist/cjs/index.js",
@@ -13,16 +13,15 @@
   "sideEffects": false,
   "files": [
     "dist/",
-    "types/*.d.ts",
-    "types/components/",
-    "types/hooks/"
+    "types/"
   ],
   "scripts": {
     "start": "run-p watch \"types -- --watch\"",
     "eg": "npm run dev --prefix example",
     "bundle": "rollup -c",
     "watch": "rollup -c -w",
-    "clean": "rm -rf dist types",
+    "clean": "rm -Rf dist types",
+    "post-build": "rm -Rf types/__tests__",
     "types": "tsc",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
@@ -31,14 +30,14 @@
     "test": "jest",
     "test:watch": "jest --watch --verbose",
     "test:cov": "jest --coverage=true",
-    "build": "run-s clean pret lint types bundle"
+    "build": "run-s pret clean lint types bundle post-build"
   },
   "peerDependencies": {
     "react": ">=16.14.0",
     "react-dom": ">=16.14.0"
   },
   "dependencies": {
-    "react-transition-state": "^2.0.0-alpha.0"
+    "react-transition-state": "^2.0.0-alpha.1"
   },
   "devDependencies": {
     "@babel/core": "^7.18.10",

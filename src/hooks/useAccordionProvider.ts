@@ -12,13 +12,11 @@ const getTransition = (
 ): boolean => transition === true || !!(transition && transition[name]);
 
 const useAccordionProvider: (options?: AccordionProviderOptions) => AccordionProviderValue = ({
-  allowMultiple,
   transition,
   transitionTimeout,
   ...rest
 } = {}) => {
   const transitionMap = useTransitionMap<ItemKey>({
-    singleEnter: !allowMultiple,
     timeout: transitionTimeout,
     enter: getTransition(transition, 'enter'),
     exit: getTransition(transition, 'exit'),
