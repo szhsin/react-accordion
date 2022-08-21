@@ -5,25 +5,21 @@ import { Accordion, AccordionProps, AccordionItem, AccordionItemProps, ItemState
 
 const getAccordion = ({
   props,
-  item1Header,
-  item1Children,
   item1Ref,
   item1Props,
   item2Props
 }: {
   props?: AccordionProps;
-  item1Header?: AccordionItemProps['header'];
-  item1Children?: AccordionItemProps['children'];
   item1Ref?: Ref<HTMLDivElement>;
   item1Props?: AccordionItemProps;
   item2Props?: AccordionItemProps;
 }) => (
   <Accordion {...props}>
-    <AccordionItem header={item1Header || 'header 1'} {...item1Props} ref={item1Ref}>
-      {item1Children || 'item 1'}
+    <AccordionItem {...item1Props} header={item1Props?.header || 'header 1'} ref={item1Ref}>
+      {item1Props?.children || 'item 1'}
     </AccordionItem>
-    <AccordionItem header="header 2" {...item2Props}>
-      item 2
+    <AccordionItem {...item2Props} header={item2Props?.header || 'header 2'}>
+      {item2Props?.children || 'item 2'}
     </AccordionItem>
     <AccordionItem header="header 3">item 3</AccordionItem>
   </Accordion>
@@ -244,4 +240,75 @@ describe('Header render prop', () => {
     expect(header).toHaveBeenLastCalledWith(getRenderPropParam(expectedState2));
     expect(toggle).toBe(prevToggle);
   });
+});
+
+test('AccordionItem should set wai-aria props', () => {
+  const onClick = jest.fn();
+  render(
+    getAccordion({
+      item1Props: {
+        buttonProps: { 'data-testid': 'button', onClick },
+        panelProps: { 'data-testid': 'panel' }
+      }
+    })
+  );
+
+  const button = screen.getByTestId('button');
+  const panel = screen.getByTestId('panel');
+  expect(button).toHaveAttribute('aria-controls', panel.id);
+  expect(button).toHaveAttribute('aria-expanded', 'false');
+  expect(panel).toHaveAttribute('aria-labelledby', button.id);
+  expect(panel).toHaveAttribute('role', 'region');
+
+  fireEvent.click(button);
+  expect(button).toHaveAttribute('aria-expanded', 'true');
+  expect(onClick).toHaveBeenCalled();
+});
+
+test('AccordionItem should lazily mount content when mountOnEnter is true', () => {
+  render(
+    getAccordion({
+      props: { mountOnEnter: true },
+      item1Props: {
+        'data-testid': 'item',
+        contentProps: { 'data-testid': 'content' }
+      }
+    })
+  );
+
+  expect(screen.getByTestId('item')).toHaveClass('szh-accordion__item--status-unmounted');
+  expect(screen.queryByTestId('content')).not.toBeInTheDocument();
+
+  fireEvent.click(screen.getByRole('button', { name: 'header 1' }));
+  expect(screen.getByTestId('item')).toHaveClass('szh-accordion__item--status-entered');
+  expect(screen.getByTestId('content')).toBeInTheDocument();
+});
+
+test('AccordionItem should not render when the state of other items is updated', () => {
+  const children1 = jest.fn();
+  const children2 = jest.fn();
+  render(
+    getAccordion({
+      props: { allowMultiple: true },
+      item1Props: {
+        children: children1
+      },
+      item2Props: {
+        children: children2
+      }
+    })
+  );
+
+  expect(children1).toHaveBeenCalled();
+  expect(children2).toHaveBeenCalled();
+
+  jest.clearAllMocks();
+  fireEvent.click(screen.getByRole('button', { name: 'header 1' }));
+  expect(children1).toHaveBeenCalled();
+  expect(children2).not.toHaveBeenCalled();
+
+  jest.clearAllMocks();
+  fireEvent.click(screen.getByRole('button', { name: 'header 2' }));
+  expect(children1).not.toHaveBeenCalled();
+  expect(children2).toHaveBeenCalled();
 });
