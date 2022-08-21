@@ -14,4 +14,4 @@ export type { AccordionProps } from './components/Accordion';
 export type { AccordionItemProps, ItemModifiers } from './components/AccordionItem';
 export type { ControlledAccordionProps } from './components/ControlledAccordion';
 export type { ItemStateProps } from './components/withAccordionItemState';
-export type { AccordionProviderOptions, AccordionProviderValue, ItemKey, ItemState, ItemStateOptions, TransitionProp } from './utils/constants';
+export type { AccordionProviderOptions, AccordionProviderValue, ItemState, ItemStateOptions, TransitionProp } from './utils/constants';
