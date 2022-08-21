@@ -1,22 +1,26 @@
 import { Ref } from 'react';
-import { screen } from '@testing-library/react';
+import { screen, fireEvent, act } from '@testing-library/react';
 import { render } from '../utils';
-import { Accordion, AccordionProps, AccordionItem, AccordionItemProps } from '../../';
+import { Accordion, AccordionProps, AccordionItem, AccordionItemProps, ItemState } from '../../';
 
 const getAccordion = ({
   props,
+  item1Header,
+  item1Children,
   item1Ref,
   item1Props,
   item2Props
 }: {
   props?: AccordionProps;
+  item1Header?: AccordionItemProps['header'];
+  item1Children?: AccordionItemProps['children'];
   item1Ref?: Ref<HTMLDivElement>;
   item1Props?: AccordionItemProps;
   item2Props?: AccordionItemProps;
 }) => (
   <Accordion {...props}>
-    <AccordionItem header="header 1" {...item1Props} ref={item1Ref}>
-      item 1
+    <AccordionItem header={item1Header || 'header 1'} {...item1Props} ref={item1Ref}>
+      {item1Children || 'item 1'}
     </AccordionItem>
     <AccordionItem header="header 2" {...item2Props}>
       item 2
@@ -128,5 +132,27 @@ describe('AccordionItem', () => {
     expect(panel).toHaveStyle({ color: 'green' });
     expect(panel).toHaveTextContent('item 2');
     expect(ref).toHaveBeenCalled();
+  });
+});
+
+describe('className function', () => {
+  const className = jest.fn();
+  test.each([
+    [{ className }],
+    [{ headingProps: { className } }],
+    [{ buttonProps: { className } }],
+    [{ contentProps: { className } }],
+    [{ panelProps: { className } }]
+  ])('should receive modifier params %#', (item1Props: AccordionItemProps) => {
+    render(
+      getAccordion({
+        item1Props
+      })
+    );
+    const params = { expanded: false, status: 'exited' };
+    expect(className).toHaveBeenNthCalledWith(1, params);
+    expect(className).toHaveBeenLastCalledWith(params);
+    fireEvent.click(screen.getByRole('button', { name: 'header 1' }));
+    expect(className).toHaveBeenLastCalledWith({ expanded: true, status: 'entered' });
   });
 });
