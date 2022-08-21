@@ -1,29 +1,6 @@
-import { Ref } from 'react';
 import { screen, fireEvent, act } from '@testing-library/react';
-import { render } from '../utils';
-import { Accordion, AccordionProps, AccordionItem, AccordionItemProps, ItemState } from '../../';
-
-const getAccordion = ({
-  props,
-  item1Ref,
-  item1Props,
-  item2Props
-}: {
-  props?: AccordionProps;
-  item1Ref?: Ref<HTMLDivElement>;
-  item1Props?: AccordionItemProps;
-  item2Props?: AccordionItemProps;
-}) => (
-  <Accordion {...props}>
-    <AccordionItem {...item1Props} header={item1Props?.header || 'header 1'} ref={item1Ref}>
-      {item1Props?.children || 'item 1'}
-    </AccordionItem>
-    <AccordionItem {...item2Props} header={item2Props?.header || 'header 2'}>
-      {item2Props?.children || 'item 2'}
-    </AccordionItem>
-    <AccordionItem header="header 3">item 3</AccordionItem>
-  </Accordion>
-);
+import { render, getAccordion } from '../utils';
+import { AccordionItem, AccordionItemProps, ItemState } from '../../';
 
 describe('AccordionItem', () => {
   test('should throw when rendered without provider', () => {
