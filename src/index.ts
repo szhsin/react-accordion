@@ -17,7 +17,6 @@ export type { ItemStateProps } from './components/withAccordionItemState';
 export type {
   AccordionProviderOptions,
   AccordionProviderValue,
-  ItemKey,
   ItemState,
   ItemStateOptions,
   TransitionProp
