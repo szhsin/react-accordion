@@ -156,3 +156,92 @@ describe('className function', () => {
     expect(className).toHaveBeenLastCalledWith({ expanded: true, status: 'entered' });
   });
 });
+
+describe('Header render prop', () => {
+  const getRenderPropParam = (state: Partial<ItemState['state']>) => ({
+    state: expect.objectContaining(state) as ItemState['state'],
+    toggle: expect.any(Function) as ItemState['toggle']
+  });
+
+  let toggle!: ItemState['toggle'];
+  const header = jest.fn().mockImplementation(({ toggle: _toggle }: ItemState) => {
+    toggle = _toggle;
+    return 'custom header';
+  });
+
+  test.each([
+    {
+      props: {},
+      item1Props: { header },
+      expectedState1: {
+        status: 'exited',
+        isEnter: false,
+        isMounted: true,
+        isResolved: true
+      },
+      expectedState2: { status: 'entered' }
+    },
+    {
+      props: {},
+      item1Props: { header, initialEntered: true },
+      expectedState1: {
+        status: 'entered',
+        isEnter: true,
+        isMounted: true,
+        isResolved: true
+      },
+      expectedState2: { status: 'exited' }
+    },
+    {
+      props: { initialEntered: true },
+      item1Props: { header },
+      expectedState1: {
+        status: 'entered',
+        isEnter: true,
+        isMounted: true,
+        isResolved: true
+      },
+      expectedState2: { status: 'exited' }
+    },
+    {
+      props: { initialEntered: true },
+      item1Props: { header, initialEntered: false },
+      expectedState1: {
+        status: 'exited',
+        isEnter: false,
+        isMounted: true,
+        isResolved: true
+      },
+      expectedState2: { status: 'entered' }
+    },
+    {
+      props: { mountOnEnter: true },
+      item1Props: { header },
+      expectedState1: {
+        status: 'unmounted',
+        isEnter: false,
+        isMounted: false,
+        isResolved: true
+      },
+      expectedState2: { status: 'entered' }
+    }
+  ] as const)('scenario %#', ({ props, item1Props, expectedState1, expectedState2 }) => {
+    render(
+      getAccordion({
+        props,
+        item1Props
+      })
+    );
+    screen.getByRole('button', { name: 'custom header' });
+    const params = getRenderPropParam(expectedState1);
+    expect(header).toHaveBeenNthCalledWith(1, params);
+    expect(header).toHaveBeenLastCalledWith(params);
+
+    const prevToggle = toggle;
+    act(() => {
+      toggle();
+    });
+    expect(header).toHaveBeenLastCalledWith(getRenderPropParam(expectedState2));
+    expect(toggle).toBe(prevToggle);
+  });
+});
