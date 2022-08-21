@@ -15,17 +15,19 @@ export const render: (
   nonStrictRender(ui, { wrapper: StrictModeWrapper, ...options });
 
 export const getAccordion = ({
-  props,
+  ref,
   item1Ref,
+  props,
   item1Props,
   item2Props
 }: {
-  props?: AccordionProps;
+  ref?: Ref<HTMLDivElement>;
   item1Ref?: Ref<HTMLDivElement>;
+  props?: AccordionProps;
   item1Props?: AccordionItemProps;
   item2Props?: AccordionItemProps;
 }) => (
-  <Accordion {...props}>
+  <Accordion {...props} ref={ref}>
     <AccordionItem {...item1Props} header={item1Props?.header || 'header 1'} ref={item1Ref}>
       {item1Props?.children || 'item 1'}
     </AccordionItem>

@@ -1,25 +1,90 @@
-import { render } from '../utils';
-import { Accordion, AccordionProps } from '../../components/Accordion';
-import { useAccordionProvider } from '../../hooks/useAccordionProvider';
+import { screen, fireEvent } from '@testing-library/react';
+import { render, getAccordion } from '../utils';
+import { Accordion, AccordionItem } from '../../';
 
-jest.mock('../../hooks/useAccordionProvider');
-
-test('Accordion should render', () => {
-  const props: AccordionProps = {
-    allowMultiple: true,
-    initialEntered: true,
-    mountOnEnter: false,
-    unmountOnExit: false,
-    transition: true,
-    transitionTimeout: 300,
-    onStateChange: jest.fn()
-  };
-  const mockRef = jest.fn();
+test('Accordion should forward props and ref', () => {
+  const ref = jest.fn();
+  const onKeyDown = jest.fn();
   render(
-    <Accordion ref={mockRef} {...props}>
-      Accordion
+    getAccordion({
+      props: { 'data-testid': 'accordion', className: 'my-accordion', onKeyDown },
+      ref
+    })
+  );
+  expect(screen.getByTestId('accordion')).toHaveClass('szh-accordion my-accordion');
+  expect(ref).toHaveBeenCalled();
+  const button = screen.getByRole('button', { name: 'header 1' });
+  button.focus();
+  fireEvent.keyDown(button, { key: 'ArrowDown' });
+  expect(onKeyDown).toHaveBeenCalled();
+});
+
+test('Accordion should support keyboard interaction', () => {
+  const onKeyDown = jest.fn();
+  render(
+    <Accordion onKeyDown={onKeyDown}>
+      <AccordionItem header="header 1">item 1</AccordionItem>
+      <AccordionItem header="header 2" initialEntered>
+        <Accordion>
+          <AccordionItem header="header 2.1">item 2.1</AccordionItem>
+          <AccordionItem header="header 2.2">item 2.2</AccordionItem>
+        </Accordion>
+      </AccordionItem>
+      <AccordionItem header="header 3" initialEntered>
+        <Accordion>
+          <AccordionItem header="header 3.1">item 3.1</AccordionItem>
+        </Accordion>
+      </AccordionItem>
     </Accordion>
   );
-  expect(useAccordionProvider).toHaveBeenCalledWith(props);
-  expect(mockRef).toHaveBeenCalled();
+
+  // Top level navigation
+  let currentFocus = screen.getByRole('button', { name: 'header 1' });
+  currentFocus.focus();
+  expect(currentFocus).toHaveFocus();
+
+  fireEvent.keyDown(currentFocus, { key: 'ArrowDown' });
+  currentFocus = screen.getByRole('button', { name: 'header 2' });
+  expect(currentFocus).toHaveFocus();
+
+  fireEvent.keyDown(currentFocus, { key: 'ArrowDown' });
+  currentFocus = screen.getByRole('button', { name: 'header 3' });
+  expect(currentFocus).toHaveFocus();
+
+  fireEvent.keyDown(currentFocus, { key: 'ArrowDown' });
+  currentFocus = screen.getByRole('button', { name: 'header 1' });
+  expect(currentFocus).toHaveFocus();
+
+  fireEvent.keyDown(currentFocus, { key: 'ArrowUp' });
+  currentFocus = screen.getByRole('button', { name: 'header 3' });
+  expect(currentFocus).toHaveFocus();
+
+  // Nested level navigation
+  currentFocus = screen.getByRole('button', { name: 'header 2.1' });
+  currentFocus.focus();
+  expect(currentFocus).toHaveFocus();
+
+  fireEvent.keyDown(currentFocus, { key: 'ArrowDown' });
+  currentFocus = screen.getByRole('button', { name: 'header 2.2' });
+  expect(currentFocus).toHaveFocus();
+
+  fireEvent.keyDown(currentFocus, { key: 'ArrowDown' });
+  currentFocus = screen.getByRole('button', { name: 'header 2.1' });
+  expect(currentFocus).toHaveFocus();
+
+  fireEvent.keyDown(currentFocus, { key: 'ArrowUp' });
+  currentFocus = screen.getByRole('button', { name: 'header 2.2' });
+  expect(currentFocus).toHaveFocus();
+  // eslint-disable-next-line
+  expect(onKeyDown.mock.lastCall[0].isDefaultPrevented()).toBe(true);
+
+  // Nested level navigation through a single item
+  currentFocus = screen.getByRole('button', { name: 'header 3.1' });
+  currentFocus.focus();
+  expect(currentFocus).toHaveFocus();
+
+  fireEvent.keyDown(currentFocus, { key: 'ArrowDown' });
+  expect(currentFocus).toHaveFocus();
+  // eslint-disable-next-line
+  expect(onKeyDown.mock.lastCall[0].isDefaultPrevented()).toBe(false);
 });
