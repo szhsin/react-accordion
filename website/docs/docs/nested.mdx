@@ -1,0 +1,17 @@
+---
+sidebar_position: 7
+---
+
+import CodeBlock from '@theme/CodeBlock';
+import source from '!!raw-loader!@site/src/components/Nested';
+import { transformCodeBlock } from '@site/src/utils';
+import Nested from '@site/src/components/Nested';
+
+# Nested accordion
+
+`AccordionItem` can have a nested accordion. When navigating through items with keyboard arrow keys,
+focus will stay within the same level. Use the `tab` key to move to other levels.
+
+<Nested />
+
+<CodeBlock language="jsx">{transformCodeBlock(source)}</CodeBlock>
