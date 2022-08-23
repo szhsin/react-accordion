@@ -64,7 +64,7 @@ const config = {
           },
           {
             type: 'doc',
-            docId: 'api/components/accordion',
+            docId: 'api/components/Accordion',
             position: 'left',
             label: 'API'
           },
