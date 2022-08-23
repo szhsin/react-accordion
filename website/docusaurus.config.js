@@ -63,6 +63,12 @@ const config = {
             label: 'Docs'
           },
           {
+            type: 'doc',
+            docId: 'api/components/Accordion',
+            position: 'left',
+            label: 'API'
+          },
+          {
             href: 'https://github.com/szhsin/react-accordion',
             label: 'GitHub',
             position: 'right'
