@@ -15,3 +15,11 @@ In the following example, the first and last item are expanded on mount.
 <InitialEntered />
 
 <CodeBlock language="jsx">{transformCodeBlock(source)}</CodeBlock>
+
+:::info
+
+The `Accordion` component also has an `initialEntered` prop which can make every accordion item expanded when initially mounted.
+
+When the `initialEntered` prop is specified on an individual `AccordionItem` at the same time, it overrides the `initialEntered` prop of `Accordion` component.
+
+:::

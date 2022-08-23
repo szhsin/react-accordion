@@ -1,0 +1,23 @@
+---
+sidebar_position: 8
+---
+
+import CodeBlock from '@theme/CodeBlock';
+import source from '!!raw-loader!@site/src/components/StateChange';
+import { transformCodeBlock } from '@site/src/utils';
+import StateChange from '@site/src/components/StateChange';
+
+# State changing event
+
+The `onStateChange` event of `Accordion` can be used to listen to item state updates.
+The event object has a `key` prop identifying which item's state has changed.
+
+<StateChange />
+
+<CodeBlock language="jsx">{transformCodeBlock(source)}</CodeBlock>
+
+:::tip
+
+Open the browser console to see the logs.
+
+:::
