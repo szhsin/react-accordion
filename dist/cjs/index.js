@@ -327,7 +327,7 @@ var useAccordionContext = function useAccordionContext() {
   return context;
 };
 
-var useAccordionItemState = function useAccordionItemState(_temp) {
+var useAccordionItemEffect = function useAccordionItemEffect(_temp) {
   var _ref = _temp === void 0 ? {} : _temp,
       itemKey = _ref.itemKey,
       initialEntered = _ref.initialEntered;
@@ -359,21 +359,21 @@ var useAccordionItemState = function useAccordionItemState(_temp) {
 
 var _excluded$1 = ["itemKey", "initialEntered"];
 
-var withAccordionItemState = function withAccordionItemState(WrappedItem) {
-  var WithAccordionItemState = /*#__PURE__*/react.forwardRef(function (_ref, ref) {
+var withAccordionItem = function withAccordionItem(WrappedItem) {
+  var WithAccordionItem = /*#__PURE__*/react.forwardRef(function (_ref, ref) {
     var itemKey = _ref.itemKey,
         initialEntered = _ref.initialEntered,
         rest = _objectWithoutPropertiesLoose(_ref, _excluded$1);
 
     return /*#__PURE__*/jsxRuntime.jsx(WrappedItem, _extends({
       forwardedRef: ref
-    }, rest, useAccordionItemState({
+    }, rest, useAccordionItemEffect({
       itemKey: itemKey,
       initialEntered: initialEntered
     })));
   });
-  WithAccordionItemState.displayName = 'WithAccordionItemState';
-  return WithAccordionItemState;
+  WithAccordionItem.displayName = 'WithAccordionItem';
+  return WithAccordionItem;
 };
 
 var _excluded = ["forwardedRef", "itemRef", "state", "toggle", "className", "header", "headingTag", "headingProps", "buttonProps", "contentProps", "panelProps", "children"];
@@ -444,7 +444,7 @@ var WrappedItem = /*#__PURE__*/react.memo(function (_ref) {
   }));
 });
 WrappedItem.displayName = 'AccordionItem';
-var AccordionItem = /*#__PURE__*/withAccordionItemState(WrappedItem);
+var AccordionItem = /*#__PURE__*/withAccordionItem(WrappedItem);
 
 var useAccordionState = function useAccordionState() {
   var context = useAccordionContext();
@@ -465,9 +465,9 @@ exports.AccordionProvider = AccordionProvider;
 exports.ControlledAccordion = ControlledAccordion;
 exports.useAccordion = useAccordion;
 exports.useAccordionItem = useAccordionItem;
-exports.useAccordionItemState = useAccordionItemState;
+exports.useAccordionItemEffect = useAccordionItemEffect;
 exports.useAccordionProvider = useAccordionProvider;
 exports.useAccordionState = useAccordionState;
 exports.useHeightTransition = useHeightTransition;
 exports.useMergeRef = useMergeRef;
-exports.withAccordionItemState = withAccordionItemState;
+exports.withAccordionItem = withAccordionItem;

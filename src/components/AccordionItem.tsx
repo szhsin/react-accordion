@@ -6,7 +6,7 @@ import { mergeProps } from '../utils/mergeProps';
 import { useAccordionItem } from '../hooks/useAccordionItem';
 import { useHeightTransition } from '../hooks/useHeightTransition';
 import { useMergeRef } from '../hooks/useMergeRef';
-import { withAccordionItemState, ItemStateProps } from './withAccordionItemState';
+import { withAccordionItem, ItemStateProps } from './withAccordionItem';
 
 type ItemModifiers = {
   readonly status: TransitionStatus;
@@ -129,6 +129,6 @@ const WrappedItem = memo(
 );
 
 WrappedItem.displayName = 'AccordionItem';
-const AccordionItem = withAccordionItemState<AccordionItemProps, HTMLDivElement>(WrappedItem);
+const AccordionItem = withAccordionItem<AccordionItemProps, HTMLDivElement>(WrappedItem);
 
 export { AccordionItem, AccordionItemProps, ItemModifiers };
