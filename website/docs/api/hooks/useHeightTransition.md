@@ -8,7 +8,7 @@ sidebar_position: 4
 
 | Position | Type | Description |
 | --- | --- | --- |
-| #1 | TransitionState | The item `state` returned from [useAccordionItemState](./useAccordionItemState). |
+| #1 | TransitionState | The item `state` returned from [useAccordionItemEffect](./useAccordionItemEffect). |
 
 ## Return tuple
 

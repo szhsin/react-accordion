@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   useAccordionItem,
-  useAccordionItemState,
+  useAccordionItemEffect,
   // highlight-next-line
   useHeightTransition
 } from '@szhsin/react-accordion';
@@ -20,7 +20,7 @@ const AccordionItem = ({
   initialEntered?: boolean;
 }) => {
   const { itemRef, state, toggle } =
-    useAccordionItemState<HTMLDivElement>({ itemKey, initialEntered });
+    useAccordionItemEffect<HTMLDivElement>({ itemKey, initialEntered });
   const { buttonProps, panelProps } = useAccordionItem({
     state,
     toggle
