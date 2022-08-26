@@ -59,7 +59,7 @@ const Home: NextPage = () => {
           onMouseLeave={() => console.log('mouse leave accordion')}
         >
           <AccordionItem
-            headerProps={{
+            headingProps={{
               className: (e) => {
                 return e.status;
               },

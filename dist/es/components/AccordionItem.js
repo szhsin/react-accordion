@@ -6,7 +6,7 @@ import { mergeProps } from '../utils/mergeProps.js';
 import { useAccordionItem } from '../hooks/useAccordionItem.js';
 import { useHeightTransition } from '../hooks/useHeightTransition.js';
 import { useMergeRef } from '../hooks/useMergeRef.js';
-import { withAccordionItemState } from './withAccordionItemState.js';
+import { withAccordionItem } from './withAccordionItem.js';
 import { jsxs, jsx } from 'react/jsx-runtime';
 
 var _excluded = ["forwardedRef", "itemRef", "state", "toggle", "className", "header", "headingTag", "headingProps", "buttonProps", "contentProps", "panelProps", "children"];
@@ -77,6 +77,6 @@ var WrappedItem = /*#__PURE__*/memo(function (_ref) {
   }));
 });
 WrappedItem.displayName = 'AccordionItem';
-var AccordionItem = /*#__PURE__*/withAccordionItemState(WrappedItem);
+var AccordionItem = /*#__PURE__*/withAccordionItem(WrappedItem);
 
 export { AccordionItem };

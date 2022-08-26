@@ -1,7 +1,7 @@
 import { useRef, useEffect, useCallback } from 'react';
 import { useAccordionContext, getItemState } from './useAccordionContext.js';
 
-var useAccordionItemState = function useAccordionItemState(_temp) {
+var useAccordionItemEffect = function useAccordionItemEffect(_temp) {
   var _ref = _temp === void 0 ? {} : _temp,
       itemKey = _ref.itemKey,
       initialEntered = _ref.initialEntered;
@@ -31,4 +31,4 @@ var useAccordionItemState = function useAccordionItemState(_temp) {
   };
 };
 
-export { useAccordionItemState };
+export { useAccordionItemEffect };

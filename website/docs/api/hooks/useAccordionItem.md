@@ -8,8 +8,8 @@ sidebar_position: 3
 
 | Prop | Type | Description |
 | --- | --- | --- |
-| `state` | TransitionState | The item `state` returned from [useAccordionItemState](./useAccordionItemState). |
-| `toggle` | (toEnter?: boolean) => void | The `toggle` function returned from [useAccordionItemState](./useAccordionItemState). |
+| `state` | TransitionState | The item `state` returned from [useAccordionItemEffect](./useAccordionItemEffect). |
+| `toggle` | (toEnter?: boolean) => void | The `toggle` function returned from [useAccordionItemEffect](./useAccordionItemEffect). |
 
 ## Return object
 

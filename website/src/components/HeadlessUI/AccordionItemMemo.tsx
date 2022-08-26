@@ -2,7 +2,7 @@ import React from 'react';
 import {
   useAccordionItem,
   useHeightTransition,
-  withAccordionItemState
+  withAccordionItem
 } from '@szhsin/react-accordion';
 import type {
   ItemStateProps,
@@ -70,7 +70,7 @@ const MemoItem = React.memo(
 );
 
 MemoItem.displayName = `AccordionItem`;
-const AccordionItem = withAccordionItemState<
+const AccordionItem = withAccordionItem<
   ItemStateOptions & Props,
   HTMLDivElement
 >(MemoItem);

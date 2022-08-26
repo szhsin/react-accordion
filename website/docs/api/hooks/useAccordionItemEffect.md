@@ -2,7 +2,7 @@
 sidebar_position: 2
 ---
 
-# useAccordionItemState
+# useAccordionItemEffect
 
 ## Parameter object
 

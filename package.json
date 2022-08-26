@@ -1,6 +1,6 @@
 {
   "name": "@szhsin/react-accordion",
-  "version": "0.10.1",
+  "version": "0.11.0",
   "description": "An unstyled, fully accessible React accordion library.",
   "author": "Zheng Song",
   "license": "MIT",
@@ -33,11 +33,11 @@
     "build": "run-s pret clean lint types bundle post-build"
   },
   "peerDependencies": {
-    "react": ">=16.14.0",
-    "react-dom": ">=16.14.0"
+    "react": "^16.14 || ^17.0 || ^18.0",
+    "react-dom": "^16.14 || ^17.0 || ^18.0"
   },
   "dependencies": {
-    "react-transition-state": "^2.0.0-alpha.1"
+    "react-transition-state": "^2.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.18.13",

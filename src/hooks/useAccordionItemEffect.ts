@@ -2,7 +2,7 @@ import { useEffect, useRef, useCallback } from 'react';
 import { ItemStateOptions } from '../utils/constants';
 import { useAccordionContext, getItemState } from './useAccordionContext';
 
-const useAccordionItemState = <E extends Element>({
+const useAccordionItemEffect = <E extends Element>({
   itemKey,
   initialEntered
 }: ItemStateOptions = {}) => {
@@ -25,4 +25,4 @@ const useAccordionItemState = <E extends Element>({
   };
 };
 
-export { useAccordionItemState };
+export { useAccordionItemEffect };
