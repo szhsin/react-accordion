@@ -6,7 +6,7 @@ import {
   useHeightTransition
 } from '@szhsin/react-accordion';
 import ChevronDown from '@site/static/img/chevron-down.svg';
-import styles from './styles.module.css';
+import styles from '../accordion/styles.module.css';
 
 const AccordionItem = ({
   header,
