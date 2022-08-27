@@ -7,9 +7,8 @@ const useHeightTransition = <E extends Element>({ status, isResolved }: Transiti
   const elementRef = useRef<E>(null);
 
   useLayoutEffect(() => {
-    status === 'preEnter' || status === 'preExit'
-      ? setHeight(elementRef.current!.getBoundingClientRect().height)
-      : status === 'entered' && setHeight(undefined);
+    (status === 'preEnter' || status === 'preExit') &&
+      setHeight(elementRef.current!.getBoundingClientRect().height);
   }, [status]);
 
   const style: CSSProperties = {

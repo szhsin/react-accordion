@@ -254,7 +254,7 @@ var useHeightTransition = function useHeightTransition(_ref) {
 
   var elementRef = react.useRef(null);
   useIsomorphicLayoutEffect(function () {
-    status === 'preEnter' || status === 'preExit' ? setHeight(elementRef.current.getBoundingClientRect().height) : status === 'entered' && setHeight(undefined);
+    (status === 'preEnter' || status === 'preExit') && setHeight(elementRef.current.getBoundingClientRect().height);
   }, [status]);
   var style = {
     height: status === 'preEnter' || status === 'exiting' ? 0 : status === 'entering' || status === 'preExit' ? height : undefined,
