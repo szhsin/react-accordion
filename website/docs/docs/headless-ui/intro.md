@@ -1,3 +1,8 @@
+---
+sidebar_position: 1
+sidebar_label: When to Use
+---
+
 # Headless UI
 
 The `Accordion` and `AccordionItem` components are unstyled and render HTML markups that are compliant

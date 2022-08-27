@@ -1,4 +1,7 @@
 {
   "position": 9,
-  "label": "Headless UI"
+  "label": "Headless UI",
+  "link": {
+    "type": "generated-index"
+  }
 }
