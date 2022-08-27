@@ -13,7 +13,3 @@ updates:
     directory: '/website'
     schedule:
       interval: 'daily'
-  - package-ecosystem: 'npm'
-    directory: '/example'
-    schedule:
-      interval: 'daily'
