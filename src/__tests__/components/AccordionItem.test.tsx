@@ -1,4 +1,5 @@
 import { screen, fireEvent, act } from '@testing-library/react';
+import { TransitionState } from 'react-transition-state';
 import { render, getAccordion } from '../utils';
 import { AccordionItem, AccordionItemProps, ItemState } from '../../';
 
@@ -122,15 +123,27 @@ describe('className function', () => {
         item1Props
       })
     );
-    const params = { expanded: false, status: 'exited' };
+    const params = expect.objectContaining<TransitionState>({
+      status: 'exited',
+      isEnter: false,
+      isMounted: true,
+      isResolved: true
+    }) as TransitionState;
     expect(className).toHaveBeenNthCalledWith(1, params);
     expect(className).toHaveBeenLastCalledWith(params);
     fireEvent.click(screen.getByRole('button', { name: 'header 1' }));
-    expect(className).toHaveBeenLastCalledWith({ expanded: true, status: 'entered' });
+    expect(className).toHaveBeenLastCalledWith(
+      expect.objectContaining<TransitionState>({
+        status: 'entered',
+        isEnter: true,
+        isMounted: true,
+        isResolved: true
+      })
+    );
   });
 });
 
-describe('Header render prop', () => {
+describe('Header and children render prop', () => {
   const getRenderPropParam = (state: Partial<ItemState['state']>) => ({
     state: expect.objectContaining(state) as ItemState['state'],
     toggle: expect.any(Function) as ItemState['toggle']
@@ -141,11 +154,12 @@ describe('Header render prop', () => {
     toggle = _toggle;
     return 'custom header';
   });
+  const children = jest.fn().mockReturnValue('custom children');
 
   test.each([
     {
       props: {},
-      item1Props: { header },
+      item1Props: { header, children },
       expectedState1: {
         status: 'exited',
         isEnter: false,
@@ -156,7 +170,7 @@ describe('Header render prop', () => {
     },
     {
       props: {},
-      item1Props: { header, initialEntered: true },
+      item1Props: { header, children, initialEntered: true },
       expectedState1: {
         status: 'entered',
         isEnter: true,
@@ -167,7 +181,7 @@ describe('Header render prop', () => {
     },
     {
       props: { initialEntered: true },
-      item1Props: { header },
+      item1Props: { header, children },
       expectedState1: {
         status: 'entered',
         isEnter: true,
@@ -178,7 +192,7 @@ describe('Header render prop', () => {
     },
     {
       props: { initialEntered: true },
-      item1Props: { header, initialEntered: false },
+      item1Props: { header, children, initialEntered: false },
       expectedState1: {
         status: 'exited',
         isEnter: false,
@@ -189,7 +203,7 @@ describe('Header render prop', () => {
     },
     {
       props: { mountOnEnter: true },
-      item1Props: { header },
+      item1Props: { header, children },
       expectedState1: {
         status: 'unmounted',
         isEnter: false,
@@ -215,6 +229,10 @@ describe('Header render prop', () => {
       toggle();
     });
     expect(header).toHaveBeenLastCalledWith(getRenderPropParam(expectedState2));
+    expect(children).toHaveBeenLastCalledWith(getRenderPropParam(expectedState2));
+    expect(screen.getByRole('region', { name: 'custom header', hidden: true })).toHaveTextContent(
+      'custom children'
+    );
     expect(toggle).toBe(prevToggle);
   });
 });
