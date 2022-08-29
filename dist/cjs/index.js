@@ -69,22 +69,23 @@ var ACCORDION_ATTR = "data-" + ACCORDION_PREFIX;
 var ACCORDION_BTN_ATTR = "data-" + ACCORDION_PREFIX + "-btn";
 var AccordionContext = /*#__PURE__*/react.createContext({});
 
-var bem = function bem(block, element, modifiers, className, addModifier) {
-  var blockElement = element ? block + "__" + element : block;
-  var classString = blockElement;
-  if (addModifier && modifiers) for (var _i2 = 0, _Object$keys2 = Object.keys(modifiers); _i2 < _Object$keys2.length; _i2++) {
-    var name = _Object$keys2[_i2];
-    var value = modifiers[name];
-    if (value) classString += " " + blockElement + "--" + (value === true ? name : name + "-" + value);
-  }
-  var expandedClassName = typeof className === 'function' ? className(modifiers) : className;
+var bem = function bem(block, element, modifiers) {
+  return function (className, props) {
+    var blockElement = element ? block + "__" + element : block;
+    var classString = blockElement;
+    modifiers && Object.keys(modifiers).forEach(function (name) {
+      var value = modifiers[name];
+      if (value) classString += " " + blockElement + "--" + (value === true ? name : name + "-" + value);
+    });
+    var expandedClassName = typeof className === 'function' ? className(props) : className;
 
-  if (typeof expandedClassName === 'string') {
-    expandedClassName = expandedClassName.trim();
-    if (expandedClassName) classString += " " + expandedClassName;
-  }
+    if (typeof expandedClassName === 'string') {
+      expandedClassName = expandedClassName.trim();
+      if (expandedClassName) classString += " " + expandedClassName;
+    }
 
-  return classString;
+    return classString;
+  };
 };
 
 var mergeProps = function mergeProps(target, source) {
@@ -173,7 +174,7 @@ var ControlledAccordion = /*#__PURE__*/react.forwardRef(function (_ref, ref) {
     value: providerValue,
     children: /*#__PURE__*/jsxRuntime.jsx("div", _extends({}, mergeProps(accordionProps, rest), {
       ref: ref,
-      className: bem(ACCORDION_BLOCK, undefined, undefined, className)
+      className: bem(ACCORDION_BLOCK)(className)
     }))
   });
 });
@@ -390,30 +391,29 @@ var WrappedItem = /*#__PURE__*/react.memo(function (_ref) {
   var status = state.status,
       isMounted = state.isMounted,
       isEnter = state.isEnter;
-  var modifiers = {
-    status: status,
-    expanded: isEnter
-  };
   return /*#__PURE__*/jsxRuntime.jsxs("div", _extends({}, rest, {
     ref: useMergeRef(forwardedRef, itemRef),
-    className: bem(ACCORDION_BLOCK, 'item', modifiers, className, true),
+    className: bem(ACCORDION_BLOCK, 'item', {
+      status: status,
+      expanded: isEnter
+    })(className, state),
     children: [/*#__PURE__*/react.createElement(headingTag || 'h3', _extends({}, headingProps, {
       style: _extends({
         margin: 0
       }, headingProps && headingProps.style),
-      className: bem(ACCORDION_BLOCK, 'item-heading', modifiers, headingProps && headingProps.className)
+      className: bem(ACCORDION_BLOCK, 'item-heading')(headingProps && headingProps.className, state)
     }), /*#__PURE__*/jsxRuntime.jsx("button", _extends({}, mergeProps(_buttonProps, buttonProps), {
       type: "button",
-      className: bem(ACCORDION_BLOCK, 'item-btn', modifiers, buttonProps && buttonProps.className),
+      className: bem(ACCORDION_BLOCK, 'item-btn')(buttonProps && buttonProps.className, state),
       children: getRenderNode(header, itemState)
     }))), isMounted && /*#__PURE__*/jsxRuntime.jsx("div", _extends({}, contentProps, {
       style: _extends({
         display: status === 'exited' ? 'none' : undefined
       }, transitionStyle, contentProps && contentProps.style),
-      className: bem(ACCORDION_BLOCK, 'item-content', modifiers, contentProps && contentProps.className),
+      className: bem(ACCORDION_BLOCK, 'item-content')(contentProps && contentProps.className, state),
       children: /*#__PURE__*/jsxRuntime.jsx("div", _extends({}, mergeProps(_panelProps, panelProps), {
         ref: panelRef,
-        className: bem(ACCORDION_BLOCK, 'item-panel', modifiers, panelProps && panelProps.className),
+        className: bem(ACCORDION_BLOCK, 'item-panel')(panelProps && panelProps.className, state),
         children: getRenderNode(children, itemState)
       }))
     }))]

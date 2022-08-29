@@ -7,9 +7,9 @@ export declare const ACCORDION_BTN_ATTR: string;
 export declare type Modifiers = {
     readonly [index: string]: boolean | string;
 };
-export declare type ClassNameProp<M extends Modifiers> = string | ((modifiers: M) => string);
-export interface ElementProps<E extends HTMLElement, M extends Modifiers | string> extends Omit<HTMLAttributes<E>, 'className' | 'children'> {
-    className?: M extends Modifiers ? ClassNameProp<M> : string;
+export declare type ClassNameProp<P> = string | ((props: P) => string);
+export interface ElementProps<E extends HTMLElement, P = undefined> extends Omit<HTMLAttributes<E>, 'className' | 'children'> {
+    className?: P extends undefined ? string : ClassNameProp<P>;
     'data-testid'?: string | number;
 }
 export declare type ItemKey = Element | string | number;

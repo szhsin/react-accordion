@@ -4,29 +4,25 @@ import { ClassNameProp, Modifiers } from './constants';
  * Generate className following BEM methodology: http://getbem.com/naming/
  * Modifier value can be one of the types: boolean, string
  */
-const bem = <M extends Modifiers>(
-  block: string,
-  element?: string,
-  modifiers?: M,
-  className?: ClassNameProp<M>,
-  addModifier?: boolean
-) => {
-  const blockElement = element ? `${block}__${element}` : block;
+const bem =
+  (block: string, element?: string, modifiers?: Modifiers) =>
+  <P>(className?: ClassNameProp<P>, props?: P) => {
+    const blockElement = element ? `${block}__${element}` : block;
 
-  let classString = blockElement;
-  if (addModifier && modifiers)
-    for (const name of Object.keys(modifiers)) {
-      const value = modifiers[name];
-      if (value) classString += ` ${blockElement}--${value === true ? name : `${name}-${value}`}`;
+    let classString = blockElement;
+    modifiers &&
+      Object.keys(modifiers).forEach((name) => {
+        const value = modifiers[name];
+        if (value) classString += ` ${blockElement}--${value === true ? name : `${name}-${value}`}`;
+      });
+
+    let expandedClassName = typeof className === 'function' ? className(props!) : className;
+    if (typeof expandedClassName === 'string') {
+      expandedClassName = expandedClassName.trim();
+      if (expandedClassName) classString += ` ${expandedClassName}`;
     }
 
-  let expandedClassName = typeof className === 'function' ? className(modifiers!) : className;
-  if (typeof expandedClassName === 'string') {
-    expandedClassName = expandedClassName.trim();
-    if (expandedClassName) classString += ` ${expandedClassName}`;
-  }
-
-  return classString;
-};
+    return classString;
+  };
 
 export { bem };

@@ -20,7 +20,7 @@ var ControlledAccordion = /*#__PURE__*/forwardRef(function (_ref, ref) {
     value: providerValue,
     children: /*#__PURE__*/jsx("div", _extends({}, mergeProps(accordionProps, rest), {
       ref: ref,
-      className: bem(ACCORDION_BLOCK, undefined, undefined, className)
+      className: bem(ACCORDION_BLOCK)(className)
     }))
   });
 });

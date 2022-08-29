@@ -14,10 +14,10 @@ export const ACCORDION_BTN_ATTR = `data-${ACCORDION_PREFIX}-btn`;
 export type Modifiers = {
   readonly [index: string]: boolean | string;
 };
-export type ClassNameProp<M extends Modifiers> = string | ((modifiers: M) => string);
-export interface ElementProps<E extends HTMLElement, M extends Modifiers | string>
+export type ClassNameProp<P> = string | ((props: P) => string);
+export interface ElementProps<E extends HTMLElement, P = undefined>
   extends Omit<HTMLAttributes<E>, 'className' | 'children'> {
-  className?: M extends Modifiers ? ClassNameProp<M> : string;
+  className?: P extends undefined ? string : ClassNameProp<P>;
   'data-testid'?: string | number;
 }
 

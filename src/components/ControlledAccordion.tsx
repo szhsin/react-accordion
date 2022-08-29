@@ -5,7 +5,7 @@ import { mergeProps } from '../utils/mergeProps';
 import { AccordionProvider } from './AccordionProvider';
 import { useAccordion } from '../hooks/useAccordion';
 
-interface ControlledAccordionProps extends ElementProps<HTMLDivElement, string> {
+interface ControlledAccordionProps extends ElementProps<HTMLDivElement> {
   providerValue: AccordionProviderValue;
   children?: ReactNode;
 }
@@ -18,7 +18,7 @@ const ControlledAccordion = forwardRef<HTMLDivElement, ControlledAccordionProps>
         <div
           {...mergeProps(accordionProps, rest)}
           ref={ref}
-          className={bem(ACCORDION_BLOCK, undefined, undefined, className)}
+          className={bem(ACCORDION_BLOCK)(className)}
         />
       </AccordionProvider>
     );

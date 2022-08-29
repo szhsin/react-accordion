@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import { AccordionProviderValue, ElementProps } from '../utils/constants';
-interface ControlledAccordionProps extends ElementProps<HTMLDivElement, string> {
+interface ControlledAccordionProps extends ElementProps<HTMLDivElement> {
     providerValue: AccordionProviderValue;
     children?: ReactNode;
 }
