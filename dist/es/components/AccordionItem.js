@@ -47,30 +47,29 @@ var WrappedItem = /*#__PURE__*/memo(function (_ref) {
   var status = state.status,
       isMounted = state.isMounted,
       isEnter = state.isEnter;
-  var modifiers = {
-    status: status,
-    expanded: isEnter
-  };
   return /*#__PURE__*/jsxs("div", _extends({}, rest, {
     ref: useMergeRef(forwardedRef, itemRef),
-    className: bem(ACCORDION_BLOCK, 'item', modifiers, className, true),
+    className: bem(ACCORDION_BLOCK, 'item', {
+      status: status,
+      expanded: isEnter
+    })(className, state),
     children: [/*#__PURE__*/createElement(headingTag || 'h3', _extends({}, headingProps, {
       style: _extends({
         margin: 0
       }, headingProps && headingProps.style),
-      className: bem(ACCORDION_BLOCK, 'item-heading', modifiers, headingProps && headingProps.className)
+      className: bem(ACCORDION_BLOCK, 'item-heading')(headingProps && headingProps.className, state)
     }), /*#__PURE__*/jsx("button", _extends({}, mergeProps(_buttonProps, buttonProps), {
       type: "button",
-      className: bem(ACCORDION_BLOCK, 'item-btn', modifiers, buttonProps && buttonProps.className),
+      className: bem(ACCORDION_BLOCK, 'item-btn')(buttonProps && buttonProps.className, state),
       children: getRenderNode(header, itemState)
     }))), isMounted && /*#__PURE__*/jsx("div", _extends({}, contentProps, {
       style: _extends({
         display: status === 'exited' ? 'none' : undefined
       }, transitionStyle, contentProps && contentProps.style),
-      className: bem(ACCORDION_BLOCK, 'item-content', modifiers, contentProps && contentProps.className),
+      className: bem(ACCORDION_BLOCK, 'item-content')(contentProps && contentProps.className, state),
       children: /*#__PURE__*/jsx("div", _extends({}, mergeProps(_panelProps, panelProps), {
         ref: panelRef,
-        className: bem(ACCORDION_BLOCK, 'item-panel', modifiers, panelProps && panelProps.className),
+        className: bem(ACCORDION_BLOCK, 'item-panel')(panelProps && panelProps.className, state),
         children: getRenderNode(children, itemState)
       }))
     }))]

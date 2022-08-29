@@ -1,5 +1,5 @@
 import { ReactNode, ForwardedRef, memo, createElement } from 'react';
-import { TransitionStatus } from 'react-transition-state';
+import { TransitionState } from 'react-transition-state';
 import { ACCORDION_BLOCK, ElementProps, ItemState, ItemStateOptions } from '../utils/constants';
 import { bem } from '../utils/bem';
 import { mergeProps } from '../utils/mergeProps';
@@ -8,18 +8,15 @@ import { useHeightTransition } from '../hooks/useHeightTransition';
 import { useMergeRef } from '../hooks/useMergeRef';
 import { withAccordionItem, ItemStateProps } from './withAccordionItem';
 
-type ItemModifiers = {
-  readonly status: TransitionStatus;
-  readonly expanded: boolean;
-};
-
-interface ItemElementProps<E extends HTMLElement> extends ElementProps<E, ItemModifiers> {
+interface ItemElementProps<E extends HTMLElement> extends ElementProps<E, TransitionState> {
   ref?: ForwardedRef<E>;
 }
 
 type NodeOrFunc = ReactNode | ((props: ItemState) => ReactNode);
 
-interface AccordionItemProps extends ItemStateOptions, ElementProps<HTMLDivElement, ItemModifiers> {
+interface AccordionItemProps
+  extends ItemStateOptions,
+    ElementProps<HTMLDivElement, TransitionState> {
   header?: NodeOrFunc;
   children?: NodeOrFunc;
   headingTag?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
@@ -60,34 +57,29 @@ const WrappedItem = memo(
     const [transitionStyle, _panelRef] = useHeightTransition<HTMLDivElement>(state);
     const panelRef = useMergeRef(panelProps && panelProps.ref, _panelRef);
     const { status, isMounted, isEnter } = state;
-    const modifiers: ItemModifiers = { status, expanded: isEnter };
 
     return (
       <div
         {...rest}
         ref={useMergeRef(forwardedRef, itemRef)}
-        className={bem(ACCORDION_BLOCK, 'item', modifiers, className, true)}
+        className={bem(ACCORDION_BLOCK, 'item', { status, expanded: isEnter })(className, state)}
       >
         {createElement(
           headingTag || 'h3',
           {
             ...headingProps,
             style: { margin: 0, ...(headingProps && headingProps.style) },
-            className: bem(
-              ACCORDION_BLOCK,
-              'item-heading',
-              modifiers,
-              headingProps && headingProps.className
+            className: bem(ACCORDION_BLOCK, 'item-heading')(
+              headingProps && headingProps.className,
+              state
             )
           },
           <button
             {...mergeProps(_buttonProps, buttonProps)}
             type="button"
-            className={bem(
-              ACCORDION_BLOCK,
-              'item-btn',
-              modifiers,
-              buttonProps && buttonProps.className
+            className={bem(ACCORDION_BLOCK, 'item-btn')(
+              buttonProps && buttonProps.className,
+              state
             )}
           >
             {getRenderNode(header, itemState)}
@@ -102,21 +94,17 @@ const WrappedItem = memo(
               ...transitionStyle,
               ...(contentProps && contentProps.style)
             }}
-            className={bem(
-              ACCORDION_BLOCK,
-              'item-content',
-              modifiers,
-              contentProps && contentProps.className
+            className={bem(ACCORDION_BLOCK, 'item-content')(
+              contentProps && contentProps.className,
+              state
             )}
           >
             <div
               {...mergeProps(_panelProps, panelProps)}
               ref={panelRef}
-              className={bem(
-                ACCORDION_BLOCK,
-                'item-panel',
-                modifiers,
-                panelProps && panelProps.className
+              className={bem(ACCORDION_BLOCK, 'item-panel')(
+                panelProps && panelProps.className,
+                state
               )}
             >
               {getRenderNode(children, itemState)}
@@ -131,4 +119,4 @@ const WrappedItem = memo(
 WrappedItem.displayName = 'AccordionItem';
 const AccordionItem = withAccordionItem<AccordionItemProps, HTMLDivElement>(WrappedItem);
 
-export { AccordionItem, AccordionItemProps, ItemModifiers };
+export { AccordionItem, AccordionItemProps };

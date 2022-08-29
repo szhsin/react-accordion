@@ -1,15 +1,11 @@
 import { ReactNode, ForwardedRef } from 'react';
-import { TransitionStatus } from 'react-transition-state';
+import { TransitionState } from 'react-transition-state';
 import { ElementProps, ItemState, ItemStateOptions } from '../utils/constants';
-declare type ItemModifiers = {
-    readonly status: TransitionStatus;
-    readonly expanded: boolean;
-};
-interface ItemElementProps<E extends HTMLElement> extends ElementProps<E, ItemModifiers> {
+interface ItemElementProps<E extends HTMLElement> extends ElementProps<E, TransitionState> {
     ref?: ForwardedRef<E>;
 }
 declare type NodeOrFunc = ReactNode | ((props: ItemState) => ReactNode);
-interface AccordionItemProps extends ItemStateOptions, ElementProps<HTMLDivElement, ItemModifiers> {
+interface AccordionItemProps extends ItemStateOptions, ElementProps<HTMLDivElement, TransitionState> {
     header?: NodeOrFunc;
     children?: NodeOrFunc;
     headingTag?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
@@ -19,4 +15,4 @@ interface AccordionItemProps extends ItemStateOptions, ElementProps<HTMLDivEleme
     panelProps?: ItemElementProps<HTMLDivElement>;
 }
 declare const AccordionItem: import("react").ForwardRefExoticComponent<AccordionItemProps & import("react").RefAttributes<HTMLDivElement>>;
-export { AccordionItem, AccordionItemProps, ItemModifiers };
+export { AccordionItem, AccordionItemProps };

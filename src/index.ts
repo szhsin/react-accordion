@@ -11,7 +11,7 @@ export { useAccordionState } from './hooks/useAccordionState';
 export { useHeightTransition } from './hooks/useHeightTransition';
 export { useMergeRef } from './hooks/useMergeRef';
 export type { AccordionProps } from './components/Accordion';
-export type { AccordionItemProps, ItemModifiers } from './components/AccordionItem';
+export type { AccordionItemProps } from './components/AccordionItem';
 export type { ControlledAccordionProps } from './components/ControlledAccordion';
 export type { ItemStateProps } from './components/withAccordionItem';
 export type {
