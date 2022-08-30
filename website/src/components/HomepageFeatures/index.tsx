@@ -9,7 +9,7 @@ type FeatureItem = {
 
 const featureList: FeatureItem[] = [
   {
-    title: 'Unstyled Components',
+    title: 'Unstyled',
     description: (
       <>
         Providing behaviour and data/state management without enforcing
@@ -19,7 +19,7 @@ const featureList: FeatureItem[] = [
     )
   },
   {
-    title: 'Headless UI Primitives',
+    title: 'Headless UI',
     description: (
       <>
         While the components render markup with good default settings,
@@ -40,7 +40,7 @@ const featureList: FeatureItem[] = [
     )
   },
   {
-    title: 'Transition and Animation',
+    title: 'Animation',
     description: (
       <>
         Supports open and close animation with full state transition

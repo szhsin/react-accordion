@@ -10,8 +10,8 @@ with the [Accordion Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/
 They are built on top of some React Hooks which can be used directly in your code. There are a few reasons that you might want to do it:
 
 - You want to fully control what HTML markups are rendered into DOM.
-- The `Accordion` and `AccordionItem` components set some default `className` on the HTML
-  markups, and you don't want or need the classes.
+- The `Accordion` and `AccordionItem` components set some default class selectors on the HTML
+  markups, and you don't want or need the selectors.
 - You could cut out some functionalities which are not needed in your components, e.g. the accordion item height transition implementation. It will help reduce bundle size after tree-shaking.
 
 :::info
