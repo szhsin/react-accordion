@@ -34,8 +34,8 @@ const AccordionItem = (props: ReactAccordion.AccordionItemProps) => (
     )}
     className={styles.item}
     buttonProps={{
-      className: ({ expanded }) =>
-        expanded ? styles.buttonExpanded : styles.button
+      className: ({ isEnter }) =>
+        isEnter ? styles.buttonExpanded : styles.button
     }}
     contentProps={{ className: styles.content }}
     panelProps={{ className: styles.panel }}

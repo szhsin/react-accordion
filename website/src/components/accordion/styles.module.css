@@ -37,6 +37,7 @@
   font-size: 1rem;
   font-weight: 400;
   text-align: left;
+  color: var(--ifm-font-color-base);
   background-color: transparent;
   border: none;
   transition: background-color 0.2s ease-in-out;

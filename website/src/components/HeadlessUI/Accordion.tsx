@@ -4,7 +4,7 @@ import {
   useAccordionProvider,
   AccordionProvider
 } from '@szhsin/react-accordion';
-import styles from './styles.module.css';
+import styles from '../accordion/styles.module.css';
 
 const Accordion = ({ children }: { children: React.ReactNode }) => {
   const providerValue = useAccordionProvider({

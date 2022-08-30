@@ -18,3 +18,9 @@ sidebar_position: 2
 | `itemRef` | object | A React `ref` object to be attached to the item element. |
 | `state` | TransitionState | The item state. |
 | `toggle` | (toEnter?: boolean) => void | A function to toggle the item state. |
+
+:::caution NOTE
+
+As its name suggests, this hook is not pure and should be used only once in each accordion item.
+
+:::
