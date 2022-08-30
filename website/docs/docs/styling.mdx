@@ -1,0 +1,26 @@
+---
+sidebar_position: 9
+---
+
+import CodeBlock from '@theme/CodeBlock';
+import skeleton from '!!raw-loader!@site/src/html/skeleton.html';
+
+# Styling
+
+The unstyled `Accordion` and `AccordionItem` components render the following HTML markups into DOM.
+
+<CodeBlock language="html">{skeleton}</CodeBlock>
+
+Each tag has some global class selectors attached. Depending on the styling system in your project,
+you may not use those class selectors.
+
+Each tag accepts a `className` prop which can be used to append custom class selectors.
+The `className` prop also supports a function form that receives relevant state as its parameters.
+
+Please checkout the sandbox examples below for styling with some popular frontend stacks:
+
+- [CSS Module](https://codesandbox.io/s/react-accordion-css-module-eqvnzg)
+- [CSS/SASS](https://codesandbox.io/s/react-accordion-sass-o5jujp)
+- [styled-components](https://codesandbox.io/s/react-accordion-styled-k8s60p)
+- [Tailwind CSS](https://codesandbox.io/s/react-accordion-tailwindcss-sbfnqt)
+- [@emotion/react](https://codesandbox.io/s/react-accordion-emotion-react-ftuosh)
