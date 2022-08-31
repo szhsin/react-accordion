@@ -1,9 +1,11 @@
 {
   "name": "@szhsin/react-accordion",
-  "version": "0.13.0",
-  "description": "An unstyled, fully accessible React accordion library.",
+  "version": "1.0.0-rc.0",
+  "description": "An unstyled, accessible accordion library for building React apps and design systems.",
   "author": "Zheng Song",
   "license": "MIT",
+  "repository": "szhsin/react-accordion",
+  "homepage": "https://szhsin.github.io/react-accordion/",
   "main": "dist/cjs/index.js",
   "module": "dist/es/index.js",
   "types": "types/index.d.ts",
@@ -14,6 +16,17 @@
   "files": [
     "dist/",
     "types/"
+  ],
+  "keywords": [
+    "react",
+    "accordion",
+    "component",
+    "hook",
+    "unstyled",
+    "headless UI",
+    "design system",
+    "accessibility",
+    "wai-aria"
   ],
   "scripts": {
     "start": "run-p watch \"types -- --watch\"",

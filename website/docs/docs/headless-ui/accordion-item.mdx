@@ -8,17 +8,19 @@ import source from '!!raw-loader!@site/src/components/HeadlessUI/AccordionItem';
 
 # Creating AccordionItem
 
-Second, create an `AccordionItem` component with the `useAccordionItem` and `useAccordionItemEffect` hook exported from the library.
+Second, create an `AccordionItem` component with the `useAccordionItem` and
+`useAccordionItemEffect` hook exported from the library.
 
 ## Without height transition
 
-Use the following code if you don't need the height transition for expanding and collapsing items.
+Use the following code if you don't need the height transition for expanding and
+collapsing items.
 
 <CodeBlock language="jsx">{sourceBare}</CodeBlock>
 
 ## Height transition
 
-Use the `useHeightTransition` hook and add a wrapping `div` around the accordion item children
-if you want the height transition for expanding and collapsing items.
+Use the `useHeightTransition` hook and add a wrapping `div` around the accordion item
+children if you want the height transition for expanding and collapsing items.
 
 <CodeBlock language="jsx">{source}</CodeBlock>

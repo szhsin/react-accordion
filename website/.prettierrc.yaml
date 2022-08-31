@@ -1,3 +1,11 @@
 trailingComma: none
 singleQuote: true
 printWidth: 72
+overrides:
+  - files: '*.md'
+    options:
+      proseWrap: never
+  - files: '*.mdx'
+    options:
+      proseWrap: always
+      printWidth: 90

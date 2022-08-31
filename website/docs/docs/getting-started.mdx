@@ -33,7 +33,8 @@ yarn add @szhsin/react-accordion
 
 ## Usage
 
-An accordion is created by wrapping any number of `AccordionItem` components inside an `Accordion` component.
+An accordion is created by wrapping any number of `AccordionItem` components inside an
+`Accordion` component.
 
 By default, only one accordion item can be expanded at one time.
 
@@ -41,8 +42,8 @@ By default, only one accordion item can be expanded at one time.
 
 :::tip
 
-When focus is on an accordion header, you may use the `ArrowDown` and `ArrowUp` keys
-to move focus to the next or previous accordion header.
+When focus is on an accordion header, you may use the `ArrowDown` and `ArrowUp` keys to
+move focus to the next or previous accordion header.
 
 :::
 
@@ -50,19 +51,18 @@ to move focus to the next or previous accordion header.
 
 Or, if your data is already in an array:
 
-<CodeBlock language="jsx">
-  {transformCodeBlock(sourceArrayMap)}
-</CodeBlock>
+<CodeBlock language="jsx">{transformCodeBlock(sourceArrayMap)}</CodeBlock>
 
 :::info
 
-Although the `header` prop of `AccordionItem` looks like some simple text content,
-you may provide it with any JSX elements or React components,
-allowing the item header to be [freely customised](./customising-header).
+Although the `header` prop of `AccordionItem` looks like some simple text content, you may
+provide it with any JSX elements or React components, allowing the item header to be
+[freely customised](./customising-header).
 
 :::
 
 ## Accessibility
 
 This library implements WAI-ARIA roles, states, properties, and keyboard interaction,
-which is compliant with the [Accordion Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/).
+which is compliant with the
+[Accordion Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/).
