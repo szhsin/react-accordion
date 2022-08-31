@@ -13,7 +13,7 @@ sidebar_position: 3
 
 ## Return object
 
-| Prop          | Type   | Description                                        |
-| ------------- | ------ | -------------------------------------------------- |
+| Prop | Type | Description |
+| --- | --- | --- |
 | `buttonProps` | object | An object to be spread to the item button element. |
-| `panelProps`  | object | An object to be spread to the item panel element.  |
+| `panelProps` | object | An object to be spread to the item panel element. |

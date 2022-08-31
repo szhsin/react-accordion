@@ -13,44 +13,41 @@ import UseStateHook from '@site/src/components/UseStateHook';
 
 ## From above `Accordion`
 
-If you want to programmatically open or close accordion items from a component that
-is above `Accordion` in the React tree, you could use the `ControlledAccordion` and `useAccordionProvider`.
+If you want to programmatically open or close accordion items from a component that is
+above `Accordion` in the React tree, you could use the `ControlledAccordion` and
+`useAccordionProvider`.
 
-The value returned from `useAccordionProvider` contains a `toggle` function which
-can be used to open or close any accordion items. This value should also be given
-to the `providerValue` prop of the `ControlledAccordion` component.
+The value returned from `useAccordionProvider` contains a `toggle` function which can be
+used to open or close any accordion items. This value should also be given to the
+`providerValue` prop of the `ControlledAccordion` component.
 
-The `toggle` function accepts two parameters.
-The first parameter is the `itemKey` prop of any accordion items to toggle.
-The second parameter specifies whether to open or close an item using a `boolean` value,
-or to toggle between the two states if the parameter is omitted.
+The `toggle` function accepts two parameters. The first parameter is the `itemKey` prop of
+any accordion items to toggle. The second parameter specifies whether to open or close an
+item using a `boolean` value, or to toggle between the two states if the parameter is
+omitted.
 
 <ControllingState />
 
-<CodeBlock language="jsx">
-  {transformCodeBlock(controllingStateSource)}
-</CodeBlock>
+<CodeBlock language="jsx">{transformCodeBlock(controllingStateSource)}</CodeBlock>
 
 :::caution NOTE
 
-The `itemKey` prop of `AccordionItem` is not required to be globally unique,
-but it should be unique among its sibling `AccordionItem` components.
+The `itemKey` prop of `AccordionItem` is not required to be globally unique, but it should
+be unique among its sibling `AccordionItem` components.
 
-Also, you don't need to specify the `itemKey` prop for an item if you don't
-want to programmatically toggle it.
+Also, you don't need to specify the `itemKey` prop for an item if you don't want to
+programmatically toggle it.
 
 :::
 
 ## From underneath `Accordion`
 
-To programmatically open or close accordion items or access the state from a component that
-is underneath `Accordion` in the React tree, use the `useAccordionState` hook.
+To programmatically open or close accordion items or access the state from a component
+that is underneath `Accordion` in the React tree, use the `useAccordionState` hook.
 
 <UseStateHook />
 
-<CodeBlock language="jsx">
-  {transformCodeBlock(useStateHookSource)}
-</CodeBlock>
+<CodeBlock language="jsx">{transformCodeBlock(useStateHookSource)}</CodeBlock>
 
 :::tip
 
