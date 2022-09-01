@@ -1,6 +1,6 @@
 {
   "name": "@szhsin/react-accordion",
-  "version": "1.0.0-rc.0",
+  "version": "1.0.0",
   "description": "An unstyled, accessible accordion library for building React apps and design systems.",
   "author": "Zheng Song",
   "license": "MIT",
