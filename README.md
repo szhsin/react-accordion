@@ -18,6 +18,8 @@
 - Tree-shakable and bundle size optimised
 - Support server-side rendering
 
+![react accordion](https://user-images.githubusercontent.com/41896553/188104820-5a722165-3727-458f-9dd2-53d886386459.gif)
+
 ## Install
 
 with npm
@@ -41,19 +43,19 @@ export default function Example() {
   return (
     <Accordion>
       <AccordionItem header="What is Lorem Ipsum?">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua.
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+        do eiusmod tempor incididunt ut labore et dolore magna aliqua.
       </AccordionItem>
 
       <AccordionItem header="Where does it come from?">
-        Quisque eget luctus mi, vehicula mollis lorem. Proin fringilla vel erat
-        quis sodales. Nam ex enim, eleifend venenatis lectus vitae, accumsan
-        auctor mi.
+        Quisque eget luctus mi, vehicula mollis lorem. Proin fringilla
+        vel erat quis sodales. Nam ex enim, eleifend venenatis lectus
+        vitae, accumsan auctor mi.
       </AccordionItem>
 
       <AccordionItem header="Why do we use it?">
-        Suspendisse massa risus, pretium id interdum in, dictum sit amet ante.
-        Fusce vulputate purus sed tempus feugiat.
+        Suspendisse massa risus, pretium id interdum in, dictum sit
+        amet ante. Fusce vulputate purus sed tempus feugiat.
       </AccordionItem>
     </Accordion>
   );
