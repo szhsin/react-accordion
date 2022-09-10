@@ -15,8 +15,10 @@
 - Keyborad navigable
 - Support animation
 - Can be controlled or uncontrolled
+- [Level 3 support](https://github.com/reactwg/react-18/discussions/70) of React 18 concurrent rendering
 - Tree-shakable and bundle size optimised
 - Support server-side rendering
+- Strongly typed API with TypeScript
 
 ![react accordion](https://user-images.githubusercontent.com/41896553/188104820-5a722165-3727-458f-9dd2-53d886386459.gif)
 
