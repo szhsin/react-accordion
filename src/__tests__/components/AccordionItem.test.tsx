@@ -260,6 +260,23 @@ test('AccordionItem should set wai-aria props', () => {
   expect(onClick).toHaveBeenCalled();
 });
 
+test('Heading level can be customised', () => {
+  render(
+    getAccordion({
+      item1Props: {
+        headingTag: 'h1'
+      },
+      item2Props: {
+        headingTag: 'h2'
+      }
+    })
+  );
+
+  screen.getByRole('heading', { level: 1, name: 'header 1' });
+  screen.getByRole('heading', { level: 2, name: 'header 2' });
+  screen.getByRole('heading', { level: 3, name: 'header 3' });
+});
+
 test('AccordionItem should lazily mount content when mountOnEnter is true', () => {
   render(
     getAccordion({
