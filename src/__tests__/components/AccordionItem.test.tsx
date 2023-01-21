@@ -272,9 +272,9 @@ test('Heading level can be customised', () => {
     })
   );
 
-  screen.getByRole('heading', { level: 1, name: 'header 1' });
-  screen.getByRole('heading', { level: 2, name: 'header 2' });
-  screen.getByRole('heading', { level: 3, name: 'header 3' });
+  expect(screen.getByRole('heading', { level: 1, name: 'header 1' })).toBeInTheDocument();
+  expect(screen.getByRole('heading', { level: 2, name: 'header 2' })).toBeInTheDocument();
+  expect(screen.getByRole('heading', { level: 3, name: 'header 3' })).toBeInTheDocument();
 });
 
 test('AccordionItem should lazily mount content when mountOnEnter is true', () => {
