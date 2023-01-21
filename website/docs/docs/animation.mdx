@@ -1,0 +1,45 @@
+---
+sidebar_position: 10
+---
+
+import CodeBlock from '@theme/CodeBlock';
+import skeleton from '!!raw-loader!@site/src/html/skeleton.html';
+
+# Animation
+
+Accordion supports expanding and collapsing animation with full state transition cycle,
+thanks to the [react-transition-state](https://github.com/szhsin/react-transition-state)
+library. Because how an accordion should be animated is part of styling, no default
+animation is included in the package. Generally, you can follow the steps below to enable
+animation:
+
+First, set `transition` and `transitionTimeout` props on the Accordion component.
+
+```jsx
+<Accordion transition transitionTimeout={200}>
+  {/* Accordion items... */}
+</Accordion>
+```
+
+Then, add the `height` transition css to the item content DOM element of each accordion
+item, which is the element with class selector `szh-accordion__item-content`.
+
+```css
+transition: height 0.2s ease-in-out;
+```
+
+:::info
+
+The transition duration in CSS should be equal to the value of `transitionTimeout` prop in
+the first step.
+
+:::
+
+The transition of height is to create the accordion effect when items are expanded and
+collapsed. Of course, you are free to animate other CSS properties to suit the needs of
+your app or design system. For example, you may animate `opacity` to create fading in/out
+effects.
+
+Depending on the styling solution in your project, the methods of applying CSS transition
+are slightly different. You can find some [CodeSandbox examples](styling#examples) in the
+styling page which all have animation enabled.
