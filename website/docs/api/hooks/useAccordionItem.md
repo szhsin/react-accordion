@@ -10,6 +10,7 @@ sidebar_position: 3
 | --- | --- | --- |
 | `state` | TransitionState | The item `state` returned from [useAccordionItemEffect](./useAccordionItemEffect). |
 | `toggle` | (toEnter?: boolean) => void | The `toggle` function returned from [useAccordionItemEffect](./useAccordionItemEffect). |
+| `disabled` | boolean | Whether the accordion item is disabled. |
 
 ## Return object
 

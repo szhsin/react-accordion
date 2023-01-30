@@ -4,7 +4,7 @@ import { ElementProps, ItemState, ItemStateOptions } from '../utils/constants';
 interface ItemElementProps<E extends HTMLElement> extends ElementProps<E, TransitionState> {
     ref?: ForwardedRef<E>;
 }
-declare type NodeOrFunc = ReactNode | ((props: ItemState) => ReactNode);
+type NodeOrFunc = ReactNode | ((props: ItemState) => ReactNode);
 interface AccordionItemProps extends ItemStateOptions, ElementProps<HTMLDivElement, TransitionState> {
     header?: NodeOrFunc;
     children?: NodeOrFunc;

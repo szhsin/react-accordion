@@ -12,18 +12,25 @@ const AccordionItem = ({
   header,
   children,
   itemKey,
-  initialEntered
+  initialEntered,
+  disabled
 }: {
   header: React.ReactNode;
   children: React.ReactNode;
   itemKey?: string | number;
   initialEntered?: boolean;
+  disabled?: boolean;
 }) => {
   const { itemRef, state, toggle } =
-    useAccordionItemEffect<HTMLDivElement>({ itemKey, initialEntered });
+    useAccordionItemEffect<HTMLDivElement>({
+      itemKey,
+      initialEntered,
+      disabled
+    });
   const { buttonProps, panelProps } = useAccordionItem({
     state,
-    toggle
+    toggle,
+    disabled
   });
 
   // highlight-start

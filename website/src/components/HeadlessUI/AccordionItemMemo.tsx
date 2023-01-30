@@ -21,12 +21,14 @@ const MemoItem = React.memo(
     itemRef,
     state,
     toggle,
+    disabled,
     header,
     children
   }: ItemStateProps<HTMLDivElement> & Props) => {
     const { buttonProps, panelProps } = useAccordionItem({
       state,
-      toggle
+      toggle,
+      disabled
     });
 
     const [transitionStyle, panelRef] =

@@ -5,8 +5,7 @@ var useAccordionState = function useAccordionState() {
   return {
     getItemState: function getItemState$1(key, _temp) {
       var _ref = _temp === void 0 ? {} : _temp,
-          initialEntered = _ref.initialEntered;
-
+        initialEntered = _ref.initialEntered;
       return getItemState(context, key, initialEntered);
     },
     toggle: context.toggle

@@ -10,6 +10,7 @@ sidebar_position: 2
 | --- | --- | --- |
 | `itemKey` | string \| number | An explicit key which can be used to expand or close item. |
 | `initialEntered` | boolean | Make the accordion item expanded when initially mounted. This prop takes precedence over the `initialEntered` prop of `Accordion` component. |
+| `disabled` | boolean | Whether the accordion item is disabled. |
 
 ## Return object
 

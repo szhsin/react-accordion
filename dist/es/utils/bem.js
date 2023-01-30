@@ -7,12 +7,10 @@ var bem = function bem(block, element, modifiers) {
       if (value) classString += " " + blockElement + "--" + (value === true ? name : name + "-" + value);
     });
     var expandedClassName = typeof className === 'function' ? className(props) : className;
-
     if (typeof expandedClassName === 'string') {
       expandedClassName = expandedClassName.trim();
       if (expandedClassName) classString += " " + expandedClassName;
     }
-
     return classString;
   };
 };

@@ -34,11 +34,13 @@ export type TransitionProp =
 export interface ItemState {
   readonly state: TransitionState;
   readonly toggle: (toEnter?: boolean) => void;
+  disabled?: boolean;
 }
 
 export interface ItemStateOptions {
   itemKey?: string | number;
   initialEntered?: boolean;
+  disabled?: boolean;
 }
 
 export interface AccordionProviderOptions

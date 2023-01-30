@@ -8,46 +8,38 @@ function _extends() {
   _extends = Object.assign ? Object.assign.bind() : function (target) {
     for (var i = 1; i < arguments.length; i++) {
       var source = arguments[i];
-
       for (var key in source) {
         if (Object.prototype.hasOwnProperty.call(source, key)) {
           target[key] = source[key];
         }
       }
     }
-
     return target;
   };
   return _extends.apply(this, arguments);
 }
-
 function _objectWithoutPropertiesLoose(source, excluded) {
   if (source == null) return {};
   var target = {};
   var sourceKeys = Object.keys(source);
   var key, i;
-
   for (i = 0; i < sourceKeys.length; i++) {
     key = sourceKeys[i];
     if (excluded.indexOf(key) >= 0) continue;
     target[key] = source[key];
   }
-
   return target;
 }
 
 var _excluded$4 = ["transition", "transitionTimeout"];
-
 var getTransition = function getTransition(transition, name) {
   return transition === true || !!(transition && transition[name]);
 };
-
 var useAccordionProvider = function useAccordionProvider(_temp) {
   var _ref = _temp === void 0 ? {} : _temp,
-      transition = _ref.transition,
-      transitionTimeout = _ref.transitionTimeout,
-      rest = _objectWithoutPropertiesLoose(_ref, _excluded$4);
-
+    transition = _ref.transition,
+    transitionTimeout = _ref.transitionTimeout,
+    rest = _objectWithoutPropertiesLoose(_ref, _excluded$4);
   var transitionMap = reactTransitionState.useTransitionMap(_extends({
     timeout: transitionTimeout,
     enter: getTransition(transition, 'enter'),
@@ -76,25 +68,20 @@ var bem = function bem(block, element, modifiers) {
       if (value) classString += " " + blockElement + "--" + (value === true ? name : name + "-" + value);
     });
     var expandedClassName = typeof className === 'function' ? className(props) : className;
-
     if (typeof expandedClassName === 'string') {
       expandedClassName = expandedClassName.trim();
       if (expandedClassName) classString += " " + expandedClassName;
     }
-
     return classString;
   };
 };
 
 var mergeProps = function mergeProps(target, source) {
   if (!source) return target;
-
   var result = _extends({}, target);
-
   Object.keys(source).forEach(function (key) {
     var targetProp = target[key];
     var sourceProp = source[key];
-
     if (typeof sourceProp === 'function' && targetProp) {
       result[key] = function () {
         targetProp.apply(void 0, arguments);
@@ -115,42 +102,33 @@ var getAccordion = function getAccordion(node) {
   do {
     node = node.parentElement;
   } while (node && !node.hasAttribute(ACCORDION_ATTR));
-
   return node;
 };
-
 var getNextIndex = function getNextIndex(moveUp, current, length) {
   return moveUp ? current > 0 ? current - 1 : length - 1 : (current + 1) % length;
 };
-
 var moveFocus = function moveFocus(moveUp, e) {
   var _document = document,
-      activeElement = _document.activeElement;
+    activeElement = _document.activeElement;
   if (!activeElement || !activeElement.hasAttribute(ACCORDION_BTN_ATTR) || getAccordion(activeElement) !== e.currentTarget) return;
   var nodes = e.currentTarget.querySelectorAll("[" + ACCORDION_BTN_ATTR + "]");
   var length = nodes.length;
-
   for (var i = 0; i < length; i++) {
     if (nodes[i] === activeElement) {
       var next = getNextIndex(moveUp, i, length);
-
       while (getAccordion(nodes[i]) !== getAccordion(nodes[next])) {
         next = getNextIndex(moveUp, next, length);
       }
-
       if (i !== next) {
         e.preventDefault();
         nodes[next].focus();
       }
-
       break;
     }
   }
 };
-
 var useAccordion = function useAccordion() {
   var _accordionProps;
-
   var accordionProps = (_accordionProps = {}, _accordionProps[ACCORDION_ATTR] = '', _accordionProps.onKeyDown = function onKeyDown(e) {
     return e.key === 'ArrowUp' ? moveFocus(true, e) : e.key === 'ArrowDown' && moveFocus(false, e);
   }, _accordionProps);
@@ -162,12 +140,10 @@ var useAccordion = function useAccordion() {
 var _excluded$3 = ["providerValue", "className"];
 var ControlledAccordion = /*#__PURE__*/react.forwardRef(function (_ref, ref) {
   var providerValue = _ref.providerValue,
-      className = _ref.className,
-      rest = _objectWithoutPropertiesLoose(_ref, _excluded$3);
-
+    className = _ref.className,
+    rest = _objectWithoutPropertiesLoose(_ref, _excluded$3);
   var _useAccordion = useAccordion(),
-      accordionProps = _useAccordion.accordionProps;
-
+    accordionProps = _useAccordion.accordionProps;
   return /*#__PURE__*/jsxRuntime.jsx(AccordionProvider, {
     value: providerValue,
     children: /*#__PURE__*/jsxRuntime.jsx("div", _extends({}, mergeProps(accordionProps, rest), {
@@ -181,14 +157,13 @@ ControlledAccordion.displayName = 'ControlledAccordion';
 var _excluded$2 = ["allowMultiple", "initialEntered", "mountOnEnter", "unmountOnExit", "transition", "transitionTimeout", "onStateChange"];
 var Accordion = /*#__PURE__*/react.forwardRef(function (_ref, ref) {
   var allowMultiple = _ref.allowMultiple,
-      initialEntered = _ref.initialEntered,
-      mountOnEnter = _ref.mountOnEnter,
-      unmountOnExit = _ref.unmountOnExit,
-      transition = _ref.transition,
-      transitionTimeout = _ref.transitionTimeout,
-      onStateChange = _ref.onStateChange,
-      rest = _objectWithoutPropertiesLoose(_ref, _excluded$2);
-
+    initialEntered = _ref.initialEntered,
+    mountOnEnter = _ref.mountOnEnter,
+    unmountOnExit = _ref.unmountOnExit,
+    transition = _ref.transition,
+    transitionTimeout = _ref.transitionTimeout,
+    onStateChange = _ref.onStateChange,
+    rest = _objectWithoutPropertiesLoose(_ref, _excluded$2);
   var providerValue = useAccordionProvider({
     allowMultiple: allowMultiple,
     initialEntered: initialEntered,
@@ -206,30 +181,30 @@ var Accordion = /*#__PURE__*/react.forwardRef(function (_ref, ref) {
 Accordion.displayName = 'Accordion';
 
 var current = 0;
-
 var useIdShim = function useIdShim() {
   var _useState = react.useState(),
-      id = _useState[0],
-      setId = _useState[1];
-
+    id = _useState[0],
+    setId = _useState[1];
   react.useEffect(function () {
     return setId(++current);
   }, []);
   return id && ACCORDION_PREFIX + "-" + id;
 };
-
 var _useId = react.useId || useIdShim;
 
 var useAccordionItem = function useAccordionItem(_ref) {
-  var _buttonProps;
-
   var state = _ref.state,
-      toggle = _ref.toggle;
+    toggle = _ref.toggle,
+    disabled = _ref.disabled;
   var buttonId = _useId();
   var panelId = buttonId && buttonId + '-';
-  var buttonProps = (_buttonProps = {
-    id: buttonId
-  }, _buttonProps[ACCORDION_BTN_ATTR] = '', _buttonProps['aria-controls'] = panelId, _buttonProps['aria-expanded'] = state.isEnter, _buttonProps.onClick = toggle, _buttonProps);
+  var buttonProps = {
+    id: buttonId,
+    'aria-controls': panelId,
+    'aria-expanded': state.isEnter,
+    onClick: toggle
+  };
+  disabled ? buttonProps.disabled = true : buttonProps[ACCORDION_BTN_ATTR] = '';
   var panelProps = {
     id: panelId,
     'aria-labelledby': buttonId,
@@ -245,12 +220,10 @@ var useIsomorphicLayoutEffect = typeof window !== 'undefined' && typeof window.d
 
 var useHeightTransition = function useHeightTransition(_ref) {
   var status = _ref.status,
-      isResolved = _ref.isResolved;
-
+    isResolved = _ref.isResolved;
   var _useState = react.useState(),
-      height = _useState[0],
-      setHeight = _useState[1];
-
+    height = _useState[0],
+    setHeight = _useState[1];
   var elementRef = react.useRef(null);
   useIsomorphicLayoutEffect(function () {
     (status === 'preEnter' || status === 'preExit') && setHeight(elementRef.current.getBoundingClientRect().height);
@@ -265,7 +238,6 @@ var useHeightTransition = function useHeightTransition(_ref) {
 function setRef(ref, instance) {
   typeof ref === 'function' ? ref(instance) : ref.current = instance;
 }
-
 function useMergeRef(refA, refB) {
   return react.useMemo(function () {
     if (!refA) return refB;
@@ -279,11 +251,9 @@ function useMergeRef(refA, refB) {
 
 function getItemState(providerValue, key, itemInitialEntered) {
   var stateMap = providerValue.stateMap,
-      mountOnEnter = providerValue.mountOnEnter,
-      initialEntered = providerValue.initialEntered;
-
+    mountOnEnter = providerValue.mountOnEnter,
+    initialEntered = providerValue.initialEntered;
   var _initialEntered = itemInitialEntered != null ? itemInitialEntered : initialEntered;
-
   return stateMap.get(key) || {
     status: _initialEntered ? 'entered' : mountOnEnter ? 'unmounted' : 'exited',
     isMounted: !mountOnEnter,
@@ -291,30 +261,28 @@ function getItemState(providerValue, key, itemInitialEntered) {
     isResolved: true
   };
 }
-
 var useAccordionContext = function useAccordionContext() {
   var context = react.useContext(AccordionContext);
-
   if (process.env.NODE_ENV !== 'production' && !context.stateMap) {
     throw new Error('[React-Accordion] Cannot find a <AccordionProvider/> above this AccordionItem.');
   }
-
   return context;
 };
 
 var useAccordionItemEffect = function useAccordionItemEffect(_temp) {
   var _ref = _temp === void 0 ? {} : _temp,
-      itemKey = _ref.itemKey,
-      initialEntered = _ref.initialEntered;
-
+    itemKey = _ref.itemKey,
+    initialEntered = _ref.initialEntered,
+    disabled = _ref.disabled;
   var itemRef = react.useRef(null);
   var context = useAccordionContext();
   var key = itemKey != null ? itemKey : itemRef.current;
   var state = getItemState(context, key, initialEntered);
   var setItem = context.setItem,
-      deleteItem = context.deleteItem,
-      toggle = context.toggle;
+    deleteItem = context.deleteItem,
+    toggle = context.toggle;
   react.useEffect(function () {
+    if (disabled) return;
     var key = itemKey != null ? itemKey : itemRef.current;
     setItem(key, {
       initialEntered: initialEntered
@@ -322,7 +290,7 @@ var useAccordionItemEffect = function useAccordionItemEffect(_temp) {
     return function () {
       return void deleteItem(key);
     };
-  }, [setItem, deleteItem, itemKey, initialEntered]);
+  }, [setItem, deleteItem, itemKey, initialEntered, disabled]);
   return {
     itemRef: itemRef,
     state: state,
@@ -333,62 +301,57 @@ var useAccordionItemEffect = function useAccordionItemEffect(_temp) {
 };
 
 var _excluded$1 = ["itemKey", "initialEntered"];
-
 var withAccordionItem = function withAccordionItem(WrappedItem) {
   var WithAccordionItem = /*#__PURE__*/react.forwardRef(function (_ref, ref) {
     var itemKey = _ref.itemKey,
-        initialEntered = _ref.initialEntered,
-        rest = _objectWithoutPropertiesLoose(_ref, _excluded$1);
-
+      initialEntered = _ref.initialEntered,
+      rest = _objectWithoutPropertiesLoose(_ref, _excluded$1);
     return /*#__PURE__*/jsxRuntime.jsx(WrappedItem, _extends({
       forwardedRef: ref
     }, rest, useAccordionItemEffect({
       itemKey: itemKey,
-      initialEntered: initialEntered
+      initialEntered: initialEntered,
+      disabled: rest.disabled
     })));
   });
   WithAccordionItem.displayName = 'WithAccordionItem';
   return WithAccordionItem;
 };
 
-var _excluded = ["forwardedRef", "itemRef", "state", "toggle", "className", "header", "headingTag", "headingProps", "buttonProps", "contentProps", "panelProps", "children"];
-
+var _excluded = ["forwardedRef", "itemRef", "state", "toggle", "className", "disabled", "header", "headingTag", "headingProps", "buttonProps", "contentProps", "panelProps", "children"];
 var getRenderNode = function getRenderNode(nodeOrFunc, props) {
   return typeof nodeOrFunc === 'function' ? nodeOrFunc(props) : nodeOrFunc;
 };
-
 var WrappedItem = /*#__PURE__*/react.memo(function (_ref) {
   var forwardedRef = _ref.forwardedRef,
-      itemRef = _ref.itemRef,
-      state = _ref.state,
-      toggle = _ref.toggle,
-      className = _ref.className,
-      header = _ref.header,
-      headingTag = _ref.headingTag,
-      headingProps = _ref.headingProps,
-      buttonProps = _ref.buttonProps,
-      contentProps = _ref.contentProps,
-      panelProps = _ref.panelProps,
-      children = _ref.children,
-      rest = _objectWithoutPropertiesLoose(_ref, _excluded);
-
+    itemRef = _ref.itemRef,
+    state = _ref.state,
+    toggle = _ref.toggle,
+    className = _ref.className,
+    disabled = _ref.disabled,
+    header = _ref.header,
+    headingTag = _ref.headingTag,
+    headingProps = _ref.headingProps,
+    buttonProps = _ref.buttonProps,
+    contentProps = _ref.contentProps,
+    panelProps = _ref.panelProps,
+    children = _ref.children,
+    rest = _objectWithoutPropertiesLoose(_ref, _excluded);
   var itemState = {
     state: state,
-    toggle: toggle
+    toggle: toggle,
+    disabled: disabled
   };
-
   var _useAccordionItem = useAccordionItem(itemState),
-      _buttonProps = _useAccordionItem.buttonProps,
-      _panelProps = _useAccordionItem.panelProps;
-
+    _buttonProps = _useAccordionItem.buttonProps,
+    _panelProps = _useAccordionItem.panelProps;
   var _useHeightTransition = useHeightTransition(state),
-      transitionStyle = _useHeightTransition[0],
-      _panelRef = _useHeightTransition[1];
-
+    transitionStyle = _useHeightTransition[0],
+    _panelRef = _useHeightTransition[1];
   var panelRef = useMergeRef(panelProps && panelProps.ref, _panelRef);
   var status = state.status,
-      isMounted = state.isMounted,
-      isEnter = state.isEnter;
+    isMounted = state.isMounted,
+    isEnter = state.isEnter;
   return /*#__PURE__*/jsxRuntime.jsxs("div", _extends({}, rest, {
     ref: useMergeRef(forwardedRef, itemRef),
     className: bem(ACCORDION_BLOCK, 'item', {
@@ -425,8 +388,7 @@ var useAccordionState = function useAccordionState() {
   return {
     getItemState: function getItemState$1(key, _temp) {
       var _ref = _temp === void 0 ? {} : _temp,
-          initialEntered = _ref.initialEntered;
-
+        initialEntered = _ref.initialEntered;
       return getItemState(context, key, initialEntered);
     },
     toggle: context.toggle

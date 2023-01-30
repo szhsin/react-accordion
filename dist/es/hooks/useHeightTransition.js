@@ -3,12 +3,10 @@ import { useLayoutEffect as useIsomorphicLayoutEffect } from '../utils/useIsomor
 
 var useHeightTransition = function useHeightTransition(_ref) {
   var status = _ref.status,
-      isResolved = _ref.isResolved;
-
+    isResolved = _ref.isResolved;
   var _useState = useState(),
-      height = _useState[0],
-      setHeight = _useState[1];
-
+    height = _useState[0],
+    setHeight = _useState[1];
   var elementRef = useRef(null);
   useIsomorphicLayoutEffect(function () {
     (status === 'preEnter' || status === 'preExit') && setHeight(elementRef.current.getBoundingClientRect().height);
