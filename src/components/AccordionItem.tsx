@@ -43,6 +43,7 @@ const WrappedItem = memo(
     state,
     toggle,
     className,
+    disabled,
     header,
     headingTag,
     headingProps,
@@ -52,7 +53,7 @@ const WrappedItem = memo(
     children,
     ...rest
   }: WrappedItemProps<HTMLDivElement>) => {
-    const itemState: ItemState = { state, toggle };
+    const itemState: ItemState = { state, toggle, disabled };
     const { buttonProps: _buttonProps, panelProps: _panelProps } = useAccordionItem(itemState);
     const [transitionStyle, _panelRef] = useHeightTransition<HTMLDivElement>(state);
     const panelRef = useMergeRef(panelProps && panelProps.ref, _panelRef);

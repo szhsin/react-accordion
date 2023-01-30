@@ -14,7 +14,7 @@ const withAccordionItem = <P extends ItemStateOptions, E extends Element, T = E>
     <WrappedItem
       forwardedRef={ref}
       {...rest}
-      {...useAccordionItemEffect<E>({ itemKey, initialEntered })}
+      {...useAccordionItemEffect<E>({ itemKey, initialEntered, disabled: rest.disabled })}
     />
   ));
 

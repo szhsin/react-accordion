@@ -4,7 +4,8 @@ import { useAccordionContext, getItemState } from './useAccordionContext';
 
 const useAccordionItemEffect = <E extends Element>({
   itemKey,
-  initialEntered
+  initialEntered,
+  disabled
 }: ItemStateOptions = {}) => {
   const itemRef = useRef<E>(null);
   const context = useAccordionContext();
@@ -13,10 +14,11 @@ const useAccordionItemEffect = <E extends Element>({
   const { setItem, deleteItem, toggle } = context;
 
   useEffect(() => {
+    if (disabled) return;
     const key = itemKey ?? itemRef.current!;
     setItem(key, { initialEntered });
     return () => void deleteItem(key);
-  }, [setItem, deleteItem, itemKey, initialEntered]);
+  }, [setItem, deleteItem, itemKey, initialEntered, disabled]);
 
   return {
     itemRef,
