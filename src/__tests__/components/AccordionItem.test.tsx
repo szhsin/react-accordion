@@ -237,13 +237,16 @@ describe('Header and children render prop', () => {
   });
 });
 
-test('AccordionItem should set wai-aria props', () => {
+test('AccordionItem should set DOM attributes', () => {
   const onClick = jest.fn();
   render(
     getAccordion({
       item1Props: {
         buttonProps: { 'data-testid': 'button', onClick },
         panelProps: { 'data-testid': 'panel' }
+      },
+      item2Props: {
+        disabled: true
       }
     })
   );
@@ -258,6 +261,8 @@ test('AccordionItem should set wai-aria props', () => {
   fireEvent.click(button);
   expect(button).toHaveAttribute('aria-expanded', 'true');
   expect(onClick).toHaveBeenCalled();
+
+  expect(screen.getByRole('button', { name: 'header 2' })).toBeDisabled();
 });
 
 test('Heading level can be customised', () => {

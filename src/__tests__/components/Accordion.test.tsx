@@ -30,6 +30,9 @@ test('Accordion should support keyboard interaction', () => {
           <AccordionItem header="header 2.2">item 2.2</AccordionItem>
         </Accordion>
       </AccordionItem>
+      <AccordionItem header="disabled" disabled>
+        disabled item is excluded from keyboard navigation
+      </AccordionItem>
       <AccordionItem header="header 3" initialEntered>
         <Accordion>
           <AccordionItem header="header 3.1">item 3.1</AccordionItem>
