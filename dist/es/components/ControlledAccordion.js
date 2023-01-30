@@ -10,12 +10,10 @@ import { jsx } from 'react/jsx-runtime';
 var _excluded = ["providerValue", "className"];
 var ControlledAccordion = /*#__PURE__*/forwardRef(function (_ref, ref) {
   var providerValue = _ref.providerValue,
-      className = _ref.className,
-      rest = _objectWithoutPropertiesLoose(_ref, _excluded);
-
+    className = _ref.className,
+    rest = _objectWithoutPropertiesLoose(_ref, _excluded);
   var _useAccordion = useAccordion(),
-      accordionProps = _useAccordion.accordionProps;
-
+    accordionProps = _useAccordion.accordionProps;
   return /*#__PURE__*/jsx(AccordionProvider, {
     value: providerValue,
     children: /*#__PURE__*/jsx("div", _extends({}, mergeProps(accordionProps, rest), {

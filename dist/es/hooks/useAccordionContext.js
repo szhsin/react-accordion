@@ -3,11 +3,9 @@ import { AccordionContext } from '../utils/constants.js';
 
 function getItemState(providerValue, key, itemInitialEntered) {
   var stateMap = providerValue.stateMap,
-      mountOnEnter = providerValue.mountOnEnter,
-      initialEntered = providerValue.initialEntered;
-
+    mountOnEnter = providerValue.mountOnEnter,
+    initialEntered = providerValue.initialEntered;
   var _initialEntered = itemInitialEntered != null ? itemInitialEntered : initialEntered;
-
   return stateMap.get(key) || {
     status: _initialEntered ? 'entered' : mountOnEnter ? 'unmounted' : 'exited',
     isMounted: !mountOnEnter,
@@ -15,14 +13,11 @@ function getItemState(providerValue, key, itemInitialEntered) {
     isResolved: true
   };
 }
-
 var useAccordionContext = function useAccordionContext() {
   var context = useContext(AccordionContext);
-
   if (process.env.NODE_ENV !== 'production' && !context.stateMap) {
     throw new Error('[React-Accordion] Cannot find a <AccordionProvider/> above this AccordionItem.');
   }
-
   return context;
 };
 

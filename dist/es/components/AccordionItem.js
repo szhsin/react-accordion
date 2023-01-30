@@ -9,44 +9,40 @@ import { useMergeRef } from '../hooks/useMergeRef.js';
 import { withAccordionItem } from './withAccordionItem.js';
 import { jsxs, jsx } from 'react/jsx-runtime';
 
-var _excluded = ["forwardedRef", "itemRef", "state", "toggle", "className", "header", "headingTag", "headingProps", "buttonProps", "contentProps", "panelProps", "children"];
-
+var _excluded = ["forwardedRef", "itemRef", "state", "toggle", "className", "disabled", "header", "headingTag", "headingProps", "buttonProps", "contentProps", "panelProps", "children"];
 var getRenderNode = function getRenderNode(nodeOrFunc, props) {
   return typeof nodeOrFunc === 'function' ? nodeOrFunc(props) : nodeOrFunc;
 };
-
 var WrappedItem = /*#__PURE__*/memo(function (_ref) {
   var forwardedRef = _ref.forwardedRef,
-      itemRef = _ref.itemRef,
-      state = _ref.state,
-      toggle = _ref.toggle,
-      className = _ref.className,
-      header = _ref.header,
-      headingTag = _ref.headingTag,
-      headingProps = _ref.headingProps,
-      buttonProps = _ref.buttonProps,
-      contentProps = _ref.contentProps,
-      panelProps = _ref.panelProps,
-      children = _ref.children,
-      rest = _objectWithoutPropertiesLoose(_ref, _excluded);
-
+    itemRef = _ref.itemRef,
+    state = _ref.state,
+    toggle = _ref.toggle,
+    className = _ref.className,
+    disabled = _ref.disabled,
+    header = _ref.header,
+    headingTag = _ref.headingTag,
+    headingProps = _ref.headingProps,
+    buttonProps = _ref.buttonProps,
+    contentProps = _ref.contentProps,
+    panelProps = _ref.panelProps,
+    children = _ref.children,
+    rest = _objectWithoutPropertiesLoose(_ref, _excluded);
   var itemState = {
     state: state,
-    toggle: toggle
+    toggle: toggle,
+    disabled: disabled
   };
-
   var _useAccordionItem = useAccordionItem(itemState),
-      _buttonProps = _useAccordionItem.buttonProps,
-      _panelProps = _useAccordionItem.panelProps;
-
+    _buttonProps = _useAccordionItem.buttonProps,
+    _panelProps = _useAccordionItem.panelProps;
   var _useHeightTransition = useHeightTransition(state),
-      transitionStyle = _useHeightTransition[0],
-      _panelRef = _useHeightTransition[1];
-
+    transitionStyle = _useHeightTransition[0],
+    _panelRef = _useHeightTransition[1];
   var panelRef = useMergeRef(panelProps && panelProps.ref, _panelRef);
   var status = state.status,
-      isMounted = state.isMounted,
-      isEnter = state.isEnter;
+    isMounted = state.isMounted,
+    isEnter = state.isEnter;
   return /*#__PURE__*/jsxs("div", _extends({}, rest, {
     ref: useMergeRef(forwardedRef, itemRef),
     className: bem(ACCORDION_BLOCK, 'item', {
