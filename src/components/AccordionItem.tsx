@@ -1,4 +1,4 @@
-import { ReactNode, ForwardedRef, memo, createElement } from 'react';
+import { ReactNode, ForwardedRef, memo } from 'react';
 import { TransitionState } from 'react-transition-state';
 import { ACCORDION_BLOCK, ElementProps, ItemState, ItemStateOptions } from '../utils/constants';
 import { bem } from '../utils/bem';
@@ -45,7 +45,7 @@ const WrappedItem = memo(
     className,
     disabled,
     header,
-    headingTag,
+    headingTag: Heading = 'h3',
     headingProps,
     buttonProps,
     contentProps,
@@ -65,16 +65,14 @@ const WrappedItem = memo(
         ref={useMergeRef(forwardedRef, itemRef)}
         className={bem(ACCORDION_BLOCK, 'item', { status, expanded: isEnter })(className, state)}
       >
-        {createElement(
-          headingTag || 'h3',
-          {
-            ...headingProps,
-            style: { margin: 0, ...(headingProps && headingProps.style) },
-            className: bem(ACCORDION_BLOCK, 'item-heading')(
-              headingProps && headingProps.className,
-              state
-            )
-          },
+        <Heading
+          {...headingProps}
+          style={{ margin: 0, ...(headingProps && headingProps.style) }}
+          className={bem(ACCORDION_BLOCK, 'item-heading')(
+            headingProps && headingProps.className,
+            state
+          )}
+        >
           <button
             {...mergeProps(_buttonProps, buttonProps)}
             type="button"
@@ -85,7 +83,7 @@ const WrappedItem = memo(
           >
             {getRenderNode(header, itemState)}
           </button>
-        )}
+        </Heading>
 
         {isMounted && (
           <div

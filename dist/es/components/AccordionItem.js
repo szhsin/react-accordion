@@ -1,5 +1,5 @@
 import { objectWithoutPropertiesLoose as _objectWithoutPropertiesLoose, extends as _extends } from '../_virtual/_rollupPluginBabelHelpers.js';
-import { memo, createElement } from 'react';
+import { memo } from 'react';
 import { ACCORDION_BLOCK } from '../utils/constants.js';
 import { bem } from '../utils/bem.js';
 import { mergeProps } from '../utils/mergeProps.js';
@@ -20,7 +20,7 @@ const WrappedItem = /*#__PURE__*/memo(_ref => {
       className,
       disabled,
       header,
-      headingTag,
+      headingTag: Heading = 'h3',
       headingProps,
       buttonProps,
       contentProps,
@@ -50,16 +50,17 @@ const WrappedItem = /*#__PURE__*/memo(_ref => {
       status,
       expanded: isEnter
     })(className, state),
-    children: [/*#__PURE__*/createElement(headingTag || 'h3', _extends({}, headingProps, {
+    children: [/*#__PURE__*/jsx(Heading, _extends({}, headingProps, {
       style: _extends({
         margin: 0
       }, headingProps && headingProps.style),
-      className: bem(ACCORDION_BLOCK, 'item-heading')(headingProps && headingProps.className, state)
-    }), /*#__PURE__*/jsx("button", _extends({}, mergeProps(_buttonProps, buttonProps), {
-      type: "button",
-      className: bem(ACCORDION_BLOCK, 'item-btn')(buttonProps && buttonProps.className, state),
-      children: getRenderNode(header, itemState)
-    }))), isMounted && /*#__PURE__*/jsx("div", _extends({}, contentProps, {
+      className: bem(ACCORDION_BLOCK, 'item-heading')(headingProps && headingProps.className, state),
+      children: /*#__PURE__*/jsx("button", _extends({}, mergeProps(_buttonProps, buttonProps), {
+        type: "button",
+        className: bem(ACCORDION_BLOCK, 'item-btn')(buttonProps && buttonProps.className, state),
+        children: getRenderNode(header, itemState)
+      }))
+    })), isMounted && /*#__PURE__*/jsx("div", _extends({}, contentProps, {
       style: _extends({
         display: status === 'exited' ? 'none' : undefined
       }, transitionStyle, contentProps && contentProps.style),

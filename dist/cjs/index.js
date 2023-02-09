@@ -326,7 +326,7 @@ const WrappedItem = /*#__PURE__*/react.memo(_ref => {
       className,
       disabled,
       header,
-      headingTag,
+      headingTag: Heading = 'h3',
       headingProps,
       buttonProps,
       contentProps,
@@ -356,16 +356,17 @@ const WrappedItem = /*#__PURE__*/react.memo(_ref => {
       status,
       expanded: isEnter
     })(className, state),
-    children: [/*#__PURE__*/react.createElement(headingTag || 'h3', _extends({}, headingProps, {
+    children: [/*#__PURE__*/jsxRuntime.jsx(Heading, _extends({}, headingProps, {
       style: _extends({
         margin: 0
       }, headingProps && headingProps.style),
-      className: bem(ACCORDION_BLOCK, 'item-heading')(headingProps && headingProps.className, state)
-    }), /*#__PURE__*/jsxRuntime.jsx("button", _extends({}, mergeProps(_buttonProps, buttonProps), {
-      type: "button",
-      className: bem(ACCORDION_BLOCK, 'item-btn')(buttonProps && buttonProps.className, state),
-      children: getRenderNode(header, itemState)
-    }))), isMounted && /*#__PURE__*/jsxRuntime.jsx("div", _extends({}, contentProps, {
+      className: bem(ACCORDION_BLOCK, 'item-heading')(headingProps && headingProps.className, state),
+      children: /*#__PURE__*/jsxRuntime.jsx("button", _extends({}, mergeProps(_buttonProps, buttonProps), {
+        type: "button",
+        className: bem(ACCORDION_BLOCK, 'item-btn')(buttonProps && buttonProps.className, state),
+        children: getRenderNode(header, itemState)
+      }))
+    })), isMounted && /*#__PURE__*/jsxRuntime.jsx("div", _extends({}, contentProps, {
       style: _extends({
         display: status === 'exited' ? 'none' : undefined
       }, transitionStyle, contentProps && contentProps.style),
