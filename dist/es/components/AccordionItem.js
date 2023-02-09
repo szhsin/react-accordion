@@ -9,44 +9,45 @@ import { useMergeRef } from '../hooks/useMergeRef.js';
 import { withAccordionItem } from './withAccordionItem.js';
 import { jsxs, jsx } from 'react/jsx-runtime';
 
-var _excluded = ["forwardedRef", "itemRef", "state", "toggle", "className", "disabled", "header", "headingTag", "headingProps", "buttonProps", "contentProps", "panelProps", "children"];
-var getRenderNode = function getRenderNode(nodeOrFunc, props) {
-  return typeof nodeOrFunc === 'function' ? nodeOrFunc(props) : nodeOrFunc;
-};
-var WrappedItem = /*#__PURE__*/memo(function (_ref) {
-  var forwardedRef = _ref.forwardedRef,
-    itemRef = _ref.itemRef,
-    state = _ref.state,
-    toggle = _ref.toggle,
-    className = _ref.className,
-    disabled = _ref.disabled,
-    header = _ref.header,
-    headingTag = _ref.headingTag,
-    headingProps = _ref.headingProps,
-    buttonProps = _ref.buttonProps,
-    contentProps = _ref.contentProps,
-    panelProps = _ref.panelProps,
-    children = _ref.children,
+const _excluded = ["forwardedRef", "itemRef", "state", "toggle", "className", "disabled", "header", "headingTag", "headingProps", "buttonProps", "contentProps", "panelProps", "children"];
+const getRenderNode = (nodeOrFunc, props) => typeof nodeOrFunc === 'function' ? nodeOrFunc(props) : nodeOrFunc;
+const WrappedItem = /*#__PURE__*/memo(_ref => {
+  let {
+      forwardedRef,
+      itemRef,
+      state,
+      toggle,
+      className,
+      disabled,
+      header,
+      headingTag,
+      headingProps,
+      buttonProps,
+      contentProps,
+      panelProps,
+      children
+    } = _ref,
     rest = _objectWithoutPropertiesLoose(_ref, _excluded);
-  var itemState = {
-    state: state,
-    toggle: toggle,
-    disabled: disabled
+  const itemState = {
+    state,
+    toggle,
+    disabled
   };
-  var _useAccordionItem = useAccordionItem(itemState),
-    _buttonProps = _useAccordionItem.buttonProps,
-    _panelProps = _useAccordionItem.panelProps;
-  var _useHeightTransition = useHeightTransition(state),
-    transitionStyle = _useHeightTransition[0],
-    _panelRef = _useHeightTransition[1];
-  var panelRef = useMergeRef(panelProps && panelProps.ref, _panelRef);
-  var status = state.status,
-    isMounted = state.isMounted,
-    isEnter = state.isEnter;
+  const {
+    buttonProps: _buttonProps,
+    panelProps: _panelProps
+  } = useAccordionItem(itemState);
+  const [transitionStyle, _panelRef] = useHeightTransition(state);
+  const panelRef = useMergeRef(panelProps && panelProps.ref, _panelRef);
+  const {
+    status,
+    isMounted,
+    isEnter
+  } = state;
   return /*#__PURE__*/jsxs("div", _extends({}, rest, {
     ref: useMergeRef(forwardedRef, itemRef),
     className: bem(ACCORDION_BLOCK, 'item', {
-      status: status,
+      status,
       expanded: isEnter
     })(className, state),
     children: [/*#__PURE__*/createElement(headingTag || 'h3', _extends({}, headingProps, {
@@ -72,6 +73,6 @@ var WrappedItem = /*#__PURE__*/memo(function (_ref) {
   }));
 });
 WrappedItem.displayName = 'AccordionItem';
-var AccordionItem = /*#__PURE__*/withAccordionItem(WrappedItem);
+const AccordionItem = /*#__PURE__*/withAccordionItem(WrappedItem);
 
 export { AccordionItem };

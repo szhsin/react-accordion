@@ -4,24 +4,26 @@ import { useAccordionProvider } from '../hooks/useAccordionProvider.js';
 import { ControlledAccordion } from './ControlledAccordion.js';
 import { jsx } from 'react/jsx-runtime';
 
-var _excluded = ["allowMultiple", "initialEntered", "mountOnEnter", "unmountOnExit", "transition", "transitionTimeout", "onStateChange"];
-var Accordion = /*#__PURE__*/forwardRef(function (_ref, ref) {
-  var allowMultiple = _ref.allowMultiple,
-    initialEntered = _ref.initialEntered,
-    mountOnEnter = _ref.mountOnEnter,
-    unmountOnExit = _ref.unmountOnExit,
-    transition = _ref.transition,
-    transitionTimeout = _ref.transitionTimeout,
-    onStateChange = _ref.onStateChange,
+const _excluded = ["allowMultiple", "initialEntered", "mountOnEnter", "unmountOnExit", "transition", "transitionTimeout", "onStateChange"];
+const Accordion = /*#__PURE__*/forwardRef((_ref, ref) => {
+  let {
+      allowMultiple,
+      initialEntered,
+      mountOnEnter,
+      unmountOnExit,
+      transition,
+      transitionTimeout,
+      onStateChange
+    } = _ref,
     rest = _objectWithoutPropertiesLoose(_ref, _excluded);
-  var providerValue = useAccordionProvider({
-    allowMultiple: allowMultiple,
-    initialEntered: initialEntered,
-    mountOnEnter: mountOnEnter,
-    unmountOnExit: unmountOnExit,
-    transition: transition,
-    transitionTimeout: transitionTimeout,
-    onStateChange: onStateChange
+  const providerValue = useAccordionProvider({
+    allowMultiple,
+    initialEntered,
+    mountOnEnter,
+    unmountOnExit,
+    transition,
+    transitionTimeout,
+    onStateChange
   });
   return /*#__PURE__*/jsx(ControlledAccordion, _extends({}, rest, {
     ref: ref,

@@ -4,10 +4,10 @@ function setRef(ref, instance) {
   typeof ref === 'function' ? ref(instance) : ref.current = instance;
 }
 function useMergeRef(refA, refB) {
-  return useMemo(function () {
+  return useMemo(() => {
     if (!refA) return refB;
     if (!refB) return refA;
-    return function (instance) {
+    return instance => {
       setRef(refA, instance);
       setRef(refB, instance);
     };

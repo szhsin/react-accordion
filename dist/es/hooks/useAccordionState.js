@@ -1,14 +1,13 @@
 import { useAccordionContext, getItemState } from './useAccordionContext.js';
 
-var useAccordionState = function useAccordionState() {
-  var context = useAccordionContext();
+const useAccordionState = () => {
+  const context = useAccordionContext();
   return {
-    getItemState: function getItemState$1(key, _temp) {
-      var _ref = _temp === void 0 ? {} : _temp,
-        initialEntered = _ref.initialEntered;
-      return getItemState(context, key, initialEntered);
-    },
-    toggle: context.toggle
+    getItemState: (key, {
+      initialEntered
+    } = {}) => getItemState(context, key, initialEntered),
+    toggle: context.toggle,
+    toggleAll: context.toggleAll
   };
 };
 

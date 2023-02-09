@@ -1,20 +1,22 @@
 import { useContext } from 'react';
 import { AccordionContext } from '../utils/constants.js';
 
-function getItemState(providerValue, key, itemInitialEntered) {
-  var stateMap = providerValue.stateMap,
-    mountOnEnter = providerValue.mountOnEnter,
-    initialEntered = providerValue.initialEntered;
-  var _initialEntered = itemInitialEntered != null ? itemInitialEntered : initialEntered;
+const getItemState = (providerValue, key, itemInitialEntered) => {
+  const {
+    stateMap,
+    mountOnEnter,
+    initialEntered
+  } = providerValue;
+  const _initialEntered = itemInitialEntered != null ? itemInitialEntered : initialEntered;
   return stateMap.get(key) || {
     status: _initialEntered ? 'entered' : mountOnEnter ? 'unmounted' : 'exited',
     isMounted: !mountOnEnter,
     isEnter: _initialEntered,
     isResolved: true
   };
-}
-var useAccordionContext = function useAccordionContext() {
-  var context = useContext(AccordionContext);
+};
+const useAccordionContext = () => {
+  const context = useContext(AccordionContext);
   if (process.env.NODE_ENV !== 'production' && !context.stateMap) {
     throw new Error('[React-Accordion] Cannot find a <AccordionProvider/> above this AccordionItem.');
   }
