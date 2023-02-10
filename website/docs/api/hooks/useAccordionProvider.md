@@ -21,6 +21,7 @@ sidebar_position: 5
 | Prop | Type | Description |
 | --- | --- | --- |
 | `toggle` | (key: ItemKey, toEnter?: boolean) => void | A function to toggle item state by providing an item key. |
+| `toggleAll` | (toEnter?: boolean ) => void | A function to toggle all item states at the same time. |
 
 :::caution NOTE
 

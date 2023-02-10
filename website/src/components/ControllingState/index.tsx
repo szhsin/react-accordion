@@ -8,11 +8,12 @@ import {
 export default function Example() {
   // highlight-start
   const providerValue = useAccordionProvider({
+    allowMultiple: true,
     transition: true,
     transitionTimeout: 200
   });
-  // Destructuring a `toggle` function from `providerValue`
-  const { toggle } = providerValue;
+  // Destructuring `toggle` and `toggleAll` from `providerValue`
+  const { toggle, toggleAll } = providerValue;
   // highlight-end
 
   return (
@@ -33,6 +34,28 @@ export default function Example() {
           onClick={() => toggle('item-3', true)}
         >
           Open the last item
+        </button>
+        <button
+          className="btn"
+          // highlight-next-line
+          onClick={() => toggleAll(true)}
+        >
+          Open all items
+        </button>
+        <button
+          className="btn"
+          // highlight-next-line
+          onClick={() => toggleAll(false)}
+        >
+          Close all items
+        </button>
+        <button
+          className="btn"
+          // Omitting the boolean parameter means toggling
+          // highlight-next-line
+          onClick={() => toggleAll()}
+        >
+          Toggle all items
         </button>
       </div>
 
@@ -56,9 +79,9 @@ export default function Example() {
             className="btn"
             // It also works within the `AccordionItem` children
             // highlight-next-line
-            onClick={() => toggle('item-3', true)}
+            onClick={() => toggle('item-3')}
           >
-            Open the last item
+            Toggle the last item
           </button>
         </AccordionItem>
 

@@ -71,6 +71,7 @@
 }
 
 .chevron {
+  flex-shrink: 0;
   margin-left: auto;
   transition: transform 0.2s ease-in-out;
 }

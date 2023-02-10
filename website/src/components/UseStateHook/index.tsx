@@ -7,7 +7,7 @@ import {
 
 const MyItem = () => {
   // highlight-next-line
-  const { getItemState, toggle } = useAccordionState();
+  const { getItemState, toggle, toggleAll } = useAccordionState();
 
   return (
     <AccordionItem header="My custom accordion item" initialEntered>
@@ -17,11 +17,17 @@ const MyItem = () => {
         Next item expanded: {getItemState('next').isEnter.toString()}
       </p>
 
-      {/* Toggling item state */}
-      {/* highlight-next-line */}
-      <button className="btn" onClick={() => toggle('next')}>
-        Toggle next item
-      </button>
+      <div className="buttons">
+        {/* highlight-next-line */}
+        <button className="btn" onClick={() => toggle('next')}>
+          Toggle next item
+        </button>
+
+        {/* highlight-next-line */}
+        <button className="btn" onClick={() => toggleAll(false)}>
+          Close all items
+        </button>
+      </div>
     </AccordionItem>
   );
 };
