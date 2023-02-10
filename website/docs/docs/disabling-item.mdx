@@ -1,0 +1,17 @@
+---
+sidebar_position: 7
+---
+
+import CodeBlock from '@theme/CodeBlock';
+import source from '!!raw-loader!@site/src/components/DisableItem';
+import { transformCodeBlock } from '@site/src/utils';
+import Example from '@site/src/components/DisableItem';
+
+# Disabling items
+
+Accordion items can be made disabled by adding the `disabled` prop. Disabled items cannot
+be toggled by clicking the header and are excluded from keyboard navigation.
+
+<Example />
+
+<CodeBlock language="jsx">{transformCodeBlock(source)}</CodeBlock>
