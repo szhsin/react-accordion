@@ -19,6 +19,35 @@ test('Accordion should forward props and ref', () => {
   expect(onKeyDown).toHaveBeenCalled();
 });
 
+test('Accordion should expand and collapse items', () => {
+  render(getAccordion());
+  expect(screen.queryByRole('region', { name: 'header 1' })).toBeNull();
+  expect(screen.queryByRole('region', { name: 'header 2' })).toBeNull();
+  expect(screen.queryByRole('region', { name: 'header 3' })).toBeNull();
+
+  fireEvent.click(screen.getByRole('button', { name: 'header 1' }));
+  expect(screen.queryByRole('region', { name: 'header 1' })).toBeVisible();
+  expect(screen.queryByRole('region', { name: 'header 2' })).toBeNull();
+  expect(screen.queryByRole('region', { name: 'header 3' })).toBeNull();
+
+  fireEvent.click(screen.getByRole('button', { name: 'header 2' }));
+  expect(screen.queryByRole('region', { name: 'header 1' })).toBeNull();
+  expect(screen.queryByRole('region', { name: 'header 2' })).toBeVisible();
+  expect(screen.queryByRole('region', { name: 'header 3' })).toBeNull();
+});
+
+test('Accordion should allow multiple items to expand', () => {
+  render(getAccordion({ props: { allowMultiple: true }, item1Props: { initialEntered: true } }));
+  expect(screen.queryByRole('region', { name: 'header 1' })).toBeVisible();
+  expect(screen.queryByRole('region', { name: 'header 2' })).toBeNull();
+  expect(screen.queryByRole('region', { name: 'header 3' })).toBeNull();
+
+  fireEvent.click(screen.getByRole('button', { name: 'header 2' }));
+  expect(screen.queryByRole('region', { name: 'header 1' })).toBeVisible();
+  expect(screen.queryByRole('region', { name: 'header 2' })).toBeVisible();
+  expect(screen.queryByRole('region', { name: 'header 3' })).toBeNull();
+});
+
 test('Accordion should support keyboard interaction', () => {
   const onKeyDown = jest.fn();
   render(

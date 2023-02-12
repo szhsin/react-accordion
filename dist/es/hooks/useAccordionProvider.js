@@ -1,16 +1,15 @@
 import { objectWithoutPropertiesLoose as _objectWithoutPropertiesLoose, extends as _extends } from '../_virtual/_rollupPluginBabelHelpers.js';
 import { useTransitionMap } from 'react-transition-state';
 
-var _excluded = ["transition", "transitionTimeout"];
-var getTransition = function getTransition(transition, name) {
-  return transition === true || !!(transition && transition[name]);
-};
-var useAccordionProvider = function useAccordionProvider(_temp) {
-  var _ref = _temp === void 0 ? {} : _temp,
-    transition = _ref.transition,
-    transitionTimeout = _ref.transitionTimeout,
+const _excluded = ["transition", "transitionTimeout"];
+const getTransition = (transition, name) => transition === true || !!(transition && transition[name]);
+const useAccordionProvider = (_ref = {}) => {
+  let {
+      transition,
+      transitionTimeout
+    } = _ref,
     rest = _objectWithoutPropertiesLoose(_ref, _excluded);
-  var transitionMap = useTransitionMap(_extends({
+  const transitionMap = useTransitionMap(_extends({
     timeout: transitionTimeout,
     enter: getTransition(transition, 'enter'),
     exit: getTransition(transition, 'exit'),

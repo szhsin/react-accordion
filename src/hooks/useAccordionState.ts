@@ -6,7 +6,8 @@ const useAccordionState = () => {
   return {
     getItemState: (key: ItemKey, { initialEntered }: { initialEntered?: boolean } = {}) =>
       getItemState(context, key, initialEntered),
-    toggle: context.toggle
+    toggle: context.toggle,
+    toggleAll: context.toggleAll
   };
 };
 

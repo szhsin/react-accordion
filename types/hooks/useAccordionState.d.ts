@@ -9,5 +9,6 @@ declare const useAccordionState: () => {
         isResolved: boolean;
     }>;
     toggle: (key: ItemKey, toEnter?: boolean | undefined) => void;
+    toggleAll: (toEnter?: boolean | undefined) => void;
 };
 export { useAccordionState };

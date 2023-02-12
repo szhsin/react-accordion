@@ -55,6 +55,12 @@
   box-shadow: 0 0 0 1px var(--ifm-color-primary);
 }
 
+.button:disabled {
+  box-shadow: none;
+  cursor: auto;
+  color: #808080;
+}
+
 .button:focus {
   position: relative;
   outline: none;
@@ -71,6 +77,7 @@
 }
 
 .chevron {
+  flex-shrink: 0;
   margin-left: auto;
   transition: transform 0.2s ease-in-out;
 }

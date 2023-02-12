@@ -1,17 +1,16 @@
 import { useState, useRef } from 'react';
 import { useLayoutEffect as useIsomorphicLayoutEffect } from '../utils/useIsomorphicLayoutEffect.js';
 
-var useHeightTransition = function useHeightTransition(_ref) {
-  var status = _ref.status,
-    isResolved = _ref.isResolved;
-  var _useState = useState(),
-    height = _useState[0],
-    setHeight = _useState[1];
-  var elementRef = useRef(null);
-  useIsomorphicLayoutEffect(function () {
+const useHeightTransition = ({
+  status,
+  isResolved
+}) => {
+  const [height, setHeight] = useState();
+  const elementRef = useRef(null);
+  useIsomorphicLayoutEffect(() => {
     (status === 'preEnter' || status === 'preExit') && setHeight(elementRef.current.getBoundingClientRect().height);
   }, [status]);
-  var style = {
+  const style = {
     height: status === 'preEnter' || status === 'exiting' ? 0 : status === 'entering' || status === 'preExit' ? height : undefined,
     overflow: isResolved ? undefined : 'hidden'
   };

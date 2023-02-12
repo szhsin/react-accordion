@@ -2,11 +2,11 @@ import { useContext } from 'react';
 import { TransitionState } from 'react-transition-state';
 import { AccordionContext, AccordionProviderValue, ItemKey } from '../utils/constants';
 
-function getItemState(
+const getItemState = (
   providerValue: AccordionProviderValue,
   key: ItemKey,
   itemInitialEntered?: boolean
-): TransitionState {
+): TransitionState => {
   const { stateMap, mountOnEnter, initialEntered } = providerValue;
   const _initialEntered = itemInitialEntered ?? initialEntered;
   return (
@@ -17,7 +17,7 @@ function getItemState(
       isResolved: true
     }
   );
-}
+};
 
 const useAccordionContext = () => {
   const context = useContext(AccordionContext);
