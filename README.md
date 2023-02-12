@@ -1,6 +1,6 @@
 # React-Accordion
 
-> An unstyled, accessible accordion library for building React apps and design systems.
+> An unstyled, accessible accordion library for React apps and design systems.
 
 **[Examples and Docs](https://szhsin.github.io/react-accordion/)**
 
@@ -10,17 +10,18 @@
 ## Features
 
 - Unstyled React accordion components
-- Headless UI React hooks
+- React hooks for Headless UI
 - WAI-ARIA compliant
 - Keyborad navigable
 - Support animation
 - Can be controlled or uncontrolled
+- Control to expand/collapse specific item or all items
 - [Level 3 support](https://github.com/reactwg/react-18/discussions/70) of React 18 concurrent rendering
-- Tree-shakable and bundle size optimised
 - Support server-side rendering
+- Small and tree-shakable [(~3kB)](https://bundlephobia.com/package/@szhsin/react-accordion)
 - Strongly typed API with TypeScript
 
-![react accordion](https://user-images.githubusercontent.com/41896553/188104820-5a722165-3727-458f-9dd2-53d886386459.gif)
+![react accordion](https://user-images.githubusercontent.com/41896553/218288480-a65806e9-6006-44b0-9e42-d1ff388d7376.gif)
 
 ## Install
 

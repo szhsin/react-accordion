@@ -8,7 +8,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 const config = {
   title: 'React Accordion',
   tagline:
-    'An unstyled, accessible accordion library for building React apps and design systems',
+    'An unstyled, accessible accordion library for React apps and design systems',
   url: 'https://szhsin.github.io',
   baseUrl: '/react-accordion/',
   onBrokenLinks: 'throw',

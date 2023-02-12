@@ -1,7 +1,7 @@
 {
   "name": "@szhsin/react-accordion",
-  "version": "1.2.0-alpha.1",
-  "description": "An unstyled, accessible accordion library for building React apps and design systems.",
+  "version": "1.2.0",
+  "description": "The complete accordion solution for React.",
   "author": "Zheng Song",
   "license": "MIT",
   "repository": "szhsin/react-accordion",
@@ -50,7 +50,7 @@
     "react-dom": "^16.14 || ^17.0 || ^18.0"
   },
   "dependencies": {
-    "react-transition-state": "^2.1.0-alpha.2"
+    "react-transition-state": "^2.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.7",
