@@ -13,16 +13,30 @@ library. Because how an accordion should be animated is part of styling, no defa
 animation is included in the package. Generally, you can follow the steps below to enable
 animation:
 
-First, set `transition` and `transitionTimeout` props on the Accordion component.
+1. set `transition` and `transitionTimeout` props on the Accordion component.
 
 ```jsx
 <Accordion transition transitionTimeout={200}>
-  {/* Accordion items... */}
+  {/* Accordion items ... */}
 </Accordion>
 ```
 
-Then, add the `height` transition css to the item content DOM element of each accordion
-item, which is the element with class selector `szh-accordion__item-content`.
+If you use `ControlledAccordion` component, set the transition props with the
+`useAccordionProvider` hook.
+
+```jsx
+const providerValue = useAccordionProvider({
+  transition: true,
+  transitionTimeout: 200
+});
+
+<ControlledAccordion providerValue={providerValue}>
+  {/* Accordion items ... */}
+</ControlledAccordion>;
+```
+
+2. add the `height` transition css to the item content DOM element of each accordion item,
+   which is the element with class selector `szh-accordion__item-content`.
 
 ```css
 transition: height 0.2s ease-in-out;
@@ -43,3 +57,22 @@ effects.
 Depending on the styling solution in your project, the methods of applying CSS transition
 are slightly different. You can find some [CodeSandbox examples](styling#examples) in the
 styling page which all have animation enabled.
+
+:::caution IMPORTANT
+
+To ensure a smooth height animation on accordion items, do not add outer vertical margin
+to the children of an accordion item. Instead, use padding on the parent DOM element which
+contains the children. This is the element with class selector
+`szh-accordion__item-panel`.
+
+In case outer vertical margin of the children of an accordion item cannot be practically
+removed, add a vertical padding on the parent DOM element. It can be a small non-visible
+padding if you don't actual need one:
+
+```css
+.szh-accordion__item-panel {
+  padding: 0.1px 0;
+}
+```
+
+:::
