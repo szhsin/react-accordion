@@ -11,7 +11,7 @@ const Accordion = ({ children }: { children: React.ReactNode }) => {
     // Omit these two options if you don't want to implement any transition
     // highlight-start
     transition: true,
-    transitionTimeout: 200
+    transitionTimeout: 250
     // highlight-end
   });
   const { accordionProps } = useAccordion();

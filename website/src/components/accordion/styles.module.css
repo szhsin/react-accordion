@@ -41,7 +41,7 @@
   color: var(--ifm-font-color-base);
   background-color: transparent;
   border: none;
-  transition: background-color 0.2s ease-in-out;
+  transition: background-color 0.25s ease-in-out;
 }
 
 .buttonExpanded {
@@ -79,7 +79,7 @@
 .chevron {
   flex-shrink: 0;
   margin-left: auto;
-  transition: transform 0.2s ease-in-out;
+  transition: transform 0.25s cubic-bezier(0, 0, 0, 1);
 }
 
 .buttonExpanded .chevron {
@@ -87,7 +87,7 @@
 }
 
 .content {
-  transition: height 0.2s ease-in-out;
+  transition: height 0.25s cubic-bezier(0, 0, 0, 1);
 }
 
 .panel {
