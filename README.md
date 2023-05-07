@@ -10,8 +10,8 @@
 ## Features
 
 - Unstyled React accordion components
-- React hooks for Headless UI
-- WAI-ARIA compliant
+- React hooks for Headless usage
+- [WAI-ARIA compliant](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/)
 - Keyborad navigable
 - Support animation
 - Can be controlled or uncontrolled
@@ -21,7 +21,7 @@
 - Small and tree-shakable [(~3kB)](https://bundlephobia.com/package/@szhsin/react-accordion)
 - Strongly typed API with TypeScript
 
-![react accordion](https://user-images.githubusercontent.com/41896553/218288480-a65806e9-6006-44b0-9e42-d1ff388d7376.gif)
+![react accordion](https://user-images.githubusercontent.com/41896553/236674264-2412dd3b-48b1-4df1-ab31-40d191e188de.gif)
 
 ## Install
 
