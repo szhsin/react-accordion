@@ -10,7 +10,7 @@ export default function Example() {
   const providerValue = useAccordionProvider({
     allowMultiple: true,
     transition: true,
-    transitionTimeout: 200
+    transitionTimeout: 250
   });
   // Destructuring `toggle` and `toggleAll` from `providerValue`
   const { toggle, toggleAll } = providerValue;

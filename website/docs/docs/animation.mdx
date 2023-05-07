@@ -16,7 +16,7 @@ animation:
 1. set `transition` and `transitionTimeout` props on the Accordion component.
 
 ```jsx
-<Accordion transition transitionTimeout={200}>
+<Accordion transition transitionTimeout={250}>
   {/* Accordion items ... */}
 </Accordion>
 ```
@@ -27,7 +27,7 @@ If you use `ControlledAccordion` component, set the transition props with the
 ```jsx
 const providerValue = useAccordionProvider({
   transition: true,
-  transitionTimeout: 200
+  transitionTimeout: 250
 });
 
 <ControlledAccordion providerValue={providerValue}>
@@ -39,7 +39,7 @@ const providerValue = useAccordionProvider({
    which is the element with class selector `szh-accordion__item-content`.
 
 ```css
-transition: height 0.2s ease-in-out;
+transition: height 0.25s cubic-bezier(0, 0, 0, 1);
 ```
 
 :::info
@@ -60,19 +60,39 @@ styling page which all have animation enabled.
 
 :::caution IMPORTANT
 
-To ensure a smooth height animation on accordion items, do not add outer vertical margin
-to the children of an accordion item. Instead, use padding on the parent DOM element which
-contains the children. This is the element with class selector
-`szh-accordion__item-panel`.
+To ensure a smooth height animation on accordion items, do not add outer **vertical
+margin** to the children of an accordion item to create space around the item. Instead,
+use padding on the parent DOM element which contains the children. This is the element
+with class selector `szh-accordion__item-panel`.
+
+```html
+<!-- ❌ don't add vertical margin to the children -->
+<div role="region" class="szh-accordion__item-panel">
+  <div style="margin: 1rem 0">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor...
+  </div>
+</div>
+```
+
+```html
+<!-- ✅ Remove the margin on children and use padding on the parent -->
+<div role="region" class="szh-accordion__item-panel" style="padding: 1rem 0">
+  <div>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor...
+  </div>
+</div>
+```
 
 In case outer vertical margin of the children of an accordion item cannot be practically
 removed, add a vertical padding on the parent DOM element. It can be a small non-visible
 padding if you don't actual need one:
 
-```css
-.szh-accordion__item-panel {
-  padding: 0.1px 0;
-}
+```html
+<div role="region" class="szh-accordion__item-panel" style="padding: 0.1px 0">
+  <div style="margin: 1rem 0">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor...
+  </div>
+</div>
 ```
 
 :::

@@ -8,7 +8,7 @@ const Accordion = (props: ReactAccordion.AccordionProps) => (
     {...props}
     className={styles.accordion}
     transition
-    transitionTimeout={200}
+    transitionTimeout={250}
   />
 );
 
