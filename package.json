@@ -64,7 +64,7 @@
     "@types/jest": "^29.5.1",
     "@types/react": "^18.2.7",
     "@typescript-eslint/eslint-plugin": "^5.59.7",
-    "@typescript-eslint/parser": "^5.59.7",
+    "@typescript-eslint/parser": "^5.59.8",
     "babel-plugin-pure-annotations": "^0.1.2",
     "eslint": "^8.41.0",
     "eslint-config-prettier": "^8.8.0",
