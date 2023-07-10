@@ -3,5 +3,5 @@ import { AccordionProviderValue } from '../utils/constants';
 declare const AccordionProvider: (props: {
     value: AccordionProviderValue;
     children?: ReactNode;
-}) => JSX.Element;
+}) => import("react/jsx-runtime").JSX.Element;
 export { AccordionProvider };
