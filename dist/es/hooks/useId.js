@@ -1,6 +1,11 @@
-import { useId, useState, useEffect } from 'react';
+import React from 'react';
 import { ACCORDION_PREFIX } from '../utils/constants.js';
 
+const {
+  useState,
+  useEffect,
+  useId
+} = React;
 let current = 0;
 const useIdShim = () => {
   const [id, setId] = useState();
