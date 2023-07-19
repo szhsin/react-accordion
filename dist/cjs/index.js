@@ -1,6 +1,6 @@
 'use strict';
 
-var react = require('react');
+var React = require('react');
 var reactTransitionState = require('react-transition-state');
 var jsxRuntime = require('react/jsx-runtime');
 
@@ -56,7 +56,7 @@ const ACCORDION_BLOCK = 'szh-accordion';
 const ACCORDION_PREFIX = 'szh-adn';
 const ACCORDION_ATTR = `data-${ACCORDION_PREFIX}`;
 const ACCORDION_BTN_ATTR = `data-${ACCORDION_PREFIX}-btn`;
-const AccordionContext = /*#__PURE__*/react.createContext({});
+const AccordionContext = /*#__PURE__*/React.createContext({});
 
 const bem = (block, element, modifiers) => (className, props) => {
   const blockElement = element ? `${block}__${element}` : block;
@@ -132,7 +132,7 @@ const useAccordion = () => {
 };
 
 const _excluded$3 = ["providerValue", "className"];
-const ControlledAccordion = /*#__PURE__*/react.forwardRef((_ref, ref) => {
+const ControlledAccordion = /*#__PURE__*/React.forwardRef((_ref, ref) => {
   let {
       providerValue,
       className
@@ -152,7 +152,7 @@ const ControlledAccordion = /*#__PURE__*/react.forwardRef((_ref, ref) => {
 ControlledAccordion.displayName = 'ControlledAccordion';
 
 const _excluded$2 = ["allowMultiple", "initialEntered", "mountOnEnter", "unmountOnExit", "transition", "transitionTimeout", "onStateChange"];
-const Accordion = /*#__PURE__*/react.forwardRef((_ref, ref) => {
+const Accordion = /*#__PURE__*/React.forwardRef((_ref, ref) => {
   let {
       allowMultiple,
       initialEntered,
@@ -181,18 +181,18 @@ Accordion.displayName = 'Accordion';
 
 let current = 0;
 const useIdShim = () => {
-  const [id, setId] = react.useState();
-  react.useEffect(() => setId(++current), []);
+  const [id, setId] = React.useState();
+  React.useEffect(() => setId(++current), []);
   return id && `${ACCORDION_PREFIX}-${id}`;
 };
-const _useId = react.useId || useIdShim;
+const useId = React.useId || useIdShim;
 
 const useAccordionItem = ({
   state,
   toggle,
   disabled
 }) => {
-  const buttonId = _useId();
+  const buttonId = useId();
   const panelId = buttonId && buttonId + '-';
   const buttonProps = {
     id: buttonId,
@@ -212,14 +212,14 @@ const useAccordionItem = ({
   };
 };
 
-const useIsomorphicLayoutEffect = typeof window !== 'undefined' && typeof window.document !== 'undefined' && typeof window.document.createElement !== 'undefined' ? react.useLayoutEffect : react.useEffect;
+const useIsomorphicLayoutEffect = typeof window !== 'undefined' && typeof window.document !== 'undefined' && typeof window.document.createElement !== 'undefined' ? React.useLayoutEffect : React.useEffect;
 
 const useHeightTransition = ({
   status,
   isResolved
 }) => {
-  const [height, setHeight] = react.useState();
-  const elementRef = react.useRef(null);
+  const [height, setHeight] = React.useState();
+  const elementRef = React.useRef(null);
   useIsomorphicLayoutEffect(() => {
     (status === 'preEnter' || status === 'preExit') && setHeight(elementRef.current.getBoundingClientRect().height);
   }, [status]);
@@ -234,7 +234,7 @@ function setRef(ref, instance) {
   typeof ref === 'function' ? ref(instance) : ref.current = instance;
 }
 function useMergeRef(refA, refB) {
-  return react.useMemo(() => {
+  return React.useMemo(() => {
     if (!refA) return refB;
     if (!refB) return refA;
     return instance => {
@@ -259,7 +259,7 @@ const getItemState = (providerValue, key, itemInitialEntered) => {
   };
 };
 const useAccordionContext = () => {
-  const context = react.useContext(AccordionContext);
+  const context = React.useContext(AccordionContext);
   if (process.env.NODE_ENV !== 'production' && !context.stateMap) {
     throw new Error('[React-Accordion] Cannot find a <AccordionProvider/> above this AccordionItem.');
   }
@@ -271,7 +271,7 @@ const useAccordionItemEffect = ({
   initialEntered,
   disabled
 } = {}) => {
-  const itemRef = react.useRef(null);
+  const itemRef = React.useRef(null);
   const context = useAccordionContext();
   const key = itemKey != null ? itemKey : itemRef.current;
   const state = getItemState(context, key, initialEntered);
@@ -280,7 +280,7 @@ const useAccordionItemEffect = ({
     deleteItem,
     toggle
   } = context;
-  react.useEffect(() => {
+  React.useEffect(() => {
     if (disabled) return;
     const key = itemKey != null ? itemKey : itemRef.current;
     setItem(key, {
@@ -291,13 +291,13 @@ const useAccordionItemEffect = ({
   return {
     itemRef,
     state,
-    toggle: react.useCallback(toEnter => toggle(key, toEnter), [toggle, key])
+    toggle: React.useCallback(toEnter => toggle(key, toEnter), [toggle, key])
   };
 };
 
 const _excluded$1 = ["itemKey", "initialEntered"];
 const withAccordionItem = WrappedItem => {
-  const WithAccordionItem = /*#__PURE__*/react.forwardRef((_ref, ref) => {
+  const WithAccordionItem = /*#__PURE__*/React.forwardRef((_ref, ref) => {
     let {
         itemKey,
         initialEntered
@@ -317,7 +317,7 @@ const withAccordionItem = WrappedItem => {
 
 const _excluded = ["forwardedRef", "itemRef", "state", "toggle", "className", "disabled", "header", "headingTag", "headingProps", "buttonProps", "contentProps", "panelProps", "children"];
 const getRenderNode = (nodeOrFunc, props) => typeof nodeOrFunc === 'function' ? nodeOrFunc(props) : nodeOrFunc;
-const WrappedItem = /*#__PURE__*/react.memo(_ref => {
+const WrappedItem = /*#__PURE__*/React.memo(_ref => {
   let {
       forwardedRef,
       itemRef,
