@@ -179,25 +179,20 @@ const Accordion = /*#__PURE__*/React.forwardRef((_ref, ref) => {
 });
 Accordion.displayName = 'Accordion';
 
-const {
-  useState,
-  useEffect,
-  useId
-} = React;
 let current = 0;
 const useIdShim = () => {
-  const [id, setId] = useState();
-  useEffect(() => setId(++current), []);
+  const [id, setId] = React.useState();
+  React.useEffect(() => setId(++current), []);
   return id && `${ACCORDION_PREFIX}-${id}`;
 };
-const _useId = useId || useIdShim;
+const useId = React.useId || useIdShim;
 
 const useAccordionItem = ({
   state,
   toggle,
   disabled
 }) => {
-  const buttonId = _useId();
+  const buttonId = useId();
   const panelId = buttonId && buttonId + '-';
   const buttonProps = {
     id: buttonId,

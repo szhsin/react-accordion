@@ -1,7 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { ACCORDION_PREFIX } from '../utils/constants';
-
-const { useState, useEffect, useId } = React;
 
 let current = 0;
 
@@ -11,6 +9,6 @@ const useIdShim = () => {
   return (id && `${ACCORDION_PREFIX}-${id}`) as string | undefined;
 };
 
-const _useId = useId || useIdShim;
+const useId = React.useId || useIdShim;
 
-export { _useId as useId };
+export { useId };

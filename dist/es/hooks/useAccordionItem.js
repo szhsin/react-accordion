@@ -1,12 +1,12 @@
 import { ACCORDION_BTN_ATTR } from '../utils/constants.js';
-import { useId as _useId } from './useId.js';
+import { useId } from './useId.js';
 
 const useAccordionItem = ({
   state,
   toggle,
   disabled
 }) => {
-  const buttonId = _useId();
+  const buttonId = useId();
   const panelId = buttonId && buttonId + '-';
   const buttonProps = {
     id: buttonId,
