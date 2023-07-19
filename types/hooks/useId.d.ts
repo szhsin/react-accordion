@@ -1,3 +1,3 @@
-import { useId } from 'react';
-declare const _useId: typeof useId;
-export { _useId as useId };
+import React from 'react';
+declare const useId: typeof React.useId;
+export { useId };
