@@ -3,7 +3,7 @@ import { TransitionState, TransitionMapResult, TransitionMapOptions, TransitionO
 export declare const ACCORDION_BLOCK = "szh-accordion";
 export declare const ACCORDION_PREFIX = "szh-adn";
 export declare const ACCORDION_ATTR: string;
-export declare const ACCORDION_BTN_ATTR: string;
+export declare const ACCORDION_BTN_ATTR = "data-szh-adn-btn";
 export type Modifiers = {
     readonly [index: string]: boolean | string;
 };
