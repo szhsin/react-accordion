@@ -67,7 +67,7 @@
     "@typescript-eslint/parser": "^6.21.0",
     "babel-plugin-pure-annotations": "^0.1.2",
     "eslint": "^8.56.0",
-    "eslint-config-prettier": "^9.0.0",
+    "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-jest": "^27.6.3",
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
