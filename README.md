@@ -12,7 +12,7 @@
 - Unstyled React accordion components
 - React hooks for Headless usage
 - [WAI-ARIA compliant](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/)
-- Keyborad navigable
+- Keyboard navigable
 - Support animation
 - Can be controlled or uncontrolled
 - Control to expand/collapse specific item or all items
