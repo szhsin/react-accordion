@@ -16,8 +16,8 @@ const useHeightTransition = <E extends Element>({ status, isResolved }: Transiti
       status === 'preEnter' || status === 'exiting'
         ? 0
         : status === 'entering' || status === 'preExit'
-        ? height
-        : undefined,
+          ? height
+          : undefined,
     overflow: isResolved ? undefined : 'hidden'
   };
 
