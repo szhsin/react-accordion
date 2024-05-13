@@ -62,7 +62,7 @@
     "@testing-library/jest-dom": "^6.4.2",
     "@testing-library/react": "^14.2.2",
     "@types/jest": "^29.5.12",
-    "@types/react": "^18.2.77",
+    "@types/react": "^18.3.2",
     "@typescript-eslint/eslint-plugin": "^7.7.1",
     "@typescript-eslint/parser": "^7.8.0",
     "babel-plugin-pure-annotations": "^0.1.2",
