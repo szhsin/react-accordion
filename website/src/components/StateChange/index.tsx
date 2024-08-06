@@ -24,7 +24,9 @@ export default function Example() {
       // highlight-start
       onStateChange={({ key, current }) => {
         if (current.isResolved)
-          console.log(`${key} is expanded: ${current.isEnter}`);
+          console.log(
+            `${key as string} is expanded: ${current.isEnter}`
+          );
       }}
       // highlight-end
     >
