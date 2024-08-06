@@ -43,7 +43,7 @@
     "test": "jest",
     "test:watch": "jest --watch --verbose",
     "test:cov": "jest --coverage=true",
-    "build": "run-s pret clean lint types bundle post-build"
+    "build": "run-s pret clean types lint bundle post-build"
   },
   "peerDependencies": {
     "react": "^16.14 || ^17.0 || ^18.0",
