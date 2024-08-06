@@ -1,4 +1,3 @@
-/// <reference types="react" />
 import { AccordionProviderOptions } from '../utils/constants';
 import { ControlledAccordionProps } from './ControlledAccordion';
 interface AccordionProps extends AccordionProviderOptions, Omit<ControlledAccordionProps, 'providerValue'> {

@@ -1,4 +1,3 @@
-/// <reference types="react" />
 import { ItemStateOptions } from '../utils/constants';
 declare const useAccordionItemEffect: <E extends Element>({ itemKey, initialEntered, disabled }?: ItemStateOptions) => {
     itemRef: import("react").RefObject<E>;
