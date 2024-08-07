@@ -18,6 +18,10 @@ export default tseslint.config(
   jest.configs['flat/style'],
   react.configs.flat.recommended,
   {
+    files: ['**/*.js', '**/*.mjs'],
+    ...tseslint.configs.disableTypeChecked
+  },
+  {
     ignores: [
       '**/coverage/',
       '**/dist/',
@@ -25,9 +29,7 @@ export default tseslint.config(
       '**/types/',
       '**/build/',
       '**/static/',
-      '**/.docusaurus/',
-      '**/*.js',
-      '**/*.mjs'
+      '**/.docusaurus/'
     ]
   },
   {
@@ -35,7 +37,9 @@ export default tseslint.config(
       ecmaVersion: 'latest',
       sourceType: 'module',
       parserOptions: {
-        projectService: true,
+        projectService: {
+          allowDefaultProject: ['*.js', '*.mjs']
+        },
         tsconfigRootDir: import.meta.dirname,
         ecmaFeatures: {
           jsx: true
