@@ -1,6 +1,6 @@
 {
   "name": "@szhsin/react-accordion",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "description": "The complete accordion solution for React.",
   "author": "Zheng Song",
   "license": "MIT",
@@ -34,7 +34,6 @@
     "bundle": "rollup -c",
     "watch": "rollup -c -w",
     "clean": "rm -Rf dist types",
-    "post-build": "rm -Rf types/__tests__",
     "types": "tsc",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
@@ -43,7 +42,8 @@
     "test": "jest",
     "test:watch": "jest --watch --verbose",
     "test:cov": "jest --coverage=true",
-    "build": "run-s pret clean types lint bundle post-build"
+    "postbuild": "rm -Rf types/__tests__",
+    "build": "run-s pret clean types lint bundle"
   },
   "peerDependencies": {
     "react": "^16.14 || ^17.0 || ^18.0",

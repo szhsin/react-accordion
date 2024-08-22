@@ -4,44 +4,25 @@ var React = require('react');
 var reactTransitionState = require('react-transition-state');
 var jsxRuntime = require('react/jsx-runtime');
 
-function _extends() {
-  return _extends = Object.assign ? Object.assign.bind() : function (n) {
-    for (var e = 1; e < arguments.length; e++) {
-      var t = arguments[e];
-      for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]);
-    }
-    return n;
-  }, _extends.apply(null, arguments);
-}
-function _objectWithoutPropertiesLoose(r, e) {
-  if (null == r) return {};
-  var t = {};
-  for (var n in r) if ({}.hasOwnProperty.call(r, n)) {
-    if (e.includes(n)) continue;
-    t[n] = r[n];
-  }
-  return t;
-}
-
-const _excluded$4 = ["transition", "transitionTimeout"];
 const getTransition = (transition, name) => transition === true || !!(transition && transition[name]);
-const useAccordionProvider = (_ref = {}) => {
-  let {
-      transition,
-      transitionTimeout
-    } = _ref,
-    rest = _objectWithoutPropertiesLoose(_ref, _excluded$4);
-  const transitionMap = reactTransitionState.useTransitionMap(_extends({
+const useAccordionProvider = ({
+  transition,
+  transitionTimeout,
+  ...rest
+} = {}) => {
+  const transitionMap = reactTransitionState.useTransitionMap({
     timeout: transitionTimeout,
     enter: getTransition(transition, 'enter'),
     exit: getTransition(transition, 'exit'),
     preEnter: getTransition(transition, 'preEnter'),
-    preExit: getTransition(transition, 'preExit')
-  }, rest));
-  return _extends({
+    preExit: getTransition(transition, 'preExit'),
+    ...rest
+  });
+  return {
     mountOnEnter: !!rest.mountOnEnter,
-    initialEntered: !!rest.initialEntered
-  }, transitionMap);
+    initialEntered: !!rest.initialEntered,
+    ...transitionMap
+  };
 };
 
 const ACCORDION_BLOCK = 'szh-accordion';
@@ -67,7 +48,9 @@ const bem = (block, element, modifiers) => (className, props) => {
 
 const mergeProps = (target, source) => {
   if (!source) return target;
-  const result = _extends({}, target);
+  const result = {
+    ...target
+  };
   Object.keys(source).forEach(key => {
     const targetProp = target[key];
     const sourceProp = source[key];
@@ -83,7 +66,9 @@ const mergeProps = (target, source) => {
   return result;
 };
 
-const AccordionProvider = props => /*#__PURE__*/jsxRuntime.jsx(AccordionContext.Provider, _extends({}, props));
+const AccordionProvider = props => /*#__PURE__*/jsxRuntime.jsx(AccordionContext.Provider, {
+  ...props
+});
 
 const getAccordion = node => {
   do {
@@ -123,38 +108,35 @@ const useAccordion = () => {
   };
 };
 
-const _excluded$3 = ["providerValue", "className"];
-const ControlledAccordion = /*#__PURE__*/React.forwardRef((_ref, ref) => {
-  let {
-      providerValue,
-      className
-    } = _ref,
-    rest = _objectWithoutPropertiesLoose(_ref, _excluded$3);
+const ControlledAccordion = /*#__PURE__*/React.forwardRef(({
+  providerValue,
+  className,
+  ...rest
+}, ref) => {
   const {
     accordionProps
   } = useAccordion();
   return /*#__PURE__*/jsxRuntime.jsx(AccordionProvider, {
     value: providerValue,
-    children: /*#__PURE__*/jsxRuntime.jsx("div", _extends({}, mergeProps(accordionProps, rest), {
+    children: /*#__PURE__*/jsxRuntime.jsx("div", {
+      ...mergeProps(accordionProps, rest),
       ref: ref,
       className: bem(ACCORDION_BLOCK)(className)
-    }))
+    })
   });
 });
 ControlledAccordion.displayName = 'ControlledAccordion';
 
-const _excluded$2 = ["allowMultiple", "initialEntered", "mountOnEnter", "unmountOnExit", "transition", "transitionTimeout", "onStateChange"];
-const Accordion = /*#__PURE__*/React.forwardRef((_ref, ref) => {
-  let {
-      allowMultiple,
-      initialEntered,
-      mountOnEnter,
-      unmountOnExit,
-      transition,
-      transitionTimeout,
-      onStateChange
-    } = _ref,
-    rest = _objectWithoutPropertiesLoose(_ref, _excluded$2);
+const Accordion = /*#__PURE__*/React.forwardRef(({
+  allowMultiple,
+  initialEntered,
+  mountOnEnter,
+  unmountOnExit,
+  transition,
+  transitionTimeout,
+  onStateChange,
+  ...rest
+}, ref) => {
   const providerValue = useAccordionProvider({
     allowMultiple,
     initialEntered,
@@ -164,10 +146,11 @@ const Accordion = /*#__PURE__*/React.forwardRef((_ref, ref) => {
     transitionTimeout,
     onStateChange
   });
-  return /*#__PURE__*/jsxRuntime.jsx(ControlledAccordion, _extends({}, rest, {
+  return /*#__PURE__*/jsxRuntime.jsx(ControlledAccordion, {
+    ...rest,
     ref: ref,
     providerValue: providerValue
-  }));
+  });
 });
 Accordion.displayName = 'Accordion';
 
@@ -287,45 +270,41 @@ const useAccordionItemEffect = ({
   };
 };
 
-const _excluded$1 = ["itemKey", "initialEntered"];
 const withAccordionItem = WrappedItem => {
-  const WithAccordionItem = /*#__PURE__*/React.forwardRef((_ref, ref) => {
-    let {
-        itemKey,
-        initialEntered
-      } = _ref,
-      rest = _objectWithoutPropertiesLoose(_ref, _excluded$1);
-    return /*#__PURE__*/jsxRuntime.jsx(WrappedItem, _extends({
-      forwardedRef: ref
-    }, rest, useAccordionItemEffect({
+  const WithAccordionItem = /*#__PURE__*/React.forwardRef(({
+    itemKey,
+    initialEntered,
+    ...rest
+  }, ref) => /*#__PURE__*/jsxRuntime.jsx(WrappedItem, {
+    forwardedRef: ref,
+    ...rest,
+    ...useAccordionItemEffect({
       itemKey,
       initialEntered,
       disabled: rest.disabled
-    })));
-  });
+    })
+  }));
   WithAccordionItem.displayName = 'WithAccordionItem';
   return WithAccordionItem;
 };
 
-const _excluded = ["forwardedRef", "itemRef", "state", "toggle", "className", "disabled", "header", "headingTag", "headingProps", "buttonProps", "contentProps", "panelProps", "children"];
 const getRenderNode = (nodeOrFunc, props) => typeof nodeOrFunc === 'function' ? nodeOrFunc(props) : nodeOrFunc;
-const WrappedItem = /*#__PURE__*/React.memo(_ref => {
-  let {
-      forwardedRef,
-      itemRef,
-      state,
-      toggle,
-      className,
-      disabled,
-      header,
-      headingTag: Heading = 'h3',
-      headingProps,
-      buttonProps,
-      contentProps,
-      panelProps,
-      children
-    } = _ref,
-    rest = _objectWithoutPropertiesLoose(_ref, _excluded);
+const WrappedItem = /*#__PURE__*/React.memo(({
+  forwardedRef,
+  itemRef,
+  state,
+  toggle,
+  className,
+  disabled,
+  header,
+  headingTag: Heading = 'h3',
+  headingProps,
+  buttonProps,
+  contentProps,
+  panelProps,
+  children,
+  ...rest
+}) => {
   const itemState = {
     state,
     toggle,
@@ -342,34 +321,42 @@ const WrappedItem = /*#__PURE__*/React.memo(_ref => {
     isMounted,
     isEnter
   } = state;
-  return /*#__PURE__*/jsxRuntime.jsxs("div", _extends({}, rest, {
+  return /*#__PURE__*/jsxRuntime.jsxs("div", {
+    ...rest,
     ref: useMergeRef(forwardedRef, itemRef),
     className: bem(ACCORDION_BLOCK, 'item', {
       status,
       expanded: isEnter
     })(className, state),
-    children: [/*#__PURE__*/jsxRuntime.jsx(Heading, _extends({}, headingProps, {
-      style: _extends({
-        margin: 0
-      }, headingProps && headingProps.style),
+    children: [/*#__PURE__*/jsxRuntime.jsx(Heading, {
+      ...headingProps,
+      style: {
+        margin: 0,
+        ...(headingProps && headingProps.style)
+      },
       className: bem(ACCORDION_BLOCK, 'item-heading')(headingProps && headingProps.className, state),
-      children: /*#__PURE__*/jsxRuntime.jsx("button", _extends({}, mergeProps(_buttonProps, buttonProps), {
+      children: /*#__PURE__*/jsxRuntime.jsx("button", {
+        ...mergeProps(_buttonProps, buttonProps),
         type: "button",
         className: bem(ACCORDION_BLOCK, 'item-btn')(buttonProps && buttonProps.className, state),
         children: getRenderNode(header, itemState)
-      }))
-    })), isMounted && /*#__PURE__*/jsxRuntime.jsx("div", _extends({}, contentProps, {
-      style: _extends({
-        display: status === 'exited' ? 'none' : undefined
-      }, transitionStyle, contentProps && contentProps.style),
+      })
+    }), isMounted && /*#__PURE__*/jsxRuntime.jsx("div", {
+      ...contentProps,
+      style: {
+        display: status === 'exited' ? 'none' : undefined,
+        ...transitionStyle,
+        ...(contentProps && contentProps.style)
+      },
       className: bem(ACCORDION_BLOCK, 'item-content')(contentProps && contentProps.className, state),
-      children: /*#__PURE__*/jsxRuntime.jsx("div", _extends({}, mergeProps(_panelProps, panelProps), {
+      children: /*#__PURE__*/jsxRuntime.jsx("div", {
+        ...mergeProps(_panelProps, panelProps),
         ref: panelRef,
         className: bem(ACCORDION_BLOCK, 'item-panel')(panelProps && panelProps.className, state),
         children: getRenderNode(children, itemState)
-      }))
-    }))]
-  }));
+      })
+    })]
+  });
 });
 WrappedItem.displayName = 'AccordionItem';
 const AccordionItem = /*#__PURE__*/withAccordionItem(WrappedItem);

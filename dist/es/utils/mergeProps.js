@@ -1,8 +1,8 @@
-import { extends as _extends } from '../_virtual/_rollupPluginBabelHelpers.js';
-
 const mergeProps = (target, source) => {
   if (!source) return target;
-  const result = _extends({}, target);
+  const result = {
+    ...target
+  };
   Object.keys(source).forEach(key => {
     const targetProp = target[key];
     const sourceProp = source[key];
