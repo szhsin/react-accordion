@@ -50,7 +50,7 @@
     "react-dom": "^16.14 || ^17.0 || ^18.0"
   },
   "dependencies": {
-    "react-transition-state": "^2.1.1"
+    "react-transition-state": "^2.1.2"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
