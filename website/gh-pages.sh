@@ -27,6 +27,5 @@ rm -Rf api/ assets/ category/ docs/ img/
 cp -Rf "$tmpdir/build/" .
 git add .
 git commit -m "Updates"
-git push
 rm -Rf "$tmpdir"
-echo "Deployed to gh-pages"
+echo "Ready to push gh-pages"

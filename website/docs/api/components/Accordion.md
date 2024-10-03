@@ -12,4 +12,4 @@ sidebar_position: 1
 | `unmountOnExit` | boolean | Unmount `children` of accordion items after they are collapsed. |
 | `transition` | [View on GitHub](https://github.com/szhsin/react-accordion/blob/7eddacda0928b23bde05ad2299d9b5e27efd4995/types/utils/constants.d.ts#L16) | Enable or disable transition. Accept a single boolean value or each individual transition stage in an object. |
 | `transitionTimeout` | [View on GitHub](https://github.com/szhsin/react-accordion/blob/7eddacda0928b23bde05ad2299d9b5e27efd4995/types/utils/constants.d.ts#L32) | Set transition duration. Accept a single number or individual "enter" or "exit" stage in an object. |
-| `onStateChange` | (event: { key: ItemKey; current: TransitionState }) => void | Event to notify state changes in any accordion items. |
+| `onStateChange` | (event: \{ key: ItemKey; current: TransitionState \}) => void | Event to notify state changes in any accordion items. |
