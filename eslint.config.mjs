@@ -17,6 +17,7 @@ export default tseslint.config(
   jest.configs['flat/recommended'],
   jest.configs['flat/style'],
   react.configs.flat.recommended,
+  reactHooksAddons.configs.recommended,
   {
     files: ['**/*.js', '**/*.mjs'],
     ...tseslint.configs.disableTypeChecked
@@ -55,8 +56,7 @@ export default tseslint.config(
       jest,
       react,
       // @ts-ignore
-      ['react-hooks']: fixupPluginRules(reactHooks),
-      ['react-hooks-addons']: fixupPluginRules(reactHooksAddons)
+      ['react-hooks']: fixupPluginRules(reactHooks)
     },
     settings: {
       react: {
