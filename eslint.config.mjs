@@ -1,7 +1,6 @@
 // @ts-check
 
 import eslint from '@eslint/js';
-import { fixupPluginRules } from '@eslint/compat';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
 import prettier from 'eslint-config-prettier';
@@ -13,11 +12,12 @@ import reactHooksAddons from 'eslint-plugin-react-hooks-addons';
 export default tseslint.config(
   eslint.configs.recommended,
   ...tseslint.configs.recommendedTypeChecked,
-  prettier,
   jest.configs['flat/recommended'],
   jest.configs['flat/style'],
   react.configs.flat.recommended,
   reactHooksAddons.configs.recommended,
+  // @ts-ignore
+  prettier,
   {
     files: ['**/*.js', '**/*.mjs'],
     ...tseslint.configs.disableTypeChecked
@@ -55,8 +55,7 @@ export default tseslint.config(
     plugins: {
       jest,
       react,
-      // @ts-ignore
-      ['react-hooks']: fixupPluginRules(reactHooks)
+      'react-hooks': reactHooks
     },
     settings: {
       react: {
