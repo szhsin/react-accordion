@@ -62,7 +62,7 @@
     "@rollup/plugin-node-resolve": "^15.3.0",
     "@testing-library/jest-dom": "^6.5.0",
     "@testing-library/react": "^16.0.1",
-    "@types/jest": "^29.5.13",
+    "@types/jest": "^29.5.14",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.0",
     "babel-plugin-pure-annotations": "^0.1.2",
