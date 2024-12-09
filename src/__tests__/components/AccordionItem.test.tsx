@@ -5,12 +5,9 @@ import { AccordionItem, AccordionItemProps, ItemState } from '../../';
 
 describe('AccordionItem', () => {
   test('should throw when rendered without provider', () => {
-    const spy = jest.spyOn(console, 'error').mockImplementation();
     expect(() => {
       render(<AccordionItem header="header">item</AccordionItem>);
-    }).toThrow();
-    expect(spy).toHaveBeenCalled();
-    spy.mockRestore();
+    }).toThrow('Cannot find a <AccordionProvider/> above this AccordionItem');
   });
 
   test('should forward props and ref to item', () => {
