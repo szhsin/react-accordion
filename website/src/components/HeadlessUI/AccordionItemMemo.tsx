@@ -1,4 +1,4 @@
-import React from 'react';
+import { memo } from 'react';
 import {
   useAccordionItem,
   useHeightTransition,
@@ -16,7 +16,7 @@ interface Props {
   children: React.ReactNode;
 }
 
-const MemoItem = React.memo(
+const MemoItem = memo(
   ({
     itemRef,
     state,
