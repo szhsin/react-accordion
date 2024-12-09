@@ -1,3 +1,2 @@
-import React from 'react';
-declare const useId: typeof React.useId;
+declare const useId: () => string | undefined;
 export { useId };
