@@ -315,7 +315,7 @@ const WrappedItem = /*#__PURE__*/React.memo(({
     panelProps: _panelProps
   } = useAccordionItem(itemState);
   const [transitionStyle, _panelRef] = useHeightTransition(state);
-  const panelRef = useMergeRef(panelProps && panelProps.ref, _panelRef);
+  const panelRef = useMergeRef(panelProps?.ref, _panelRef);
   const {
     status,
     isMounted,
@@ -332,13 +332,13 @@ const WrappedItem = /*#__PURE__*/React.memo(({
       ...headingProps,
       style: {
         margin: 0,
-        ...(headingProps && headingProps.style)
+        ...headingProps?.style
       },
-      className: bem(ACCORDION_BLOCK, 'item-heading')(headingProps && headingProps.className, state),
+      className: bem(ACCORDION_BLOCK, 'item-heading')(headingProps?.className, state),
       children: /*#__PURE__*/jsxRuntime.jsx("button", {
         ...mergeProps(_buttonProps, buttonProps),
         type: "button",
-        className: bem(ACCORDION_BLOCK, 'item-btn')(buttonProps && buttonProps.className, state),
+        className: bem(ACCORDION_BLOCK, 'item-btn')(buttonProps?.className, state),
         children: getRenderNode(header, itemState)
       })
     }), isMounted && /*#__PURE__*/jsxRuntime.jsx("div", {
@@ -346,13 +346,13 @@ const WrappedItem = /*#__PURE__*/React.memo(({
       style: {
         display: status === 'exited' ? 'none' : undefined,
         ...transitionStyle,
-        ...(contentProps && contentProps.style)
+        ...contentProps?.style
       },
-      className: bem(ACCORDION_BLOCK, 'item-content')(contentProps && contentProps.className, state),
+      className: bem(ACCORDION_BLOCK, 'item-content')(contentProps?.className, state),
       children: /*#__PURE__*/jsxRuntime.jsx("div", {
         ...mergeProps(_panelProps, panelProps),
         ref: panelRef,
-        className: bem(ACCORDION_BLOCK, 'item-panel')(panelProps && panelProps.className, state),
+        className: bem(ACCORDION_BLOCK, 'item-panel')(panelProps?.className, state),
         children: getRenderNode(children, itemState)
       })
     })]

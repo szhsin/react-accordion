@@ -1,6 +1,6 @@
 {
   "name": "@szhsin/react-accordion",
-  "version": "1.2.6",
+  "version": "1.3.0",
   "description": "The complete accordion solution for React.",
   "author": "Zheng Song",
   "license": "MIT",
@@ -46,8 +46,8 @@
     "build": "run-s pret clean types lint bundle"
   },
   "peerDependencies": {
-    "react": "^16.14 || ^17.0 || ^18.0",
-    "react-dom": "^16.14 || ^17.0 || ^18.0"
+    "react": "^16.14 || ^17.0 || ^18.0 || ^19.0",
+    "react-dom": "^16.14 || ^17.0 || ^18.0 || ^19.0"
   },
   "dependencies": {
     "react-transition-state": "^2.2.0"
@@ -55,30 +55,30 @@
   "devDependencies": {
     "@babel/core": "^7.26.0",
     "@babel/preset-env": "^7.26.0",
-    "@babel/preset-react": "^7.25.9",
+    "@babel/preset-react": "^7.26.3",
     "@babel/preset-typescript": "^7.26.0",
     "@eslint/js": "^9.16.0",
     "@rollup/plugin-babel": "^6.0.4",
     "@rollup/plugin-node-resolve": "^15.3.0",
-    "@testing-library/jest-dom": "^6.5.0",
-    "@testing-library/react": "^16.0.1",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.1.0",
     "@types/jest": "^29.5.14",
-    "@types/react": "^18.3.12",
-    "@types/react-dom": "^18.3.0",
+    "@types/react": "^19.0.1",
+    "@types/react-dom": "^19.0.1",
     "babel-plugin-pure-annotations": "^0.1.2",
     "eslint": "^9.16.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-jest": "^28.9.0",
     "eslint-plugin-react": "^7.37.2",
-    "eslint-plugin-react-hooks": "^5.0.0",
+    "eslint-plugin-react-hooks": "^5.1.0",
     "eslint-plugin-react-hooks-addons": "^0.4.1",
     "globals": "^15.13.0",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
     "npm-run-all": "^4.1.5",
     "prettier": "^3.4.2",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
     "rollup": "^4.28.1",
     "typescript": "^5.7.2",
     "typescript-eslint": "^8.17.0"

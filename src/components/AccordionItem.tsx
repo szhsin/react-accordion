@@ -56,7 +56,7 @@ const WrappedItem = memo(
     const itemState: ItemState = { state, toggle, disabled };
     const { buttonProps: _buttonProps, panelProps: _panelProps } = useAccordionItem(itemState);
     const [transitionStyle, _panelRef] = useHeightTransition<HTMLDivElement>(state);
-    const panelRef = useMergeRef(panelProps && panelProps.ref, _panelRef);
+    const panelRef = useMergeRef(panelProps?.ref, _panelRef);
     const { status, isMounted, isEnter } = state;
 
     return (
@@ -67,19 +67,13 @@ const WrappedItem = memo(
       >
         <Heading
           {...headingProps}
-          style={{ margin: 0, ...(headingProps && headingProps.style) }}
-          className={bem(ACCORDION_BLOCK, 'item-heading')(
-            headingProps && headingProps.className,
-            state
-          )}
+          style={{ margin: 0, ...headingProps?.style }}
+          className={bem(ACCORDION_BLOCK, 'item-heading')(headingProps?.className, state)}
         >
           <button
             {...mergeProps(_buttonProps, buttonProps)}
             type="button"
-            className={bem(ACCORDION_BLOCK, 'item-btn')(
-              buttonProps && buttonProps.className,
-              state
-            )}
+            className={bem(ACCORDION_BLOCK, 'item-btn')(buttonProps?.className, state)}
           >
             {getRenderNode(header, itemState)}
           </button>
@@ -91,20 +85,14 @@ const WrappedItem = memo(
             style={{
               display: status === 'exited' ? 'none' : undefined,
               ...transitionStyle,
-              ...(contentProps && contentProps.style)
+              ...contentProps?.style
             }}
-            className={bem(ACCORDION_BLOCK, 'item-content')(
-              contentProps && contentProps.className,
-              state
-            )}
+            className={bem(ACCORDION_BLOCK, 'item-content')(contentProps?.className, state)}
           >
             <div
               {...mergeProps(_panelProps, panelProps)}
               ref={panelRef}
-              className={bem(ACCORDION_BLOCK, 'item-panel')(
-                panelProps && panelProps.className,
-                state
-              )}
+              className={bem(ACCORDION_BLOCK, 'item-panel')(panelProps?.className, state)}
             >
               {getRenderNode(children, itemState)}
             </div>

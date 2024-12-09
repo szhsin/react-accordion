@@ -1,4 +1,3 @@
-import React from 'react';
 import * as ReactAccordion from '@szhsin/react-accordion';
 import ChevronDown from '@site/static/img/chevron-down.svg';
 import styles from './styles.module.css';

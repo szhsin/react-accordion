@@ -9,6 +9,6 @@ const useIdShim = () => {
   return (id && `${ACCORDION_PREFIX}-${id}`) as string | undefined;
 };
 
-const useId = React.useId || useIdShim;
+const useId: () => string | undefined = React.useId || useIdShim;
 
 export { useId };
