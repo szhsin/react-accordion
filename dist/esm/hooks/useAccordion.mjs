@@ -1,4 +1,4 @@
-import { ACCORDION_ATTR, ACCORDION_BTN_ATTR } from '../utils/constants.js';
+import { ACCORDION_ATTR, ACCORDION_BTN_ATTR } from '../utils/constants.mjs';
 
 const getAccordion = node => {
   do {

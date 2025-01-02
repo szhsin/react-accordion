@@ -1,12 +1,14 @@
-import { ACCORDION_BTN_ATTR } from '../utils/constants.js';
-import { useId } from './useId.js';
+'use strict';
+
+var constants = require('../utils/constants.cjs');
+var useId = require('./useId.cjs');
 
 const useAccordionItem = ({
   state,
   toggle,
   disabled
 }) => {
-  const buttonId = useId();
+  const buttonId = useId.useId();
   const panelId = buttonId && buttonId + '-';
   const buttonProps = {
     id: buttonId,
@@ -14,7 +16,7 @@ const useAccordionItem = ({
     'aria-expanded': state.isEnter,
     onClick: toggle
   };
-  disabled ? buttonProps.disabled = true : buttonProps[ACCORDION_BTN_ATTR] = '';
+  disabled ? buttonProps.disabled = true : buttonProps[constants.ACCORDION_BTN_ATTR] = '';
   const panelProps = {
     id: panelId,
     'aria-labelledby': buttonId,
@@ -26,4 +28,4 @@ const useAccordionItem = ({
   };
 };
 
-export { useAccordionItem };
+exports.useAccordionItem = useAccordionItem;

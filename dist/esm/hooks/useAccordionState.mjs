@@ -1,4 +1,4 @@
-import { useAccordionContext, getItemState } from './useAccordionContext.js';
+import { useAccordionContext, getItemState } from './useAccordionContext.mjs';
 
 const useAccordionState = () => {
   const context = useAccordionContext();

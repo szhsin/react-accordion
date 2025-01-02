@@ -1,5 +1,7 @@
-import { useContext } from 'react';
-import { AccordionContext } from '../utils/constants.js';
+'use strict';
+
+var React = require('react');
+var constants = require('../utils/constants.cjs');
 
 const getItemState = (providerValue, key, itemInitialEntered) => {
   const {
@@ -16,11 +18,12 @@ const getItemState = (providerValue, key, itemInitialEntered) => {
   };
 };
 const useAccordionContext = () => {
-  const context = useContext(AccordionContext);
+  const context = React.useContext(constants.AccordionContext);
   if (process.env.NODE_ENV !== 'production' && !context.stateMap) {
     throw new Error('[React-Accordion] Cannot find a <AccordionProvider/> above this AccordionItem.');
   }
   return context;
 };
 
-export { getItemState, useAccordionContext };
+exports.getItemState = getItemState;
+exports.useAccordionContext = useAccordionContext;

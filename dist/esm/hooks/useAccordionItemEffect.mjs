@@ -1,23 +1,21 @@
-'use strict';
-
-var React = require('react');
-var useAccordionContext = require('./useAccordionContext.js');
+import { useRef, useEffect, useCallback } from 'react';
+import { useAccordionContext, getItemState } from './useAccordionContext.mjs';
 
 const useAccordionItemEffect = ({
   itemKey,
   initialEntered,
   disabled
 } = {}) => {
-  const itemRef = React.useRef(null);
-  const context = useAccordionContext.useAccordionContext();
+  const itemRef = useRef(null);
+  const context = useAccordionContext();
   const key = itemKey != null ? itemKey : itemRef.current;
-  const state = useAccordionContext.getItemState(context, key, initialEntered);
+  const state = getItemState(context, key, initialEntered);
   const {
     setItem,
     deleteItem,
     toggle
   } = context;
-  React.useEffect(() => {
+  useEffect(() => {
     if (disabled) return;
     const key = itemKey != null ? itemKey : itemRef.current;
     setItem(key, {
@@ -28,8 +26,8 @@ const useAccordionItemEffect = ({
   return {
     itemRef,
     state,
-    toggle: React.useCallback(toEnter => toggle(key, toEnter), [toggle, key])
+    toggle: useCallback(toEnter => toggle(key, toEnter), [toggle, key])
   };
 };
 
-exports.useAccordionItemEffect = useAccordionItemEffect;
+export { useAccordionItemEffect };

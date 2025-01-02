@@ -1,8 +1,8 @@
 'use strict';
 
 var React = require('react');
-var useAccordionProvider = require('../hooks/useAccordionProvider.js');
-var ControlledAccordion = require('./ControlledAccordion.js');
+var useAccordionProvider = require('../hooks/useAccordionProvider.cjs');
+var ControlledAccordion = require('./ControlledAccordion.cjs');
 var jsxRuntime = require('react/jsx-runtime');
 
 const Accordion = /*#__PURE__*/React.forwardRef(({

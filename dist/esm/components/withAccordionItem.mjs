@@ -1,5 +1,5 @@
 import { forwardRef } from 'react';
-import { useAccordionItemEffect } from '../hooks/useAccordionItemEffect.js';
+import { useAccordionItemEffect } from '../hooks/useAccordionItemEffect.mjs';
 import { jsx } from 'react/jsx-runtime';
 
 const withAccordionItem = WrappedItem => {

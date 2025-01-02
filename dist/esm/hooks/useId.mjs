@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ACCORDION_PREFIX } from '../utils/constants.js';
+import { ACCORDION_PREFIX } from '../utils/constants.mjs';
 
 let current = 0;
 const useIdShim = () => {

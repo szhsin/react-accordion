@@ -1,13 +1,13 @@
 'use strict';
 
 var React = require('react');
-var constants = require('../utils/constants.js');
-var bem = require('../utils/bem.js');
-var mergeProps = require('../utils/mergeProps.js');
-var useAccordionItem = require('../hooks/useAccordionItem.js');
-var useHeightTransition = require('../hooks/useHeightTransition.js');
-var useMergeRef = require('../hooks/useMergeRef.js');
-var withAccordionItem = require('./withAccordionItem.js');
+var constants = require('../utils/constants.cjs');
+var bem = require('../utils/bem.cjs');
+var mergeProps = require('../utils/mergeProps.cjs');
+var useAccordionItem = require('../hooks/useAccordionItem.cjs');
+var useHeightTransition = require('../hooks/useHeightTransition.cjs');
+var useMergeRef = require('../hooks/useMergeRef.cjs');
+var withAccordionItem = require('./withAccordionItem.cjs');
 var jsxRuntime = require('react/jsx-runtime');
 
 const getRenderNode = (nodeOrFunc, props) => typeof nodeOrFunc === 'function' ? nodeOrFunc(props) : nodeOrFunc;

@@ -1,6 +1,6 @@
 'use strict';
 
-var constants = require('../utils/constants.js');
+var constants = require('../utils/constants.cjs');
 
 const getAccordion = node => {
   do {

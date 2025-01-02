@@ -1,13 +1,15 @@
-import { useState, useRef } from 'react';
-import { useLayoutEffect as useIsomorphicLayoutEffect } from '../utils/useIsomorphicLayoutEffect.js';
+'use strict';
+
+var React = require('react');
+var useIsomorphicLayoutEffect = require('../utils/useIsomorphicLayoutEffect.cjs');
 
 const useHeightTransition = ({
   status,
   isResolved
 }) => {
-  const [height, setHeight] = useState();
-  const elementRef = useRef(null);
-  useIsomorphicLayoutEffect(() => {
+  const [height, setHeight] = React.useState();
+  const elementRef = React.useRef(null);
+  useIsomorphicLayoutEffect.useLayoutEffect(() => {
     (status === 'preEnter' || status === 'preExit') && setHeight(elementRef.current.getBoundingClientRect().height);
   }, [status]);
   const style = {
@@ -17,4 +19,4 @@ const useHeightTransition = ({
   return [style, elementRef];
 };
 
-export { useHeightTransition };
+exports.useHeightTransition = useHeightTransition;

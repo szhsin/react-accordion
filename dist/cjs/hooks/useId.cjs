@@ -1,7 +1,7 @@
 'use strict';
 
 var React = require('react');
-var constants = require('../utils/constants.js');
+var constants = require('../utils/constants.cjs');
 
 let current = 0;
 const useIdShim = () => {

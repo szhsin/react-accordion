@@ -1,6 +1,6 @@
 'use strict';
 
-var useAccordionContext = require('./useAccordionContext.js');
+var useAccordionContext = require('./useAccordionContext.cjs');
 
 const useAccordionState = () => {
   const context = useAccordionContext.useAccordionContext();

@@ -24,15 +24,17 @@ export default {
   input: 'src/index.ts',
   output: [
     {
-      preserveModules: true,
       dir: 'dist/cjs',
       format: 'cjs',
-      interop: 'default'
+      interop: 'default',
+      entryFileNames: '[name].cjs',
+      preserveModules: true
     },
     {
-      preserveModules: true,
-      dir: 'dist/es',
-      format: 'es'
+      dir: 'dist/esm',
+      format: 'es',
+      entryFileNames: '[name].mjs',
+      preserveModules: true
     }
   ]
 };

@@ -1,11 +1,11 @@
 'use strict';
 
 var React = require('react');
-var constants = require('../utils/constants.js');
-var bem = require('../utils/bem.js');
-var mergeProps = require('../utils/mergeProps.js');
-var AccordionProvider = require('./AccordionProvider.js');
-var useAccordion = require('../hooks/useAccordion.js');
+var constants = require('../utils/constants.cjs');
+var bem = require('../utils/bem.cjs');
+var mergeProps = require('../utils/mergeProps.cjs');
+var AccordionProvider = require('./AccordionProvider.cjs');
+var useAccordion = require('../hooks/useAccordion.cjs');
 var jsxRuntime = require('react/jsx-runtime');
 
 const ControlledAccordion = /*#__PURE__*/React.forwardRef(({

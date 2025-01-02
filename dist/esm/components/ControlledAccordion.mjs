@@ -1,9 +1,9 @@
 import { forwardRef } from 'react';
-import { ACCORDION_BLOCK } from '../utils/constants.js';
-import { bem } from '../utils/bem.js';
-import { mergeProps } from '../utils/mergeProps.js';
-import { AccordionProvider } from './AccordionProvider.js';
-import { useAccordion } from '../hooks/useAccordion.js';
+import { ACCORDION_BLOCK } from '../utils/constants.mjs';
+import { bem } from '../utils/bem.mjs';
+import { mergeProps } from '../utils/mergeProps.mjs';
+import { AccordionProvider } from './AccordionProvider.mjs';
+import { useAccordion } from '../hooks/useAccordion.mjs';
 import { jsx } from 'react/jsx-runtime';
 
 const ControlledAccordion = /*#__PURE__*/forwardRef(({
