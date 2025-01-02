@@ -45,6 +45,14 @@
     "postbuild": "rm -Rf types/__tests__",
     "build": "run-s pret clean types lint bundle"
   },
+  "exports": {
+    ".": {
+      "types": "./types/index.d.ts",
+      "require": "./dist/cjs/index.cjs",
+      "default": "./dist/esm/index.mjs"
+    },
+    "./package.json": "./package.json"
+  },
   "peerDependencies": {
     "react": "^16.14 || ^17.0 || ^18.0 || ^19.0",
     "react-dom": "^16.14 || ^17.0 || ^18.0 || ^19.0"
