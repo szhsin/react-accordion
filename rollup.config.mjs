@@ -2,7 +2,6 @@
 
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import { babel } from '@rollup/plugin-babel';
-import preserveDirectives from 'rollup-preserve-directives';
 
 /**
  * @type {import('rollup').RollupOptions}
@@ -15,7 +14,10 @@ export default {
       babelHelpers: 'bundled',
       extensions: ['.ts', '.tsx', '.js', '.jsx']
     }),
-    preserveDirectives()
+    {
+      name: 'rollup-plugin-add-directives',
+      banner: (chunk) => (chunk.name === 'index' ? "'use client';" : '')
+    }
   ],
   treeshake: {
     moduleSideEffects: false,
