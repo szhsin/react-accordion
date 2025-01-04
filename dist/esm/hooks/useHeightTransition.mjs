@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react';
-import { useLayoutEffect as useIsomorphicLayoutEffect } from '../utils/useIsomorphicLayoutEffect.js';
+import { useLayoutEffect as useIsomorphicLayoutEffect } from '../utils/useIsomorphicLayoutEffect.mjs';
 
 const useHeightTransition = ({
   status,

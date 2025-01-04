@@ -1,8 +1,16 @@
 .footer {
   text-align: center;
   padding: 2rem 1rem;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--ifm-color-gray-500);
+}
+
+.footer a {
+  width: auto;
+  font-size: 16px;
 }
 
 .license {
-  margin: 1rem 0 0.25rem;
+  margin-top: 16px;
 }
