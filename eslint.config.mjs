@@ -16,7 +16,6 @@ export default tseslint.config(
   jest.configs['flat/style'],
   react.configs.flat.recommended,
   reactHooksAddons.configs.recommended,
-  // @ts-ignore
   prettier,
   {
     files: ['**/*.js', '**/*.mjs'],
@@ -69,7 +68,6 @@ export default tseslint.config(
       'react/prop-types': 0,
       'react-hooks/rules-of-hooks': 'error',
       'react-hooks/exhaustive-deps': 'error',
-      'react-hooks-addons/no-unused-deps': 'error',
       '@typescript-eslint/ban-ts-comment': 0,
       '@typescript-eslint/no-unused-expressions': [
         'error',
