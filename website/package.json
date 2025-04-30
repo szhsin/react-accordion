@@ -15,22 +15,22 @@
     "typecheck": "tsc"
   },
   "dependencies": {
-    "@docusaurus/core": "^3.6.3",
-    "@docusaurus/preset-classic": "^3.6.3",
-    "@mdx-js/react": "^3.0.1",
+    "@docusaurus/core": "^3.7.0",
+    "@docusaurus/preset-classic": "^3.7.0",
+    "@mdx-js/react": "^3.1.0",
     "@szhsin/react-accordion": "file:..",
     "clsx": "^1.2.1",
-    "prism-react-renderer": "^2.4.0",
+    "prism-react-renderer": "^2.4.1",
     "react": "file:../node_modules/react",
     "react-dom": "file:../node_modules/react-dom"
   },
   "devDependencies": {
-    "@docusaurus/module-type-aliases": "^3.6.3",
-    "@docusaurus/tsconfig": "^3.6.3",
-    "@docusaurus/types": "^3.6.3",
+    "@docusaurus/module-type-aliases": "^3.7.0",
+    "@docusaurus/tsconfig": "^3.7.0",
+    "@docusaurus/types": "^3.7.0",
     "@types/react": "file:../node_modules/@types/react",
     "raw-loader": "^4.0.2",
-    "typescript": "^5.6.2"
+    "typescript": "^5.8.3"
   },
   "overrides": {
     "react": "$react",
