@@ -5,21 +5,22 @@
 **[Examples and Docs](https://szhsin.github.io/react-accordion/)**
 
 [![NPM](https://img.shields.io/npm/v/@szhsin/react-accordion.svg)](https://www.npmjs.com/package/@szhsin/react-accordion)
-[![NPM](https://img.shields.io/bundlephobia/minzip/@szhsin/react-accordion)](https://bundlephobia.com/package/@szhsin/react-accordion)
+[![bundlephobia](https://img.shields.io/bundlephobia/minzip/@szhsin/react-accordion)](https://bundlephobia.com/package/@szhsin/react-accordion)
+[![bundlejs](https://deno.bundlejs.com/?q=%40szhsin%2Freact-accordion&treeshake=%5B*%5D&config=%7B%22esbuild%22%3A%7B%22external%22%3A%5B%22react%22%2C%22react-dom%22%5D%7D%7D&badge=simple)](https://bundlejs.com/?q=%40szhsin%2Freact-accordion&treeshake=%5B*%5D&config=%7B%22esbuild%22%3A%7B%22external%22%3A%5B%22react%22%2C%22react-dom%22%5D%7D%7D&bundle)
 
 ## Features
 
 - Unstyled React accordion components
-- React hooks for Headless usage
+- Headless usage via React hooks
 - [WAI-ARIA compliant](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/)
-- Keyboard navigable
-- Support animation
-- Can be controlled or uncontrolled
-- Control to expand/collapse specific item or all items
-- [Level 3 support](https://github.com/reactwg/react-18/discussions/70) of React 18 concurrent rendering
-- Support server-side rendering
-- Small and tree-shakable [(~3kB)](https://bundlephobia.com/package/@szhsin/react-accordion)
-- Strongly typed API with TypeScript
+- Fully keyboard accessible
+- Supports animations
+- Works in controlled and uncontrolled modes
+- Control to expand/collapse individual or all items
+- Compatible with React 18+ concurrent rendering
+- Supports server-side rendering (SSR)
+- Lightweight and tree-shakable [(~3kB)](https://bundlephobia.com/package/@szhsin/react-accordion)
+- Fully typed API with TypeScript
 
 ![react accordion](https://user-images.githubusercontent.com/41896553/236674264-2412dd3b-48b1-4df1-ab31-40d191e188de.gif)
 
