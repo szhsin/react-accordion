@@ -61,7 +61,7 @@
     "react-transition-state": "^2.3.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.26.10",
+    "@babel/core": "^7.27.1",
     "@babel/preset-env": "^7.26.9",
     "@babel/preset-react": "^7.26.3",
     "@babel/preset-typescript": "^7.27.1",
