@@ -1,4 +1,4 @@
-import clsx from 'clsx';
+import { clsx } from 'clsx';
 import LinkItem from '@theme/Footer/LinkItem';
 import styles from './index.module.css';
 
