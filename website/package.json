@@ -15,9 +15,9 @@
     "typecheck": "tsc"
   },
   "dependencies": {
-    "@docusaurus/core": "^3.8.1",
-    "@docusaurus/preset-classic": "^3.8.1",
-    "@mdx-js/react": "^3.1.0",
+    "@docusaurus/core": "^3.9.2",
+    "@docusaurus/preset-classic": "^3.9.2",
+    "@mdx-js/react": "^3.1.1",
     "@szhsin/react-accordion": "file:..",
     "clsx": "^2.1.1",
     "prism-react-renderer": "^2.4.1",
@@ -25,12 +25,12 @@
     "react-dom": "file:../node_modules/react-dom"
   },
   "devDependencies": {
-    "@docusaurus/module-type-aliases": "^3.8.1",
-    "@docusaurus/tsconfig": "^3.8.1",
-    "@docusaurus/types": "^3.8.1",
+    "@docusaurus/module-type-aliases": "^3.9.2",
+    "@docusaurus/tsconfig": "^3.9.2",
+    "@docusaurus/types": "^3.9.2",
     "@types/react": "file:../node_modules/@types/react",
     "raw-loader": "^4.0.2",
-    "typescript": "^5.8.3"
+    "typescript": "^5.9.3"
   },
   "browserslist": {
     "production": [

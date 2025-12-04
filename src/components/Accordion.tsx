@@ -4,8 +4,7 @@ import { useAccordionProvider } from '../hooks/useAccordionProvider';
 import { ControlledAccordion, ControlledAccordionProps } from './ControlledAccordion';
 
 interface AccordionProps
-  extends AccordionProviderOptions,
-    Omit<ControlledAccordionProps, 'providerValue'> {}
+  extends AccordionProviderOptions, Omit<ControlledAccordionProps, 'providerValue'> {}
 
 const Accordion = forwardRef<HTMLDivElement, AccordionProps>(
   (

@@ -15,8 +15,7 @@ interface ItemElementProps<E extends HTMLElement> extends ElementProps<E, Transi
 type NodeOrFunc = ReactNode | ((props: ItemState) => ReactNode);
 
 interface AccordionItemProps
-  extends ItemStateOptions,
-    ElementProps<HTMLDivElement, TransitionState> {
+  extends ItemStateOptions, ElementProps<HTMLDivElement, TransitionState> {
   header?: NodeOrFunc;
   children?: NodeOrFunc;
   headingTag?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
@@ -27,8 +26,7 @@ interface AccordionItemProps
 }
 
 interface WrappedItemProps<E extends Element>
-  extends ItemStateProps<E>,
-    Omit<AccordionItemProps, 'itemRef' | 'itemKey' | 'initialEntered'> {}
+  extends ItemStateProps<E>, Omit<AccordionItemProps, 'itemRef' | 'itemKey' | 'initialEntered'> {}
 
 const getRenderNode: <P>(
   nodeOrFunc: ReactNode | ((props: P) => ReactNode),

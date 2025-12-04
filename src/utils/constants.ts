@@ -15,8 +15,10 @@ export type Modifiers = {
   readonly [index: string]: boolean | string;
 };
 export type ClassNameProp<P> = string | ((props: P) => string);
-export interface ElementProps<E extends HTMLElement, P = undefined>
-  extends Omit<HTMLAttributes<E>, 'className' | 'children'> {
+export interface ElementProps<E extends HTMLElement, P = undefined> extends Omit<
+  HTMLAttributes<E>,
+  'className' | 'children'
+> {
   className?: P extends undefined ? string : ClassNameProp<P>;
   'data-testid'?: string | number;
 }
@@ -43,11 +45,10 @@ export interface ItemStateOptions {
   disabled?: boolean;
 }
 
-export interface AccordionProviderOptions
-  extends Omit<
-    TransitionMapOptions<ItemKey>,
-    'enter' | 'exit' | 'preEnter' | 'preExit' | 'timeout'
-  > {
+export interface AccordionProviderOptions extends Omit<
+  TransitionMapOptions<ItemKey>,
+  'enter' | 'exit' | 'preEnter' | 'preExit' | 'timeout'
+> {
   transition?: TransitionProp;
   transitionTimeout?: TransitionOptions['timeout'];
 }
