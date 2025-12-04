@@ -7,3 +7,4 @@ example/out/
 .next/
 _next/
 .docusaurus/
+next-env.d.ts
