@@ -8,6 +8,7 @@ if [ -z "$check_str" ]; then
     exit 1
 fi
 
+npm run clear
 npm run build
 
 tmpdir="$HOME/gh-pages"
