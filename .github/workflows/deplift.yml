@@ -18,5 +18,3 @@ jobs:
     steps:
       - name: Update dependencies
         uses: szhsin/deplift-action@v1
-        with:
-          node-version: 24
