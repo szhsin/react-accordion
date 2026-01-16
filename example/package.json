@@ -10,16 +10,16 @@
   },
   "dependencies": {
     "@szhsin/react-accordion": "file:..",
-    "next": "^16.1.1",
+    "next": "^16.1.2",
     "react": "file:../node_modules/react",
     "react-dom": "file:../node_modules/react-dom"
   },
   "devDependencies": {
-    "@types/node": "^25.0.5",
+    "@types/node": "^25.0.9",
     "@types/react": "file:../node_modules/@types/react",
     "@types/react-dom": "file:../node_modules/@types/react-dom",
     "eslint": "^9.39.2",
-    "eslint-config-next": "^16.1.1",
+    "eslint-config-next": "^16.1.2",
     "typescript": "^5.9.3"
   }
 }
