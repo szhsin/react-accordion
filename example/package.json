@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@szhsin/react-accordion": "file:..",
-    "next": "^16.1.6",
+    "next": "^16.2.1",
     "react": "file:../node_modules/react",
     "react-dom": "file:../node_modules/react-dom"
   },
@@ -19,7 +19,7 @@
     "@types/react": "file:../node_modules/@types/react",
     "@types/react-dom": "file:../node_modules/@types/react-dom",
     "eslint": "^9.39.2",
-    "eslint-config-next": "^16.1.6",
+    "eslint-config-next": "^16.2.1",
     "typescript": "^5.9.3"
   }
 }
