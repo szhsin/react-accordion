@@ -1,7 +1,7 @@
 import { render } from '../utils';
 import { Accordion, AccordionProps, useAccordionProvider } from '../../';
 
-jest.mock('../../hooks/useAccordionProvider');
+vi.mock('../../hooks/useAccordionProvider');
 
 test('Accordion should forward props to useAccordionProvider', () => {
   const props: AccordionProps = {
@@ -11,7 +11,7 @@ test('Accordion should forward props to useAccordionProvider', () => {
     unmountOnExit: false,
     transition: true,
     transitionTimeout: 300,
-    onStateChange: jest.fn()
+    onStateChange: vi.fn()
   };
   render(<Accordion {...props}>Accordion</Accordion>);
   expect(useAccordionProvider).toHaveBeenCalledWith(props);

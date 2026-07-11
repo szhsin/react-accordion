@@ -3,8 +3,8 @@ import { render, getAccordion } from '../utils';
 import { Accordion, AccordionItem } from '../../';
 
 test('Accordion should forward props and ref', () => {
-  const ref = jest.fn();
-  const onKeyDown = jest.fn();
+  const ref = vi.fn();
+  const onKeyDown = vi.fn();
   render(
     getAccordion({
       props: { 'data-testid': 'accordion', className: 'my-accordion', onKeyDown },
@@ -49,7 +49,7 @@ test('Accordion should allow multiple items to expand', () => {
 });
 
 test('Accordion should support keyboard interaction', () => {
-  const onKeyDown = jest.fn();
+  const onKeyDown = vi.fn();
   render(
     <Accordion onKeyDown={onKeyDown}>
       <AccordionItem header="header 1">item 1</AccordionItem>
@@ -108,7 +108,7 @@ test('Accordion should support keyboard interaction', () => {
   currentFocus = screen.getByRole('button', { name: 'header 2.2' });
   expect(currentFocus).toHaveFocus();
   // eslint-disable-next-line
-  expect(onKeyDown.mock.lastCall[0].isDefaultPrevented()).toBe(true);
+  expect(onKeyDown.mock.lastCall?.[0].isDefaultPrevented()).toBe(true);
 
   // Nested level navigation through a single item
   currentFocus = screen.getByRole('button', { name: 'header 3.1' });
@@ -118,5 +118,5 @@ test('Accordion should support keyboard interaction', () => {
   fireEvent.keyDown(currentFocus, { key: 'ArrowDown' });
   expect(currentFocus).toHaveFocus();
   // eslint-disable-next-line
-  expect(onKeyDown.mock.lastCall[0].isDefaultPrevented()).toBe(false);
+  expect(onKeyDown.mock.lastCall?.[0].isDefaultPrevented()).toBe(false);
 });

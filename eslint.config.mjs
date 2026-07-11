@@ -1,22 +1,21 @@
 // @ts-check
-
+import { defineConfig } from 'eslint/config';
 import eslint from '@eslint/js';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
 import prettier from 'eslint-config-prettier';
-import jest from 'eslint-plugin-jest';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactHooksAddons from 'eslint-plugin-react-hooks-addons';
+import vitest from '@vitest/eslint-plugin';
 
-export default tseslint.config(
+export default defineConfig(
   eslint.configs.recommended,
-  ...tseslint.configs.recommendedTypeChecked,
-  jest.configs['flat/recommended'],
-  jest.configs['flat/style'],
+  tseslint.configs.recommendedTypeChecked,
+  vitest.configs.recommended,
   reactHooksAddons.configs.recommended,
   prettier,
   {
-    files: ['**/*.js', '**/*.mjs'],
+    files: ['**/*.?(c|m)js'],
     ...tseslint.configs.disableTypeChecked
   },
   {
@@ -36,7 +35,7 @@ export default tseslint.config(
       sourceType: 'module',
       parserOptions: {
         projectService: {
-          allowDefaultProject: ['*.js', '*.mjs']
+          allowDefaultProject: ['*.?(c|m)[jt]s']
         },
         tsconfigRootDir: import.meta.dirname,
         ecmaFeatures: {
@@ -46,10 +45,11 @@ export default tseslint.config(
       globals: {
         ...globals.browser,
         ...globals.node,
-        ...globals.jest
+        ...globals.vitest
       }
     },
     plugins: {
+      // @ts-ignore
       'react-hooks': reactHooks
     },
     rules: {

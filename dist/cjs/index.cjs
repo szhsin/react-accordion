@@ -1,30 +1,27 @@
-'use client';
-'use strict';
-
-var Accordion = require('./components/Accordion.cjs');
-var AccordionItem = require('./components/AccordionItem.cjs');
-var AccordionProvider = require('./components/AccordionProvider.cjs');
-var ControlledAccordion = require('./components/ControlledAccordion.cjs');
-var withAccordionItem = require('./components/withAccordionItem.cjs');
-var useAccordion = require('./hooks/useAccordion.cjs');
-var useAccordionItem = require('./hooks/useAccordionItem.cjs');
-var useAccordionItemEffect = require('./hooks/useAccordionItemEffect.cjs');
-var useAccordionProvider = require('./hooks/useAccordionProvider.cjs');
-var useAccordionState = require('./hooks/useAccordionState.cjs');
-var useHeightTransition = require('./hooks/useHeightTransition.cjs');
-var useMergeRef = require('./hooks/useMergeRef.cjs');
-
-
-
-exports.Accordion = Accordion.Accordion;
-exports.AccordionItem = AccordionItem.AccordionItem;
-exports.AccordionProvider = AccordionProvider.AccordionProvider;
-exports.ControlledAccordion = ControlledAccordion.ControlledAccordion;
-exports.withAccordionItem = withAccordionItem.withAccordionItem;
-exports.useAccordion = useAccordion.useAccordion;
-exports.useAccordionItem = useAccordionItem.useAccordionItem;
-exports.useAccordionItemEffect = useAccordionItemEffect.useAccordionItemEffect;
-exports.useAccordionProvider = useAccordionProvider.useAccordionProvider;
-exports.useAccordionState = useAccordionState.useAccordionState;
-exports.useHeightTransition = useHeightTransition.useHeightTransition;
-exports.useMergeRef = useMergeRef.useMergeRef;
+"use client";
+"use strict";
+Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
+const require_useAccordionProvider = require("./hooks/useAccordionProvider.cjs");
+const require_AccordionProvider = require("./components/AccordionProvider.cjs");
+const require_useAccordion = require("./hooks/useAccordion.cjs");
+const require_ControlledAccordion = require("./components/ControlledAccordion.cjs");
+const require_Accordion = require("./components/Accordion.cjs");
+const require_useAccordionItem = require("./hooks/useAccordionItem.cjs");
+const require_useHeightTransition = require("./hooks/useHeightTransition.cjs");
+const require_useMergeRef = require("./hooks/useMergeRef.cjs");
+const require_useAccordionItemEffect = require("./hooks/useAccordionItemEffect.cjs");
+const require_withAccordionItem = require("./components/withAccordionItem.cjs");
+const require_AccordionItem = require("./components/AccordionItem.cjs");
+const require_useAccordionState = require("./hooks/useAccordionState.cjs");
+exports.Accordion = require_Accordion.Accordion;
+exports.AccordionItem = require_AccordionItem.AccordionItem;
+exports.AccordionProvider = require_AccordionProvider.AccordionProvider;
+exports.ControlledAccordion = require_ControlledAccordion.ControlledAccordion;
+exports.useAccordion = require_useAccordion.useAccordion;
+exports.useAccordionItem = require_useAccordionItem.useAccordionItem;
+exports.useAccordionItemEffect = require_useAccordionItemEffect.useAccordionItemEffect;
+exports.useAccordionProvider = require_useAccordionProvider.useAccordionProvider;
+exports.useAccordionState = require_useAccordionState.useAccordionState;
+exports.useHeightTransition = require_useHeightTransition.useHeightTransition;
+exports.useMergeRef = require_useMergeRef.useMergeRef;
+exports.withAccordionItem = require_withAccordionItem.withAccordionItem;
