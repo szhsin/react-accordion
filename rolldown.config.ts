@@ -1,34 +1,30 @@
-// @ts-check
-
-import { nodeResolve } from '@rollup/plugin-node-resolve';
-import { babel } from '@rollup/plugin-babel';
+import { defineConfig } from 'rolldown';
 import { addDirective } from 'rollup-plugin-add-directive';
 
-/**
- * @type {import('rollup').RollupOptions}
- */
-export default {
+export default defineConfig({
   external: ['react', 'react-dom', 'react/jsx-runtime', 'react-transition-state'],
-  plugins: [
-    nodeResolve({ extensions: ['.ts', '.tsx', '.js', '.jsx'] }),
-    babel({
-      babelHelpers: 'bundled',
-      extensions: ['.ts', '.tsx', '.js', '.jsx']
-    }),
-    addDirective({ pattern: 'index' })
-  ],
+  plugins: [addDirective({ pattern: 'index' })],
   treeshake: {
     moduleSideEffects: false,
     propertyReadSideEffects: false
+  },
+  transform: {
+    target: ['es2020'],
+    assumptions: {
+      noDocumentAll: true
+    },
+    define: {
+      'process.env.NODE_ENV': 'process.env.NODE_ENV'
+    }
   },
   input: 'src/index.ts',
   output: [
     {
       dir: 'dist/cjs',
       format: 'cjs',
-      interop: 'default',
       entryFileNames: '[name].cjs',
-      preserveModules: true
+      preserveModules: true,
+      strict: true
     },
     {
       dir: 'dist/esm',
@@ -37,4 +33,4 @@ export default {
       preserveModules: true
     }
   ]
-};
+});

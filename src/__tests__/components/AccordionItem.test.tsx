@@ -11,7 +11,7 @@ describe('AccordionItem', () => {
   });
 
   test('should forward props and ref to item', () => {
-    const ref = jest.fn();
+    const ref = vi.fn();
     render(
       getAccordion({ item1Props: { 'data-testid': 'item1', className: 'item-1' }, item1Ref: ref })
     );
@@ -22,7 +22,7 @@ describe('AccordionItem', () => {
   });
 
   test('should forward props and ref to heading', () => {
-    const ref = jest.fn();
+    const ref = vi.fn();
     render(
       getAccordion({
         item1Props: {
@@ -43,7 +43,7 @@ describe('AccordionItem', () => {
   });
 
   test('should forward props and ref to button', () => {
-    const ref = jest.fn();
+    const ref = vi.fn();
     render(
       getAccordion({
         item1Props: {
@@ -65,7 +65,7 @@ describe('AccordionItem', () => {
   });
 
   test('should forward props and ref to content', () => {
-    const ref = jest.fn();
+    const ref = vi.fn();
     render(
       getAccordion({
         item2Props: {
@@ -85,7 +85,7 @@ describe('AccordionItem', () => {
   });
 
   test('should forward props and ref to panel', () => {
-    const ref = jest.fn();
+    const ref = vi.fn();
     render(
       getAccordion({
         item2Props: {
@@ -107,7 +107,7 @@ describe('AccordionItem', () => {
 });
 
 describe('className function', () => {
-  const className = jest.fn();
+  const className = vi.fn();
   test.each([
     [{ className }],
     [{ headingProps: { className } }],
@@ -147,11 +147,11 @@ describe('Header and children render prop', () => {
   });
 
   let toggle!: ItemState['toggle'];
-  const header = jest.fn().mockImplementation(({ toggle: _toggle }: ItemState) => {
+  const header = vi.fn().mockImplementation(({ toggle: _toggle }: ItemState) => {
     toggle = _toggle;
     return 'custom header';
   });
-  const children = jest.fn().mockReturnValue('custom children');
+  const children = vi.fn().mockReturnValue('custom children');
 
   test.each([
     {
@@ -235,7 +235,7 @@ describe('Header and children render prop', () => {
 });
 
 test('AccordionItem should set DOM attributes', () => {
-  const onClick = jest.fn();
+  const onClick = vi.fn();
   render(
     getAccordion({
       item1Props: {
@@ -299,8 +299,8 @@ test('AccordionItem should lazily mount content when mountOnEnter is true', () =
 });
 
 test('AccordionItem should not render when the state of other items is updated', () => {
-  const children1 = jest.fn();
-  const children2 = jest.fn();
+  const children1 = vi.fn();
+  const children2 = vi.fn();
   render(
     getAccordion({
       props: { allowMultiple: true },
@@ -316,12 +316,12 @@ test('AccordionItem should not render when the state of other items is updated',
   expect(children1).toHaveBeenCalled();
   expect(children2).toHaveBeenCalled();
 
-  jest.clearAllMocks();
+  vi.clearAllMocks();
   fireEvent.click(screen.getByRole('button', { name: 'header 1' }));
   expect(children1).toHaveBeenCalled();
   expect(children2).not.toHaveBeenCalled();
 
-  jest.clearAllMocks();
+  vi.clearAllMocks();
   fireEvent.click(screen.getByRole('button', { name: 'header 2' }));
   expect(children1).not.toHaveBeenCalled();
   expect(children2).toHaveBeenCalled();

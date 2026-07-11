@@ -1,11 +1,13 @@
 import { renderHook } from '@testing-library/react';
 import { useId } from '../../hooks/useId';
 
-// eslint-disable-next-line @typescript-eslint/no-unsafe-return
-jest.mock('react', () => ({
-  ...jest.requireActual('react'),
-  useId: undefined
-}));
+vi.mock('react', async () => {
+  const originalModule = await vi.importActual<{ default: { useId: unknown } }>('react');
+  return {
+    ...originalModule,
+    default: { ...originalModule.default, useId: undefined }
+  };
+});
 
 test('useId', () => {
   const id1 = renderHook(() => useId());
