@@ -8,7 +8,7 @@ const require_useMergeRef = require("../hooks/useMergeRef.cjs");
 const require_withAccordionItem = require("./withAccordionItem.cjs");
 let react = require("react");
 let react_jsx_runtime = require("react/jsx-runtime");
-//#region src/components/AccordionItem.tsx
+// src/components/AccordionItem.tsx
 const getRenderNode = (nodeOrFunc, props) => typeof nodeOrFunc === "function" ? nodeOrFunc(props) : nodeOrFunc;
 const WrappedItem = (0, react.memo)(({ forwardedRef, itemRef, state, toggle, className, disabled, header, headingTag: Heading = "h3", headingProps, buttonProps, contentProps, panelProps, children, ...rest }) => {
 	const itemState = {
@@ -59,5 +59,4 @@ const WrappedItem = (0, react.memo)(({ forwardedRef, itemRef, state, toggle, cla
 });
 WrappedItem.displayName = "AccordionItem";
 const AccordionItem = require_withAccordionItem.withAccordionItem(WrappedItem);
-//#endregion
 exports.AccordionItem = AccordionItem;

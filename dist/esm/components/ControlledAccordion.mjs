@@ -5,7 +5,7 @@ import { AccordionProvider } from "./AccordionProvider.mjs";
 import { useAccordion } from "../hooks/useAccordion.mjs";
 import { forwardRef } from "react";
 import { jsx } from "react/jsx-runtime";
-//#region src/components/ControlledAccordion.tsx
+// src/components/ControlledAccordion.tsx
 const ControlledAccordion = forwardRef(({ providerValue, className, ...rest }, ref) => {
 	const { accordionProps } = useAccordion();
 	return /* @__PURE__ */ jsx(AccordionProvider, {
@@ -18,5 +18,4 @@ const ControlledAccordion = forwardRef(({ providerValue, className, ...rest }, r
 	});
 });
 ControlledAccordion.displayName = "ControlledAccordion";
-//#endregion
 export { ControlledAccordion };

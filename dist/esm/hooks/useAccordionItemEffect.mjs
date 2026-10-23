@@ -1,6 +1,6 @@
 import { getItemState, useAccordionContext } from "./useAccordionContext.mjs";
 import { useCallback, useEffect, useRef } from "react";
-//#region src/hooks/useAccordionItemEffect.ts
+// src/hooks/useAccordionItemEffect.ts
 const useAccordionItemEffect = ({ itemKey, initialEntered, disabled } = {}) => {
 	const itemRef = useRef(null);
 	const context = useAccordionContext();
@@ -25,5 +25,4 @@ const useAccordionItemEffect = ({ itemKey, initialEntered, disabled } = {}) => {
 		toggle: useCallback((toEnter) => toggle(key, toEnter), [toggle, key])
 	};
 };
-//#endregion
 export { useAccordionItemEffect };

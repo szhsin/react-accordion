@@ -1,5 +1,5 @@
 import { useTransitionMap } from "react-transition-state";
-//#region src/hooks/useAccordionProvider.ts
+// src/hooks/useAccordionProvider.ts
 const getTransition = (transition, name) => transition === true || !!(transition && transition[name]);
 const useAccordionProvider = ({ transition, transitionTimeout, ...rest } = {}) => {
 	const transitionMap = useTransitionMap({
@@ -16,5 +16,4 @@ const useAccordionProvider = ({ transition, transitionTimeout, ...rest } = {}) =
 		...transitionMap
 	};
 };
-//#endregion
 export { useAccordionProvider };

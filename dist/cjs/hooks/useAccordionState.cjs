@@ -1,6 +1,6 @@
 "use strict";
 const require_useAccordionContext = require("./useAccordionContext.cjs");
-//#region src/hooks/useAccordionState.ts
+// src/hooks/useAccordionState.ts
 const useAccordionState = () => {
 	const context = require_useAccordionContext.useAccordionContext();
 	return {
@@ -9,5 +9,4 @@ const useAccordionState = () => {
 		toggleAll: context.toggleAll
 	};
 };
-//#endregion
 exports.useAccordionState = useAccordionState;

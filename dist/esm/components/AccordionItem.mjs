@@ -7,7 +7,7 @@ import { useMergeRef } from "../hooks/useMergeRef.mjs";
 import { withAccordionItem } from "./withAccordionItem.mjs";
 import { memo } from "react";
 import { jsx, jsxs } from "react/jsx-runtime";
-//#region src/components/AccordionItem.tsx
+// src/components/AccordionItem.tsx
 const getRenderNode = (nodeOrFunc, props) => typeof nodeOrFunc === "function" ? nodeOrFunc(props) : nodeOrFunc;
 const WrappedItem = memo(({ forwardedRef, itemRef, state, toggle, className, disabled, header, headingTag: Heading = "h3", headingProps, buttonProps, contentProps, panelProps, children, ...rest }) => {
 	const itemState = {
@@ -58,5 +58,4 @@ const WrappedItem = memo(({ forwardedRef, itemRef, state, toggle, className, dis
 });
 WrappedItem.displayName = "AccordionItem";
 const AccordionItem = withAccordionItem(WrappedItem);
-//#endregion
 export { AccordionItem };

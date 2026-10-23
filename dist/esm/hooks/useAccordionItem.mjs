@@ -1,6 +1,6 @@
 import { ACCORDION_BTN_ATTR } from "../utils/constants.mjs";
 import { useId } from "./useId.mjs";
-//#region src/hooks/useAccordionItem.ts
+// src/hooks/useAccordionItem.ts
 const useAccordionItem = ({ state, toggle, disabled }) => {
 	const buttonId = useId();
 	const panelId = buttonId && buttonId + "-";
@@ -20,5 +20,4 @@ const useAccordionItem = ({ state, toggle, disabled }) => {
 		}
 	};
 };
-//#endregion
 export { useAccordionItem };

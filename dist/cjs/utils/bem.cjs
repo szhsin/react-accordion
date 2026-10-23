@@ -1,5 +1,5 @@
 "use strict";
-//#region src/utils/bem.ts
+// src/utils/bem.ts
 /**
 * Generate className following BEM methodology: http://getbem.com/naming/
 * Modifier value can be one of the types: boolean, string
@@ -18,5 +18,4 @@ const bem = (block, element, modifiers) => (className, props) => {
 	}
 	return classString;
 };
-//#endregion
 exports.bem = bem;

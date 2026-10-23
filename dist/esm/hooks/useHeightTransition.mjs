@@ -1,6 +1,6 @@
 import { useLayoutEffect as useIsomorphicLayoutEffect } from "../utils/useIsomorphicLayoutEffect.mjs";
 import { useRef, useState } from "react";
-//#region src/hooks/useHeightTransition.ts
+// src/hooks/useHeightTransition.ts
 const useHeightTransition = ({ status, isResolved }) => {
 	const [height, setHeight] = useState();
 	const elementRef = useRef(null);
@@ -12,5 +12,4 @@ const useHeightTransition = ({ status, isResolved }) => {
 		overflow: isResolved ? void 0 : "hidden"
 	}, elementRef];
 };
-//#endregion
 export { useHeightTransition };

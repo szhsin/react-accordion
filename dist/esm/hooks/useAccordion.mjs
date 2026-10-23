@@ -1,15 +1,15 @@
 import { ACCORDION_ATTR, ACCORDION_BTN_ATTR } from "../utils/constants.mjs";
-//#region src/hooks/useAccordion.ts
+// src/hooks/useAccordion.ts
 const getAccordion = (node) => {
 	do
 		node = node.parentElement;
-	while (node && !node.hasAttribute(ACCORDION_ATTR));
+	while (node && !node.hasAttribute("data-szh-adn"));
 	return node;
 };
 const getNextIndex = (moveUp, current, length) => moveUp ? current > 0 ? current - 1 : length - 1 : (current + 1) % length;
 const moveFocus = (moveUp, e) => {
 	const { activeElement } = document;
-	if (!activeElement || !activeElement.hasAttribute(ACCORDION_BTN_ATTR) || getAccordion(activeElement) !== e.currentTarget) return;
+	if (!activeElement || !activeElement.hasAttribute("data-szh-adn-btn") || getAccordion(activeElement) !== e.currentTarget) return;
 	const nodes = e.currentTarget.querySelectorAll(`[${ACCORDION_BTN_ATTR}]`);
 	const { length } = nodes;
 	for (let i = 0; i < length; i++) if (nodes[i] === activeElement) {
@@ -28,5 +28,4 @@ const useAccordion = () => {
 		onKeyDown: (e) => e.key === "ArrowUp" ? moveFocus(true, e) : e.key === "ArrowDown" && moveFocus(false, e)
 	} };
 };
-//#endregion
 export { useAccordion };

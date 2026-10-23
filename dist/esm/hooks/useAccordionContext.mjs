@@ -1,6 +1,6 @@
 import { AccordionContext } from "../utils/constants.mjs";
 import { useContext } from "react";
-//#region src/hooks/useAccordionContext.ts
+// src/hooks/useAccordionContext.ts
 const getItemState = (providerValue, key, itemInitialEntered) => {
 	const { stateMap, mountOnEnter, initialEntered } = providerValue;
 	const _initialEntered = itemInitialEntered ?? initialEntered;
@@ -16,5 +16,4 @@ const useAccordionContext = () => {
 	if (process.env.NODE_ENV !== "production" && !context.stateMap) throw new Error("[React-Accordion] Cannot find a <AccordionProvider/> above this AccordionItem.");
 	return context;
 };
-//#endregion
 export { getItemState, useAccordionContext };
