@@ -1,6 +1,6 @@
 "use strict";
 let react_transition_state = require("react-transition-state");
-//#region src/hooks/useAccordionProvider.ts
+// src/hooks/useAccordionProvider.ts
 const getTransition = (transition, name) => transition === true || !!(transition && transition[name]);
 const useAccordionProvider = ({ transition, transitionTimeout, ...rest } = {}) => {
 	const transitionMap = (0, react_transition_state.useTransitionMap)({
@@ -17,5 +17,4 @@ const useAccordionProvider = ({ transition, transitionTimeout, ...rest } = {}) =
 		...transitionMap
 	};
 };
-//#endregion
 exports.useAccordionProvider = useAccordionProvider;

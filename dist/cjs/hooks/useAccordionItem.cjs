@@ -1,7 +1,7 @@
 "use strict";
 const require_constants = require("../utils/constants.cjs");
 const require_useId = require("./useId.cjs");
-//#region src/hooks/useAccordionItem.ts
+// src/hooks/useAccordionItem.ts
 const useAccordionItem = ({ state, toggle, disabled }) => {
 	const buttonId = require_useId.useId();
 	const panelId = buttonId && buttonId + "-";
@@ -21,5 +21,4 @@ const useAccordionItem = ({ state, toggle, disabled }) => {
 		}
 	};
 };
-//#endregion
 exports.useAccordionItem = useAccordionItem;

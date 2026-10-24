@@ -1,7 +1,7 @@
 "use strict";
 const require_constants = require("../utils/constants.cjs");
 let react = require("react");
-//#region src/hooks/useAccordionContext.ts
+// src/hooks/useAccordionContext.ts
 const getItemState = (providerValue, key, itemInitialEntered) => {
 	const { stateMap, mountOnEnter, initialEntered } = providerValue;
 	const _initialEntered = itemInitialEntered ?? initialEntered;
@@ -17,6 +17,5 @@ const useAccordionContext = () => {
 	if (process.env.NODE_ENV !== "production" && !context.stateMap) throw new Error("[React-Accordion] Cannot find a <AccordionProvider/> above this AccordionItem.");
 	return context;
 };
-//#endregion
 exports.getItemState = getItemState;
 exports.useAccordionContext = useAccordionContext;

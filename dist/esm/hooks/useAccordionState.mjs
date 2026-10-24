@@ -1,5 +1,5 @@
 import { getItemState, useAccordionContext } from "./useAccordionContext.mjs";
-//#region src/hooks/useAccordionState.ts
+// src/hooks/useAccordionState.ts
 const useAccordionState = () => {
 	const context = useAccordionContext();
 	return {
@@ -8,5 +8,4 @@ const useAccordionState = () => {
 		toggleAll: context.toggleAll
 	};
 };
-//#endregion
 export { useAccordionState };

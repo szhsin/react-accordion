@@ -1,7 +1,7 @@
 "use strict";
 const require_useIsomorphicLayoutEffect = require("../utils/useIsomorphicLayoutEffect.cjs");
 let react = require("react");
-//#region src/hooks/useHeightTransition.ts
+// src/hooks/useHeightTransition.ts
 const useHeightTransition = ({ status, isResolved }) => {
 	const [height, setHeight] = (0, react.useState)();
 	const elementRef = (0, react.useRef)(null);
@@ -13,5 +13,4 @@ const useHeightTransition = ({ status, isResolved }) => {
 		overflow: isResolved ? void 0 : "hidden"
 	}, elementRef];
 };
-//#endregion
 exports.useHeightTransition = useHeightTransition;

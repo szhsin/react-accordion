@@ -2,7 +2,7 @@ import { useAccordionProvider } from "../hooks/useAccordionProvider.mjs";
 import { ControlledAccordion } from "./ControlledAccordion.mjs";
 import { forwardRef } from "react";
 import { jsx } from "react/jsx-runtime";
-//#region src/components/Accordion.tsx
+// src/components/Accordion.tsx
 const Accordion = forwardRef(({ allowMultiple, initialEntered, mountOnEnter, unmountOnExit, transition, transitionTimeout, onStateChange, ...rest }, ref) => {
 	const providerValue = useAccordionProvider({
 		allowMultiple,
@@ -20,5 +20,4 @@ const Accordion = forwardRef(({ allowMultiple, initialEntered, mountOnEnter, unm
 	});
 });
 Accordion.displayName = "Accordion";
-//#endregion
 export { Accordion };

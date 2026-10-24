@@ -1,7 +1,7 @@
 "use strict";
 const require_useAccordionContext = require("./useAccordionContext.cjs");
 let react = require("react");
-//#region src/hooks/useAccordionItemEffect.ts
+// src/hooks/useAccordionItemEffect.ts
 const useAccordionItemEffect = ({ itemKey, initialEntered, disabled } = {}) => {
 	const itemRef = (0, react.useRef)(null);
 	const context = require_useAccordionContext.useAccordionContext();
@@ -26,5 +26,4 @@ const useAccordionItemEffect = ({ itemKey, initialEntered, disabled } = {}) => {
 		toggle: (0, react.useCallback)((toEnter) => toggle(key, toEnter), [toggle, key])
 	};
 };
-//#endregion
 exports.useAccordionItemEffect = useAccordionItemEffect;

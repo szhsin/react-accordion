@@ -1,5 +1,5 @@
 "use strict";
-//#region src/utils/mergeProps.ts
+// src/utils/mergeProps.ts
 const mergeProps = (target, source) => {
 	if (!source) return target;
 	const result = { ...target };
@@ -14,5 +14,4 @@ const mergeProps = (target, source) => {
 	});
 	return result;
 };
-//#endregion
 exports.mergeProps = mergeProps;

@@ -6,7 +6,7 @@ const require_AccordionProvider = require("./AccordionProvider.cjs");
 const require_useAccordion = require("../hooks/useAccordion.cjs");
 let react = require("react");
 let react_jsx_runtime = require("react/jsx-runtime");
-//#region src/components/ControlledAccordion.tsx
+// src/components/ControlledAccordion.tsx
 const ControlledAccordion = (0, react.forwardRef)(({ providerValue, className, ...rest }, ref) => {
 	const { accordionProps } = require_useAccordion.useAccordion();
 	return /* @__PURE__ */ (0, react_jsx_runtime.jsx)(require_AccordionProvider.AccordionProvider, {
@@ -19,5 +19,4 @@ const ControlledAccordion = (0, react.forwardRef)(({ providerValue, className, .
 	});
 });
 ControlledAccordion.displayName = "ControlledAccordion";
-//#endregion
 exports.ControlledAccordion = ControlledAccordion;

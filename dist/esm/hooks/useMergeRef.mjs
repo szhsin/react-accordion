@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-//#region src/hooks/useMergeRef.ts
+// src/hooks/useMergeRef.ts
 function setRef(ref, instance) {
 	typeof ref === "function" ? ref(instance) : ref.current = instance;
 }
@@ -13,5 +13,4 @@ function useMergeRef(refA, refB) {
 		};
 	}, [refA, refB]);
 }
-//#endregion
 export { useMergeRef };
