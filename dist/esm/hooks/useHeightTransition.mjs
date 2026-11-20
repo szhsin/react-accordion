@@ -1,5 +1,5 @@
-import { useLayoutEffect as useIsomorphicLayoutEffect } from "../utils/useIsomorphicLayoutEffect.mjs";
 import { useRef, useState } from "react";
+import { useLayoutEffect as useIsomorphicLayoutEffect } from "../utils/useIsomorphicLayoutEffect.mjs";
 // src/hooks/useHeightTransition.ts
 const useHeightTransition = ({ status, isResolved }) => {
 	const [height, setHeight] = useState();

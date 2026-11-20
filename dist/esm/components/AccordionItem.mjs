@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { ACCORDION_BLOCK } from "../utils/constants.mjs";
 import { bem } from "../utils/bem.mjs";
 import { mergeProps } from "../utils/mergeProps.mjs";
@@ -5,7 +6,6 @@ import { useAccordionItem } from "../hooks/useAccordionItem.mjs";
 import { useHeightTransition } from "../hooks/useHeightTransition.mjs";
 import { useMergeRef } from "../hooks/useMergeRef.mjs";
 import { withAccordionItem } from "./withAccordionItem.mjs";
-import { memo } from "react";
 import { jsx, jsxs } from "react/jsx-runtime";
 // src/components/AccordionItem.tsx
 const getRenderNode = (nodeOrFunc, props) => typeof nodeOrFunc === "function" ? nodeOrFunc(props) : nodeOrFunc;

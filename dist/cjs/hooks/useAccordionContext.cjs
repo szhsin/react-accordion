@@ -1,6 +1,6 @@
 "use strict";
-const require_constants = require("../utils/constants.cjs");
 let react = require("react");
+const require_constants = require("../utils/constants.cjs");
 // src/hooks/useAccordionContext.ts
 const getItemState = (providerValue, key, itemInitialEntered) => {
 	const { stateMap, mountOnEnter, initialEntered } = providerValue;

@@ -1,10 +1,10 @@
 "use strict";
+let react = require("react");
 const require_constants = require("../utils/constants.cjs");
 const require_bem = require("../utils/bem.cjs");
 const require_mergeProps = require("../utils/mergeProps.cjs");
 const require_AccordionProvider = require("./AccordionProvider.cjs");
 const require_useAccordion = require("../hooks/useAccordion.cjs");
-let react = require("react");
 let react_jsx_runtime = require("react/jsx-runtime");
 // src/components/ControlledAccordion.tsx
 const ControlledAccordion = (0, react.forwardRef)(({ providerValue, className, ...rest }, ref) => {
