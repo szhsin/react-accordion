@@ -1,6 +1,6 @@
 "use strict";
-const require_useAccordionItemEffect = require("../hooks/useAccordionItemEffect.cjs");
 let react = require("react");
+const require_useAccordionItemEffect = require("../hooks/useAccordionItemEffect.cjs");
 let react_jsx_runtime = require("react/jsx-runtime");
 // src/components/withAccordionItem.tsx
 const withAccordionItem = (WrappedItem) => {

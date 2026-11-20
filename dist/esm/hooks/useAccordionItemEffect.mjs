@@ -1,5 +1,5 @@
-import { getItemState, useAccordionContext } from "./useAccordionContext.mjs";
 import { useCallback, useEffect, useRef } from "react";
+import { getItemState, useAccordionContext } from "./useAccordionContext.mjs";
 // src/hooks/useAccordionItemEffect.ts
 const useAccordionItemEffect = ({ itemKey, initialEntered, disabled } = {}) => {
 	const itemRef = useRef(null);
