@@ -1,4 +1,4 @@
-import { ItemStateOptions } from '../utils/constants';
+import { ItemStateOptions } from '../utils/constants.js';
 declare const useAccordionItemEffect: <E extends Element>({ itemKey, initialEntered, disabled }?: ItemStateOptions) => {
     itemRef: import("react").RefObject<E | null>;
     state: Readonly<{

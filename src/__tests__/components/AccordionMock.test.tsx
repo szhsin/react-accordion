@@ -1,5 +1,5 @@
-import { render } from '../utils';
-import { Accordion, AccordionProps, useAccordionProvider } from '../../';
+import { render } from '../utils.js';
+import { Accordion, AccordionProps, useAccordionProvider } from '../../index.js';
 
 vi.mock('../../hooks/useAccordionProvider');
 

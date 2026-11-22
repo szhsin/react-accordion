@@ -1,4 +1,4 @@
-import { ClassNameProp, Modifiers } from './constants';
+import { ClassNameProp, Modifiers } from './constants.js';
 /**
  * Generate className following BEM methodology: http://getbem.com/naming/
  * Modifier value can be one of the types: boolean, string

@@ -1,6 +1,6 @@
 import { screen, fireEvent } from '@testing-library/react';
-import { render, getAccordion } from '../utils';
-import { Accordion, AccordionItem } from '../../';
+import { render, getAccordion } from '../utils.js';
+import { Accordion, AccordionItem } from '../../index.js';
 
 test('Accordion should forward props and ref', () => {
   const ref = vi.fn();

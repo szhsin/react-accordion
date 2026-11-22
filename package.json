@@ -1,6 +1,6 @@
 {
   "name": "@szhsin/react-accordion",
-  "version": "1.4.3",
+  "version": "1.4.4",
   "description": "The complete accordion solution for React.",
   "author": "Zheng Song",
   "license": "MIT",
@@ -9,7 +9,7 @@
   "type": "module",
   "main": "./dist/cjs/index.cjs",
   "module": "./dist/esm/index.mjs",
-  "types": "./types/index.d.ts",
+  "types": "./types/esm/index.d.ts",
   "publishConfig": {
     "access": "public"
   },
@@ -30,25 +30,31 @@
     "wai-aria"
   ],
   "scripts": {
-    "start": "run-p watch \"types -- --watch\"",
+    "start": "run-p watch types:watch",
     "eg": "npm run dev --prefix example",
     "bundle": "rolldown -c",
     "watch": "rolldown -w -c",
     "clean": "rm -Rf dist types",
-    "types": "tsc",
+    "types": "tsc && rm -Rf types/cjs && cp -R types/esm types/cjs && echo '{\"type\":\"commonjs\"}' > types/cjs/package.json",
+    "types:watch": "tsc --watch",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "pret": "prettier -c .",
     "pret:fix": "prettier -w .",
     "test": "vitest run",
-    "postbuild": "rm -Rf types/__tests__",
+    "postbuild": "rm -Rf types/*/__tests__",
     "build": "run-s pret clean types lint bundle"
   },
   "exports": {
     ".": {
-      "types": "./types/index.d.ts",
-      "require": "./dist/cjs/index.cjs",
-      "default": "./dist/esm/index.mjs"
+      "require": {
+        "types": "./types/cjs/index.d.ts",
+        "default": "./dist/cjs/index.cjs"
+      },
+      "default": {
+        "types": "./types/esm/index.d.ts",
+        "default": "./dist/esm/index.mjs"
+      }
     },
     "./package.json": "./package.json"
   },

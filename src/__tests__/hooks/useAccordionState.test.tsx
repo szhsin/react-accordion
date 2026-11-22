@@ -1,6 +1,6 @@
 import { screen, fireEvent } from '@testing-library/react';
-import { render, getAccordion } from '../utils';
-import { useAccordionState } from '../../';
+import { render, getAccordion } from '../utils.js';
+import { useAccordionState } from '../../index.js';
 
 const MyComponent = ({ itemKey }: { itemKey: string }) => {
   const { getItemState, toggle, toggleAll } = useAccordionState();

@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { TransitionState } from 'react-transition-state';
-import { AccordionContext, AccordionProviderValue, ItemKey } from '../utils/constants';
+import { AccordionContext, AccordionProviderValue, ItemKey } from '../utils/constants.js';
 
 const getItemState = (
   providerValue: AccordionProviderValue,

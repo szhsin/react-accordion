@@ -1,9 +1,9 @@
 import { ReactNode, forwardRef } from 'react';
-import { ACCORDION_BLOCK, AccordionProviderValue, ElementProps } from '../utils/constants';
-import { bem } from '../utils/bem';
-import { mergeProps } from '../utils/mergeProps';
-import { AccordionProvider } from './AccordionProvider';
-import { useAccordion } from '../hooks/useAccordion';
+import { ACCORDION_BLOCK, AccordionProviderValue, ElementProps } from '../utils/constants.js';
+import { bem } from '../utils/bem.js';
+import { mergeProps } from '../utils/mergeProps.js';
+import { AccordionProvider } from './AccordionProvider.js';
+import { useAccordion } from '../hooks/useAccordion.js';
 
 interface ControlledAccordionProps extends ElementProps<HTMLDivElement> {
   providerValue: AccordionProviderValue;

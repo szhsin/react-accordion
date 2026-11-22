@@ -1,7 +1,7 @@
 import { forwardRef } from 'react';
-import { AccordionProviderOptions } from '../utils/constants';
-import { useAccordionProvider } from '../hooks/useAccordionProvider';
-import { ControlledAccordion, ControlledAccordionProps } from './ControlledAccordion';
+import { AccordionProviderOptions } from '../utils/constants.js';
+import { useAccordionProvider } from '../hooks/useAccordionProvider.js';
+import { ControlledAccordion, ControlledAccordionProps } from './ControlledAccordion.js';
 
 interface AccordionProps
   extends AccordionProviderOptions, Omit<ControlledAccordionProps, 'providerValue'> {}

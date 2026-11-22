@@ -1,5 +1,5 @@
-import { ItemKey } from '../utils/constants';
-import { useAccordionContext, getItemState } from './useAccordionContext';
+import { ItemKey } from '../utils/constants.js';
+import { useAccordionContext, getItemState } from './useAccordionContext.js';
 
 const useAccordionState = () => {
   const context = useAccordionContext();

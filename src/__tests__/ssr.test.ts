@@ -3,7 +3,7 @@
  */
 
 import { renderToString } from 'react-dom/server';
-import { getAccordion } from './utils';
+import { getAccordion } from './utils.js';
 
 describe('Server rendering', () => {
   test('defalut state', () => {

@@ -1,6 +1,6 @@
 import { Ref, ReactElement, StrictMode } from 'react';
 import { render as nonStrictRender, RenderOptions, RenderResult } from '@testing-library/react';
-import { Accordion, AccordionProps, AccordionItem, AccordionItemProps } from '../';
+import { Accordion, AccordionProps, AccordionItem, AccordionItemProps } from '../index.js';
 
 export { nonStrictRender };
 

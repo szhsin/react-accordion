@@ -1,23 +1,23 @@
-export { Accordion } from './components/Accordion';
-export { AccordionItem } from './components/AccordionItem';
-export { AccordionProvider } from './components/AccordionProvider';
-export { ControlledAccordion } from './components/ControlledAccordion';
-export { withAccordionItem } from './components/withAccordionItem';
-export { useAccordion } from './hooks/useAccordion';
-export { useAccordionItem } from './hooks/useAccordionItem';
-export { useAccordionItemEffect } from './hooks/useAccordionItemEffect';
-export { useAccordionProvider } from './hooks/useAccordionProvider';
-export { useAccordionState } from './hooks/useAccordionState';
-export { useHeightTransition } from './hooks/useHeightTransition';
-export { useMergeRef } from './hooks/useMergeRef';
-export type { AccordionProps } from './components/Accordion';
-export type { AccordionItemProps } from './components/AccordionItem';
-export type { ControlledAccordionProps } from './components/ControlledAccordion';
-export type { ItemStateProps } from './components/withAccordionItem';
+export { Accordion } from './components/Accordion.js';
+export { AccordionItem } from './components/AccordionItem.js';
+export { AccordionProvider } from './components/AccordionProvider.js';
+export { ControlledAccordion } from './components/ControlledAccordion.js';
+export { withAccordionItem } from './components/withAccordionItem.js';
+export { useAccordion } from './hooks/useAccordion.js';
+export { useAccordionItem } from './hooks/useAccordionItem.js';
+export { useAccordionItemEffect } from './hooks/useAccordionItemEffect.js';
+export { useAccordionProvider } from './hooks/useAccordionProvider.js';
+export { useAccordionState } from './hooks/useAccordionState.js';
+export { useHeightTransition } from './hooks/useHeightTransition.js';
+export { useMergeRef } from './hooks/useMergeRef.js';
+export type { AccordionProps } from './components/Accordion.js';
+export type { AccordionItemProps } from './components/AccordionItem.js';
+export type { ControlledAccordionProps } from './components/ControlledAccordion.js';
+export type { ItemStateProps } from './components/withAccordionItem.js';
 export type {
   AccordionProviderOptions,
   AccordionProviderValue,
   ItemState,
   ItemStateOptions,
   TransitionProp
-} from './utils/constants';
+} from './utils/constants.js';

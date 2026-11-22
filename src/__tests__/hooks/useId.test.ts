@@ -1,5 +1,5 @@
 import { renderHook } from '@testing-library/react';
-import { useId } from '../../hooks/useId';
+import { useId } from '../../hooks/useId.js';
 
 vi.mock('react', async () => {
   const originalModule = await vi.importActual<{ default: { useId: unknown } }>('react');

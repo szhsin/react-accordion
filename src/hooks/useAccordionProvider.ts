@@ -4,7 +4,7 @@ import {
   AccordionProviderOptions,
   AccordionProviderValue,
   ItemKey
-} from '../utils/constants';
+} from '../utils/constants.js';
 
 const getTransition = (
   transition: TransitionProp | undefined,

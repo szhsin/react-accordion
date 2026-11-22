@@ -1,5 +1,5 @@
 import { HTMLAttributes, KeyboardEvent } from 'react';
-import { ACCORDION_ATTR, ACCORDION_BTN_ATTR } from '../utils/constants';
+import { ACCORDION_ATTR, ACCORDION_BTN_ATTR } from '../utils/constants.js';
 
 const getAccordion = (node: Element) => {
   do {

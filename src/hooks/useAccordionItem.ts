@@ -1,6 +1,6 @@
 import { MouseEventHandler, HTMLAttributes, ButtonHTMLAttributes } from 'react';
-import { ACCORDION_BTN_ATTR, ItemState } from '../utils/constants';
-import { useId } from './useId';
+import { ACCORDION_BTN_ATTR, ItemState } from '../utils/constants.js';
+import { useId } from './useId.js';
 
 const useAccordionItem = ({ state, toggle, disabled }: ItemState) => {
   const buttonId = useId();
