@@ -1,6 +1,6 @@
 import { renderHook } from '@testing-library/react';
 import { useTransitionMap } from 'react-transition-state';
-import { useAccordionProvider } from '../../';
+import { useAccordionProvider } from '../../index.js';
 
 vi.mock('react-transition-state', () => ({
   useTransitionMap: vi.fn().mockReturnValue({ mock: true })

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useCallback } from 'react';
-import { ItemStateOptions } from '../utils/constants';
-import { useAccordionContext, getItemState } from './useAccordionContext';
+import { ItemStateOptions } from '../utils/constants.js';
+import { useAccordionContext, getItemState } from './useAccordionContext.js';
 
 const useAccordionItemEffect = <E extends Element>({
   itemKey,

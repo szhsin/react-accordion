@@ -1,4 +1,4 @@
-import { ItemKey } from '../utils/constants';
+import { ItemKey } from '../utils/constants.js';
 declare const useAccordionState: () => {
     getItemState: (key: ItemKey, { initialEntered }?: {
         initialEntered?: boolean;

@@ -1,12 +1,12 @@
 import { ReactNode, ForwardedRef, memo } from 'react';
 import { TransitionState } from 'react-transition-state';
-import { ACCORDION_BLOCK, ElementProps, ItemState, ItemStateOptions } from '../utils/constants';
-import { bem } from '../utils/bem';
-import { mergeProps } from '../utils/mergeProps';
-import { useAccordionItem } from '../hooks/useAccordionItem';
-import { useHeightTransition } from '../hooks/useHeightTransition';
-import { useMergeRef } from '../hooks/useMergeRef';
-import { withAccordionItem, ItemStateProps } from './withAccordionItem';
+import { ACCORDION_BLOCK, ElementProps, ItemState, ItemStateOptions } from '../utils/constants.js';
+import { bem } from '../utils/bem.js';
+import { mergeProps } from '../utils/mergeProps.js';
+import { useAccordionItem } from '../hooks/useAccordionItem.js';
+import { useHeightTransition } from '../hooks/useHeightTransition.js';
+import { useMergeRef } from '../hooks/useMergeRef.js';
+import { withAccordionItem, ItemStateProps } from './withAccordionItem.js';
 
 interface ItemElementProps<E extends HTMLElement> extends ElementProps<E, TransitionState> {
   ref?: ForwardedRef<E>;

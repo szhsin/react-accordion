@@ -1,7 +1,7 @@
 import type { RefObject, ForwardedRef, MemoExoticComponent, JSX } from 'react';
 import { forwardRef } from 'react';
-import type { ItemState, ItemStateOptions } from '../utils/constants';
-import { useAccordionItemEffect } from '../hooks/useAccordionItemEffect';
+import type { ItemState, ItemStateOptions } from '../utils/constants.js';
+import { useAccordionItemEffect } from '../hooks/useAccordionItemEffect.js';
 
 interface ItemStateProps<E extends Element, T = E> extends ItemState {
   itemRef: RefObject<E | null>;

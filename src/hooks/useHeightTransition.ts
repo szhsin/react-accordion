@@ -1,6 +1,6 @@
 import { CSSProperties, useState, useRef } from 'react';
 import { TransitionState } from 'react-transition-state';
-import { useLayoutEffect } from '../utils/useIsomorphicLayoutEffect';
+import { useLayoutEffect } from '../utils/useIsomorphicLayoutEffect.js';
 
 const useHeightTransition = <E extends Element>({ status, isResolved }: TransitionState) => {
   const [height, setHeight] = useState<number>();

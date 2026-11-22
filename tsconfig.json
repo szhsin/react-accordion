@@ -1,9 +1,10 @@
 {
   "compilerOptions": {
     "rootDir": "./src",
+    "module": "nodenext",
     "emitDeclarationOnly": true,
     "declaration": true,
-    "declarationDir": "./types",
+    "declarationDir": "./types/esm",
     "jsx": "react-jsx",
     "forceConsistentCasingInFileNames": true,
     "strict": true,

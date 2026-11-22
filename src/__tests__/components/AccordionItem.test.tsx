@@ -1,7 +1,7 @@
 import { screen, fireEvent, act } from '@testing-library/react';
 import { TransitionState } from 'react-transition-state';
-import { render, getAccordion } from '../utils';
-import { AccordionItem, AccordionItemProps, ItemState } from '../../';
+import { render, getAccordion } from '../utils.js';
+import { AccordionItem, AccordionItemProps, ItemState } from '../../index.js';
 
 describe('AccordionItem', () => {
   test('should throw when rendered without provider', () => {

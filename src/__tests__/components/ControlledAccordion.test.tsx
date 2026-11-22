@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import { screen, fireEvent } from '@testing-library/react';
-import { render } from '../utils';
-import { ControlledAccordion, AccordionItem, useAccordionProvider } from '../../';
+import { render } from '../utils.js';
+import { ControlledAccordion, AccordionItem, useAccordionProvider } from '../../index.js';
 
 const Accordion = () => {
   const value = useAccordionProvider();

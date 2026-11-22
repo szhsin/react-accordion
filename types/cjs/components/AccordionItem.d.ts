@@ -1,6 +1,6 @@
 import { ReactNode, ForwardedRef } from 'react';
 import { TransitionState } from 'react-transition-state';
-import { ElementProps, ItemState, ItemStateOptions } from '../utils/constants';
+import { ElementProps, ItemState, ItemStateOptions } from '../utils/constants.js';
 interface ItemElementProps<E extends HTMLElement> extends ElementProps<E, TransitionState> {
     ref?: ForwardedRef<E>;
 }
