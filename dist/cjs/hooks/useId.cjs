@@ -1,7 +1,7 @@
 "use strict";
 const require_runtime = require("../_virtual/_rolldown/runtime.cjs");
-require("../utils/constants.cjs");
 let react = require("react");
+require("../utils/constants.cjs");
 react = require_runtime.__toESM(react, 1);
 // src/hooks/useId.ts
 let current = 0;

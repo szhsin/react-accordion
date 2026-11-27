@@ -1,9 +1,9 @@
+import { forwardRef } from "react";
 import { ACCORDION_BLOCK } from "../utils/constants.mjs";
 import { bem } from "../utils/bem.mjs";
 import { mergeProps } from "../utils/mergeProps.mjs";
 import { AccordionProvider } from "./AccordionProvider.mjs";
 import { useAccordion } from "../hooks/useAccordion.mjs";
-import { forwardRef } from "react";
 import { jsx } from "react/jsx-runtime";
 // src/components/ControlledAccordion.tsx
 const ControlledAccordion = forwardRef(({ providerValue, className, ...rest }, ref) => {

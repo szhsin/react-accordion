@@ -1,7 +1,7 @@
 "use strict";
+let react = require("react");
 const require_useAccordionProvider = require("../hooks/useAccordionProvider.cjs");
 const require_ControlledAccordion = require("./ControlledAccordion.cjs");
-let react = require("react");
 let react_jsx_runtime = require("react/jsx-runtime");
 // src/components/Accordion.tsx
 const Accordion = (0, react.forwardRef)(({ allowMultiple, initialEntered, mountOnEnter, unmountOnExit, transition, transitionTimeout, onStateChange, ...rest }, ref) => {

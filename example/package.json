@@ -15,10 +15,10 @@
     "react-dom": "file:../node_modules/react-dom"
   },
   "devDependencies": {
-    "@types/node": "^26.6.6",
+    "@types/node": "^26.6.11",
     "@types/react": "file:../node_modules/@types/react",
     "@types/react-dom": "file:../node_modules/@types/react-dom",
-    "eslint": "^10.15.0",
+    "eslint": "^10.16.0",
     "eslint-config-next": "^16.4.6",
     "typescript": "^6.0.3"
   }
