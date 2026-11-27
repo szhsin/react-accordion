@@ -1,5 +1,5 @@
-import { AccordionContext } from "../utils/constants.mjs";
 import { useContext } from "react";
+import { AccordionContext } from "../utils/constants.mjs";
 // src/hooks/useAccordionContext.ts
 const getItemState = (providerValue, key, itemInitialEntered) => {
 	const { stateMap, mountOnEnter, initialEntered } = providerValue;

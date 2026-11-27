@@ -1,6 +1,6 @@
 "use strict";
-const require_useAccordionContext = require("./useAccordionContext.cjs");
 let react = require("react");
+const require_useAccordionContext = require("./useAccordionContext.cjs");
 // src/hooks/useAccordionItemEffect.ts
 const useAccordionItemEffect = ({ itemKey, initialEntered, disabled } = {}) => {
 	const itemRef = (0, react.useRef)(null);
